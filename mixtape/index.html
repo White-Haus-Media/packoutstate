@@ -318,18 +318,28 @@ button,input,select{font:inherit;color:inherit}
         (data && data.results || []).forEach(function (r) {
           if (!r.trackId || !r.trackName) return;
           var k = (r.trackName + "|" + r.artistName).toLowerCase().replace(/\s*\((clean|explicit)[^)]*\)/g, "");
-          if (seen[k]) return; seen[k] = 1;
-          out.push({
-            itunes_track_id: String(r.trackId), title: r.trackName, artist: r.artistName || "",
-            album: r.collectionName || "", release_year: (r.releaseDate || "").slice(0, 4),
-            genre: r.primaryGenreName || "", apple_url: (r.trackViewUrl || "").split("?")[0], art: r.artworkUrl60 || ""
-          });
+          var explicit = r.trackExplicitness === "explicit";
+          // Same song listed twice (clean and explicit): keep the explicit, unedited version.
+          if (seen[k] !== undefined) {
+            if (explicit && !out[seen[k]].explicit) out[seen[k]] = toPick(r, explicit);
+            return;
+          }
+          seen[k] = out.length;
+          out.push(toPick(r, explicit));
         });
         cache[key] = out.slice(0, 8);
         resolve(cache[key]);
       };
+      function toPick(r, explicit) {
+        return {
+            itunes_track_id: String(r.trackId), title: r.trackName, artist: r.artistName || "",
+            album: r.collectionName || "", release_year: (r.releaseDate || "").slice(0, 4),
+            genre: r.primaryGenreName || "", apple_url: (r.trackViewUrl || "").split("?")[0], art: r.artworkUrl60 || "",
+            explicit: explicit
+        };
+      }
       s.onerror = function () { done(); reject(new Error("network")); };
-      s.src = "https://itunes.apple.com/search?media=music&entity=song&country=US&limit=15&term=" +
+      s.src = "https://itunes.apple.com/search?media=music&entity=song&country=US&explicit=Yes&limit=15&term=" +
         encodeURIComponent(term) + "&callback=" + cb;
       document.head.appendChild(s);
     });
