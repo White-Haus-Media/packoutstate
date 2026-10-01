@@ -62,17 +62,15 @@ button,input,select{font:inherit;color:inherit}
 @media(min-width:980px){.nav__cta{display:inline-block}}
 
 /* Hero */
-.hero{background:var(--red);color:var(--paper);text-align:center;padding:44px 0 56px}
-.hero__logo{width:min(440px,78vw);margin:0 auto}
-.hero h1{font-family:var(--display);font-weight:800;text-transform:uppercase;
-  font-size:clamp(4rem,21vw,8.5rem);line-height:.86;letter-spacing:.005em;margin-top:30px}
-.hero__sub{margin-top:18px;font-size:min(1rem,3.6vw);font-weight:400;color:var(--paper)}
-.hero__setup{margin-top:6px;font-size:min(1rem,3.6vw);color:#FCE9E9}
+.hero{background:linear-gradient(180deg,#3A3A3A 0%,#272727 55%,#161616 100%);color:var(--paper);text-align:center;padding:48px 0 56px}
+.hero__logo{width:min(560px,92vw);margin:0 auto}
+.hero__event{margin-top:18px;font-size:1rem;color:#E4E1DB}
+.hero h1{margin:0}
 .hero__cta{display:inline-flex;align-items:center;justify-content:center;min-height:52px;
   margin-top:28px;padding:0 30px;background:var(--paper);color:var(--char);
   font-weight:400;text-decoration:none;border-radius:6px}
 .hero__cta:hover{background:var(--bone)}
-.hero__close{margin-top:14px;font-size:.875rem;color:#FCE9E9}
+.hero__close{margin-top:14px;font-size:.875rem;color:#C9C5BD}
 
 /* Questions */
 .qs{padding:52px 0 44px}
@@ -93,11 +91,13 @@ button,input,select{font:inherit;color:inherit}
 /* Song field */
 .song{position:relative;min-width:0}
 .song__input,.field input,.field select{width:100%;min-height:56px;padding:0 16px;background:var(--paper);
-  border:2px solid var(--char);border-radius:6px;font-size:16px;color:var(--char);appearance:none;-webkit-appearance:none}
-.top10 .song__input,.top10 .song__chip,.top10 .song__manual input{border-color:var(--ink)}
+  border:1px solid var(--line);border-radius:4px;font-size:16px;color:var(--char);appearance:none;-webkit-appearance:none;transition:border-color .15s}
+.song__input:focus,.field input:focus,.field select:focus,.song__manual input:focus{outline:none;border-color:var(--char)}
+.top10 .song__input,.top10 .song__chip,.top10 .song__manual input{border-color:transparent}
+.top10 .song__input:focus,.top10 .song__manual input:focus{border-color:var(--ink)}
 .song__input::placeholder,.field input::placeholder,.song__manual input::placeholder{color:#8A877F}
 .song__list{position:absolute;left:0;right:0;top:calc(100% + 4px);z-index:20;background:var(--paper);color:var(--char);
-  border:2px solid var(--char);border-radius:6px;max-height:340px;overflow:auto;box-shadow:0 14px 30px rgba(11,11,12,.22)}
+  border:1px solid var(--line);border-radius:4px;max-height:340px;overflow:auto;box-shadow:0 14px 30px rgba(11,11,12,.14)}
 .song__opt{display:flex;align-items:center;gap:12px;min-height:56px;padding:8px 12px;cursor:pointer;border-bottom:1px solid #ECE8E0}
 .song__opt:last-child{border-bottom:0}
 .song__opt[aria-selected="true"],.song__opt:hover{background:#F6F1E3}
@@ -107,7 +107,7 @@ button,input,select{font:inherit;color:inherit}
 .song__opt--manual{color:var(--red-deep);font-weight:500;font-size:.9rem}
 .song__status{padding:14px 12px;font-size:.9rem;color:var(--muted)}
 .song__chip{display:flex;align-items:center;gap:12px;min-height:56px;padding:8px 6px 8px 14px;background:var(--paper);
-  color:var(--char);border:2px solid var(--char);border-left:8px solid var(--red);border-radius:6px}
+  color:var(--char);border:1px solid var(--line);border-left:3px solid var(--red);border-radius:4px}
 .top10 .song__chip{border-left-color:var(--gold)}
 .song__chip div{flex:1;min-width:0}
 .song__chip b{display:block;font-weight:500;line-height:1.25;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -116,7 +116,7 @@ button,input,select{font:inherit;color:inherit}
   display:grid;place-items:center}
 .song__x:hover{background:#F0ECE3}
 .song__manual{display:grid;gap:8px}
-.song__manual input{width:100%;min-height:52px;padding:0 14px;background:var(--paper);border:2px solid var(--char);border-radius:6px;font-size:16px;color:var(--char)}
+.song__manual input{width:100%;min-height:52px;padding:0 14px;background:var(--paper);border:1px solid var(--line);border-radius:4px;font-size:16px;color:var(--char)}
 .song__back{justify-self:start;background:none;border:0;padding:6px 0;font-size:.875rem;text-decoration:underline;cursor:pointer;color:inherit}
 .song__err{margin-top:6px;font-size:.875rem;font-weight:500;color:var(--red-deep)}
 
@@ -132,7 +132,7 @@ button,input,select{font:inherit;color:inherit}
 .era label{font-weight:500;font-size:.85rem;color:var(--muted);margin-bottom:4px}
 .field select{padding-right:40px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1l6 6 6-6' fill='none' stroke='%23272727' stroke-width='2'/%3E%3C/svg%3E");
   background-repeat:no-repeat;background-position:right 16px center}
-.field [aria-invalid="true"]{border-color:var(--red-deep);box-shadow:0 0 0 2px rgba(163,0,0,.18)}
+.field [aria-invalid="true"]{border-color:var(--red-deep)}
 .field__err{margin-top:6px;font-size:.875rem;font-weight:500;color:var(--red-deep)}
 .check{display:flex;gap:12px;align-items:flex-start;cursor:pointer;font-size:.95rem}
 .check input{width:22px;height:22px;margin-top:1px;flex:none;accent-color:var(--red)}
@@ -142,7 +142,7 @@ button,input,select{font:inherit;color:inherit}
   font-weight:400;font-size:1.0625rem;cursor:pointer}
 .submit:hover{background:var(--red-deep)}
 .submit[disabled]{opacity:.65;cursor:wait}
-.form-err{padding:12px 14px;border:2px solid var(--char);border-radius:6px;background:var(--paper);font-weight:500;font-size:.95rem}
+.form-err{padding:12px 14px;border:1px solid var(--red-deep);border-radius:4px;background:var(--paper);font-weight:500;font-size:.95rem}
 
 /* Confirmation and closed */
 .done,.closed{padding:48px 0 64px}
@@ -152,7 +152,7 @@ button,input,select{font:inherit;color:inherit}
 .done__card img{width:100%;-webkit-touch-callout:default}
 .done__hint{margin-top:12px;text-align:center;font-size:.875rem;color:var(--muted)}
 .done__actions{display:grid;gap:10px;margin-top:22px}
-.btn{display:flex;align-items:center;justify-content:center;min-height:54px;border-radius:6px;font-weight:400;text-decoration:none;cursor:pointer;border:2px solid var(--char)}
+.btn{display:flex;align-items:center;justify-content:center;min-height:54px;border-radius:4px;font-weight:400;text-decoration:none;cursor:pointer;border:1px solid var(--char)}
 .btn--red{background:var(--red);border-color:var(--red);color:var(--paper)}
 .btn--red:hover{background:var(--red-deep);border-color:var(--red-deep)}
 .btn--plain{background:transparent;color:var(--char)}
@@ -183,10 +183,8 @@ button,input,select{font:inherit;color:inherit}
 
 <section class="hero">
   <div class="wrap">
-    <img class="hero__logo" src="/mixtape/talley-tapes-untold.webp" width="1200" height="729" alt="The Talley Tapes [Untold]">
-    <h1>The Talley Mixtape</h1>
-    <p class="hero__sub">Built from the songs that made Talley move.</p>
-    <p class="hero__setup">Everybody has a Talley song. Add yours.</p>
+    <h1><img class="hero__logo" src="/mixtape/talley-mixtape.webp" width="1400" height="450" alt="Talley Mixtape"></h1>
+    <p class="hero__event">The Talley Tapes [Untold]</p>
     <a class="hero__cta" href="#start" id="hero-cta">Add your songs</a>
     <p class="hero__close" id="close-note">Submissions close Sunday, Oct. 11.</p>
   </div>
@@ -697,28 +695,27 @@ button,input,select{font:inherit;color:inherit}
     var c = document.createElement("canvas"); c.width = W; c.height = H;
     var ctx = c.getContext("2d");
 
-    ctx.fillStyle = "#0B0B0C"; ctx.fillRect(0, 0, W, H);
+    var g = ctx.createLinearGradient(0, 0, 0, H);
+    g.addColorStop(0, "#3A3A3A"); g.addColorStop(0.45, "#272727"); g.addColorStop(1, "#161616");
+    ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
 
     // Logo, inside the safe area (Instagram covers the top 250px and bottom 250px)
     try {
-      var logo = await loadImg("/mixtape/talley-tapes-untold.webp");
-      var lw = 420, lh = lw * logo.naturalHeight / logo.naturalWidth;
-      ctx.drawImage(logo, (W - lw) / 2, 228, lw, lh);
-      var y = 228 + lh;
-    } catch (e) { y = 483; }
+      var logo = await loadImg("/mixtape/talley-mixtape.webp");
+      var lw = 880, lh = lw * logo.naturalHeight / logo.naturalWidth;
+      ctx.drawImage(logo, (W - lw) / 2, 250, lw, lh);
+      var y = 250 + lh;
+    } catch (e) { y = 533; }
 
     ctx.textAlign = "center"; ctx.textBaseline = "alphabetic";
-    ctx.fillStyle = "#FFFFFF";
-    ctx.font = "800 100px " + DISPLAY;
-    ctx.fillText("THE TALLEY MIXTAPE", W / 2, y + 104);
 
     var era = info.era_start + (info.era_end && info.era_end !== info.era_start ? "–" + info.era_end : "");
     ctx.fillStyle = "#E9D491";
     ctx.font = "700 34px " + SANS;
-    ctx.fillText(fit(ctx, info.full_name.toUpperCase() + "   TALLEY ERA " + era, W - 2 * X), W / 2, y + 156);
+    ctx.fillText(fit(ctx, info.full_name.toUpperCase() + "   TALLEY ERA " + era, W - 2 * X), W / 2, y + 70);
 
     // Red song panel. Content is sized to fit and centred vertically.
-    var top = y + 192, bottom = 1484;
+    var top = y + 112, bottom = 1484;
     ctx.fillStyle = "#CC0000"; ctx.fillRect(0, top, W, bottom - top);
 
     var prompts = picks.filter(function (p) { return p.slot !== "top10"; });
