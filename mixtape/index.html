@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Talley Mixtape · Pack Out State</title>
+<meta name="description" content="Built from the songs that made Talley move. What song takes you back?">
+<meta property="og:title" content="The Talley Mixtape · Pack Out State">
+<meta property="og:description" content="Built from the songs that made Talley move. What song takes you back?">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://packoutstate.com/mixtape/">
+<meta property="og:image" content="https://packoutstate.com/mixtape/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0B0B0C">
+<link rel="preconnect" href="https://use.typekit.net" crossorigin>
+<link rel="stylesheet" href="https://use.typekit.net/fir6kvv.css">
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<style>
+:root{
+  --bone:#F4F0E8;
+  --paper:#FFFFFF;
+  --ink:#0B0B0C;
+  --char:#272727;
+  --muted:#5C5A56;
+  --red:#CC0000;
+  --red-deep:#A30000;
+  --gold:#E9D491;
+  --line:#D9D3C7;
+  --display:"field-gothic-xxcondensed", "Arial Narrow", Impact, sans-serif;
+  --sans:"gotham", "Helvetica Neue", Arial, sans-serif;
+  --wrap:640px;
+  --pad:20px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--bone);color:var(--char);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--red);outline-offset:3px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 var(--pad)}
+[hidden]{display:none !important}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* Header */
+.top{padding:18px var(--pad);display:flex;justify-content:center;background:var(--bone)}
+.top a{display:block;width:min(220px,58vw)}
+
+/* Hero */
+.hero{background:var(--ink);color:var(--paper);text-align:center;padding:44px 0 56px}
+.hero__logo{width:min(440px,78vw);margin:0 auto}
+.hero h1{font-family:var(--display);font-weight:800;text-transform:uppercase;
+  font-size:clamp(4rem,21vw,8.5rem);line-height:.86;letter-spacing:.005em;margin-top:30px}
+.hero__sub{margin-top:18px;font-size:1.0625rem;font-weight:500;color:var(--bone)}
+.hero__setup{margin-top:6px;color:#C9C5BD}
+.hero__cta{display:inline-flex;align-items:center;justify-content:center;min-height:52px;
+  margin-top:28px;padding:0 30px;background:var(--gold);color:var(--ink);
+  font-weight:700;text-decoration:none;border-radius:6px}
+.hero__cta:hover{background:#F2E2A8}
+.hero__close{margin-top:14px;font-size:.875rem;color:#B5B1A9}
+
+/* Questions */
+.qs{padding:52px 0 44px}
+.q + .q{margin-top:40px}
+.q__text{display:block;font-family:var(--display);font-weight:800;text-transform:uppercase;
+  font-size:clamp(2rem,9vw,2.9rem);line-height:.95;color:var(--char);margin-bottom:14px;max-width:16ch}
+
+/* Top 10 */
+.top10{background:var(--red);color:var(--paper);padding:48px 0 52px}
+.top10 h2{font-family:var(--display);font-weight:800;text-transform:uppercase;
+  font-size:clamp(2.4rem,11vw,3.6rem);line-height:.9;max-width:12ch}
+.top10 ol{list-style:none;margin-top:26px}
+.top10 li{display:grid;grid-template-columns:52px minmax(0,1fr);align-items:start;gap:10px}
+.top10 li + li{margin-top:12px}
+.top10__n{font-family:var(--display);font-weight:800;color:var(--gold);font-size:2.6rem;line-height:56px;text-align:right}
+.top10 .song__err{color:var(--paper)}
+
+/* Song field */
+.song{position:relative;min-width:0}
+.song__input,.field input,.field select{width:100%;min-height:56px;padding:0 16px;background:var(--paper);
+  border:2px solid var(--char);border-radius:6px;font-size:16px;color:var(--char);appearance:none;-webkit-appearance:none}
+.top10 .song__input,.top10 .song__chip,.top10 .song__manual input{border-color:var(--ink)}
+.song__input::placeholder,.field input::placeholder,.song__manual input::placeholder{color:#8A877F}
+.song__list{position:absolute;left:0;right:0;top:calc(100% + 4px);z-index:20;background:var(--paper);color:var(--char);
+  border:2px solid var(--char);border-radius:6px;max-height:340px;overflow:auto;box-shadow:0 14px 30px rgba(11,11,12,.22)}
+.song__opt{display:flex;align-items:center;gap:12px;min-height:56px;padding:8px 12px;cursor:pointer;border-bottom:1px solid #ECE8E0}
+.song__opt:last-child{border-bottom:0}
+.song__opt[aria-selected="true"],.song__opt:hover{background:#F6F1E3}
+.song__opt img{width:40px;height:40px;border-radius:3px;flex:none;background:#EEE}
+.song__opt b{display:block;font-weight:700;font-size:.95rem;line-height:1.25}
+.song__opt span{display:block;font-size:.85rem;color:var(--muted);line-height:1.3}
+.song__opt--manual{color:var(--red-deep);font-weight:700;font-size:.9rem}
+.song__status{padding:14px 12px;font-size:.9rem;color:var(--muted)}
+.song__chip{display:flex;align-items:center;gap:12px;min-height:56px;padding:8px 6px 8px 14px;background:var(--paper);
+  color:var(--char);border:2px solid var(--char);border-left:8px solid var(--red);border-radius:6px}
+.top10 .song__chip{border-left-color:var(--gold)}
+.song__chip div{flex:1;min-width:0}
+.song__chip b{display:block;font-weight:700;line-height:1.25;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.song__chip span{display:block;font-size:.875rem;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.song__x{flex:none;width:44px;height:44px;border:0;background:none;border-radius:6px;cursor:pointer;color:var(--char);
+  display:grid;place-items:center}
+.song__x:hover{background:#F0ECE3}
+.song__manual{display:grid;gap:8px}
+.song__manual input{width:100%;min-height:52px;padding:0 14px;background:var(--paper);border:2px solid var(--char);border-radius:6px;font-size:16px;color:var(--char)}
+.song__back{justify-self:start;background:none;border:0;padding:6px 0;font-size:.875rem;text-decoration:underline;cursor:pointer;color:inherit}
+.song__err{margin-top:6px;font-size:.875rem;font-weight:700;color:var(--red-deep)}
+
+/* Your info */
+.info{padding:52px 0 64px}
+.info h2{font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:clamp(2.4rem,11vw,3.6rem);line-height:.9}
+.fields{margin-top:24px;display:grid;gap:18px}
+.field label,.field legend{display:block;font-weight:700;font-size:.95rem;margin-bottom:6px}
+.field legend{float:left;width:100%}
+.field fieldset{border:0}
+.field .opt{font-weight:400;color:var(--muted)}
+.era{display:grid;grid-template-columns:1fr 1fr;gap:12px;clear:both}
+.era label{font-weight:500;font-size:.85rem;color:var(--muted);margin-bottom:4px}
+.field select{padding-right:40px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1l6 6 6-6' fill='none' stroke='%23272727' stroke-width='2'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 16px center}
+.field [aria-invalid="true"]{border-color:var(--red-deep);box-shadow:0 0 0 2px rgba(163,0,0,.18)}
+.field__err{margin-top:6px;font-size:.875rem;font-weight:700;color:var(--red-deep)}
+.check{display:flex;gap:12px;align-items:flex-start;cursor:pointer;font-size:.95rem}
+.check input{width:22px;height:22px;margin-top:1px;flex:none;accent-color:var(--red)}
+.consent{font-size:.875rem;color:var(--muted)}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.submit{width:100%;min-height:58px;border:0;border-radius:6px;background:var(--red);color:var(--paper);
+  font-weight:700;font-size:1.0625rem;cursor:pointer}
+.submit:hover{background:var(--red-deep)}
+.submit[disabled]{opacity:.65;cursor:wait}
+.form-err{padding:12px 14px;border:2px solid var(--char);border-radius:6px;background:var(--paper);font-weight:700;font-size:.95rem}
+
+/* Confirmation and closed */
+.done,.closed{padding:48px 0 64px}
+.done h2,.closed h2{font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:clamp(2.4rem,11vw,3.6rem);line-height:.92}
+.done p,.closed p{margin-top:12px}
+.done__card{margin:26px auto 0;width:min(320px,78vw);border-radius:10px;overflow:hidden;box-shadow:0 18px 40px rgba(11,11,12,.25);background:var(--ink)}
+.done__card img{width:100%;-webkit-touch-callout:default}
+.done__hint{margin-top:12px;text-align:center;font-size:.875rem;color:var(--muted)}
+.done__actions{display:grid;gap:10px;margin-top:22px}
+.btn{display:flex;align-items:center;justify-content:center;min-height:54px;border-radius:6px;font-weight:700;text-decoration:none;cursor:pointer;border:2px solid var(--char)}
+.btn--red{background:var(--red);border-color:var(--red);color:var(--paper)}
+.btn--red:hover{background:var(--red-deep);border-color:var(--red-deep)}
+.btn--plain{background:transparent;color:var(--char)}
+.btn--plain:hover{background:#ECE7DC}
+.done__share{margin-top:26px;font-size:.95rem}
+.linkbtn{background:none;border:0;padding:0;font-weight:700;text-decoration:underline;cursor:pointer}
+.done__small{margin-top:18px;font-size:.875rem;color:var(--muted)}
+
+/* Footer */
+.foot{background:var(--ink);color:#C9C5BD;padding:36px 0 44px;font-size:.875rem}
+.foot a{color:var(--paper);font-weight:700;text-decoration:none}
+.foot p + p{margin-top:6px}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <a href="/" aria-label="Pack Out State home"><img src="pack-out-state-wordmark.webp" width="1000" height="111" alt="Pack Out State"></a>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <img class="hero__logo" src="talley-tapes-untold.webp" width="1200" height="729" alt="The Talley Tapes [Untold]">
+    <h1>The Talley Mixtape</h1>
+    <p class="hero__sub">Built from the songs that made Talley move.</p>
+    <p class="hero__setup">Everybody has a Talley song. Add yours.</p>
+    <a class="hero__cta" href="#start" id="hero-cta">Add your songs</a>
+    <p class="hero__close" id="close-note">Submissions close Sunday, Oct. 11.</p>
+  </div>
+</section>
+
+<main>
+<form id="mixtape" novalidate>
+  <section class="qs" id="start" aria-label="Questions">
+    <div class="wrap">
+      <div class="q">
+        <span class="q__text" id="q-takes_me_back">What song puts you right back at Talley?</span>
+        <div class="song" data-slot="takes_me_back" data-pos="1" data-label="q-takes_me_back"></div>
+      </div>
+      <div class="q">
+        <span class="q__text" id="q-first_five_seconds">Five seconds in and you were already headed to the floor?</span>
+        <div class="song" data-slot="first_five_seconds" data-pos="2" data-label="q-first_five_seconds"></div>
+      </div>
+      <div class="q">
+        <span class="q__text" id="q-whole_room_knew">The DJ dropped it. Nobody needed instructions.</span>
+        <div class="song" data-slot="whole_room_knew" data-pos="3" data-label="q-whole_room_knew"></div>
+      </div>
+      <div class="q">
+        <span class="q__text" id="q-lights_coming_on">DJ slows it down. Best slow jam to end the night?</span>
+        <div class="song" data-slot="lights_coming_on" data-pos="4" data-label="q-lights_coming_on"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="top10" aria-labelledby="top10-h">
+    <div class="wrap">
+      <h2 id="top10-h">Your Talley Era Top 10 Track List</h2>
+      <ol id="top10-list"></ol>
+    </div>
+  </section>
+
+  <section class="info" aria-labelledby="info-h">
+    <div class="wrap">
+      <h2 id="info-h">Your info</h2>
+      <div class="fields">
+        <div class="field">
+          <label for="full_name">Full name</label>
+          <input id="full_name" name="full_name" autocomplete="name" maxlength="80" required>
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" inputmode="email" autocomplete="email" maxlength="254" required>
+        </div>
+        <div class="field">
+          <fieldset>
+            <legend>Your Talley era</legend>
+            <div class="era">
+              <div><label for="era_start">From</label><select id="era_start" name="era_start" required><option value="">Year</option></select></div>
+              <div><label for="era_end">To</label><select id="era_end" name="era_end" required><option value="">Year</option></select></div>
+            </div>
+          </fieldset>
+        </div>
+        <div class="field">
+          <label for="ig_handle">Instagram handle <span class="opt">(optional)</span></label>
+          <input id="ig_handle" name="ig_handle" autocomplete="off" autocapitalize="none" spellcheck="false" maxlength="40" placeholder="@">
+        </div>
+        <label class="check"><input type="checkbox" id="marketing_opt_in" name="marketing_opt_in"> <span>Keep me posted on Pack Out State.</span></label>
+        <p class="consent">By submitting, you're good with us sharing your name or handle and your picks in Talley Tapes posts. Your email stays with us.</p>
+        <div class="hp" aria-hidden="true"><label for="website">Website</label><input id="website" name="website" tabindex="-1" autocomplete="off"></div>
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAAFFpKUeNszgP2VMx" data-theme="light"></div>
+        <p class="form-err" id="form-err" role="alert" hidden></p>
+        <button class="submit" type="submit" id="submit">Submit</button>
+      </div>
+    </div>
+  </section>
+</form>
+
+<section class="done" id="done" hidden tabindex="-1">
+  <div class="wrap">
+    <h2>Thank you. Your submission has been received.</h2>
+    <p>Your Talley Mixtape graphic is ready. Save it or share it to your Instagram Story.</p>
+    <div class="done__card"><img id="card-img" alt="Your Talley Mixtape graphic"></div>
+    <p class="done__hint" id="card-hint" hidden>Press and hold the image to save it to your photos.</p>
+    <div class="done__actions">
+      <button class="btn btn--red" type="button" id="share-btn" hidden>Share to Story</button>
+      <a class="btn btn--plain" id="save-btn" download="talley-mixtape.png">Save image</a>
+    </div>
+    <p class="done__share">Know someone from your era? <button class="linkbtn" type="button" id="copy-link">Copy link</button> <span id="copy-ok" role="status"></span></p>
+    <p class="done__small">Need to make a change? Submit again with the same email and your new list will replace this one.</p>
+  </div>
+</section>
+
+<section class="closed" id="closed" hidden>
+  <div class="wrap">
+    <h2>Submissions are closed.</h2>
+    <p>Thank you to everyone who participated. Follow <a href="https://instagram.com/packoutstate">@packoutstate</a> for the final list.</p>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <p><a href="https://instagram.com/packoutstate">@packoutstate</a></p>
+    <p>Pack Out State Homecoming, Oct. 29 to 31, 2026</p>
+    <p>Your email stays with Pack Out State.</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ---------- Settings ---------- */
+  var CLOSES_AT = Date.parse("2026-10-12T03:59:59Z"); // Sun Oct 11, 11:59 PM Eastern
+  var STORE_KEY = "talley-mixtape-v1";
+  var PROMPTS = ["takes_me_back", "first_five_seconds", "whole_room_knew", "lights_coming_on"];
+  var YEAR_MIN = 1960, YEAR_MAX = 2026;
+
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var form = $("#mixtape");
+
+  /* ---------- Closed state ---------- */
+  if (Date.now() > CLOSES_AT) {
+    form.hidden = true;
+    $("#hero-cta").hidden = true;
+    $("#close-note").hidden = true;
+    $("#closed").hidden = false;
+    return;
+  }
+
+  /* ---------- Storage (best effort) ---------- */
+  function load() { try { return JSON.parse(localStorage.getItem(STORE_KEY)) || {}; } catch (e) { return {}; } }
+  function save() { try { localStorage.setItem(STORE_KEY, JSON.stringify({ picks: state, info: readInfo() })); } catch (e) {} }
+  function wipe() { try { localStorage.removeItem(STORE_KEY); } catch (e) {} }
+
+  var saved = load();
+  var state = {}; // slot key -> pick. Prompt keys, plus "top10-1" ... "top10-10"
+  if (saved.picks) state = saved.picks;
+
+  /* ---------- Song search (Apple, JSONP so no server or CORS needed) ---------- */
+  var cache = {};
+  var jsonpN = 0;
+  function search(term) {
+    var key = term.toLowerCase();
+    if (cache[key]) return Promise.resolve(cache[key]);
+    return new Promise(function (resolve, reject) {
+      var cb = "__talleyCb" + (++jsonpN);
+      var s = document.createElement("script");
+      var timer = setTimeout(function () { done(); reject(new Error("timeout")); }, 7000);
+      function done() { clearTimeout(timer); try { delete window[cb]; } catch (e) { window[cb] = undefined; } s.remove(); }
+      window[cb] = function (data) {
+        done();
+        var seen = {}, out = [];
+        (data && data.results || []).forEach(function (r) {
+          if (!r.trackId || !r.trackName) return;
+          var k = (r.trackName + "|" + r.artistName).toLowerCase().replace(/\s*\((clean|explicit)[^)]*\)/g, "");
+          if (seen[k]) return; seen[k] = 1;
+          out.push({
+            itunes_track_id: String(r.trackId), title: r.trackName, artist: r.artistName || "",
+            album: r.collectionName || "", release_year: (r.releaseDate || "").slice(0, 4),
+            genre: r.primaryGenreName || "", apple_url: (r.trackViewUrl || "").split("?")[0], art: r.artworkUrl60 || ""
+          });
+        });
+        cache[key] = out.slice(0, 8);
+        resolve(cache[key]);
+      };
+      s.onerror = function () { done(); reject(new Error("network")); };
+      s.src = "https://itunes.apple.com/search?media=music&entity=song&country=US&limit=15&term=" +
+        encodeURIComponent(term) + "&callback=" + cb;
+      document.head.appendChild(s);
+    });
+  }
+
+  function sameSong(a, b) {
+    if (!a || !b) return false;
+    if (a.itunes_track_id && a.itunes_track_id === b.itunes_track_id) return true;
+    return norm(a.title) === norm(b.title) && norm(a.artist) === norm(b.artist);
+  }
+  function norm(s) { return String(s || "").toLowerCase().replace(/\([^)]*\)|\[[^\]]*\]/g, "").replace(/[^a-z0-9]+/g, " ").trim(); }
+
+  /* ---------- Song field component ---------- */
+  var X_ICON = '<svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M3 3l12 12M15 3L3 15" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>';
+  var fieldN = 0;
+
+  function SongField(el, key, labelId, onPick) {
+    this.el = el; this.key = key; this.labelId = labelId; this.onPick = onPick;
+    this.id = "song" + (++fieldN);
+    this.render();
+  }
+  SongField.prototype.render = function (focus) {
+    var p = state[this.key];
+    var self = this;
+    this.el.innerHTML = "";
+    if (p && p.title) {
+      var chip = document.createElement("div");
+      chip.className = "song__chip";
+      chip.innerHTML = "<div><b></b><span></span></div>" +
+        '<button type="button" class="song__x" aria-label="Remove song">' + X_ICON + "</button>";
+      chip.querySelector("b").textContent = p.title;
+      chip.querySelector("span").textContent = p.artist;
+      chip.querySelector("button").addEventListener("click", function () {
+        delete state[self.key]; save(); self.render(true);
+      });
+      this.el.appendChild(chip);
+      if (focus) chip.querySelector("button").focus();
+      return;
+    }
+    if (this.manual) return this.renderManual(focus);
+    this.renderSearch(focus);
+  };
+  SongField.prototype.renderSearch = function (focus) {
+    var self = this;
+    var listId = this.id + "-list";
+    var input = document.createElement("input");
+    input.className = "song__input";
+    input.type = "text";
+    input.placeholder = "Search a song or artist";
+    input.autocomplete = "off";
+    input.setAttribute("autocapitalize", "none");
+    input.spellcheck = false;
+    input.setAttribute("role", "combobox");
+    input.setAttribute("aria-autocomplete", "list");
+    input.setAttribute("aria-expanded", "false");
+    input.setAttribute("aria-controls", listId);
+    if (this.labelId) input.setAttribute("aria-labelledby", this.labelId);
+    var list = document.createElement("div");
+    list.className = "song__list";
+    list.id = listId;
+    list.setAttribute("role", "listbox");
+    list.hidden = true;
+    this.el.appendChild(input);
+    this.el.appendChild(list);
+    this.input = input; this.list = list;
+
+    var timer = null, active = -1, items = [], q = 0;
+
+    function close() { list.hidden = true; input.setAttribute("aria-expanded", "false"); input.removeAttribute("aria-activedescendant"); active = -1; }
+    function open() { list.hidden = false; input.setAttribute("aria-expanded", "true"); }
+    function status(msg) { list.innerHTML = ""; var d = document.createElement("div"); d.className = "song__status"; d.textContent = msg; list.appendChild(d); }
+    function manualOpt() {
+      var m = document.createElement("div");
+      m.className = "song__opt song__opt--manual";
+      m.id = listId + "-manual";
+      m.setAttribute("role", "option");
+      m.textContent = "Can't find it? Enter it manually.";
+      m.addEventListener("mousedown", function (e) { e.preventDefault(); });
+      m.addEventListener("click", function () { self.goManual(input.value); });
+      return m;
+    }
+    function draw(results) {
+      list.innerHTML = ""; items = [];
+      results.forEach(function (r, i) {
+        var o = document.createElement("div");
+        o.className = "song__opt"; o.id = listId + "-" + i; o.setAttribute("role", "option");
+        if (r.art) { var im = document.createElement("img"); im.src = r.art; im.alt = ""; im.loading = "lazy"; o.appendChild(im); }
+        var t = document.createElement("div");
+        t.innerHTML = "<b></b><span></span>";
+        t.querySelector("b").textContent = r.title;
+        t.querySelector("span").textContent = r.artist + (r.release_year ? ", " + r.release_year : "");
+        o.appendChild(t);
+        o.addEventListener("mousedown", function (e) { e.preventDefault(); });
+        o.addEventListener("click", function () { choose(r); });
+        list.appendChild(o); items.push(o);
+      });
+      if (!results.length) status("No matches.");
+      var m = manualOpt(); list.appendChild(m); items.push(m);
+      open();
+    }
+    function choose(r) {
+      var pick = { itunes_track_id: r.itunes_track_id, title: r.title, artist: r.artist, album: r.album,
+        release_year: r.release_year, genre: r.genre, apple_url: r.apple_url };
+      self.commit(pick);
+    }
+    function highlight(i) {
+      items.forEach(function (o) { o.setAttribute("aria-selected", "false"); });
+      active = i;
+      if (i >= 0 && items[i]) {
+        items[i].setAttribute("aria-selected", "true");
+        input.setAttribute("aria-activedescendant", items[i].id);
+        items[i].scrollIntoView({ block: "nearest" });
+      }
+    }
+    input.addEventListener("input", function () {
+      self.clearErr();
+      var term = input.value.trim();
+      clearTimeout(timer);
+      if (term.length < 2) { close(); return; }
+      timer = setTimeout(function () {
+        var mine = ++q;
+        status("Searching…"); open();
+        search(term).then(function (res) { if (mine === q) draw(res); })
+          .catch(function () {
+            if (mine !== q) return;
+            list.innerHTML = ""; items = [];
+            status("Search isn't responding right now.");
+            var m = manualOpt(); list.appendChild(m); items.push(m); open();
+          });
+      }, 350);
+    });
+    input.addEventListener("keydown", function (e) {
+      if (list.hidden || !items.length) return;
+      if (e.key === "ArrowDown") { e.preventDefault(); highlight(Math.min(active + 1, items.length - 1)); }
+      else if (e.key === "ArrowUp") { e.preventDefault(); highlight(Math.max(active - 1, 0)); }
+      else if (e.key === "Enter") { if (active >= 0) { e.preventDefault(); items[active].click(); } }
+      else if (e.key === "Escape") { close(); }
+    });
+    input.addEventListener("blur", function () { setTimeout(close, 150); });
+    if (focus) input.focus();
+  };
+  SongField.prototype.goManual = function (prefill) {
+    this.manual = { title: prefill || "", artist: "" };
+    this.render(true);
+  };
+  SongField.prototype.renderManual = function (focus) {
+    var self = this;
+    var box = document.createElement("div");
+    box.className = "song__manual";
+    box.innerHTML = '<input type="text" maxlength="200" placeholder="Song title" aria-label="Song title">' +
+      '<input type="text" maxlength="200" placeholder="Artist" aria-label="Artist">' +
+      '<button type="button" class="song__back">Back to search</button>';
+    var t = box.children[0], a = box.children[1];
+    t.value = this.manual.title; a.value = this.manual.artist;
+    function sync() {
+      if (!self.manual) return;
+      self.manual.title = t.value; self.manual.artist = a.value;
+    }
+    function tryCommit() {
+      if (!self.manual) return;
+      sync();
+      var title = t.value.trim(), artist = a.value.trim();
+      if (title && artist) self.commit({ itunes_track_id: "", title: title, artist: artist, manual: true });
+    }
+    t.addEventListener("input", sync); a.addEventListener("input", sync);
+    a.addEventListener("keydown", function (e) { if (e.key === "Enter") { e.preventDefault(); tryCommit(); } });
+    t.addEventListener("keydown", function (e) { if (e.key === "Enter") { e.preventDefault(); a.focus(); } });
+    box.addEventListener("focusout", function () {
+      setTimeout(function () { if (!box.contains(document.activeElement)) tryCommit(); }, 0);
+    });
+    box.children[2].addEventListener("click", function () { self.manual = null; self.render(true); });
+    this.el.appendChild(box);
+    if (focus) (t.value ? a : t).focus();
+  };
+  SongField.prototype.commit = function (pick) {
+    var err = this.onPick ? this.onPick(pick, this.key) : "";
+    if (err) {
+      if (this.input) { this.input.value = ""; this.input.setAttribute("aria-expanded", "false"); this.list.hidden = true; }
+      this.showErr(err);
+      return;
+    }
+    this.manual = null;
+    state[this.key] = pick;
+    save();
+    this.clearErr();
+    this.render(true);
+  };
+  SongField.prototype.showErr = function (msg) {
+    this.clearErr();
+    var p = document.createElement("p");
+    p.className = "song__err"; p.setAttribute("role", "alert"); p.textContent = msg;
+    this.el.parentNode.insertBefore(p, this.el.nextSibling);
+    this.err = p;
+  };
+  SongField.prototype.clearErr = function () { if (this.err) { this.err.remove(); this.err = null; } };
+
+  /* ---------- Build the fields ---------- */
+  var fields = [];
+  document.querySelectorAll(".qs .song").forEach(function (el) {
+    fields.push(new SongField(el, el.dataset.slot, el.dataset.label));
+  });
+
+  var ol = $("#top10-list");
+  for (var i = 1; i <= 10; i++) {
+    var li = document.createElement("li");
+    li.innerHTML = '<span class="top10__n" aria-hidden="true">' + i + '</span><div><span class="sr" id="t10-' + i + '">Top 10, number ' + i + '</span><div class="song"></div></div>';
+    ol.appendChild(li);
+    fields.push(new SongField(li.querySelector(".song"), "top10-" + i, "t10-" + i, top10Check));
+  }
+  function top10Check(pick, key) {
+    for (var n = 1; n <= 10; n++) {
+      var k = "top10-" + n;
+      if (k !== key && sameSong(state[k], pick)) return "This song is already in your Top 10.";
+    }
+    return "";
+  }
+
+  /* ---------- Era selects ---------- */
+  ["era_start", "era_end"].forEach(function (id) {
+    var sel = $("#" + id);
+    for (var y = YEAR_MAX; y >= YEAR_MIN; y--) {
+      var o = document.createElement("option"); o.value = y; o.textContent = y; sel.appendChild(o);
+    }
+  });
+
+  /* ---------- Restore saved info ---------- */
+  if (saved.info) {
+    ["full_name", "email", "ig_handle", "era_start", "era_end"].forEach(function (k) { if (saved.info[k]) $("#" + k).value = saved.info[k]; });
+    $("#marketing_opt_in").checked = !!saved.info.marketing_opt_in;
+  }
+  function readInfo() {
+    return {
+      full_name: $("#full_name").value.trim(),
+      email: $("#email").value.trim(),
+      ig_handle: $("#ig_handle").value.trim().replace(/^@+/, ""),
+      era_start: $("#era_start").value,
+      era_end: $("#era_end").value,
+      marketing_opt_in: $("#marketing_opt_in").checked
+    };
+  }
+  form.addEventListener("input", function (e) { if (e.target.closest(".field, .check")) save(); });
+  form.addEventListener("change", function (e) { if (e.target.closest(".field, .check")) save(); });
+
+  /* ---------- Validation ---------- */
+  function fieldError(id, msg) {
+    var el = $("#" + id);
+    el.setAttribute("aria-invalid", "true");
+    var holder = el.closest(".field");
+    var p = document.createElement("p");
+    p.className = "field__err"; p.id = id + "-err"; p.textContent = msg;
+    holder.appendChild(p);
+    el.setAttribute("aria-describedby", p.id);
+  }
+  function clearErrors() {
+    form.querySelectorAll(".field__err").forEach(function (p) { p.remove(); });
+    form.querySelectorAll("[aria-invalid]").forEach(function (el) { el.removeAttribute("aria-invalid"); el.removeAttribute("aria-describedby"); });
+    $("#form-err").hidden = true;
+  }
+  function allPicks() {
+    var out = [];
+    PROMPTS.forEach(function (k, idx) { if (state[k]) out.push(Object.assign({ slot: k, position: idx + 1 }, state[k])); });
+    var n = 0;
+    for (var j = 1; j <= 10; j++) { var p = state["top10-" + j]; if (p) out.push(Object.assign({ slot: "top10", position: ++n }, p)); }
+    return out;
+  }
+
+  /* ---------- Submit ---------- */
+  var busy = false;
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+    if (busy) return;
+    clearErrors();
+    var info = readInfo();
+    var picks = allPicks();
+    var first = null;
+    function flag(id, msg) { fieldError(id, msg); if (!first) first = $("#" + id); }
+
+    if (info.full_name.length < 2) flag("full_name", "Please complete this field.");
+    if (!info.email) flag("email", "Please complete this field.");
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(info.email)) flag("email", "Please enter a valid email address.");
+    if (!info.era_start) flag("era_start", "Please complete this field.");
+    if (!info.era_end) flag("era_end", "Please complete this field.");
+    if (info.era_start && info.era_end && +info.era_end < +info.era_start) flag("era_end", "Please check your years. The start year should come before the end year.");
+    if (info.era_start && info.era_end && +info.era_end - +info.era_start > 15) flag("era_end", "Please check your years.");
+
+    var errBox = $("#form-err");
+    if (!picks.length) {
+      errBox.textContent = "Please add at least one song."; errBox.hidden = false;
+      var firstSong = form.querySelector(".song__input, .song__manual input");
+      if (!first) { firstSong && firstSong.focus(); errBox.scrollIntoView({ block: "center" }); return; }
+    }
+    if (first) { first.focus(); first.scrollIntoView({ block: "center" }); return; }
+
+    var tokenEl = form.querySelector('[name="cf-turnstile-response"]');
+    var token = tokenEl ? tokenEl.value : "";
+    if (!token) { errBox.textContent = "Please wait a moment for the security check to finish, then submit again."; errBox.hidden = false; return; }
+
+    var src = (new URLSearchParams(location.search).get("src") || "").slice(0, 40);
+    var payload = Object.assign({}, info, {
+      picks: picks.map(function (p) { var c = Object.assign({}, p); delete c.manual; return c; }),
+      source: src, website: $("#website").value, "cf-turnstile-response": token
+    });
+
+    busy = true;
+    var btn = $("#submit"); btn.disabled = true; btn.textContent = "Submitting…";
+    try {
+      var r = await fetch("/api/mixtape", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+      var data = await r.json().catch(function () { return {}; });
+      if (r.ok && data.ok) {
+        await showDone(info, picks);
+        wipe();
+        return;
+      }
+      if (data.closed) { location.reload(); return; }
+      if (data.field && document.getElementById(data.field)) { fieldError(data.field, data.error); $("#" + data.field).focus(); }
+      else { errBox.textContent = data.error || "Something went wrong. Please try again."; errBox.hidden = false; }
+    } catch (err) {
+      errBox.textContent = "Something went wrong. Please try again."; errBox.hidden = false;
+    } finally {
+      busy = false; btn.disabled = false; btn.textContent = "Submit";
+      if (window.turnstile) try { window.turnstile.reset(); } catch (e2) {}
+    }
+  });
+
+  /* ---------- Share card (1080 x 1920, drawn on the phone) ---------- */
+  function loadImg(src) {
+    return new Promise(function (res, rej) { var im = new Image(); im.onload = function () { res(im); }; im.onerror = rej; im.src = src; });
+  }
+  function fit(ctx, text, maxW) {
+    if (ctx.measureText(text).width <= maxW) return text;
+    var t = text;
+    while (t.length > 1 && ctx.measureText(t + "…").width > maxW) t = t.slice(0, -1);
+    return t.trimEnd() + "…";
+  }
+  var DISPLAY = '"field-gothic-xxcondensed", "Arial Narrow", Impact, sans-serif';
+  var SANS = '"gotham", "Helvetica Neue", Arial, sans-serif';
+
+  async function drawCard(info, picks) {
+    try {
+      await Promise.all([
+        document.fonts.load("800 100px " + DISPLAY), document.fonts.load("700 40px " + SANS),
+        document.fonts.load("400 40px " + SANS), document.fonts.load("500 40px " + SANS)
+      ]);
+    } catch (e) {}
+    var W = 1080, H = 1920, X = 90;
+    var c = document.createElement("canvas"); c.width = W; c.height = H;
+    var ctx = c.getContext("2d");
+
+    ctx.fillStyle = "#0B0B0C"; ctx.fillRect(0, 0, W, H);
+
+    // Logo, inside the safe area (Instagram covers the top 250px and bottom 250px)
+    try {
+      var logo = await loadImg("talley-tapes-untold.webp");
+      var lw = 420, lh = lw * logo.naturalHeight / logo.naturalWidth;
+      ctx.drawImage(logo, (W - lw) / 2, 228, lw, lh);
+      var y = 228 + lh;
+    } catch (e) { y = 483; }
+
+    ctx.textAlign = "center"; ctx.textBaseline = "alphabetic";
+    ctx.fillStyle = "#FFFFFF";
+    ctx.font = "800 100px " + DISPLAY;
+    ctx.fillText("THE TALLEY MIXTAPE", W / 2, y + 104);
+
+    var era = info.era_start + (info.era_end && info.era_end !== info.era_start ? "–" + info.era_end : "");
+    ctx.fillStyle = "#E9D491";
+    ctx.font = "700 34px " + SANS;
+    ctx.fillText(fit(ctx, info.full_name.toUpperCase() + "   TALLEY ERA " + era, W - 2 * X), W / 2, y + 156);
+
+    // Red song panel. Content is sized to fit and centred vertically.
+    var top = y + 192, bottom = 1484;
+    ctx.fillStyle = "#CC0000"; ctx.fillRect(0, top, W, bottom - top);
+
+    var prompts = picks.filter(function (p) { return p.slot !== "top10"; });
+    var tens = picks.filter(function (p) { return p.slot === "top10"; });
+    var heads = (prompts.length ? 1 : 0) + (tens.length ? 1 : 0);
+    var units = prompts.length + tens.length + heads * 1.45 + (heads === 2 ? 0.35 : 0);
+    var pad = 30;
+    var rowH = Math.max(30, Math.min(72, Math.floor((bottom - top - 2 * pad) / Math.max(units, 1))));
+    var headH = Math.round(rowH * 1.45);
+    var size = Math.round(Math.min(rowH * 0.62, 38));
+    var used = Math.round(units * rowH);
+    var cy = top + Math.max(pad, Math.round((bottom - top - used) / 2));
+    ctx.textAlign = "left";
+
+    function heading(txt) {
+      ctx.fillStyle = "#E9D491"; ctx.font = "800 " + Math.round(headH * 0.8) + "px " + DISPLAY;
+      ctx.fillText(txt, X, cy + Math.round(headH * 0.78));
+      cy += headH;
+    }
+    function line(p, num) {
+      var base = cy + Math.round(rowH * 0.7);
+      var x = X;
+      if (num) {
+        ctx.fillStyle = "#E9D491"; ctx.font = "800 " + Math.round(size * 1.3) + "px " + DISPLAY;
+        ctx.textAlign = "right"; ctx.fillText(String(num), X + 44, base); ctx.textAlign = "left";
+        x = X + 66;
+      }
+      var maxW = W - X - x;
+      ctx.font = "700 " + size + "px " + SANS;
+      var t = fit(ctx, p.title, maxW * 0.62);
+      ctx.fillStyle = "#FFFFFF"; ctx.fillText(t, x, base);
+      var tw = ctx.measureText(t + "  ").width;
+      ctx.font = "400 " + size + "px " + SANS; ctx.fillStyle = "#FBE3E3";
+      ctx.fillText(fit(ctx, p.artist, maxW - tw), x + tw, base);
+      cy += rowH;
+    }
+    if (prompts.length) { heading("MY TALLEY PICKS"); prompts.forEach(function (p) { line(p, 0); }); }
+    if (tens.length) { if (prompts.length) cy += Math.round(rowH * 0.35); heading("MY TOP 10"); tens.forEach(function (p, i) { line(p, i + 1); }); }
+
+    // Footer, kept above Instagram's bottom 250px
+    ctx.textAlign = "center";
+    ctx.fillStyle = "#E9D491"; ctx.font = "700 30px " + SANS;
+    ctx.fillText("THE TALLEY TAPES [UNTOLD]  A HOMECOMING ORIGINAL", W / 2, 1540);
+    ctx.fillStyle = "#FFFFFF"; ctx.font = "700 28px " + SANS;
+    ctx.fillText("FRIDAY, OCT. 30  /  HOUSE OF ART, DOWNTOWN RALEIGH", W / 2, 1584);
+    ctx.fillStyle = "#C9C5BD"; ctx.font = "500 24px " + SANS;
+    ctx.fillText("PACK OUT STATE HOMECOMING, OCT. 29–31  /  @PACKOUTSTATE", W / 2, 1624);
+    ctx.fillText("PACKOUTSTATE.COM/MIXTAPE", W / 2, 1660);
+
+    return c;
+  }
+
+  async function showDone(info, picks) {
+    var canvas = await drawCard(info, picks);
+    var url = canvas.toDataURL("image/png");
+    var blob = await new Promise(function (res) { canvas.toBlob(res, "image/png"); });
+    $("#card-img").src = url;
+    var saveBtn = $("#save-btn");
+    saveBtn.href = blob ? URL.createObjectURL(blob) : url;
+
+    var file = blob ? new File([blob], "talley-mixtape.png", { type: "image/png" }) : null;
+    var canShare = file && navigator.canShare && navigator.canShare({ files: [file] });
+    var shareBtn = $("#share-btn");
+    if (canShare) {
+      shareBtn.hidden = false;
+      shareBtn.onclick = function () { navigator.share({ files: [file] }).catch(function () {}); };
+    }
+    var inApp = /Instagram|FBAN|FBAV|Line\//i.test(navigator.userAgent);
+    var ios = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+    if (inApp || ios || !canShare) $("#card-hint").hidden = false;
+
+    form.hidden = true;
+    $("#hero-cta").hidden = true;
+    var done = $("#done"); done.hidden = false;
+    done.scrollIntoView({ block: "start" }); done.focus({ preventScroll: true });
+  }
+
+  $("#copy-link").addEventListener("click", function () {
+    var link = "https://packoutstate.com/mixtape/";
+    var ok = function () { $("#copy-ok").textContent = "Copied."; };
+    if (navigator.clipboard) navigator.clipboard.writeText(link).then(ok, function () { prompt("Copy this link:", link); });
+    else prompt("Copy this link:", link);
+  });
+
+  // Exposed for local testing only.
+  window.__talley = { drawCard: drawCard, state: state };
+})();
+</script>
+</body>
+</html>
