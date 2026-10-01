@@ -8,7 +8,7 @@
 <meta property="og:title" content="The Talley Mixtape · Pack Out State">
 <meta property="og:description" content="Built from the songs that made Talley move. What song takes you back?">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://packoutstate.com/mixtape/">
+<meta property="og:url" content="https://packoutstate.com/mixtape">
 <meta property="og:image" content="https://packoutstate.com/mixtape/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -672,7 +672,7 @@ button,input,select{font:inherit;color:inherit}
   }
 
   $("#copy-link").addEventListener("click", function () {
-    var link = "https://packoutstate.com/mixtape/";
+    var link = "https://packoutstate.com/mixtape";
     var ok = function () { $("#copy-ok").textContent = "Copied."; };
     if (navigator.clipboard) navigator.clipboard.writeText(link).then(ok, function () { prompt("Copy this link:", link); });
     else prompt("Copy this link:", link);
