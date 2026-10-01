@@ -158,12 +158,12 @@ button,input,select{font:inherit;color:inherit}
 <body>
 
 <header class="top">
-  <a href="/" aria-label="Pack Out State home"><img src="pack-out-state-wordmark.webp" width="1000" height="111" alt="Pack Out State"></a>
+  <a href="/" aria-label="Pack Out State home"><img src="/mixtape/pack-out-state-wordmark.webp" width="1000" height="111" alt="Pack Out State"></a>
 </header>
 
 <section class="hero">
   <div class="wrap">
-    <img class="hero__logo" src="talley-tapes-untold.webp" width="1200" height="729" alt="The Talley Tapes [Untold]">
+    <img class="hero__logo" src="/mixtape/talley-tapes-untold.webp" width="1200" height="729" alt="The Talley Tapes [Untold]">
     <h1>The Talley Mixtape</h1>
     <p class="hero__sub">Built from the songs that made Talley move.</p>
     <p class="hero__setup">Everybody has a Talley song. Add yours.</p>
@@ -681,7 +681,7 @@ button,input,select{font:inherit;color:inherit}
 
     // Logo, inside the safe area (Instagram covers the top 250px and bottom 250px)
     try {
-      var logo = await loadImg("talley-tapes-untold.webp");
+      var logo = await loadImg("/mixtape/talley-tapes-untold.webp");
       var lw = 420, lh = lw * logo.naturalHeight / logo.naturalWidth;
       ctx.drawImage(logo, (W - lw) / 2, 228, lw, lh);
       var y = 228 + lh;
