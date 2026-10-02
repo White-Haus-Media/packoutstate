@@ -9,8 +9,8 @@
 // Submissions close Sunday, Oct 11, 2026 at 11:59 PM Eastern.
 const CLOSES_AT = Date.parse("2026-10-12T03:59:59Z");
 
-const PROMPT_SLOTS = ["takes_me_back", "first_five_seconds", "whole_room_knew", "lights_coming_on"];
-const MAX_TOP10 = 5;
+const PROMPT_SLOTS = ["takes_me_back", "lights_coming_on"];
+const MAX_TOP10 = 3;
 const MIN_YEAR = 1960;
 const MAX_YEAR = 2026;
 
@@ -48,7 +48,7 @@ module.exports = async function handler(req, res) {
   if (eraEnd < eraStart) return bad(res, "Please check your years. The start year should come before the end year.", "era_end");
   if (eraEnd - eraStart > 15) return bad(res, "Please check your years.", "era_end");
 
-  // Picks: one per prompt, up to 5 in the Top 5, no repeats inside the Top 5.
+  // Picks: one per prompt, up to 3 in the Top 3, no repeats inside the Top 3.
   const raw = Array.isArray(body.picks) ? body.picks : [];
   const picks = [];
   const seenPrompt = new Set();
