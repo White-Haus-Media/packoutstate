@@ -99,7 +99,7 @@ button,input,select{font:inherit;color:inherit}
 .top10 .song__input:focus,.top10 .song__manual input:focus{border-color:var(--paper)}
 .song__input::placeholder,.field input::placeholder,.song__manual input::placeholder{color:#8A877F}
 .song__list{position:absolute;left:0;right:0;top:calc(100% + 4px);z-index:20;background:var(--paper);color:var(--char);
-  border:1px solid var(--line);border-radius:4px;max-height:340px;overflow:auto;box-shadow:0 14px 30px rgba(11,11,12,.14)}
+  border:1px solid var(--line);border-radius:4px;max-height:min(340px,45vh);overflow:auto;box-shadow:0 14px 30px rgba(11,11,12,.14)}
 .song__opt{display:flex;align-items:center;gap:12px;min-height:56px;padding:8px 12px;cursor:pointer;border-bottom:1px solid #ECE8E0}
 .song__opt:last-child{border-bottom:0}
 .song__opt[aria-selected="true"],.song__opt:hover{background:#F6F1E3}
@@ -413,7 +413,16 @@ button,input,select{font:inherit;color:inherit}
     var timer = null, active = -1, items = [], q = 0;
 
     function close() { list.hidden = true; input.setAttribute("aria-expanded", "false"); input.removeAttribute("aria-activedescendant"); active = -1; }
-    function open() { list.hidden = false; input.setAttribute("aria-expanded", "true"); }
+    function open() {
+      list.hidden = false; input.setAttribute("aria-expanded", "true");
+      // On phones the keyboard covers the lower half of the screen. If the results
+      // would sit behind it, scroll the field up under the header so they show.
+      var vv = window.visualViewport, viewH = vv ? vv.height : window.innerHeight;
+      var nav = document.querySelector(".nav"), navH = nav ? nav.offsetHeight : 0;
+      var r = list.getBoundingClientRect(), top = input.getBoundingClientRect().top;
+      var want = navH + 12;
+      if ((r.bottom > viewH - 8 && top > want + 4) || top < navH) window.scrollBy(0, top - want);
+    }
     function status(msg) { list.innerHTML = ""; var d = document.createElement("div"); d.className = "song__status"; d.textContent = msg; list.appendChild(d); }
     function manualOpt() {
       var m = document.createElement("div");
