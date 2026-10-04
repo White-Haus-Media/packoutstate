@@ -150,6 +150,10 @@ button,input,select{font:inherit;color:inherit}
 .done,.closed{padding:48px 0 64px}
 .done h2,.closed h2{font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:clamp(2.4rem,11vw,3.6rem);line-height:.92}
 .done p,.closed p{margin-top:12px}
+.done__tix{margin-top:28px;padding:22px 20px;background:var(--char);color:var(--paper);border-radius:4px}
+.done__tix p{margin:0;font-size:1.0625rem;font-weight:500}
+.done__buy{display:flex;align-items:center;justify-content:center;min-height:54px;margin-top:14px;background:var(--red);color:var(--paper);border-radius:4px;font-weight:400;font-size:1.0625rem;text-decoration:none}
+.done__buy:hover{background:var(--red-deep)}
 .done__share{margin-top:26px;font-size:.95rem}
 .linkbtn{background:none;border:0;padding:0;font-weight:500;text-decoration:underline;cursor:pointer}
 .done__small{margin-top:18px;font-size:.875rem;color:var(--muted)}
@@ -245,6 +249,10 @@ button,input,select{font:inherit;color:inherit}
 <section class="done" id="done" hidden tabindex="-1">
   <div class="wrap">
     <h2>Thank you. Your submission has been received.</h2>
+    <div class="done__tix">
+      <p>Have you purchased your tickets?</p>
+      <a class="done__buy" href="https://tickets.venuepilot.com/e/the-talley-tapes-2026-10-30-downtown-raleigh-raleigh-7a0918" target="_blank" rel="noopener">Buy now</a>
+    </div>
     <p class="done__share">Know someone from your era? <button class="linkbtn" type="button" id="copy-link">Copy link</button> <span id="copy-ok" role="status"></span></p>
     <p class="done__small">Need to make a change? Submit again with the same email and your new list will replace this one.</p>
   </div>
