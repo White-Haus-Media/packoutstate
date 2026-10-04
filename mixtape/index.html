@@ -334,22 +334,43 @@ button,input,select{font:inherit;color:inherit}
   var state = {}; // slot key -> pick. Prompt keys, plus "top10-1" ... "top10-3"
   if (saved.picks) state = saved.picks;
 
-  /* ---------- Song search (Apple, JSONP so no server or CORS needed) ---------- */
+  /* ---------- Song search ----------
+     Runs through our own server (/api/song-search). Apple sends iPhones to the
+     Apple Music app instead of returning results, so the page cannot call Apple
+     directly on a phone. If our server fails, desktop browsers try Apple directly. */
   var cache = {};
   var jsonpN = 0;
   function search(term) {
     var key = term.toLowerCase();
     if (cache[key]) return Promise.resolve(cache[key]);
+    return viaServer(term).catch(function () { return viaApple(term); }).then(function (data) {
+      cache[key] = tidy(data);
+      return cache[key];
+    });
+  }
+  function viaServer(term) {
+    var ctl = window.AbortController ? new AbortController() : null;
+    var t = setTimeout(function () { if (ctl) ctl.abort(); }, 8000);
+    return fetch("/api/song-search?term=" + encodeURIComponent(term), ctl ? { signal: ctl.signal } : {})
+      .then(function (r) { clearTimeout(t); if (!r.ok) throw new Error("server"); return r.json(); });
+  }
+  function viaApple(term) {
     return new Promise(function (resolve, reject) {
       var cb = "__talleyCb" + (++jsonpN);
       var s = document.createElement("script");
       var timer = setTimeout(function () { done(); reject(new Error("timeout")); }, 7000);
       function done() { clearTimeout(timer); try { delete window[cb]; } catch (e) { window[cb] = undefined; } s.remove(); }
-      window[cb] = function (data) {
-        done();
+      window[cb] = function (data) { done(); resolve(data); };
+      s.onerror = function () { done(); reject(new Error("network")); };
+      s.src = "https://itunes.apple.com/search?media=music&entity=song&country=US&explicit=Yes&limit=15&term=" +
+        encodeURIComponent(term) + "&callback=" + cb;
+      document.head.appendChild(s);
+    });
+  }
+  function tidy(data) {
         var seen = {}, out = [];
         (data && data.results || []).forEach(function (r) {
-          if (!r.trackId || !r.trackName) return;
+          if (!r.trackName) return;
           var k = (r.trackName + "|" + r.artistName).toLowerCase().replace(/\s*\((clean|explicit)[^)]*\)/g, "");
           var explicit = r.trackExplicitness === "explicit";
           // Same song listed twice (clean and explicit): keep the explicit, unedited version.
@@ -360,22 +381,15 @@ button,input,select{font:inherit;color:inherit}
           seen[k] = out.length;
           out.push(toPick(r, explicit));
         });
-        cache[key] = out.slice(0, 8);
-        resolve(cache[key]);
-      };
+        return out.slice(0, 8);
       function toPick(r, explicit) {
         return {
-            itunes_track_id: String(r.trackId), title: r.trackName, artist: r.artistName || "",
+            itunes_track_id: r.trackId ? String(r.trackId) : "", title: r.trackName, artist: r.artistName || "",
             album: r.collectionName || "", release_year: (r.releaseDate || "").slice(0, 4),
             genre: r.primaryGenreName || "", apple_url: (r.trackViewUrl || "").split("?")[0], art: r.artworkUrl60 || "",
             explicit: explicit
         };
       }
-      s.onerror = function () { done(); reject(new Error("network")); };
-      s.src = "https://itunes.apple.com/search?media=music&entity=song&country=US&explicit=Yes&limit=15&term=" +
-        encodeURIComponent(term) + "&callback=" + cb;
-      document.head.appendChild(s);
-    });
   }
 
   function sameSong(a, b) {
