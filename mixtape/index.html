@@ -104,8 +104,9 @@ button,input,select{font:inherit;color:inherit}
 .song__opt:last-child{border-bottom:0}
 .song__opt[aria-selected="true"],.song__opt:hover{background:#F6F1E3}
 .song__opt img{width:40px;height:40px;border-radius:3px;flex:none;background:#EEE}
-.song__opt b{display:block;font-weight:500;font-size:.95rem;line-height:1.25}
-.song__opt span{display:block;font-size:.85rem;color:var(--muted);line-height:1.3}
+.song__opt > div{flex:1;min-width:0}
+.song__opt b{display:block;font-weight:500;font-size:.95rem;line-height:1.25;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.song__opt span{display:block;font-size:.85rem;color:var(--muted);line-height:1.3;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .song__opt--manual{color:var(--red-deep);font-weight:500;font-size:.9rem}
 .song__status{padding:14px 12px;font-size:.9rem;color:var(--muted)}
 .song__chip{display:flex;align-items:center;gap:12px;min-height:56px;padding:8px 6px 8px 14px;background:var(--paper);
@@ -121,6 +122,34 @@ button,input,select{font:inherit;color:inherit}
 .song__manual input{width:100%;min-height:52px;padding:0 14px;background:var(--paper);border:1px solid var(--line);border-radius:4px;font-size:16px;color:var(--char)}
 .song__back{justify-self:start;background:none;border:0;padding:6px 0;font-size:.875rem;text-decoration:underline;cursor:pointer;color:inherit}
 .song__err{margin-top:6px;font-size:.875rem;font-weight:500;color:var(--red-deep)}
+
+/* Era on charcoal */
+.qs__era{margin-bottom:36px}
+.qs__era legend.q__text{margin-bottom:10px}
+.qs .era label{color:#C9C5BD}
+.qs .field select{border-color:transparent}
+.qs .field select:focus{border-color:var(--paper)}
+.qs .field__err{color:var(--paper)}
+
+/* Phones: header scrolls away, tighter spacing, smaller headings */
+@media (max-width:640px){
+  .nav{position:relative}
+  .hero{padding:32px 0 36px}
+  .hero__ask{margin-top:20px}
+  .qs{padding:32px 0 4px}
+  .qs__era{margin-bottom:28px}
+  .q + .q{margin-top:28px}
+  .q__text{font-size:1.0625rem;margin-bottom:10px}
+  .top10{padding:32px 0 40px}
+  .top10 h2,.info h2,.done h2,.closed h2{font-size:2.25rem}
+  .top10 ol{margin-top:18px}
+  .top10 li + li{margin-top:10px}
+  .song__input,.field input,.field select,.song__chip{min-height:52px}
+  .top10__n{line-height:52px}
+  .song__opt{min-height:50px;padding:6px 12px}
+  .info{padding:36px 0 48px}
+  .fields{margin-top:18px;gap:16px}
+}
 
 /* Your info */
 .info{padding:52px 0 64px}
@@ -183,7 +212,7 @@ button,input,select{font:inherit;color:inherit}
     <h1><img class="hero__logo" src="/mixtape/talley-mixtape.webp" width="1400" height="450" alt="Talley Mixtape"></h1>
     <p class="hero__event">The Talley Tapes [Untold]</p>
     <p class="hero__ask" id="hero-cta">What’s on your all-time Talley Party Playlist?</p>
-    <p class="hero__note">Skip any section. One song is enough to submit.</p>
+    <p class="hero__note">One song is enough to submit.</p>
     <p class="hero__close" id="close-note">Submissions close Sunday, Oct. 11.</p>
   </div>
 </section>
@@ -192,6 +221,15 @@ button,input,select{font:inherit;color:inherit}
 <form id="mixtape" novalidate>
   <section class="qs" id="start" aria-label="Questions">
     <div class="wrap">
+      <div class="field qs__era">
+        <fieldset>
+          <legend class="q__text">Your Talley era</legend>
+          <div class="era">
+            <div><label for="era_start">From</label><select id="era_start" name="era_start" required><option value="">Year</option></select></div>
+            <div><label for="era_end">To</label><select id="era_end" name="era_end" required><option value="">Year</option></select></div>
+          </div>
+        </fieldset>
+      </div>
       <div class="q">
         <span class="q__text" id="q-takes_me_back">What song puts you right back at Talley?</span>
         <div class="q__row"><span class="top10__n" aria-hidden="true">1</span><div class="song" data-slot="takes_me_back" data-pos="1" data-label="q-takes_me_back"></div></div>
@@ -221,15 +259,6 @@ button,input,select{font:inherit;color:inherit}
         <div class="field">
           <label for="email">Email</label>
           <input id="email" name="email" type="email" inputmode="email" autocomplete="email" maxlength="254" required>
-        </div>
-        <div class="field">
-          <fieldset>
-            <legend>Your Talley era</legend>
-            <div class="era">
-              <div><label for="era_start">From</label><select id="era_start" name="era_start" required><option value="">Year</option></select></div>
-              <div><label for="era_end">To</label><select id="era_end" name="era_end" required><option value="">Year</option></select></div>
-            </div>
-          </fieldset>
         </div>
         <div class="field">
           <label for="ig_handle">Instagram handle <span class="opt">(optional)</span></label>
@@ -418,10 +447,16 @@ button,input,select{font:inherit;color:inherit}
       // On phones the keyboard covers the lower half of the screen. If the results
       // would sit behind it, scroll the field up under the header so they show.
       var vv = window.visualViewport, viewH = vv ? vv.height : window.innerHeight;
-      var nav = document.querySelector(".nav"), navH = nav ? nav.offsetHeight : 0;
-      var r = list.getBoundingClientRect(), top = input.getBoundingClientRect().top;
+      var nav = document.querySelector(".nav");
+      var navH = nav && getComputedStyle(nav).position === "sticky" ? nav.offsetHeight : 0;
+      var q = input.closest(".q"), label = q ? q.querySelector(".q__text") : null;
+      var anchor = label || input;
+      list.style.maxHeight = "";
+      var r = list.getBoundingClientRect(), top = anchor.getBoundingClientRect().top;
       var want = navH + 12;
-      if ((r.bottom > viewH - 8 && top > want + 4) || top < navH) window.scrollBy(0, top - want);
+      if ((r.bottom > viewH - 8 && top > want + 4) || input.getBoundingClientRect().top < navH) window.scrollBy({ top: top - want, left: 0, behavior: "instant" });
+      var room = viewH - input.getBoundingClientRect().bottom - 12;
+      list.style.maxHeight = Math.max(150, Math.min(room, 360)) + "px";
     }
     function status(msg) { list.innerHTML = ""; var d = document.createElement("div"); d.className = "song__status"; d.textContent = msg; list.appendChild(d); }
     function manualOpt() {
