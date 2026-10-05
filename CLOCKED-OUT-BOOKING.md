@@ -60,8 +60,8 @@ Approved wording, with the credit line removed:
 >
 > [ ] I have read and agree to the above.
 
-No promise of credit. It was dropped because tracking it across every post
-is not realistic.
+No promise of credit. Dropped because tracking it across every post is not
+realistic. Colton approved this version on 2026-10-05.
 
 **Caps.** 3 photographers and 3 videographers, counted separately. When one
 role fills, that role closes and the other stays open.
@@ -96,9 +96,9 @@ their own tab, so the team can see who is shooting.
 
 ## Still open
 
-**Blockers, nothing can be built without these**
+**In progress**
 
-- Yes to using Supabase and Resend, since it changes how this project works.
+- Supabase and Resend approved 2026-10-05.
 - DNS verification for dccsocial.com so email can send from
   info@dccsocial.com. Slowest item, worth starting early.
 
@@ -110,8 +110,6 @@ their own tab, so the team can see who is shooting.
 - Should guests agree to a photo release? Their pictures are being shared
   with DCC Social and District for promotion. Shooters agree to that;
   guests currently do not.
-- Keep the credit line off the shooter disclaimer, or put back something
-  softer like credited where practical.
 - Can someone sign up as both photographer and videographer, or pick one.
 - Until when can people cancel or reschedule themselves. Up to the close
   date, or right up to their slot.
