@@ -94,20 +94,38 @@ their own tab, so the team can see who is shooting.
 9. **Live list** lives on an internal page behind a shared password that
    Colton sets, plus the email notifications.
 
-## Still to ask
+## Still open
 
-Answered on the creator signup:
+**Blockers, nothing can be built without these**
 
-10. Disclaimer approved, with the credit line removed.
-11. Cap at 3 photographers and 3 videographers.
-12. Whole window for everyone.
-13. No credit promise. Too hard to track.
-14. No portfolio requirement. Optional Instagram, website or portfolio link.
-15. Creator emails send from info@dccsocial.com, same as guest
-    confirmations.
+- Yes to using Supabase and Resend, since it changes how this project works.
+- DNS verification for dccsocial.com so email can send from
+  info@dccsocial.com. Slowest item, worth starting early.
 
-Open: whether someone can sign up as both photo and video, or has to pick
-one. Built as pick one unless told otherwise.
+**Decisions still needed**
+
+- Where the booking lives: a full Clocked Out event page with the form on
+  it, a booking only page, or an event page that links to a separate
+  reserve page.
+- Should guests agree to a photo release? Their pictures are being shared
+  with DCC Social and District for promotion. Shooters agree to that;
+  guests currently do not.
+- Keep the credit line off the shooter disclaimer, or put back something
+  softer like credited where practical.
+- Can someone sign up as both photographer and videographer, or pick one.
+- Until when can people cancel or reschedule themselves. Up to the close
+  date, or right up to their slot.
+- The shared password for the internal list, and who gets it.
+- Are there photos or video for the Clocked Out page, and is the Clocked
+  Out folder in the assets drive the right source.
+
+**Assumptions made, say so if wrong**
+
+- Reservations close 11:59 PM Wed Oct 28.
+- All times Eastern.
+- A group over 6 can still book, it just asks for a heads up. Nobody is
+  blocked and no approval step.
+- Shooters pick photo or video, not both.
 
 ## How it has to be built
 
