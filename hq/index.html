@@ -10,33 +10,41 @@
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/site.css">
 <style>
-/* Internal page. The password is checked on the server; this page never
-   holds a copy of it and gets no data until the check passes. */
-body{background:var(--ink);color:#EDEBE6}
-.shell{max-width:1100px;margin-inline:auto;padding:clamp(28px,5vw,60px) var(--pad)}
-.gate{max-width:380px;margin:12vh auto;background:#0F0F11;border:1px solid rgba(255,255,255,.14);padding:30px}
-.gate h1{font-family:var(--display);font-size:1.9rem;text-transform:uppercase;line-height:1.05;margin-bottom:18px}
-label span{display:block;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;font-weight:800;color:#9A968E;margin-bottom:7px}
-input{width:100%;font-family:var(--sans);font-size:1rem;padding:13px 14px;border:1px solid rgba(255,255,255,.18);
-      border-radius:3px;background:#131315;color:#fff}
-input:focus{outline:3px solid var(--red);outline-offset:1px}
-.err{color:#FF8A8A;font-size:.92rem;margin-top:12px;display:none}
+/* Internal page. Plain and readable on purpose: body font throughout, no
+   display face, white background. This is a working tool, not a showpiece. */
+body{background:#fff;color:#16161a;font-family:var(--sans)}
+.shell{max-width:1100px;margin-inline:auto;padding:clamp(24px,4vw,48px) var(--pad)}
+
+.gate{max-width:380px;margin:12vh auto;background:#fff;border:1px solid #E2DCD1;padding:30px;border-radius:6px}
+.gate h1{font-family:var(--sans);font-weight:800;font-size:1.4rem;line-height:1.2;margin-bottom:18px;letter-spacing:-.01em}
+label span{display:block;font-size:.8rem;font-weight:700;color:#55555c;margin-bottom:7px}
+input{width:100%;font-family:var(--sans);font-size:1rem;padding:12px 14px;border:1px solid #CFC9BE;
+      border-radius:4px;background:#fff;color:#16161a}
+input:focus{outline:3px solid var(--red);outline-offset:1px;border-color:var(--red)}
+.err{color:#A8071A;font-size:.92rem;margin-top:12px;display:none}
 .err.on{display:block}
 
-h2{font-family:var(--display);font-size:1.7rem;text-transform:uppercase;margin:36px 0 14px}
-.tally{display:flex;flex-wrap:wrap;gap:26px;margin-bottom:8px}
-.tally div{font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;color:#9A968E;font-weight:700}
-.tally b{display:block;font-family:var(--display);font-size:2.2rem;color:#fff;letter-spacing:0}
-.wrapx{overflow-x:auto}
+h1.page{font-family:var(--sans);font-weight:800;font-size:1.75rem;letter-spacing:-.015em;margin-bottom:4px}
+.sub{color:#55555c;font-size:.98rem;margin-bottom:26px}
+h2{font-family:var(--sans);font-weight:800;font-size:1.15rem;letter-spacing:-.01em;margin:34px 0 12px}
+
+.tally{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:6px}
+.tally div{flex:1 1 150px;border:1px solid #E6E1D8;border-radius:6px;padding:14px 16px;
+           font-size:.8rem;font-weight:700;color:#55555c}
+.tally b{display:block;font-family:var(--sans);font-weight:800;font-size:1.8rem;color:#16161a;
+         letter-spacing:-.02em;margin-top:2px}
+
+.wrapx{overflow-x:auto;border:1px solid #E6E1D8;border-radius:6px}
 table{width:100%;border-collapse:collapse;font-size:.95rem;min-width:620px}
-th{text-align:left;font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:#9A968E;
-   padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.18)}
-td{padding:12px;border-bottom:1px solid rgba(255,255,255,.09);vertical-align:top}
-tr.open td{color:#8C8880}
-td a{color:#fff}
-.pill{display:inline-block;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;font-weight:800;
-      padding:4px 8px;background:var(--red);color:#fff;border-radius:2px}
-.note{color:#9A968E;font-size:.9rem;margin-top:10px}
+th{text-align:left;font-size:.78rem;font-weight:700;color:#55555c;background:#FAF8F4;
+   padding:11px 14px;border-bottom:1px solid #E6E1D8;white-space:nowrap}
+td{padding:12px 14px;border-bottom:1px solid #F0ECE4;vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+tr.open td{color:#8A8680}
+td a{color:#16161a}
+.pill{display:inline-block;font-size:.78rem;font-weight:700;padding:3px 9px;
+      background:#F3EFE8;color:#44444a;border-radius:20px}
+.note{color:#55555c;font-size:.9rem;margin-top:10px}
 </style>
 </head>
 <body>
@@ -51,7 +59,8 @@ td a{color:#fff}
 </div>
 
 <main class="shell" id="app" hidden>
-  <h1 style="font-family:var(--display);font-size:clamp(2rem,5vw,3rem);text-transform:uppercase">Clocked Out signups</h1>
+  <h1 class="page">Clocked Out signups</h1>
+  <p class="sub">Live list of reservations and shooters for Friday, October 30 at District.</p>
 
   <div class="tally" id="tally"></div>
 
