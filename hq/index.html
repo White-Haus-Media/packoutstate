@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Homecoming HQ · Pack Out State</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/site.css">
+<style>
+/* Internal page. The password is checked on the server; this page never
+   holds a copy of it and gets no data until the check passes. */
+body{background:var(--ink);color:#EDEBE6}
+.shell{max-width:1100px;margin-inline:auto;padding:clamp(28px,5vw,60px) var(--pad)}
+.gate{max-width:380px;margin:12vh auto;background:#0F0F11;border:1px solid rgba(255,255,255,.14);padding:30px}
+.gate h1{font-family:var(--display);font-size:1.9rem;text-transform:uppercase;line-height:1.05;margin-bottom:18px}
+label span{display:block;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;font-weight:800;color:#9A968E;margin-bottom:7px}
+input{width:100%;font-family:var(--sans);font-size:1rem;padding:13px 14px;border:1px solid rgba(255,255,255,.18);
+      border-radius:3px;background:#131315;color:#fff}
+input:focus{outline:3px solid var(--red);outline-offset:1px}
+.err{color:#FF8A8A;font-size:.92rem;margin-top:12px;display:none}
+.err.on{display:block}
+
+h2{font-family:var(--display);font-size:1.7rem;text-transform:uppercase;margin:36px 0 14px}
+.tally{display:flex;flex-wrap:wrap;gap:26px;margin-bottom:8px}
+.tally div{font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;color:#9A968E;font-weight:700}
+.tally b{display:block;font-family:var(--display);font-size:2.2rem;color:#fff;letter-spacing:0}
+.wrapx{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.95rem;min-width:620px}
+th{text-align:left;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:#9A968E;
+   padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.18)}
+td{padding:12px;border-bottom:1px solid rgba(255,255,255,.09);vertical-align:top}
+tr.open td{color:#8C8880}
+td a{color:#fff}
+.pill{display:inline-block;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;font-weight:800;
+      padding:4px 8px;background:var(--red);color:#fff;border-radius:2px}
+.note{color:#9A968E;font-size:.9rem;margin-top:10px}
+</style>
+</head>
+<body>
+
+<div id="gate" class="gate">
+  <h1>Homecoming HQ</h1>
+  <form id="gateForm">
+    <label><span>Password</span><input type="password" id="pw" autocomplete="current-password" autofocus></label>
+    <div class="err" id="err"></div>
+    <button class="btn btn--primary" type="submit" style="width:100%;margin-top:16px">Open</button>
+  </form>
+</div>
+
+<main class="shell" id="app" hidden>
+  <h1 style="font-family:var(--display);font-size:clamp(2rem,5vw,3rem);text-transform:uppercase">Clocked Out signups</h1>
+
+  <div class="tally" id="tally"></div>
+
+  <h2>The schedule</h2>
+  <div class="wrapx">
+    <table>
+      <thead><tr><th>Time</th><th>Name</th><th>People</th><th>Contact</th><th>Note</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </div>
+
+  <h2>Photographers and videographers</h2>
+  <div class="wrapx">
+    <table>
+      <thead><tr><th>Name</th><th>Role</th><th>Contact</th><th>Link</th></tr></thead>
+      <tbody id="crew"></tbody>
+    </table>
+  </div>
+  <p class="note" id="crewNote"></p>
+</main>
+
+<script>
+(function(){
+  'use strict';
+  var $ = function(s){ return document.querySelector(s); };
+  var fmt = function(iso){ return new Date(iso).toLocaleString('en-US',
+    {timeZone:'America/New_York',weekday:'short',hour:'numeric',minute:'2-digit'}); };
+
+  $('#gateForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    var err = $('#err'); err.className = 'err';
+    fetch('/api/hq', {method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({password: $('#pw').value})})
+      .then(function(r){ return r.json().then(function(d){ return {ok:r.ok, d:d}; }); })
+      .then(function(res){
+        if(!res.ok){ err.textContent = res.d.error || 'Wrong password'; err.className = 'err on'; return; }
+        render(res.d);
+      })
+      .catch(function(){ err.textContent = 'Could not reach the server'; err.className = 'err on'; });
+  });
+
+  function render(d){
+    $('#gate').hidden = true; $('#app').hidden = false;
+    var t = d.totals || {};
+    $('#tally').innerHTML =
+      '<div>Booked<b>' + (t.booked||0) + ' / ' + (t.slots||0) + '</b></div>' +
+      '<div>People coming<b>' + (t.guests||0) + '</b></div>' +
+      '<div>Shooters<b>' + (d.creators||[]).length + '</b></div>';
+
+    $('#rows').innerHTML = (d.schedule||[]).map(function(r){
+      if(!r.name) return '<tr class="open"><td>' + fmt(r.starts_at) +
+        '</td><td colspan="4">Open</td></tr>';
+      return '<tr><td>' + fmt(r.starts_at) + '</td><td>' + esc(r.name) +
+        '</td><td>' + r.party_size + '</td><td><a href="mailto:' + esc(r.email) + '">' + esc(r.email) +
+        '</a><br><a href="tel:' + esc(r.phone) + '">' + esc(r.phone) + '</a></td><td>' +
+        (r.notes ? esc(r.notes) : '') + '</td></tr>';
+    }).join('');
+
+    $('#crew').innerHTML = (d.creators||[]).map(function(c){
+      return '<tr><td>' + esc(c.name) + '</td><td><span class="pill">' +
+        (c.role === 'photo' ? 'Photo' : 'Video') + '</span></td><td><a href="mailto:' + esc(c.email) +
+        '">' + esc(c.email) + '</a><br><a href="tel:' + esc(c.phone) + '">' + esc(c.phone) +
+        '</a></td><td>' + (c.link ? esc(c.link) : '') + '</td></tr>';
+    }).join('') || '<tr class="open"><td colspan="4">Nobody signed up yet</td></tr>';
+
+    var photo = (d.creators||[]).filter(function(c){ return c.role === 'photo'; }).length;
+    var video = (d.creators||[]).length - photo;
+    $('#crewNote').textContent = 'Photo ' + photo + ' of 3, video ' + video + ' of 3.';
+  }
+
+  function esc(s){
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+})();
+</script>
+</body>
+</html>

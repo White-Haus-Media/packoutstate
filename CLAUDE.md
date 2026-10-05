@@ -22,10 +22,15 @@ else). That is the only outside request the pages make.
 index.html            home page, fully self-contained (its own styles and script)
 block-party/          event landing page, Saturday at Killjoy
 talley-tapes/         event landing page, Friday at House of Art
+clocked-out/          event landing page and booking, Friday at District
+clocked-out/manage/   private page for changing or cancelling a booking
+hq/                   internal list, password protected
+api/                  the only server code on the site, see below
 css/site.css          shared foundation used by the event pages only
 assets/               hero video, posters, venue logos, photo albums
 flyer-*.jpg           event flyers
 CONTENT-TODO.md       running list of anything unconfirmed
+CLOCKED-OUT-BOOKING.md  decisions behind the booking page
 DESIGN.md             design direction
 UI-SYSTEM.md          component reference
 ```
@@ -60,6 +65,35 @@ a shared template and stamp it out.
 - Talley Tapes is organised around STORY. It is a documentary premiere. The
   lore leads, the teaser plays early, the archive is evidence, and the
   practical details sit at the end. No timeline, no FAQ, no photo grid.
+
+## The booking system
+
+Clocked Out takes reservations, so that one page needs a server and a
+database. Everything else on the site is still plain static files.
+
+- **Database:** Supabase project `studio-ops`, in its own `packoutstate`
+  schema so it cannot collide with anything else in there. Three tables:
+  slots, reservations, creators.
+- **Email:** Resend, sending from info@dccsocial.com.
+- **Server:** four files in `api/`, running on Vercel. Plain Node with no
+  npm packages, so there is still no build step and no package.json.
+
+**Slots are claimed by the database, not by the page.** A partial unique
+index allows exactly one booked reservation per slot, so two people tapping
+the same time in the same second cannot both win. One gets it, the other is
+told to pick again. Never move that check into JavaScript.
+
+**All database access goes through the `pos_` functions** in Supabase. The
+tables themselves are closed. The functions run with the service key, which
+only the server has.
+
+**Environment variables**, all set in Vercel, never in the code:
+`SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `RESEND_API_KEY`,
+`HQ_PASSWORD`, `TEAM_EMAIL`, `MAIL_FROM`.
+
+**Email never fails a booking.** If Resend is down, the reservation is still
+saved and the person still sees their confirmation on screen. Mail errors
+are logged, not shown as a failed booking.
 
 ## Content rules
 

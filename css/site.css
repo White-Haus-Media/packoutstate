@@ -108,7 +108,7 @@ a{color:inherit}
   font-family:var(--display);font-size:1.05rem;letter-spacing:.04em;
   text-transform:uppercase;white-space:nowrap;text-decoration:none;
 }
-.nav__brand span{color:var(--red)}
+.nav__brand span{color:var(--red-bright)}
 .nav__days{
   display:flex;gap:6px;margin-left:auto;overflow-x:auto;
   scrollbar-width:none;-ms-overflow-style:none;
@@ -449,7 +449,7 @@ a{color:inherit}
 .foot__links{display:flex;gap:20px;flex-wrap:wrap}
 .foot__links a{font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--ash);text-decoration:none}
 .foot__links a:hover{color:var(--white)}
-.foot__fine{margin-top:36px;color:#5a5b5e;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase}
+.foot__fine{margin-top:36px;color:#8A8B8E;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase}
 
 /* ---------- REVEAL ANIMATION ---------- */
 .reveal{opacity:0;transform:translateY(22px);transition:opacity .6s ease, transform .6s ease}

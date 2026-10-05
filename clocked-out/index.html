@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clocked Out · Pack Out State · NC State Homecoming 2026</title>
+<meta name="description" content="It's a photoshoot. Reserve a free 20 minute content shoot for you and your crew at District Bar and Lounge, Friday October 30, 4 to 8 PM.">
+
+<link rel="canonical" href="https://packoutstate.com/clocked-out">
+
+<meta property="og:title" content="Clocked Out · It's a Photoshoot">
+<meta property="og:description" content="Reserve a free 20 minute content shoot for you and your crew. District Bar and Lounge, Friday October 30.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://packoutstate.com/clocked-out">
+<meta property="og:image" content="https://packoutstate.com/flyer-clocked-out.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/site.css">
+
+<style>
+/* ============================================================
+   CLOCKED OUT
+
+   Organising principle: THE BOOKING. Everything else on this
+   page exists to get someone to pick a time. The picker sits
+   high, right after a short pitch, rather than at the bottom
+   after a tour of the venue.
+
+   Direction off the flyer: bone ground, soft rounded weight,
+   red and charcoal.
+   ============================================================ */
+
+body{background:var(--white);color:var(--ink)}
+
+.ehero{min-height:72vh}
+@media(min-width:861px){ .ehero{min-height:calc(78vh - 62px)} }
+.co-scrim{
+  position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:
+    linear-gradient(180deg, rgba(11,11,12,.78) 0%, rgba(11,11,12,.30) 26%, transparent 42%),
+    linear-gradient(0deg, rgba(11,11,12,.92) 0%, rgba(11,11,12,.70) 38%, rgba(11,11,12,.30) 70%, transparent 100%);
+}
+.ehero .ehero__inner{width:100%;max-width:var(--wrap);margin-inline:auto;text-align:left}
+.co-kicker{
+  display:inline-block;background:var(--red);color:var(--white);
+  font-weight:800;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;
+  padding:8px 14px;border-radius:2px;margin-bottom:20px;
+}
+.ehero h1{font-size:clamp(2.6rem,8vw,6rem);line-height:.9}
+.ehero h1 .sm{display:block;font-size:.4em;letter-spacing:.04em;color:#F2EFE9;line-height:1;margin-bottom:.4em}
+
+/* ---------- BOOKING ---------- */
+.book{background:var(--bone);padding-block:clamp(56px,9vw,100px)}
+.book__grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(30px,5vw,64px);align-items:start}
+@media(max-width:900px){ .book__grid{grid-template-columns:1fr;gap:34px} }
+
+.times{display:grid;grid-template-columns:repeat(auto-fill,minmax(116px,1fr));gap:10px}
+.time{
+  font-family:var(--sans);font-weight:800;font-size:1rem;
+  padding:16px 10px;border:2px solid var(--ink);background:var(--white);color:var(--ink);
+  border-radius:3px;cursor:pointer;text-align:center;
+  transition:background .15s, color .15s, border-color .15s, transform .12s;
+}
+.time small{display:block;font-weight:600;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:#7a7a7e;margin-top:4px}
+.time:hover:not(:disabled){transform:translateY(-2px)}
+.time[aria-pressed="true"]{background:var(--red);border-color:var(--red);color:var(--white)}
+.time[aria-pressed="true"] small{color:rgba(255,255,255,.85)}
+.time:disabled{border-color:#DDD8CE;background:#F1EEE7;color:#A9A49A;cursor:not-allowed;text-decoration:line-through}
+.time:disabled small{color:#A9A49A;text-decoration:none}
+
+.field{display:block;margin-bottom:16px}
+.field span{display:block;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;font-weight:800;color:#6c6c70;margin-bottom:7px}
+.field input,.field select,.field textarea{
+  width:100%;font-family:var(--sans);font-size:1rem;padding:13px 14px;
+  border:1px solid #CFC9BE;border-radius:3px;background:var(--white);color:var(--ink);
+}
+.field input:focus,.field select:focus,.field textarea:focus{outline:3px solid var(--red);outline-offset:1px;border-color:var(--red)}
+.field textarea{min-height:76px;resize:vertical}
+.field--half{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:520px){ .field--half{grid-template-columns:1fr} }
+.hint{font-size:.86rem;color:#6c6c70;margin-top:-8px;margin-bottom:16px}
+
+.agree{display:flex;gap:12px;align-items:flex-start;margin:4px 0 18px;font-size:.95rem;color:#3a3a3c;line-height:1.5}
+.agree input{margin-top:3px;width:18px;height:18px;flex:none;accent-color:var(--red)}
+
+.panel{background:var(--white);border:1px solid #E2DCD1;padding:clamp(22px,3vw,30px)}
+.panel__t{font-family:var(--display);font-size:1.5rem;text-transform:uppercase;line-height:1.1;margin-bottom:6px}
+/* Ghost buttons default to white text for dark grounds. This section is
+   light, so they need ink or they vanish. */
+.book .btn--ghost{color:var(--ink);border-color:rgba(11,11,12,.3)}
+.book .btn--ghost:hover{border-color:var(--ink)}
+
+.msg{padding:14px 16px;border-radius:3px;font-size:.96rem;margin-bottom:16px;display:none}
+.msg--bad{background:#FDECEC;border:1px solid #F3C2C2;color:#8A1B1B;display:block}
+.msg--busy{background:#FFF8E1;border:1px solid #E8D9A0;color:#5C4405;display:block}
+
+/* The confirmation replaces the form rather than sitting under it, so the
+   instructions are the only thing on screen when they matter most. */
+.done{display:none}
+.done.is-on{display:block}
+.done__t{font-family:var(--display);font-size:clamp(1.8rem,4vw,2.6rem);text-transform:uppercase;line-height:1.05}
+.done__when{font-size:1.25rem;font-weight:800;margin-top:14px}
+.steps{list-style:none;display:grid;gap:12px;margin:22px 0}
+.steps li{display:grid;grid-template-columns:30px 1fr;gap:12px;font-size:1.03rem;color:#333336;align-items:start}
+.steps b{
+  display:grid;place-items:center;width:26px;height:26px;border-radius:50%;
+  background:var(--red);color:#fff;font-size:.8rem;
+}
+
+/* ---------- SHOOTERS ---------- */
+.crew{background:var(--ink);color:var(--white);padding-block:clamp(56px,9vw,100px)}
+.crew .section__title{color:#fff}
+.crew .eyebrow{color:var(--red-bright)}
+.crew .field span{color:#9A968E}
+.crew .field input,.crew .field select{background:#131315;border-color:rgba(255,255,255,.18);color:#fff}
+.crew .panel{background:#0F0F11;border-color:rgba(255,255,255,.14)}
+.crew .agree{color:#C9C7C2}
+.terms{
+  border:1px solid rgba(255,255,255,.16);background:#0B0B0D;padding:20px 22px;
+  margin-bottom:20px;font-size:.96rem;line-height:1.6;color:#C9C7C2;
+}
+.terms ul{list-style:none;display:grid;gap:8px;margin-top:10px}
+.terms li{position:relative;padding-left:16px}
+.terms li::before{content:'';position:absolute;left:0;top:.6em;width:6px;height:6px;background:var(--red)}
+.roleleft{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;font-weight:800;color:var(--red-bright);margin-top:8px}
+
+.alsonav{border-top:1px solid #E5E1D8;padding-block:28px;background:var(--white)}
+.alsonav__row{display:flex;flex-wrap:wrap;gap:8px 28px;align-items:baseline}
+.alsonav__k{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;font-weight:800;color:#6c6c70}
+.alsonav a{font-weight:700;color:var(--ink);text-decoration:none;border-bottom:2px solid transparent}
+.alsonav a:hover{border-bottom-color:var(--red)}
+</style>
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav nav--event">
+  <div class="nav__inner">
+    <a class="nav__brand" href="/">Pack <span>Out</span> State</a>
+    <a class="nav__back" href="/#lineup">&larr; All events</a>
+    <a class="nav__cta" href="#reserve">Reserve a time</a>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ============================ HERO ============================ -->
+<section class="ehero">
+  <div class="ehero__media">
+    <img src="/assets/clockedout-hero-poster.jpg" alt="" aria-hidden="true">
+    <video id="heroVideo" muted loop playsinline preload="none" aria-hidden="true"></video>
+  </div>
+  <div class="co-scrim" aria-hidden="true"></div>
+  <div class="wrap ehero__inner">
+    <div class="co-kicker" data-animate>It's a photoshoot</div>
+    <h1 data-animate><span class="sm">Pack Out State</span>Clocked Out</h1>
+    <p class="ehero__sub" data-animate>Friday, October 30 <span class="dot">&middot;</span> 4:00 PM &ndash; 8:00 PM</p>
+    <p class="ehero__meta" data-animate>District Bar &amp; Lounge &middot; 222 Glenwood Ave, Raleigh</p>
+    <div class="ehero__cta" data-animate>
+      <a class="btn btn--primary" href="#reserve">Reserve your time</a>
+      <a class="btn btn--ghost" href="#crew">Shoot with us</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ PITCH ============================ -->
+<section class="section section--bone section--tight">
+  <div class="wrap">
+    <div class="section__head reveal" style="margin-bottom:0">
+      <div class="eyebrow">The alumni kick-off</div>
+      <h2 class="section__title">Get the picture<br>before the weekend<br>gets away from you</h2>
+      <p class="section__lead">Get checked into your rooms, meet the crew at District, and capture the picture that belongs in this year's homecoming album. Reserve a free 20 minute content shoot for you and your friends with a professional photographer, then stay for a glass of wine, a craft cocktail, or a few shots as we kick off homecoming weekend.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ BOOKING ============================ -->
+<section class="book" id="reserve">
+  <div class="wrap">
+    <div class="section__head reveal">
+      <div class="eyebrow eyebrow--light">Reserve</div>
+      <h2 class="section__title">Pick your time</h2>
+      <p class="section__lead">Free. Twenty minutes per group. Six people is the sweet spot, and up to 10 works if you tell us below.</p>
+    </div>
+
+    <div class="book__grid">
+      <div class="reveal">
+        <div id="loading" class="msg msg--busy">Loading available times</div>
+        <div id="slotError" class="msg msg--bad"></div>
+        <div class="times" id="times" role="group" aria-label="Available times"></div>
+        <p class="hint" style="margin-top:14px" id="closesNote"></p>
+      </div>
+
+      <div class="reveal">
+        <div class="panel">
+          <form id="bookForm" novalidate>
+            <div class="panel__t">Your details</div>
+            <p class="hint" id="pickedNote">Pick a time on the left to get started.</p>
+
+            <div id="formError" class="msg msg--bad"></div>
+
+            <label class="field"><span>Your name</span>
+              <input name="name" autocomplete="name" required></label>
+            <div class="field--half">
+              <label class="field"><span>Email</span>
+                <input name="email" type="email" autocomplete="email" inputmode="email" required></label>
+              <label class="field"><span>Phone</span>
+                <input name="phone" type="tel" autocomplete="tel" inputmode="tel" required></label>
+            </div>
+            <label class="field"><span>How many people</span>
+              <select name="party" required>
+                <option value="">Choose</option>
+                <option>1</option><option>2</option><option>3</option><option>4</option>
+                <option>5</option><option selected>6</option><option>7</option><option>8</option>
+                <option>9</option><option>10</option>
+              </select></label>
+            <p class="hint" id="bigGroup" hidden>Over 6 is fine, we just need the heads up so we can plan the shot.</p>
+
+            <label class="field"><span>Friends' emails, optional</span>
+              <textarea name="guests" placeholder="Separate with commas. We will send them the details too."></textarea></label>
+
+            <label class="field"><span>Anything we should know, optional</span>
+              <textarea name="notes" placeholder="Birthday, big crew, running late from check-in"></textarea></label>
+
+            <label class="agree">
+              <input type="checkbox" name="consent" required>
+              <span>I agree that photos and video from this event may be used by Pack Out State, DCC Social and District Bar &amp; Lounge for promotional purposes.</span>
+            </label>
+
+            <button class="btn btn--primary" type="submit" id="bookBtn" style="width:100%">Reserve this time</button>
+          </form>
+
+          <div class="done" id="done">
+            <div class="done__t">You're in</div>
+            <div class="done__when" id="doneWhen"></div>
+            <ol class="steps">
+              <li><b>1</b><span id="doneArrive"></span></li>
+              <li><b>2</b><span>Check in at the front when you get there.</span></li>
+              <li><b>3</b><span>Have your whole group with you. Sessions run back to back, so a late group is a short group.</span></li>
+              <li><b>4</b><span>Check your email for the confirmation. It has your cancel and reschedule link.</span></li>
+            </ol>
+            <div class="event__cta" style="margin-top:4px">
+              <a class="btn btn--dark" id="icsBtn" download="clocked-out.ics">Add to calendar</a>
+              <button class="btn btn--ghost" id="shareBtn" type="button">Share with your group</button>
+            </div>
+            <p class="hint" style="margin-top:16px" id="manageNote"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ WHAT TO EXPECT ============================ -->
+<section class="section section--bone section--tight">
+  <div class="wrap">
+    <div class="section__head reveal">
+      <div class="eyebrow">On the night</div>
+      <h2 class="section__title">How it runs</h2>
+    </div>
+    <ul class="rules reveal">
+      <li><span class="k">Arrive</span><span>Ten minutes before your time, with your whole group.</span></li>
+      <li><span class="k">Check in</span><span>At the front, under the name on your reservation.</span></li>
+      <li><span class="k">Your session</span><span>Twenty minutes with a professional photographer.</span></li>
+      <li><span class="k">After</span><span>Stay for a glass of wine, a craft cocktail, or a few shots. Homecoming weekend starts here.</span></li>
+      <li><span class="k">Cost</span><span>Free. You only pay for what you drink.</span></li>
+      <li><span class="k">Dress</span><span>Come dressed. This is the picture that goes in the album.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================ SHOOTERS ============================ -->
+<section class="crew" id="crew">
+  <div class="wrap">
+    <div class="section__head reveal">
+      <div class="eyebrow">Shoot with us</div>
+      <h2 class="section__title">Photographers<br>and videographers</h2>
+      <p class="section__lead">Want to shoot Clocked Out? Read the terms, then sign up below.</p>
+    </div>
+
+    <div class="book__grid">
+      <div class="reveal">
+        <div class="terms">
+          <strong>This is an unpaid volunteer role.</strong> By signing up you agree that:
+          <ul>
+            <li>All photo and video content from this event is reviewed and approved before it is published.</li>
+            <li>Approved content is shared with DCC Social and District Bar &amp; Lounge for promotional use.</li>
+            <li>Call time is 3:30 PM for setup. The event runs 4:00 to 8:00 PM.</li>
+          </ul>
+        </div>
+        <p class="section__lead" style="color:#9A968E">Bring your own gear. Sessions run back to back in 20 minute blocks, so the 3:30 call time gives us room to set up before the first group.</p>
+      </div>
+
+      <div class="reveal">
+        <div class="panel">
+          <form id="crewForm" novalidate>
+            <div class="panel__t">Sign up to shoot</div>
+            <div id="crewError" class="msg msg--bad"></div>
+
+            <label class="field"><span>Your name</span>
+              <input name="name" autocomplete="name" required></label>
+            <div class="field--half">
+              <label class="field"><span>Email</span>
+                <input name="email" type="email" autocomplete="email" inputmode="email" required></label>
+              <label class="field"><span>Phone</span>
+                <input name="phone" type="tel" autocomplete="tel" inputmode="tel" required></label>
+            </div>
+            <label class="field"><span>What do you shoot</span>
+              <select name="role" required>
+                <option value="">Choose</option>
+                <option value="photo">Photo</option>
+                <option value="video">Video</option>
+              </select></label>
+            <div class="roleleft" id="roleLeft"></div>
+
+            <label class="field" style="margin-top:16px"><span>Instagram, website or portfolio, optional</span>
+              <input name="link" placeholder="@yourhandle or a link"></label>
+
+            <label class="agree">
+              <input type="checkbox" name="agreed" required>
+              <span>I have read and agree to the terms above.</span>
+            </label>
+
+            <button class="btn btn--primary" type="submit" id="crewBtn" style="width:100%">Sign me up</button>
+          </form>
+
+          <div class="done" id="crewDone">
+            <div class="done__t">You're good to go</div>
+            <p style="margin-top:14px;color:#C9C7C2">Call time is 3:30 PM on Friday, October 30 at District Bar &amp; Lounge. Check your email for the details.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<nav class="alsonav" aria-label="Rest of the weekend">
+  <div class="wrap alsonav__row">
+    <span class="alsonav__k">Rest of the weekend</span>
+    <a href="/#the-warm-up">Thu &middot; The Warm Up</a>
+    <a href="/talley-tapes">Fri &middot; The Talley Tapes</a>
+    <a href="/block-party">Sat &middot; Block Party</a>
+    <a href="/#lineup">Full lineup</a>
+  </div>
+</nav>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__grid">
+      <a class="foot__brand" href="/">Pack <span>Out</span> State</a>
+      <nav class="foot__links" aria-label="Footer">
+        <a href="/">Home</a>
+        <a href="/#lineup">Full lineup</a>
+        <a href="https://www.google.com/maps/search/?api=1&amp;query=District+Bar+%26+Lounge+222+Glenwood+Ave+Apt+109+Raleigh+NC" target="_blank" rel="noopener">Directions</a>
+      </nav>
+    </div>
+    <div class="foot__fine">NC State Homecoming 2026 &middot; October 29 &ndash; 31 &middot; Raleigh &amp; Durham, NC</div>
+  </div>
+</footer>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org","@type":"Event",
+  "name":"Clocked Out","alternateName":"It's a Photoshoot",
+  "description":"Official alumni kick-off. Reserve a free 20 minute content shoot for you and your friends with a professional photographer, then stay for a drink as homecoming weekend starts.",
+  "startDate":"2026-10-30T16:00:00-04:00","endDate":"2026-10-30T20:00:00-04:00",
+  "eventStatus":"https://schema.org/EventScheduled",
+  "eventAttendanceMode":"https://schema.org/OfflineEventAttendanceMode",
+  "image":"https://packoutstate.com/flyer-clocked-out.jpg",
+  "url":"https://packoutstate.com/clocked-out",
+  "location":{"@type":"Place","name":"District Bar & Lounge",
+    "address":{"@type":"PostalAddress","streetAddress":"222 Glenwood Ave, Apt 109",
+      "addressLocality":"Raleigh","addressRegion":"NC","postalCode":"27603","addressCountry":"US"}},
+  "organizer":{"@type":"Organization","name":"Pack Out State","url":"https://packoutstate.com"},
+  "offers":{"@type":"Offer","price":"0","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://packoutstate.com/clocked-out"}
+}
+</script>
+
+<script>
+(function(){
+  'use strict';
+  var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var $ = function(s){ return document.querySelector(s); };
+
+  /* ---- hero video, same rules as the other pages ---- */
+  (function(){
+    var v = document.getElementById('heroVideo'); if(!v) return;
+    var conn = navigator.connection || {};
+    if(reduced || conn.saveData === true || /2g/.test(conn.effectiveType || '')) return;
+    function load(){
+      if(v.querySelector('source')) return;
+      [['/assets/clockedout-hero.webm','video/webm'],['/assets/clockedout-hero.mp4','video/mp4']]
+        .forEach(function(s){ var e=document.createElement('source'); e.src=s[0]; e.type=s[1]; v.appendChild(e); });
+      v.addEventListener('canplay', function(){ v.classList.add('is-ready'); }, {once:true});
+      v.load(); var p=v.play(); if(p&&p.catch) p.catch(function(){});
+    }
+    var t; function check(){ if(!v.querySelector('source') && document.documentElement.clientWidth>=768) load(); }
+    check();
+    addEventListener('resize', function(){ clearTimeout(t); t=setTimeout(check,150); });
+    document.addEventListener('visibilitychange', check);
+  })();
+
+  /* ---- booking ---- */
+  var picked = null, pickedISO = null;
+  var timesEl = $('#times'), loadingEl = $('#loading'), slotErr = $('#slotError');
+
+  var fmtTime = function(iso){
+    return new Date(iso).toLocaleTimeString('en-US',
+      {timeZone:'America/New_York', hour:'numeric', minute:'2-digit'});
+  };
+  var fmtFull = function(iso){
+    return new Date(iso).toLocaleString('en-US',
+      {timeZone:'America/New_York', weekday:'long', month:'long', day:'numeric',
+       hour:'numeric', minute:'2-digit'});
+  };
+
+  function showError(el, text){ el.textContent = text; el.style.display = text ? 'block' : 'none'; }
+
+  function drawSlots(data){
+    loadingEl.style.display = 'none';
+    var groups = {};
+    data.slots.forEach(function(s){ (groups[s.starts_at] = groups[s.starts_at] || []).push(s); });
+
+    var html = Object.keys(groups).sort().map(function(iso){
+      var lanes = groups[iso];
+      var open = lanes.filter(function(l){ return !l.taken; });
+      var left = open.length;
+      var label = fmtTime(iso);
+      if(!left){
+        return '<button class="time" type="button" disabled>' + label +
+               '<small>Taken</small></button>';
+      }
+      return '<button class="time" type="button" aria-pressed="false" data-slot="' + open[0].id +
+             '" data-iso="' + iso + '">' + label +
+             '<small>' + (lanes.length > 1 ? left + ' left' : 'Open') + '</small></button>';
+    }).join('');
+
+    timesEl.innerHTML = html || '';
+
+    if(data.closed){
+      timesEl.innerHTML = '';
+      showError(slotErr, 'Reservations are closed. Come anyway, we will fit you in as time allows.');
+      $('#bookForm').style.display = 'none';
+      return;
+    }
+    if(!data.slots.some(function(s){ return !s.taken; })){
+      showError(slotErr, 'Every time is taken. Come anyway, we will fit you in as time allows.');
+      $('#bookForm').style.display = 'none';
+      return;
+    }
+    if(data.closes_at){
+      $('#closesNote').textContent = 'Reservations close ' + new Date(data.closes_at)
+        .toLocaleDateString('en-US',{timeZone:'America/New_York',weekday:'long',month:'long',day:'numeric'}) + '.';
+    }
+  }
+
+  function loadSlots(){
+    fetch('/api/slots').then(function(r){ return r.json(); }).then(function(data){
+      if(data.error) throw new Error(data.error);
+      drawSlots(data);
+      if(data.creators){
+        var p = data.creators.photo_left, v = data.creators.video_left;
+        $('#roleLeft').textContent =
+          (p ? p + ' photo ' + (p===1?'spot':'spots') + ' left' : 'Photo is full') + ' · ' +
+          (v ? v + ' video ' + (v===1?'spot':'spots') + ' left' : 'Video is full');
+      }
+    }).catch(function(){
+      loadingEl.style.display = 'none';
+      showError(slotErr, 'We could not load the times. Please refresh and try again.');
+    });
+  }
+  loadSlots();
+
+  timesEl.addEventListener('click', function(e){
+    var b = e.target.closest('.time'); if(!b || b.disabled) return;
+    [].forEach.call(timesEl.querySelectorAll('.time'), function(x){ x.setAttribute('aria-pressed','false'); });
+    b.setAttribute('aria-pressed','true');
+    picked = b.dataset.slot; pickedISO = b.dataset.iso;
+    $('#pickedNote').textContent = 'Your time: ' + fmtFull(pickedISO);
+    showError($('#formError'), '');
+  });
+
+  $('#bookForm').party = null;
+  $('#bookForm').addEventListener('change', function(e){
+    if(e.target.name === 'party'){
+      $('#bigGroup').hidden = !(parseInt(e.target.value,10) > 6);
+    }
+  });
+
+  function icsFor(iso, name){
+    var start = new Date(iso), end = new Date(start.getTime() + 20*60000);
+    var z = function(d){ return d.toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,''); };
+    var body = ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Pack Out State//Homecoming//EN',
+      'CALSCALE:GREGORIAN','METHOD:PUBLISH','BEGIN:VEVENT',
+      'UID:clocked-out-' + start.getTime() + '@packoutstate.com',
+      'DTSTAMP:' + z(new Date()), 'DTSTART:' + z(start), 'DTEND:' + z(end),
+      'SUMMARY:Clocked Out photo session',
+      'LOCATION:District Bar & Lounge\\, 222 Glenwood Ave\\, Apt 109\\, Raleigh\\, NC',
+      'DESCRIPTION:Arrive 10 minutes early and check in with your whole group.',
+      'END:VEVENT','END:VCALENDAR'].join('\r\n');
+    return URL.createObjectURL(new Blob([body],{type:'text/calendar;charset=utf-8'}));
+  }
+
+  $('#bookForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    var f = e.target, btn = $('#bookBtn');
+    showError($('#formError'), '');
+    if(!picked){ showError($('#formError'), 'Pick a time first.'); return; }
+
+    var guests = (f.guests.value || '').split(/[,\s]+/).filter(function(x){ return x.indexOf('@') > 0; });
+    var payload = {
+      slot: picked,
+      name: f.name.value, email: f.email.value, phone: f.phone.value,
+      party: parseInt(f.party.value, 10), notes: f.notes.value,
+      guest_emails: guests, consent: f.consent.checked
+    };
+    if(!payload.name.trim()){ showError($('#formError'),'Please add your name.'); return; }
+    if(!payload.party){ showError($('#formError'),'How many people are coming?'); return; }
+    if(!payload.consent){ showError($('#formError'),'Please agree to the photo release.'); return; }
+
+    btn.disabled = true; btn.textContent = 'Reserving';
+    fetch('/api/reserve', {
+      method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload)
+    }).then(function(r){ return r.json().then(function(d){ return {ok:r.ok, d:d}; }); })
+      .then(function(res){
+        if(!res.ok){
+          showError($('#formError'), res.d.error || 'Could not book that time.');
+          btn.disabled = false; btn.textContent = 'Reserve this time';
+          if(/just taken/i.test(res.d.error || '')){ picked = null; loadSlots(); }
+          return;
+        }
+        var d = res.d;
+        f.style.display = 'none';
+        $('#done').classList.add('is-on');
+        $('#doneWhen').textContent = d.when;
+        $('#doneArrive').textContent = 'Arrive by ' + d.arrive + ' at ' + d.venue + '.';
+        $('#icsBtn').href = icsFor(d.starts_at);
+        $('#manageNote').innerHTML = 'Need to change it? <a href="' + d.manage_url + '">Use your private link</a>, or find it in your confirmation email.';
+        $('#done').scrollIntoView({behavior: reduced ? 'auto' : 'smooth', block:'center'});
+      })
+      .catch(function(){
+        showError($('#formError'), 'Something went wrong. Please try again.');
+        btn.disabled = false; btn.textContent = 'Reserve this time';
+      });
+  });
+
+  $('#shareBtn').addEventListener('click', function(){
+    var text = "We're booked for Clocked Out at District, " + fmtFull(pickedISO) +
+               ". Arrive 10 minutes early. Details: https://packoutstate.com/clocked-out";
+    if(navigator.share){ navigator.share({text: text}).catch(function(){}); return; }
+    navigator.clipboard.writeText(text).then(function(){
+      $('#shareBtn').textContent = 'Copied, now paste it to your group';
+    }).catch(function(){});
+  });
+
+  /* ---- shooters ---- */
+  $('#crewForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    var f = e.target, btn = $('#crewBtn');
+    showError($('#crewError'), '');
+    if(!f.agreed.checked){ showError($('#crewError'), 'Please agree to the terms.'); return; }
+    if(!f.role.value){ showError($('#crewError'), 'Pick photo or video.'); return; }
+
+    btn.disabled = true; btn.textContent = 'Signing you up';
+    fetch('/api/creator', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ name:f.name.value, email:f.email.value, phone:f.phone.value,
+                             role:f.role.value, link:f.link.value, agreed:true })
+    }).then(function(r){ return r.json().then(function(d){ return {ok:r.ok, d:d}; }); })
+      .then(function(res){
+        if(!res.ok){
+          showError($('#crewError'), res.d.error || 'Could not complete that signup.');
+          btn.disabled = false; btn.textContent = 'Sign me up';
+          loadSlots();
+          return;
+        }
+        f.style.display = 'none';
+        $('#crewDone').classList.add('is-on');
+      })
+      .catch(function(){
+        showError($('#crewError'), 'Something went wrong. Please try again.');
+        btn.disabled = false; btn.textContent = 'Sign me up';
+      });
+  });
+
+  /* ---- reveal ---- */
+  if(reduced || !('IntersectionObserver' in window)){
+    document.querySelectorAll('.reveal, [data-animate]').forEach(function(el){
+      el.classList.add('is-in'); el.style.opacity = 1; el.style.transform = 'none';
+    });
+  } else {
+    document.querySelectorAll('[data-animate]').forEach(function(el, n){
+      setTimeout(function(){
+        el.style.transition = 'opacity .7s ease, transform .7s ease';
+        el.style.opacity = 1; el.style.transform = 'none';
+      }, 120 + n * 90);
+    });
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('is-in'); io.unobserve(en.target); } });
+    }, {rootMargin:'0px 0px -12% 0px'});
+    document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+  }
+})();
+</script>
+
+</body>
+</html>
