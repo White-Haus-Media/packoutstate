@@ -49,24 +49,32 @@ who want to come work the event.
 so the terms sit in a box they have to tick before submitting, and we store
 the agreement with a timestamp against their record.
 
-Draft wording, needs Colton's approval:
+Approved wording, with the credit line removed:
 
 > This is an unpaid volunteer role. By signing up you agree that:
 > - All photo and video content from this event is reviewed and approved
 >   before it is published.
 > - Approved content is shared with DCC Social and District Bar & Lounge
 >   for promotional use.
-> - You will be credited on content that is posted.
 > - Call time is 3:30 PM for setup. The event runs 4:00 to 8:00 PM.
 >
 > [ ] I have read and agree to the above.
 
-**What we collect.** Name, email, phone, role (photographer, videographer,
-or both), and social handle. The handle matters because crediting is part of
-the deal and it makes tagging effortless on the night.
+No promise of credit. It was dropped because tracking it across every post
+is not realistic.
 
-**On submit.** They are confirmed automatically and get a "you are good to
-go" email with the 3:30 PM call time, the address, and what to bring.
+**Caps.** 3 photographers and 3 videographers, counted separately. When one
+role fills, that role closes and the other stays open.
+
+**Hours.** The whole window. 3:30 PM call time through 8:00 PM, same for
+everyone.
+
+**What we collect.** Name, email, phone, role (photo or video), and an
+optional link for Instagram, a website or a portfolio. Nothing is blocked if
+they skip the link.
+
+**On submit.** Confirmed automatically, with a "you are good to go" email
+from info@dccsocial.com carrying the 3:30 PM call time and the address.
 
 **Team view.** Creators show on the same live list as guest bookings, on
 their own tab, so the team can see who is shooting.
@@ -88,17 +96,18 @@ their own tab, so the team can see who is shooting.
 
 ## Still to ask
 
-On the creator signup:
+Answered on the creator signup:
 
-10. Approve the disclaimer wording above, or send your own.
-11. Is there a cap on how many shooters you take, or is everyone in?
-12. Do creators sign up for the whole window, or pick a shift?
-13. How do you want credit handled, a tag on the post or a name in the
-    caption? This decides what we ask for on the form.
-14. Do you want a portfolio or sample work link on the form, or keep it open
-    to anyone?
-15. Should creator emails come from the same address as guest
-    confirmations?
+10. Disclaimer approved, with the credit line removed.
+11. Cap at 3 photographers and 3 videographers.
+12. Whole window for everyone.
+13. No credit promise. Too hard to track.
+14. No portfolio requirement. Optional Instagram, website or portfolio link.
+15. Creator emails send from info@dccsocial.com, same as guest
+    confirmations.
+
+Open: whether someone can sign up as both photo and video, or has to pick
+one. Built as pick one unless told otherwise.
 
 ## How it has to be built
 
