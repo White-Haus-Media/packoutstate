@@ -486,7 +486,6 @@ body{background:var(--white);color:var(--ink)}
     showError($('#formError'), '');
   });
 
-  $('#bookForm').party = null;
   $('#bookForm').addEventListener('change', function(e){
     if(e.target.name === 'party'){
       $('#bigGroup').hidden = !(parseInt(e.target.value,10) > 6);
