@@ -71,20 +71,22 @@ go" email with the 3:30 PM call time, the address, and what to bring.
 **Team view.** Creators show on the same live list as guest bookings, on
 their own tab, so the team can see who is shooting.
 
-## Still to ask
+## Answered
 
-1. Is the session free, or does it require a ticket or purchase at District?
-2. When do reservations close? Night before, day of, or right up to the slot?
-3. What email address should confirmations come from, and where do team
-   notifications go? Sending from a packoutstate.com address needs a DNS
-   record added at whoever holds the domain.
-4. Is phone number required or optional?
-5. Photographer and videographer names, if they should be credited.
-6. Is video a separate thing people choose, or is it just part of the
-   session?
-7. Anything to tell people about what to wear or bring.
-8. Cap at 16 and hold 2 back, or open all 18?
-9. Who on the team should be able to see the live list?
+1. **Free.** No ticket or purchase required.
+2. **Reservations close two days before**, so end of day Wed Oct 28.
+   Assuming 11:59 PM unless told otherwise.
+3. **Emails send from info@dccsocial.com**, and team notifications go to
+   info@dccsocial.com as well. Also logged on the internal page.
+4. **Phone number required.**
+5. **No photographer or videographer names** on the page for now.
+6. **Call it a content shoot.** Guests are not told photo versus video.
+7. **Nothing about what to wear or bring** for now.
+8. **Open all 18 reservations.**
+9. **Live list** lives on an internal page behind a shared password that
+   Colton sets, plus the email notifications.
+
+## Still to ask
 
 On the creator signup:
 
