@@ -40,6 +40,37 @@ first piece of the Homecoming HQ page.
 group there, check your email for the confirmation. Add to calendar on
 phone.
 
+## Creator signup (photographers and videographers)
+
+A second form on the same page, separate from guest bookings, for shooters
+who want to come work the event.
+
+**What they agree to.** This is a permission agreement, not just a signup,
+so the terms sit in a box they have to tick before submitting, and we store
+the agreement with a timestamp against their record.
+
+Draft wording, needs Colton's approval:
+
+> This is an unpaid volunteer role. By signing up you agree that:
+> - All photo and video content from this event is reviewed and approved
+>   before it is published.
+> - Approved content is shared with DCC Social and District Bar & Lounge
+>   for promotional use.
+> - You will be credited on content that is posted.
+> - Call time is 3:30 PM for setup. The event runs 4:00 to 8:00 PM.
+>
+> [ ] I have read and agree to the above.
+
+**What we collect.** Name, email, phone, role (photographer, videographer,
+or both), and social handle. The handle matters because crediting is part of
+the deal and it makes tagging effortless on the night.
+
+**On submit.** They are confirmed automatically and get a "you are good to
+go" email with the 3:30 PM call time, the address, and what to bring.
+
+**Team view.** Creators show on the same live list as guest bookings, on
+their own tab, so the team can see who is shooting.
+
 ## Still to ask
 
 1. Is the session free, or does it require a ticket or purchase at District?
@@ -54,6 +85,18 @@ phone.
 7. Anything to tell people about what to wear or bring.
 8. Cap at 16 and hold 2 back, or open all 18?
 9. Who on the team should be able to see the live list?
+
+On the creator signup:
+
+10. Approve the disclaimer wording above, or send your own.
+11. Is there a cap on how many shooters you take, or is everyone in?
+12. Do creators sign up for the whole window, or pick a shift?
+13. How do you want credit handled, a tag on the post or a name in the
+    caption? This decides what we ask for on the form.
+14. Do you want a portfolio or sample work link on the form, or keep it open
+    to anyone?
+15. Should creator emails come from the same address as guest
+    confirmations?
 
 ## How it has to be built
 
