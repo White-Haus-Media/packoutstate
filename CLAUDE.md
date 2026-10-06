@@ -61,6 +61,8 @@ the mixtape page) carries the same two-row header, set in Oct 2026:
   button carries it.
 - Row 2: links to Clocked Out, Talley Tapes, Block Party and Mixtape, shown
   at every width, the current page underlined.
+All header text (date boxes, page links, button) is white and 12px on every
+page; only the wordmark is larger. Colton set this, so do not grey it back.
 On the home page the date boxes scroll to that day. Everywhere else they link
 to `/#day-thu` and so on, and the home page script jumps there once the day
 sections are drawn.
@@ -73,6 +75,14 @@ Change all three together.
 
 Every footer has an HQ link (`/hq`, nofollow) so partners can reach the
 dashboard from the site.
+Every footer also has a "Follow us @packoutstate" Instagram button
+(instagram.com/packoutstate).
+
+Buttons in the page body (`.btn`, and `.submit` on the mixtape page) use body
+text size (1.05rem, 16.8px), normal case, bold, 44px tall. Colton found the
+old capitals-and-padding buttons too bulky (Oct 2026). The rule sits at the
+end of `index.html`, `css/site.css` and the mixtape page so it wins; keep the
+three in step. The header button is separate and stays 12px.
 
 ## Event landing pages
 
