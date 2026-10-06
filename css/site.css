@@ -192,6 +192,7 @@ a{color:inherit}
 .section--dark{background:var(--ink);color:var(--white)}
 .section--tight{padding-block:clamp(44px,7vw,80px)}
 .section--bone .eyebrow,.section--sand .eyebrow{color:var(--red-deep)}
+.section--dark .eyebrow{color:var(--red-bright)}
 .section__head{max-width:720px;margin-bottom:clamp(36px,6vw,64px)}
 .section__title{
   font-family:var(--display);font-weight:700;
