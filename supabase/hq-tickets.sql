@@ -36,18 +36,25 @@ end $$;
 revoke all on function public.pos_tickets_record(jsonb, text) from public, anon, authenticated;
 grant execute on function public.pos_tickets_record(jsonb, text) to service_role;
 
--- Latest reading per event, plus the sold count from the latest reading
--- at least 24 hours older, for a "since yesterday" figure.
+-- Latest reading per event (with the sold count from the latest reading at
+-- least 24 hours older, for "last 24 hours"), plus every reading for the
+-- sales-over-time chart. Readings are few, four a day per event.
+-- Updated Oct 6, 2026 (migration pos_hq_tickets_history).
 create or replace function public.pos_hq_tickets()
 returns json language sql stable security definer set search_path = '' as $$
-  select coalesce(json_agg(json_build_object(
-      'event_key', l.event_key, 'sold', l.sold, 'available', l.available,
-      'sales_cents', l.sales_cents, 'source', l.source, 'recorded_at', l.recorded_at,
-      'sold_day_before', (select o.sold from packoutstate.ticket_counts o
-                          where o.event_key = l.event_key and o.recorded_at <= l.recorded_at - interval '24 hours'
-                          order by o.recorded_at desc limit 1))), '[]'::json)
-  from (select distinct on (event_key) * from packoutstate.ticket_counts
-        order by event_key, recorded_at desc) l
+  select json_build_object(
+    'latest', coalesce((select json_agg(json_build_object(
+        'event_key', l.event_key, 'sold', l.sold, 'available', l.available,
+        'sales_cents', l.sales_cents, 'source', l.source, 'recorded_at', l.recorded_at,
+        'sold_day_before', (select o.sold from packoutstate.ticket_counts o
+                            where o.event_key = l.event_key and o.recorded_at <= l.recorded_at - interval '24 hours'
+                            order by o.recorded_at desc limit 1)))
+      from (select distinct on (event_key) * from packoutstate.ticket_counts
+            order by event_key, recorded_at desc) l), '[]'::json),
+    'history', coalesce((select json_agg(json_build_object(
+        'event_key', event_key, 'sold', sold, 'recorded_at', recorded_at) order by recorded_at)
+      from packoutstate.ticket_counts), '[]'::json)
+  )
 $$;
 revoke all on function public.pos_hq_tickets() from public, anon, authenticated;
 grant execute on function public.pos_hq_tickets() to service_role;

@@ -207,7 +207,17 @@ opening the files directly with file:// will not load the CSS.
 
 `/hq` is one password (`HQ_PASSWORD`) for the whole team, who see every
 name, email and phone number on it. Colton approved that in Oct 2026. It has
-three sections: Tickets, Clocked Out, Mixtape.
+four tabs: Overview, Tickets, Clocked Out, Mixtape.
+
+Look: the "Clean Ops" direction Colton picked in Oct 2026 out of four
+mockups. White cards on a light grey ground, system fonts, no dark
+background. It is standalone and does not load css/site.css. Each event has
+one fixed color, used on every chart, table dot and card edge for that
+event: Warm Up `#B07818`, Talley Tapes `#C8102E`, Clocked Out `#2E6BD1`,
+Block Party `#14967C`. That set was checked together for colorblind
+separation; change one and re-check the set. Charts are hand-drawn SVG in
+the page script, no chart library. The sales line needs two readings before
+it draws.
 
 `api/hq.js` checks the password, then calls `pos_hq` (bookings) and
 `pos_hq_mixtape` (mixtape results) side by side. If one fails the other still
