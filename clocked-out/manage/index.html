@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0B0B0C">
+<script>document.documentElement.classList.add('js')</script>
 <title>Your Clocked Out reservation · Pack Out State</title>
 <meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://use.typekit.net" crossorigin>
@@ -14,24 +16,32 @@
 <style>
 /* Reached only from the private link in a confirmation email. */
 body{background:var(--bone);color:var(--ink)}
-.shell{max-width:620px;margin-inline:auto;padding:clamp(28px,6vw,70px) var(--pad)}
-.card{background:var(--white);border:1px solid #E2DCD1;padding:clamp(24px,4vw,34px)}
-.card__t{font-family:var(--display);font-size:clamp(1.8rem,5vw,2.6rem);text-transform:uppercase;line-height:1.05;font-weight:700}
-.when{font-size:1.2rem;font-weight:800;margin-top:12px}
-.meta{color:#5a5a5e;margin-top:6px}
-.msg{padding:14px 16px;border-radius:3px;font-size:.96rem;margin:16px 0;display:none}
+.shell{max-width:calc(var(--wrap-narrow) + 2 * var(--pad));margin-inline:auto;padding:48px var(--pad)}
+@media(min-width:768px){ .shell{padding-block:64px} }
+/* Named mcard, not card: the shared .card carries a red top strip and a
+   shadow that this page should not inherit. */
+.mcard{background:var(--white);border:1px solid #E2DCD1;padding:24px}
+@media(min-width:768px){ .mcard{padding:32px} }
+.mcard__t{font-family:var(--display);font-size:clamp(1.8rem,5vw,2.6rem);text-transform:uppercase;line-height:1.05;font-weight:700;text-wrap:balance}
+.mcard .btn--ghost{color:var(--ink);border-color:rgba(11,11,12,.3)}
+.mcard .btn--ghost:hover{border-color:var(--ink)}
+.when{font-size:1.2rem;font-weight:800;margin-top:16px}
+.meta{color:#5a5a5e;margin-top:8px}
+.msg{padding:16px;border-radius:3px;font-size:.96rem;margin:16px 0;display:none}
 .msg--bad{background:#FDECEC;border:1px solid #F3C2C2;color:#8A1B1B;display:block}
 .msg--ok{background:#EAF6EC;border:1px solid #B9DFC1;color:#1E5B2A;display:block}
-.times{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:9px;margin-top:14px}
-.time{font-weight:800;font-size:.95rem;padding:13px 8px;border:2px solid var(--ink);background:var(--white);
+.times{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px;margin-top:16px}
+.time{font-weight:800;font-size:.95rem;padding:16px 8px;border:2px solid var(--ink);background:var(--white);
       color:var(--ink);border-radius:3px;cursor:pointer}
 .time[aria-pressed="true"]{background:var(--red);border-color:var(--red);color:var(--white)}
 .time:disabled{border-color:#DDD8CE;background:#F1EEE7;color:#A9A49A;cursor:not-allowed}
-.row{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
-.lbl{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;font-weight:800;color:#6c6c70;margin-top:26px}
+.row{display:flex;flex-wrap:wrap;gap:16px;margin-top:24px}
+.lbl{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;font-weight:800;color:#6c6c70;margin-top:32px}
 </style>
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
+
 <header class="nav nav--event">
   <div class="nav__inner">
     <a class="nav__brand" href="/">Pack <span>Out</span> State</a>
@@ -39,24 +49,24 @@ body{background:var(--bone);color:var(--ink)}
   </div>
 </header>
 
-<main class="shell">
-  <div class="card">
-    <div id="state">Loading your reservation</div>
+<main class="shell" id="main">
+  <div class="mcard">
+    <div id="state" role="status" aria-live="polite">Loading your reservation…</div>
 
     <div id="view" hidden>
-      <div class="card__t">Your session</div>
+      <h1 class="mcard__t">Your session</h1>
       <div class="when" id="when"></div>
       <div class="meta" id="who"></div>
       <div class="meta">District Bar &amp; Lounge, 222 Glenwood Ave, Apt 109, Raleigh</div>
 
-      <div class="msg" id="msg"></div>
+      <div class="msg" id="msg" role="status" aria-live="polite" tabindex="-1"></div>
 
       <div id="changeArea">
         <div class="lbl">Move to another time</div>
         <div class="times" id="times"></div>
         <div class="row">
           <button class="btn btn--primary" id="moveBtn" type="button" disabled>Move my session</button>
-          <button class="btn btn--ghost" id="cancelBtn" type="button" style="color:var(--ink);border-color:rgba(11,11,12,.3)">Cancel my session</button>
+          <button class="btn btn--ghost" id="cancelBtn" type="button">Cancel my session</button>
         </div>
       </div>
     </div>
@@ -116,7 +126,7 @@ body{background:var(--bone);color:var(--ink)}
 
   $('#moveBtn').addEventListener('click', function(){
     if(!picked) return;
-    this.disabled = true; this.textContent = 'Moving';
+    this.disabled = true; this.textContent = 'Moving\u2026';
     fetch('/api/manage', {method:'POST', headers:{'Content-Type':'application/json'},
       body: JSON.stringify({t: token, action:'move', slot: picked})})
       .then(function(r){ return r.json(); })
@@ -125,22 +135,30 @@ body{background:var(--bone);color:var(--ink)}
         $('#when').textContent = d.when;
         $('#changeArea').hidden = true;
         say('Moved. Check your email for the new details.', 'ok');
+        $('#msg').focus();
       })
-      .catch(function(){ say('Something went wrong. Please try again.'); });
+      .catch(function(){
+        say('Something went wrong. Please try again.');
+        $('#moveBtn').disabled = false; $('#moveBtn').textContent = 'Move my session';
+      });
   });
 
   $('#cancelBtn').addEventListener('click', function(){
     if(!confirm('Cancel your session? This frees the time for someone else.')) return;
-    this.disabled = true;
+    this.disabled = true; this.textContent = 'Cancelling\u2026';
     fetch('/api/manage', {method:'POST', headers:{'Content-Type':'application/json'},
       body: JSON.stringify({t: token, action:'cancel'})})
       .then(function(r){ return r.json(); })
       .then(function(d){
-        if(d.error){ say(d.error); $('#cancelBtn').disabled = false; return; }
+        if(d.error){ say(d.error); $('#cancelBtn').disabled = false; $('#cancelBtn').textContent = 'Cancel my session'; return; }
         $('#changeArea').hidden = true;
         say('Cancelled. Your time is open for someone else now.', 'ok');
+        $('#msg').focus();
       })
-      .catch(function(){ say('Something went wrong. Please try again.'); });
+      .catch(function(){
+        say('Something went wrong. Please try again.');
+        $('#cancelBtn').disabled = false; $('#cancelBtn').textContent = 'Cancel my session';
+      });
   });
 })();
 </script>

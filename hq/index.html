@@ -5,28 +5,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Homecoming HQ · Pack Out State</title>
 <meta name="robots" content="noindex, nofollow">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/site.css">
 <style>
 /* Internal page. Plain and readable on purpose: body font throughout, no
    display face, white background. This is a working tool, not a showpiece. */
-body{background:#fff;color:#16161a;font-family:var(--sans)}
+:root{--sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--display:var(--sans)}
+body,h1,h2,input,.tally b{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+body{background:#fff;color:#16161a}
 .shell{max-width:1100px;margin-inline:auto;padding:clamp(24px,4vw,48px) var(--pad)}
 
-.gate{max-width:380px;margin:12vh auto;background:#fff;border:1px solid #E2DCD1;padding:30px;border-radius:6px}
-.gate h1{font-family:var(--sans);font-weight:800;font-size:1.4rem;line-height:1.2;margin-bottom:18px;letter-spacing:-.01em}
-label span{display:block;font-size:.8rem;font-weight:700;color:#55555c;margin-bottom:7px}
-input{width:100%;font-family:var(--sans);font-size:1rem;padding:12px 14px;border:1px solid #CFC9BE;
+.gate{max-width:380px;margin:12vh auto;background:#fff;border:1px solid #E2DCD1;padding:32px;border-radius:6px}
+.gate h1{font-family:var(--sans);font-weight:800;font-size:1.4rem;line-height:1.2;margin-bottom:16px;letter-spacing:-.01em}
+label span{display:block;font-size:.8rem;font-weight:700;color:#55555c;margin-bottom:8px}
+input{width:100%;font-size:1rem;padding:0 16px;min-height:48px;border:1px solid #CFC9BE;
       border-radius:4px;background:#fff;color:#16161a}
 input:focus{outline:3px solid var(--red);outline-offset:1px;border-color:var(--red)}
-.err{color:#A8071A;font-size:.92rem;margin-top:12px;display:none}
+.err{color:#A8071A;font-size:.92rem;margin-top:16px;display:none}
 .err.on{display:block}
 
 .top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:18px}
 h1.page{font-family:var(--sans);font-weight:800;font-size:1.75rem;letter-spacing:-.015em;margin-bottom:4px}
-.sub{color:#55555c;font-size:.95rem}
+.sub{color:#55555c;font-size:.95rem;margin-bottom:32px}
 .refresh{font-family:var(--sans);font-size:.88rem;font-weight:700;padding:9px 14px;border:1px solid #CFC9BE;
          border-radius:4px;background:#fff;color:#16161a;cursor:pointer}
 .refresh:disabled{opacity:.5;cursor:wait}
@@ -37,30 +36,30 @@ h1.page{font-family:var(--sans);font-weight:800;font-size:1.75rem;letter-spacing
         border-bottom:3px solid transparent}
 .jump a:hover{color:#16161a;border-bottom-color:#16161a}
 
-section.block{padding-top:28px;scroll-margin-top:52px}
+section.block{padding-top:48px;scroll-margin-top:52px}
 h2.sec{font-family:var(--sans);font-weight:800;font-size:1.4rem;letter-spacing:-.015em;margin-bottom:4px}
-h3{font-family:var(--sans);font-weight:800;font-size:1.05rem;letter-spacing:-.01em;margin:30px 0 10px}
-.secsub{color:#55555c;font-size:.95rem;margin-bottom:18px}
+h3{font-family:var(--sans);font-weight:800;font-size:1.05rem;letter-spacing:-.01em;margin:32px 0 16px}
+.secsub{color:#55555c;font-size:.95rem;margin-bottom:16px}
 
-.tally{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:6px}
-.tally div{flex:1 1 150px;border:1px solid #E6E1D8;border-radius:6px;padding:14px 16px;
+.tally{display:flex;flex-wrap:wrap;gap:16px;margin-bottom:0}
+.tally div{flex:1 1 150px;border:1px solid #E6E1D8;border-radius:6px;padding:16px;
            font-size:.8rem;font-weight:700;color:#55555c}
-.tally b{display:block;font-family:var(--sans);font-weight:800;font-size:1.8rem;color:#16161a;
-         letter-spacing:-.02em;margin-top:2px}
+.tally b{display:block;font-weight:800;font-variant-numeric:tabular-nums;font-size:1.8rem;color:#16161a;
+         letter-spacing:-.02em;margin-top:4px}
 
 .wrapx{overflow-x:auto;border:1px solid #E6E1D8;border-radius:6px}
 table{width:100%;border-collapse:collapse;font-size:.95rem;min-width:620px}
 th{text-align:left;font-size:.78rem;font-weight:700;color:#55555c;background:#FAF8F4;
-   padding:11px 14px;border-bottom:1px solid #E6E1D8;white-space:nowrap}
-td{padding:12px 14px;border-bottom:1px solid #F0ECE4;vertical-align:top}
+   padding:8px 16px;border-bottom:1px solid #E6E1D8;white-space:nowrap}
+td{padding:12px 16px;border-bottom:1px solid #F0ECE4;vertical-align:top;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
 td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
 tbody tr:last-child td{border-bottom:none}
 tr.open td{color:#6B6761}
 td a{color:#16161a}
 .muted{color:#6B6761}
-.pill{display:inline-block;font-size:.78rem;font-weight:700;padding:3px 9px;
+.pill{display:inline-block;font-size:.78rem;font-weight:700;padding:4px 8px;
       background:#F3EFE8;color:#44444a;border-radius:20px}
-.note{color:#55555c;font-size:.9rem;margin-top:10px}
+.note{color:#55555c;font-size:.9rem;margin-top:8px}
 .warn{border:1px solid #E6E1D8;background:#FAF8F4;border-radius:6px;padding:14px 16px;color:#44444a;font-size:.95rem}
 
 .lists{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
@@ -77,16 +76,17 @@ td a{color:#16161a}
 </head>
 <body>
 
+<main>
 <div id="gate" class="gate">
   <h1>Homecoming HQ</h1>
   <form id="gateForm">
-    <label><span>Password</span><input type="password" id="pw" autocomplete="current-password" autofocus></label>
-    <div class="err" id="err"></div>
-    <button class="btn btn--primary" type="submit" style="width:100%;margin-top:16px">Open</button>
+    <label><span>Password</span><input type="password" id="pw" name="password" autocomplete="current-password" autofocus></label>
+    <div class="err" id="err" role="alert"></div>
+    <button class="btn btn--primary" type="submit" id="openBtn" style="width:100%;margin-top:16px">Open</button>
   </form>
 </div>
 
-<main class="shell" id="app" hidden>
+<div class="shell" id="app" hidden>
   <div class="top">
     <div>
       <h1 class="page">Homecoming HQ</h1>
@@ -164,6 +164,7 @@ td a{color:#16161a}
       </div>
     </div>
   </section>
+</div>
 </main>
 
 <script>
@@ -192,17 +193,21 @@ td a{color:#16161a}
       .then(function(r){ return r.json().then(function(d){ return {ok:r.ok, d:d}; }); })
       .then(function(res){
         $('#refresh').disabled = false;
-        if(!res.ok){ onError(res.d.error || 'Wrong password'); return; }
+        if(!res.ok){ onError(res.d.error && res.d.error !== 'Wrong password' ? res.d.error : 'Wrong password. Check it and try again.'); return; }
         password = pw;
         render(res.d);
       })
-      .catch(function(){ $('#refresh').disabled = false; onError('Could not reach the server'); });
+      .catch(function(){ $('#refresh').disabled = false; onError('Could not reach the server. Check your connection and try again.'); });
   }
 
   $('#gateForm').addEventListener('submit', function(e){
     e.preventDefault();
     var err = $('#err'); err.className = 'err';
-    load($('#pw').value, function(msg){ err.textContent = msg; err.className = 'err on'; });
+    var btn = $('#openBtn'); btn.disabled = true; btn.textContent = 'Opening…';
+    load($('#pw').value, function(msg){
+      btn.disabled = false; btn.textContent = 'Open';
+      err.textContent = msg; err.className = 'err on';
+    });
   });
 
   $('#refresh').addEventListener('click', function(){
@@ -239,14 +244,14 @@ td a{color:#16161a}
         '</td><td>' + r.party_size + '</td><td><a href="mailto:' + esc(r.email) + '">' + esc(r.email) +
         '</a><br><a href="tel:' + esc(r.phone) + '">' + esc(r.phone) + '</a></td><td>' +
         (r.notes ? esc(r.notes) : '') + '</td></tr>';
-    }).join('');
+    }).join('') || '<tr class="open"><td colspan="5">No slots yet</td></tr>';
 
     $('#crew').innerHTML = (d.creators||[]).map(function(c){
       return '<tr><td>' + esc(c.name) + '</td><td><span class="pill">' +
         (c.role === 'photo' ? 'Photo' : 'Video') + '</span></td><td><a href="mailto:' + esc(c.email) +
         '">' + esc(c.email) + '</a><br><a href="tel:' + esc(c.phone) + '">' + esc(c.phone) +
         '</a></td><td>' + (c.link ? esc(c.link) : '') + '</td></tr>';
-    }).join('') || '<tr class="open"><td colspan="4">Nobody signed up yet</td></tr>';
+    }).join('') || '<tr class="open"><td colspan="4">No sign-ups yet</td></tr>';
 
     var photo = (d.creators||[]).filter(function(c){ return c.role === 'photo'; }).length;
     var video = (d.creators||[]).length - photo;

@@ -14,6 +14,8 @@
 <meta property="og:url" content="https://packoutstate.com/talley-tapes">
 <meta property="og:image" content="https://packoutstate.com/assets/talley-banner.jpg">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0B0B0C">
+<script>document.documentElement.classList.add('js')</script>
 
 <link rel="preconnect" href="https://use.typekit.net" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -41,74 +43,78 @@ body{background:var(--white);color:var(--ink)}
 .ahero__art{display:block;width:100%;height:auto;aspect-ratio:16/9}
 
 /* ---------- FACT BAR ---------- */
-.facts{background:var(--white);padding-block:clamp(28px,4.5vw,48px)}
+.facts{background:var(--white);padding-block:32px}
+@media(min-width:1024px){ .facts{padding-block:48px} }
 .facts__grid{
   display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
   border-top:2px solid var(--ink);
 }
-.fct{padding:20px 24px 20px 0;border-right:1px solid #E5E1D8}
+.fct{padding:16px 24px 16px 0;border-right:1px solid #E5E1D8}
 .fct:last-child{border-right:none}
-@media(max-width:760px){
+@media(max-width:767px){
   .facts__grid{grid-template-columns:1fr 1fr}
-  .fct{border-right:none;border-bottom:1px solid #E5E1D8;padding-right:14px}
+  .fct{border-right:none;border-bottom:1px solid #E5E1D8;padding-right:16px}
 }
 .fct__k{font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;font-weight:800;color:var(--red-deep);margin-bottom:8px}
 .fct__v{font-size:1.05rem;font-weight:700;line-height:1.35;color:var(--ink)}
-.fct__v small{display:block;font-weight:500;font-size:.86rem;color:#55565A;margin-top:3px}
-.facts__cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px;align-items:center}
+.fct__v small{display:block;font-weight:500;font-size:.86rem;color:#55565A;margin-top:4px}
+.facts__cta{display:flex;flex-wrap:wrap;gap:16px;margin-top:24px;align-items:center}
 .facts__note{font-size:.88rem;color:#55565A}
 
 /* ---------- STORY ----------
    Left aligned and running the full width of the page, not a centred
    column. */
-.story{background:var(--white);padding-block:clamp(56px,9vw,110px);color:var(--ink)}
+/* Same white ground as the fact bar above it, so no top padding: the
+   fact bar's own bottom padding is the gap. */
+.story{background:var(--white);padding-block:var(--section-y);padding-top:0;color:var(--ink)}
 /* These sit on .wrap, so they must not cancel its max-width or the
    prose runs wider than every other section on the page. */
 .story__inner{text-align:left}
-.story p{font-size:clamp(1.05rem,1.5vw,1.18rem);line-height:1.75;color:#2E2E30;margin-bottom:24px}
+.story p{font-size:clamp(1.05rem,1.5vw,1.18rem);line-height:1.75;color:#2E2E30;margin-bottom:24px;max-width:68ch;text-wrap:pretty}
 .story p:last-child{margin-bottom:0}
 .story .open::first-letter{
   float:left;font-family:var(--display);font-weight:700;font-size:4rem;line-height:.82;
-  color:var(--red-deep);margin:6px 14px 0 0;
+  color:var(--red-deep);margin:4px 16px 0 0;
 }
-.pull{margin-block:clamp(40px,6vw,68px);text-align:left}
-.pull__q{font-family:var(--display);font-weight:700;font-size:clamp(1.8rem,4.8vw,3.2rem);line-height:1.06;text-transform:uppercase;color:var(--ink)}
+.pull{margin-block:48px;text-align:left}
+@media(min-width:1024px){ .pull{margin-block:64px} }
+.pull__q{font-family:var(--display);font-weight:700;font-size:clamp(1.8rem,4.8vw,3.2rem);line-height:1.06;text-transform:uppercase;color:var(--ink);text-wrap:balance}
 .pull__a{margin-top:16px;font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;font-weight:700;color:#6A6B6F}
 
 /* ---------- ARCHIVE: the one dark band ---------- */
-.archive{background:var(--ink);padding-block:clamp(56px,9vw,100px)}
-.evid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-@media(max-width:700px){ .evid{grid-template-columns:1fr} }
+.archive{background:var(--ink);padding-block:var(--section-y)}
+.evid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+@media(max-width:767px){ .evid{grid-template-columns:minmax(0,1fr)} }
 .ev{margin:0}
 .ev img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;
         filter:contrast(1.06) saturate(.9);border:1px solid var(--line)}
-.ev figcaption{margin-top:10px;display:flex;justify-content:space-between;gap:12px;
+.ev figcaption{margin-top:8px;display:flex;justify-content:space-between;gap:16px;
                font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:#8C8880}
 .ev figcaption .n{color:var(--red-bright)}
 
 /* ---------- FAQ + VENUE ---------- */
-.info{background:var(--white);padding-block:clamp(56px,9vw,100px)}
-.info__grid{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(30px,5vw,64px);align-items:start}
-@media(max-width:900px){ .info__grid{grid-template-columns:1fr;gap:34px} }
-.hoa{border:1px solid #E5E1D8;background:#FBFAF7;padding:28px}
+.info{background:var(--white);padding-block:var(--section-y)}
+/* The FAQ heading sits in a column beside the venue card, so it takes
+   the sub-group step (32) rather than the full section step. */
+.info .section__head{margin-bottom:32px}
+.info__grid{display:grid;grid-template-columns:minmax(0,1fr);gap:32px;align-items:start}
+@media(min-width:1024px){ .info__grid{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:64px} }
+.hoa{border:1px solid #E5E1D8;background:#FBFAF7;padding:24px}
 .hoa__mark{display:block;width:auto;height:84px}
-.hoa__addr{margin-top:18px;font-weight:700;color:var(--ink)}
+.hoa__addr{margin-top:16px;font-weight:700;color:var(--ink)}
 .hoa__soon{margin-top:4px;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;font-weight:800;color:var(--red-deep)}
-.hoa__note{margin-top:14px;color:#55565A;font-size:.98rem;line-height:1.6}
+.hoa__note{margin-top:16px;color:#55565A;font-size:.98rem;line-height:1.6}
 
 /* ---------- CLOSE ---------- */
-.close{background:var(--red);color:var(--white);padding-block:clamp(52px,8vw,90px)}
-.close__inner{display:flex;flex-wrap:wrap;gap:30px;align-items:center;justify-content:space-between}
-.close__t{font-family:var(--display);font-weight:700;font-size:clamp(2rem,5.4vw,3.2rem);line-height:1.02;text-transform:uppercase;max-width:15ch}
-.close__n{margin-top:12px;font-size:.92rem;color:rgba(255,255,255,.9);max-width:42ch}
+.close{background:var(--red);color:var(--white);padding-block:var(--section-y)}
+.close__inner{display:flex;flex-wrap:wrap;gap:32px;align-items:center;justify-content:space-between}
+.close__t{font-family:var(--display);font-weight:700;font-size:clamp(2rem,5.4vw,3.2rem);line-height:1.02;text-transform:uppercase;max-width:15ch;text-wrap:balance}
+.close__n{margin-top:16px;font-size:.92rem;color:rgba(255,255,255,.9);max-width:42ch}
 .close .btn--dark{background:var(--ink)}
 .close .btn--ghost{border-color:rgba(255,255,255,.6);color:var(--white)}
+.close .btnrow{margin-top:0}
 
-.alsonav{border-top:1px solid #E5E1D8;padding-block:28px;background:var(--white)}
-.alsonav__row{display:flex;flex-wrap:wrap;gap:8px 28px;align-items:baseline}
-.alsonav__k{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;font-weight:800;color:#6A6B6F}
-.alsonav a{font-weight:700;color:var(--ink);text-decoration:none;border-bottom:2px solid transparent}
-.alsonav a:hover{border-bottom-color:var(--red)}
+/* Rest-of-the-weekend cross-navigation (.alsonav) lives in site.css. */
 </style>
 <script type="application/ld+json">
 {
@@ -172,13 +178,13 @@ body{background:var(--white);color:var(--ink)}
 <!-- ============================ FACT BAR ============================ -->
 <section class="facts section--bone">
   <div class="wrap">
-    <div class="facts__grid">
-      <div class="fct"><div class="fct__k">When</div><div class="fct__v">Fri, Oct 30<small>10:00 PM to 2:00 AM</small></div></div>
-      <div class="fct"><div class="fct__k">Doors</div><div class="fct__v">9:00 PM<small>Come early</small></div></div>
-      <div class="fct"><div class="fct__k">Where</div><div class="fct__v">House of Art<small>Downtown Raleigh</small></div></div>
-      <div class="fct"><div class="fct__k">Age</div><div class="fct__v">21+<small>Valid photo ID</small></div></div>
-      <div class="fct"><div class="fct__k">Tickets</div><div class="fct__v">On sale now<small>Capacity is limited</small></div></div>
-    </div>
+    <dl class="facts__grid">
+      <div class="fct"><dt class="fct__k">When</dt><dd class="fct__v">Fri, Oct 30<small>10:00&nbsp;PM to 2:00&nbsp;AM</small></dd></div>
+      <div class="fct"><dt class="fct__k">Doors</dt><dd class="fct__v">9:00&nbsp;PM<small>Come early</small></dd></div>
+      <div class="fct"><dt class="fct__k">Where</dt><dd class="fct__v">House of Art<small>Downtown Raleigh</small></dd></div>
+      <div class="fct"><dt class="fct__k">Age</dt><dd class="fct__v">21+<small>Valid photo ID</small></dd></div>
+      <div class="fct"><dt class="fct__k">Tickets</dt><dd class="fct__v">On sale now<small>Capacity is limited</small></dd></div>
+    </dl>
     <div class="facts__cta">
       <a class="btn btn--primary" href="https://tickets.venuepilot.com/e/the-talley-tapes-2026-10-30-downtown-raleigh-raleigh-7a0918" target="_blank" rel="noopener">Get tickets</a>
       <a class="btn btn--ghost" href="https://www.handstamp.com/e/the-talley-tapes-wkuetvyk" target="_blank" rel="noopener">Event details</a>
@@ -220,10 +226,10 @@ body{background:var(--white);color:var(--ink)}
 <!-- ============================ ARCHIVE ============================ -->
 <section class="archive section--dark">
   <div class="wrap">
-    <div class="section__head" style="margin-bottom:clamp(26px,4vw,44px)">
+    <div class="section__head">
       <div class="eyebrow">The archive</div>
       <h2 class="section__title">Names withheld</h2>
-      <p class="section__lead">Talley, back then. The faces stay covered. Some of these nights are still nobody's business.</p>
+      <p class="section__lead">Talley, back then. The faces stay covered. Some of these nights are still nobody&rsquo;s business.</p>
     </div>
     <div class="evid">
       <figure class="ev"><img src="/assets/talley-tapes/talley-archive-01.jpg" alt="Archive photograph of a crowded Talley party" width="1000" height="562" loading="lazy" decoding="async"><figcaption><span>Talley &middot; the crowd</span><span class="n">Exhibit 01</span></figcaption></figure>
@@ -239,7 +245,7 @@ body{background:var(--white);color:var(--ink)}
   <div class="wrap">
     <div class="info__grid">
       <div>
-        <div class="section__head" style="margin-bottom:18px">
+        <div class="section__head">
           <div class="eyebrow">Questions</div>
           <h2 class="section__title">Before you come</h2>
         </div>
@@ -249,7 +255,7 @@ body{background:var(--white);color:var(--ink)}
           <details class="faq"><summary>Where is the event held?</summary>
             <p>House of Art, in downtown Raleigh. The street address has not been announced yet and will be published on this page once the venue confirms it.</p></details>
           <details class="faq"><summary>What time does it start?</summary>
-            <p>Doors open at 9:00 PM and the event runs until 2:00 AM on Friday, October 30.</p></details>
+            <p>Doors open at 9:00&nbsp;PM and the event runs until 2:00&nbsp;AM on Friday, October 30.</p></details>
           <details class="faq"><summary>Is there an age requirement?</summary>
             <p>Yes. The event is 21 and over. A valid government issued photo ID is required for entry.</p></details>
           <details class="faq"><summary>Is there a dress code?</summary>
@@ -261,7 +267,7 @@ body{background:var(--white);color:var(--ink)}
 
       <div>
         <div class="hoa">
-          <img class="hoa__mark" src="/assets/houseofart-color.png" alt="House of Art" width="420" height="394">
+          <img class="hoa__mark" src="/assets/houseofart-color.png" alt="House of Art" width="420" height="394" loading="lazy" decoding="async">
           <div class="hoa__addr">Downtown Raleigh</div>
           <div class="hoa__soon">Address announced soon</div>
           <p class="hoa__note">House of Art is confirmed. The street address goes up once the venue is ready to share it.</p>
@@ -278,7 +284,7 @@ body{background:var(--white);color:var(--ink)}
       <div class="close__t">If you know,<br>you go</div>
       <p class="close__n">Homecoming Friday night at House of Art, downtown Raleigh. Tickets are on sale now, and capacity is limited.</p>
     </div>
-    <div class="btnrow" style="margin-top:0">
+    <div class="btnrow">
       <a class="btn btn--dark" href="https://tickets.venuepilot.com/e/the-talley-tapes-2026-10-30-downtown-raleigh-raleigh-7a0918" target="_blank" rel="noopener">Get tickets</a>
       <a class="btn btn--ghost" href="https://www.handstamp.com/e/the-talley-tapes-wkuetvyk" target="_blank" rel="noopener">Event details</a>
     </div>
@@ -320,7 +326,7 @@ body{background:var(--white);color:var(--ink)}
     url:'https://tickets.venuepilot.com/e/the-talley-tapes-2026-10-30-downtown-raleigh-raleigh-7a0918'
   };
   function utc(d){ return d.toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,''); }
-  function ice(s){ return String(s).replace(/\\/g,'\\\\').replace(/;/g,'\;').replace(/,/g,'\\,').replace(/\n/g,'\\n'); }
+  function ice(s){ return String(s).replace(/\\/g,'\\\\').replace(/;/g,'\\;').replace(/,/g,'\\,').replace(/\n/g,'\\n'); }
   var what = EV.tagline + '\n\n' + EV.url;
   var g = document.getElementById('gcal');
   if(g) g.href = 'https://calendar.google.com/calendar/render?' + new URLSearchParams({
@@ -335,6 +341,15 @@ body{background:var(--white);color:var(--ink)}
   ].join('\r\n')],{type:'text/calendar;charset=utf-8'}));
   document.addEventListener('click', function(e){
     document.querySelectorAll('.cal[open]').forEach(function(d){ if(!d.contains(e.target)) d.removeAttribute('open'); });
+  });
+  // Escape closes an open calendar menu and hands focus back to its toggle.
+  document.addEventListener('keydown', function(e){
+    if(e.key !== 'Escape') return;
+    document.querySelectorAll('.cal[open]').forEach(function(d){
+      d.removeAttribute('open');
+      var t = d.querySelector('summary');
+      if(t) t.focus();
+    });
   });
 })();
 </script>
