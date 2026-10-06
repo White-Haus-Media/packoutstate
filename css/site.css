@@ -56,7 +56,7 @@
 
   /* Rendered height of the sticky event-page nav (44px CTA + 2 x 8px
      padding + 1px border). Used for scroll offsets and full-screen heroes. */
-  --nav-h:61px;
+  --nav-h:108px;
 }
 @media(min-width:1024px){ :root{--section-y:96px} }
 
@@ -140,18 +140,6 @@ a{color:inherit}
   font-family:var(--display);font-size:1.05rem;letter-spacing:.04em;
   text-transform:uppercase;white-space:nowrap;text-decoration:none;font-weight:700}
 .nav__brand span{color:var(--red-bright)}
-/* Event page links in the header, matching the home page. Hidden on narrow
-   screens so the bar keeps room for the brand and the ticket button. */
-.nav__pages{display:none;gap:24px;margin-left:16px}
-.nav__pages a{
-  font-family:var(--sans);font-weight:700;font-size:.72rem;letter-spacing:.12em;
-  text-transform:uppercase;color:var(--ash);text-decoration:none;white-space:nowrap;
-  transition:color .2s;
-}
-.nav__pages a:hover{color:var(--white)}
-.nav__pages a[aria-current="page"]{color:var(--white)}
-@media(min-width:1024px){ .nav__pages{display:flex} }
-
 .nav__days{
   display:flex;gap:8px;margin-left:auto;overflow-x:auto;
   scrollbar-width:none;-ms-overflow-style:none;
@@ -168,14 +156,6 @@ a{color:inherit}
 .day-pill.is-active{background:var(--red);border-color:var(--red);color:var(--white)}
 .day-pill.is-active small{color:rgba(255,255,255,.85)}
 
-/* Event pages: a back link on the left, ticket CTA always on the right.
-   Unlike the home page this CTA shows at every width — buying should
-   never be more than one tap away. */
-.nav__back{
-  margin-left:auto;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;
-  font-weight:700;color:var(--ash);text-decoration:none;white-space:nowrap;
-}
-.nav__back:hover{color:var(--white)}
 .nav__cta{
   display:none;align-items:center;justify-content:center;min-height:44px;
   background:var(--red);color:var(--white);border:none;
@@ -184,11 +164,39 @@ a{color:inherit}
   white-space:nowrap;text-decoration:none;
 }
 .nav__cta:hover{background:var(--red-deep)}
-@media(min-width:1024px){ .nav__cta{display:inline-flex} }
-.nav--event .nav__cta{display:inline-flex;margin-left:16px}
-@media(max-width:479px){
-  .nav--event .nav__back{display:none}
-  .nav--event .nav__cta{margin-left:auto}
+.day-pill{text-decoration:none;font-size:12px;letter-spacing:.08em;display:inline-block;line-height:1.3}
+.nav__brand{padding-block:8px}
+.day-pill small{font-size:12px;letter-spacing:.08em}
+@media(max-width:479px){ .day-pill{padding:8px} }
+/* Row 2 of the header: the page links, shown at every width so the event
+   pages are reachable on a phone. Same markup and rules on every page. On
+   phones there is no room for the red button next to the brand and the
+   three date boxes, so it is left to the button in each page's hero. */
+.nav__sub{border-top:1px solid var(--line)}
+.nav__subin{display:flex;align-items:center;gap:16px;max-width:var(--wrap);margin-inline:auto;padding:0 var(--pad)}
+.nav__pages{display:flex;gap:24px;flex:1;min-width:0;margin:0;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}
+.nav__pages::-webkit-scrollbar{display:none}
+.nav__pages a{
+  font-family:var(--sans);font-weight:700;font-size:12px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ash);text-decoration:none;white-space:nowrap;
+  padding:12px 0;border-bottom:2px solid transparent;transition:color .2s,border-color .2s;
+}
+.nav__pages a:hover{color:#fff}
+.nav__pages a[aria-current="page"]{color:#fff;border-bottom-color:#fff}
+@media(min-width:660px){ .nav__cta--top{display:inline-flex} }
+@media(max-width:659px){
+  .nav__cta--top{display:none !important}
+  .nav__inner{padding:8px 16px;gap:12px}
+  .nav__subin{padding:0 16px}
+  .nav__pages{justify-content:space-between;gap:8px}
+  .nav__pages a{letter-spacing:.02em}
+}
+@media(max-width:389px){
+  .nav__pages{gap:4px}
+  .nav__pages a{letter-spacing:0}
+  .nav__days{gap:6px}
+  .day-pill,.day-pill small{letter-spacing:.02em}
+  .day-pill{padding:8px 6px}
 }
 
 /* ---------- BUTTONS ---------- */
