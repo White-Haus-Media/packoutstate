@@ -638,6 +638,9 @@ const EVENTS = [
   },
   {
     id:'clocked-out', day:'fri', time:'4:00 PM – 8:00 PM',
+    // Held back for a soft launch. The page is live at /clocked-out and can be
+    // shared directly; add this line back to surface it in the lineup.
+    // pageUrl:'/clocked-out',
     start:'2026-10-30T16:00:00-04:00', end:'2026-10-30T20:00:00-04:00',
     name:'Clocked Out', tagline:'It\u2019s a Photoshoot',
     desc:[
@@ -651,26 +654,28 @@ const EVENTS = [
   },
   {
     id:'talley-tapes', day:'fri', time:'10:00 PM – 2:00 AM',
+    pageUrl:'/talley-tapes',
     start:'2026-10-30T22:00:00-04:00', end:'2026-10-31T02:00:00-04:00',    name:'The Talley Tapes [Untold]', tagline:'A Homecoming Original',
     desc:[
       'Before bottle service, before sections, there was Talley. Before the posts, before the stories, before nights became content. When flyers moved hand to hand and word of mouth was currency, Talley became a legendary party known round the state, with students traveling from their respective campuses to be part of it. Talley was not just a building; it was a rite of passage. If you knew, you went. If you missed it, you heard about it. Nights became lore, passed from generation to generation, sparking debate on who did it best. No matter the era, the nostalgia takes over, and one phrase emerges: Damn\u2026 I remember them Talley parties.',
-      'Homecoming Friday night, The Talley Tapes brings the stories to life with a house party experience at [ Location TBA ]. A premiere night for the people who lived it, the people who heard about it, and everybody ready to be part of the next chapter.'
+      'Homecoming Friday night, The Talley Tapes brings the stories to life with a house party experience at House of Art in downtown Raleigh. A premiere night for the people who lived it, the people who heard about it, and everybody ready to be part of the next chapter.'
     ],
-    venue:'[ Location TBA ]', address:null, mapUrl:null,
+    venue:'House of Art', address:null, mapUrl:null,
     detailsUrl:'https://www.handstamp.com/e/the-talley-tapes-wkuetvyk',
     ticketsUrl:'https://tickets.venuepilot.com/e/the-talley-tapes-2026-10-30-downtown-raleigh-raleigh-7a0918',
-    onSaleNote:'Tickets on sale Sept 1',
+    onSaleNote:'Tickets on sale now',
     flyer:'flyer-talley-tapes.jpg'
   },
   {
     id:'block-party', day:'sat', time:'2:30 PM – 1:00 AM',
+    pageUrl:'/block-party',
     start:'2026-10-31T14:30:00-04:00', end:'2026-11-01T01:00:00-04:00',    name:'Pack Out State Block Party', tagline:'This is How We Homecoming Vol. 3',
     desc:'The Pack Out State Block Party is taking over Killjoy and the parking lot for an all-day Homecoming celebration. Pull up for an all-day experience that captures the essence of Homecoming in one event; tailgate, watch party, day party turned night party all in one. DJ sets running all day long with food, vendors, and curated vibes for you and your crew to celebrate together.',
     venue:'Killjoy Kitchen & Cocktails', address:'116 N West St. Raleigh, NC',
     mapUrl:'https://www.google.com/maps/search/?api=1&query=Killjoy+116+N+West+St+Raleigh+NC',
     detailsUrl:'https://www.handstamp.com/e/the-downtown-block-party-tailgate-ryle4rds',
     ticketsUrl:'https://tickets.venuepilot.com/e/the-downtown-block-party-tailgate-2026-10-31-killjoy-cocktail-lounge-raleigh-8c97cf',
-    onSaleNote:'Tickets on sale Sept 1',
+    onSaleNote:'Tickets on sale now',
     flyer:'flyer-block-party.jpg',
     extra:{
       label:'Full details, schedule & FAQ',
@@ -830,9 +835,14 @@ $('#events').innerHTML = grouped.map(d=>{
 
     // CTA buttons render only when links exist. The calendar menu renders
     // whenever the event has machine-readable start/end times.
+    // When an event has its own landing page, that page is the canonical
+    // place for the full details, so it takes the slot the outbound
+    // "Event details" link would otherwise occupy.
     const ctas = [
       e.ticketsUrl ? `<a href="${esc(e.ticketsUrl)}" class="btn btn--primary" target="_blank" rel="noopener">${esc(e.ticketsLabel || 'Get tickets')}</a>` : '',
-      e.detailsUrl ? `<a href="${esc(e.detailsUrl)}" class="btn btn--ghost" target="_blank" rel="noopener">Event details</a>` : '',
+      e.pageUrl
+        ? `<a href="${esc(e.pageUrl)}" class="btn btn--dark">Full event page</a>`
+        : (e.detailsUrl ? `<a href="${esc(e.detailsUrl)}" class="btn btn--ghost" target="_blank" rel="noopener">Event details</a>` : ''),
       calMenu(e)
     ].join('');
     const ctaRow = ctas ? `<div class="event__cta">${ctas}</div>` : '';

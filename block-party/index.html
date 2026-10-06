@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Block Party · Pack Out State · NC State Homecoming 2026</title>
+<meta name="description" content="This is how we Homecoming, Vol. 3. All-day block party at Killjoy. Tailgate, watch party, day party into night party. Saturday October 31, 2:30 PM til 1 AM. One wristband, in and out all day.">
+
+<link rel="canonical" href="https://packoutstate.com/block-party">
+
+<meta property="og:title" content="Pack Out State Block Party · This is How We Homecoming Vol. 3">
+<meta property="og:description" content="All day at Killjoy. Tailgate, watch party, day party into night party. Saturday, October 31 · 2:30 PM – 1:00 AM.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://packoutstate.com/block-party">
+<meta property="og:image" content="https://packoutstate.com/flyer-block-party.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/site.css">
+
+<style>
+/* ============================================================
+   BLOCK PARTY — page-specific treatment
+
+   Direction, off the flyer: white ground, varsity chenille
+   patches, and that repeating marquee column of BLOCK PARTY /
+   TAILGATE / WATCH PARTY / ALL DAMN DAY PARTY.
+
+   Organising principle: TIME. This event runs 10.5 hours across
+   a football game, so the question that actually matters is
+   "when do I come, and how does it work around kickoff?" The
+   timeline is the spine of the page, not a footnote.
+
+   The page tracks the event's own arc — it starts bright (the
+   daytime lot footage) and goes dark at the photo album, which
+   is all night. Day at the top, night at the bottom.
+   ============================================================ */
+
+/* This page has a light ground, so body text is ink. Every component
+   that sits on a dark ground (nav, hero, .band, .night, .cta, footer)
+   declares its own colour in site.css, so they are unaffected. */
+body{background:var(--white);color:var(--ink)}
+
+/* ---------- HERO ----------
+   Daytime footage, so the scrim is bottom-weighted rather than the
+   left-heavy wash a night venue needed — the sky stays sky.
+
+   The two gradients do different jobs. The first is anchored to the
+   TOP and only caps the nav. The second is anchored to the BOTTOM
+   (0deg), which is what actually sits behind the title block — so it
+   holds up no matter how tall that block grows. */
+/* On a computer the hero fills the whole first screen below the sticky
+   nav, so the footage runs edge to edge with nothing peeking up from the
+   next section. 62px is the nav's rendered height. */
+.ehero{min-height:88vh}
+@media(min-width:861px){
+  .ehero{min-height:calc(100vh - 62px);min-height:calc(100svh - 62px)}
+}
+.bp-scrim{
+  position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:
+    linear-gradient(180deg, rgba(11,11,12,.72) 0%, rgba(11,11,12,.10) 20%, transparent 34%),
+    linear-gradient(0deg, rgba(11,11,12,.94) 0%, rgba(11,11,12,.80) 30%, rgba(11,11,12,.42) 62%, transparent 88%);
+}
+/* On narrow screens the title block fills most of the hero rather than
+   sitting in the bottom third, so it needs real ground under all of it.
+   Legibility wins over how much daylight shows through. */
+@media(max-width:860px){
+  .bp-scrim{
+    background:
+      linear-gradient(180deg, rgba(11,11,12,.75) 0%, rgba(11,11,12,.34) 16%, transparent 26%),
+      linear-gradient(0deg, rgba(11,11,12,.95) 0%, rgba(11,11,12,.88) 46%, rgba(11,11,12,.68) 74%, rgba(11,11,12,.34) 100%);
+  }
+}
+/* Content sits on the same left edge as the nav brand: full container
+   width, left-aligned, rather than a narrower centred block. */
+.ehero .ehero__inner{width:100%;max-width:var(--wrap);margin-inline:auto;text-align:left}
+.bp-kicker{
+  display:inline-block;background:var(--red);color:var(--white);
+  font-weight:800;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;
+  padding:8px 14px;border-radius:2px;margin-bottom:20px;
+}
+.ehero h1{font-size:clamp(2.6rem,8.2vw,6.4rem);line-height:.88}
+.ehero h1 .sm{display:block;font-size:.42em;letter-spacing:.04em;color:#F2EFE9;line-height:1;margin-bottom:.4em}
+
+/* The "'26" in red, no outline. */
+.patch{color:var(--red)}
+
+/* Price + status sit in the hero, because they decide the purchase. */
+.bp-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.bp-meta .chip{border-color:rgba(255,255,255,.4);color:#F2EFE9}
+.bp-meta .chip--now{background:var(--white);border-color:var(--white);color:var(--ink)}
+
+/* ---------- THE DAY (signature section) ---------- */
+.day{background:var(--white);position:relative;overflow:hidden}
+/* The flyer's marquee word column, ghosted in the left gutter.
+   It only appears once the viewport is wide enough to have a real
+   gutter beside the 1200px container — below that it would sit on
+   top of the timeline instead of beside it. */
+.day__marquee{display:none}
+@media(min-width:1500px){
+  .day__marquee{
+    position:absolute;left:26px;top:0;bottom:0;width:180px;z-index:0;
+    display:flex;flex-direction:column;justify-content:center;gap:2px;
+    pointer-events:none;user-select:none;overflow:hidden;
+  }
+}
+.day__marquee span{
+  font-family:var(--sans);font-weight:800;font-size:.82rem;
+  letter-spacing:.2em;text-transform:uppercase;color:#F2EFE7;white-space:nowrap;
+}
+
+.day__inner{position:relative;z-index:1}
+
+.slot{padding-block:clamp(20px,3.2vw,30px);border-top:2px solid var(--ink)}
+.slot:last-of-type{border-bottom:2px solid var(--ink)}
+/* One line per row: the time sits beside the heading in the same face
+   and size, so the schedule reads as one voice rather than four. */
+.slot__line{
+  font-family:var(--display);font-weight:400;
+  font-size:clamp(1.4rem,2.9vw,2.1rem);line-height:1.1;text-transform:uppercase;
+}
+.slot__time{color:var(--red);margin-right:.5em}
+.slot__p{margin-top:10px;color:#3a3a3c;font-size:1.04rem;max-width:64ch}
+
+/* The kickoff gap — the one moment the crowd leaves and comes back.
+   Rendered as an actual break in the spine rather than another row,
+   because that break IS the thing the wristband solves. */
+.gap{
+  padding-block:clamp(18px,3vw,26px);
+  border-top:2px dashed #C9C3B6;background:#FBFAF7;
+  margin-inline:calc(var(--pad) * -1);padding-inline:var(--pad);
+}
+.gap__p{margin-top:8px;color:#4a4a4e;font-size:1.02rem;max-width:64ch}
+
+/* Schedule caveat. The run of show hangs off a kickoff time that has not
+   been announced, so the page says so plainly rather than presenting
+   provisional times as settled. */
+.notice{
+  display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:start;
+  border:1px solid #E0DACE;background:#FBF8F1;
+  padding:22px 24px;margin-bottom:clamp(30px,5vw,48px);
+}
+.notice__k{
+  font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;font-weight:800;
+  color:var(--red-deep);white-space:nowrap;padding-top:3px;
+}
+.notice__p{color:#3a3a3c;font-size:1.02rem;max-width:62ch}
+@media(max-width:620px){ .notice{grid-template-columns:1fr;gap:10px} }
+
+/* The wristband rule — the single most important mechanic on this page. */
+.band{
+  margin-top:clamp(32px,5vw,52px);
+  background:var(--ink);color:var(--white);
+  padding:clamp(26px,4vw,40px);
+  display:grid;grid-template-columns:auto 1fr;gap:clamp(20px,3vw,36px);align-items:center;
+}
+.band__ico{
+  font-family:var(--display);font-size:clamp(2.6rem,6vw,4.4rem);line-height:.9;
+  color:var(--red-bright);
+}
+.band__h{font-family:var(--display);font-size:clamp(1.5rem,3.4vw,2.3rem);text-transform:uppercase;line-height:1.05}
+.band__p{margin-top:10px;color:#C9C7C2;font-size:1.04rem;max-width:56ch}
+@media(max-width:620px){ .band{grid-template-columns:1fr;gap:14px} }
+
+/* ---------- ON SITE ---------- */
+.onsite{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:0;border-top:2px solid var(--ink)}
+.bit{padding:26px 26px 26px 0;border-right:1px solid #E5E1D8}
+.bit:last-child{border-right:none}
+@media(max-width:760px){
+  .onsite{grid-template-columns:1fr}
+  .bit{border-right:none;border-bottom:1px solid #E5E1D8;padding-right:0}
+  .bit:last-child{border-bottom:none}
+}
+.bit__k{font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;font-weight:800;color:var(--red-deep);margin-bottom:12px}
+.bit__v{font-family:var(--display);font-size:1.5rem;text-transform:uppercase;line-height:1.15}
+.bit__sep{color:var(--red);margin-inline:.12em}
+.bit__n{margin-top:10px;color:#4a4a4e;font-size:.99rem}
+
+/* ---------- GETTING IN ---------- */
+.gi{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(30px,6vw,72px);align-items:start}
+@media(max-width:860px){ .gi{grid-template-columns:1fr;gap:34px} }
+.rules{list-style:none;display:grid;gap:0}
+.rules li{
+  display:grid;grid-template-columns:132px 1fr;gap:18px;
+  padding-block:15px;border-top:1px solid #E5E1D8;font-size:1.02rem;color:#3a3a3c;
+}
+.rules li:last-child{border-bottom:1px solid #E5E1D8}
+.rules .k{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;font-weight:800;color:#8a8a8e;padding-top:4px}
+@media(max-width:560px){ .rules li{grid-template-columns:1fr;gap:4px} }
+
+/* Venue block — logo links out to the venue's own site. The black
+   mark is used here because this section sits on white. */
+.venue{border:1px solid #E5E1D8;background:#FBFAF7}
+.venue__img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover}
+.venue__body{padding:26px}
+.venue__logo{display:inline-block;text-decoration:none}
+.venue__logo img{display:block;width:auto;height:46px}
+.venue__addr{margin-top:18px;color:#4a4a4e;font-size:1.02rem;line-height:1.5}
+.venue__links{display:flex;flex-wrap:wrap;gap:18px;margin-top:20px}
+.venue__links a{
+  font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;font-weight:800;
+  color:var(--ink);text-decoration:none;border-bottom:2px solid var(--red);padding-bottom:3px;
+}
+.venue__links a:hover{color:var(--red-deep)}
+
+/* ---------- LAST YEAR (the album) ----------
+   The page goes dark here. Every one of these frames is from after
+   sundown, so the ground changes with them. */
+.night{background:var(--ink);color:var(--white)}
+.night .section__title{color:var(--white)}
+.night .eyebrow{color:var(--red-bright)}
+.shots{columns:4;column-gap:10px}
+@media(max-width:1100px){ .shots{columns:3} }
+@media(max-width:760px){ .shots{columns:2} }
+@media(max-width:420px){ .shots{columns:1} }
+.shot{break-inside:avoid;margin:0 0 10px;overflow:hidden;background:var(--carbon);position:relative}
+.shot img{
+  display:block;width:100%;height:auto;
+  transition:transform .55s ease, filter .55s ease;
+  filter:saturate(.94);
+}
+.shot:hover img{transform:scale(1.035);filter:saturate(1.06)}
+@media (prefers-reduced-motion: reduce){ .shot:hover img{transform:none} }
+.shots__note{margin-top:22px;color:var(--ash);font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700}
+
+/* ---------- CLOSING ---------- */
+.cta--bp .cta__title span{-webkit-text-stroke:2px #fff;color:transparent}
+
+/* Slim cross-navigation. Deliberately a single line of links rather
+   than another card grid — the weekend nav should not out-weigh the
+   event the visitor is already reading about. */
+.alsonav{border-top:1px solid #E5E1D8;padding-block:28px;background:var(--white)}
+.alsonav__row{display:flex;flex-wrap:wrap;gap:8px 28px;align-items:baseline}
+.alsonav__k{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;font-weight:800;color:#8a8a8e}
+.alsonav a{font-weight:700;color:var(--ink);text-decoration:none;border-bottom:2px solid transparent}
+.alsonav a:hover{border-bottom-color:var(--red)}
+</style>
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+
+<header class="nav nav--event">
+  <div class="nav__inner">
+    <a class="nav__brand" href="/">Pack <span>Out</span> State</a>
+    <a class="nav__back" href="/#lineup">&larr; All events</a>
+    <a class="nav__cta" href="https://tickets.venuepilot.com/e/the-downtown-block-party-tailgate-2026-10-31-killjoy-cocktail-lounge-raleigh-8c97cf" target="_blank" rel="noopener">Get tickets</a>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ============================ HERO ============================ -->
+<section class="ehero">
+  <div class="ehero__media">
+    <img src="/assets/blockparty-hero-poster.jpg" alt="" aria-hidden="true">
+    <video id="heroVideo" muted loop playsinline preload="none" aria-hidden="true"></video>
+  </div>
+  <div class="bp-scrim" aria-hidden="true"></div>
+
+  <div class="wrap ehero__inner">
+    <div class="bp-kicker" data-animate>This is how we Homecoming &middot; Vol. 3</div>
+    <h1 data-animate>
+      <span class="sm">Pack Out State</span>
+      Block Party <span class="patch">&rsquo;26</span>
+    </h1>
+    <p class="ehero__sub" data-animate>Saturday, October 31 <span class="dot">&middot;</span> 2:30 PM &ndash; 1:00 AM</p>
+    <p class="ehero__meta" data-animate>Killjoy Kitchen &amp; Cocktails &middot; 116 N West St, Raleigh</p>
+
+    <div class="bp-meta" data-animate>
+      <span class="chip chip--now">Tickets on sale now</span>
+      <span class="chip">21+</span>
+      <span class="chip">In &amp; out all day</span>
+    </div>
+
+    <div class="ehero__cta" data-animate>
+      <a class="btn btn--primary" href="https://tickets.venuepilot.com/e/the-downtown-block-party-tailgate-2026-10-31-killjoy-cocktail-lounge-raleigh-8c97cf" target="_blank" rel="noopener">Get tickets</a>
+      <a class="btn btn--ghost" href="#the-day">See the day</a>
+      <details class="cal">
+        <summary class="btn btn--ghost cal__trigger">Add to calendar</summary>
+        <div class="cal__menu">
+          <a class="cal__opt" id="gcal" target="_blank" rel="noopener">
+            <span class="cal__ico" aria-hidden="true">&#9670;</span>
+            <span>Google Calendar<small>Opens in a new tab</small></span></a>
+          <a class="cal__opt" id="ical" download="block-party.ics">
+            <span class="cal__ico" aria-hidden="true">&#8595;</span>
+            <span>Apple &amp; Outlook<small>Downloads a .ics file</small></span></a>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ THE DAY ============================
+     The centrepiece. Ten and a half hours, a football game in the
+     middle, one wristband that makes it all one event.
+     ================================================================ -->
+<section class="section day" id="the-day">
+  <div class="day__marquee" aria-hidden="true">
+    <span>Block Party</span><span>Tailgate</span><span>Watch Party</span><span>All Damn</span><span>Day Party</span>
+    <span>Block Party</span><span>Tailgate</span><span>Watch Party</span><span>All Damn</span><span>Day Party</span>
+    <span>Block Party</span><span>Tailgate</span><span>Watch Party</span><span>All Damn</span><span>Day Party</span>
+    <span>Block Party</span><span>Tailgate</span><span>Watch Party</span><span>All Damn</span><span>Day Party</span>
+  </div>
+
+  <div class="wrap day__inner">
+    <div class="section__head reveal">
+      <div class="eyebrow">Ten and a half hours</div>
+      <h2 class="section__title">The day,<br>start to finish</h2>
+      <p class="section__lead">Tailgate, watch party, day party turned night party, all in one place, all on one wristband. The day splits either side of the game. Come when it fits your Homecoming.</p>
+    </div>
+
+    <div class="notice reveal">
+      <div class="notice__k">Heads up</div>
+      <p class="notice__p">The game time hasn&rsquo;t been announced yet. Once it drops, the day below shifts to fit it. The lot may open earlier, and the tailgate window gets longer or shorter depending on kickoff. We&rsquo;ll make a final announcement as soon as the game time is released.</p>
+    </div>
+
+    <div class="reveal">
+      <div class="slot">
+        <h3 class="slot__line"><span class="slot__time">2:30 PM</span>The lot opens</h3>
+        <div>
+          <p class="slot__p">Killjoy and the parking lot become one space. Music starts, grills are on, vendors are set. Early is the easiest time to get in and the best time to find your people.</p>
+        </div>
+      </div>
+
+      <div class="slot">
+        <h3 class="slot__line"><span class="slot__time">Until kickoff</span>Tailgate mode</h3>
+        <div>
+          <p class="slot__p">The outdoor lot running full tilt with DJ sets, food, and the cookout-meets-family-reunion energy this thing is built on. How long this window runs depends on kickoff, so if the tailgate is what you came for, come early.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- The break in the day -->
+    <div class="gap reveal">
+      <h3 class="slot__line"><span class="slot__time">Kickoff TBA</span>Go to the game. Come back.</h3>
+      <div>
+        <p class="gap__p">Head to Carter-Finley, or stay and watch it with us inside. Your wristband holds your spot either way.</p>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <div class="slot">
+        <h3 class="slot__line"><span class="slot__time">Post-game</span>Back to the block</h3>
+        <div>
+          <p class="slot__p">Games run about three and a half hours, so the block fills back up not long after the final whistle. Indoor lounge vibes at Killjoy, the lot still going outside. Whether you went to the game or watched it here, this is where everybody lands after.</p>
+        </div>
+      </div>
+
+      <div class="slot">
+        <h3 class="slot__line"><span class="slot__time">Sundown</span>It turns over</h3>
+        <div>
+          <p class="slot__p">Same block, different gear. The day party becomes the night party without anybody having to move.</p>
+        </div>
+      </div>
+
+      <div class="slot">
+        <h3 class="slot__line"><span class="slot__time">1:00 AM</span>Last call</h3>
+        <div>
+          <p class="slot__p">That's Homecoming. Get home safe. Rideshare is the move.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- The mechanic that makes the whole structure work -->
+    <div class="band reveal">
+      <div class="band__ico" aria-hidden="true">1</div>
+      <div>
+        <div class="band__h">One band. In and out all day.</div>
+        <p class="band__p">Your ticket is one wristband with in-and-out access all day and all night. Go to the game, go back to the hotel, change clothes, come back. Capacity is limited and this can sell out, so buy ahead.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ ON SITE ============================ -->
+<section class="section section--tight">
+  <div class="wrap">
+    <div class="section__head reveal">
+      <h2 class="section__title">Who's on the block</h2>
+    </div>
+    <div class="onsite reveal">
+      <div class="bit">
+        <div class="bit__k">Music</div>
+        <div class="bit__v">DJ Fredo <span class="bit__sep">/</span> Brint City <span class="bit__sep">/</span> DJ JMar</div>
+        <div class="bit__n">Set times announced closer to the date. DJ sets run all day and into the night.</div>
+      </div>
+      <div class="bit">
+        <div class="bit__k">Food</div>
+        <div class="bit__v">BBQn4U</div>
+        <div class="bit__n">Fried chicken, fried fish, and all the fixins&rsquo;, served on site.</div>
+      </div>
+      <div class="bit">
+        <div class="bit__k">Vendors</div>
+        <div class="bit__v">Local makers &amp; retail</div>
+        <div class="bit__n">Vendor lineup announced closer to the date.</div>
+      </div>
+      <div class="bit">
+        <div class="bit__k">The space</div>
+        <div class="bit__v">Lot &amp; lounge</div>
+        <div class="bit__n">Outdoor lot party with music and vendors, indoor lounge vibes at Killjoy.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ GETTING IN ============================ -->
+<section class="section section--sand">
+  <div class="wrap">
+    <div class="gi">
+      <div class="reveal">
+        <div class="eyebrow">Getting in</div>
+        <h2 class="section__title">Know before<br>you pull up</h2>
+        <ul class="rules">
+          <li><span class="k">Parking</span><span>The N West St. parking deck is your best option, steps from Killjoy. Uber or Lyft is encouraged for convenience and safety.</span></li>
+          <li><span class="k">Re-entry</span><span>One wristband, in and out all day and night.</span></li>
+          <li><span class="k">Bags</span><span>Allowed, but searched on entry. Security is on site.</span></li>
+          <li><span class="k">Bring</span><span>A chair, if you want one.</span></li>
+          <li><span class="k">Don't bring</span><span>Coolers, outside food, or outside drink.</span></li>
+          <li><span class="k">Weather</span><span>Rain or shine. It happens either way.</span></li>
+          <li><span class="k">Age</span><span>21+ with valid photo ID.</span></li>
+        </ul>
+      </div>
+
+      <div class="reveal">
+        <div class="venue">
+          <img class="venue__img" src="/assets/killjoy-venue.jpg" alt="Inside Killjoy Kitchen &amp; Cocktails in Raleigh" width="600" height="450" loading="lazy" decoding="async">
+          <div class="venue__body">
+            <!-- Venue logo links to the venue's own site. Black mark on
+                 this light ground; the white mark is used on dark. -->
+            <a class="venue__logo" href="https://killjoycocktail.com" target="_blank" rel="noopener">
+              <img src="/assets/killjoy-black.png" alt="Killjoy Kitchen &amp; Cocktails, visit their website" width="640" height="261">
+            </a>
+            <div class="venue__addr">
+              116 N West St<br>
+              Raleigh, NC 27603
+            </div>
+            <div class="venue__links">
+              <a href="https://www.google.com/maps/search/?api=1&amp;query=Killjoy+116+N+West+St+Raleigh+NC" target="_blank" rel="noopener">Directions</a>
+              <a href="https://killjoycocktail.com" target="_blank" rel="noopener">Venue site</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ LAST YEAR ============================
+     Proof, not information — which is why it sits this far down.
+     ================================================================ -->
+<section class="section night">
+  <div class="wrap">
+    <div class="section__head reveal">
+      <div class="eyebrow">Last year</div>
+      <h2 class="section__title">How it<br>actually looks</h2>
+      <p class="section__lead">The 2025 Block Party, after the sun went down.</p>
+    </div>
+    <div class="shots reveal">
+      <figure class="shot shot--w">
+        <img src="/assets/block-party/bp-01.jpg" width="900" height="600" loading="lazy" decoding="async"
+             alt="Block Party 2025 at Killjoy, photo 1 of 29">
+      </figure>
+      <figure class="shot shot--w">
+        <img src="/assets/block-party/bp-02.jpg" width="900" height="600" loading="lazy" decoding="async"
+             alt="Block Party 2025 at Killjoy, photo 2 of 29">
+      </figure>
+      <figure class="shot shot--t">
+        <img src="/assets/block-party/bp-03.jpg" width="600" height="900" loading="lazy" decoding="async"
+             alt="Block Party 2025 at Killjoy, photo 3 of 29">
+      </figure>
+      <figure class="shot shot--t">
+        <img src="/assets/block-party/bp-04.jpg" width="600" height="900" loading="lazy" decoding="async"
+             alt="Block Party 2025 at Killjoy, photo 4 of 29">
+      </figure>
+      <figure class="shot shot--t">
+        <img src="/assets/block-party/bp-05.jpg" width="600" height="900" loading="lazy" decoding="async"
+             alt="Block Party 2025 at Killjoy, photo 5 of 29">
+      </figure>
+      <figure class="shot shot--t">
+        <img src="/assets/block-party/bp-06.jpg" width="600" height="900" loading="lazy" decoding="async"
+             alt="Block Party 2025 at Killjoy, photo 6 of 29">
+      </figure>
+      <figure class="shot shot--t">
+        <img src="/assets/block-party/bp-07.jpg" width="600" height="900" loading="lazy" decoding="async"
+             alt="Block Party 2025 at Killjoy, photo 7 of 29">
+      </figure>
+      <figure class="shot shot--t">
+        <img src="/assets/block-party/bp-08.jpg" width="600" height="900" loading="lazy" decoding="async"
+             alt="Block Party 2025 at Killjoy, photo 8 of 29">
+      </figure>
+      <figure class="shot shot--t">
+        <img src="/assets/block-party/bp-09.jpg" width="600" height="900" loading="lazy" decoding="async"
+             alt="Block Party 2025 at Killjoy, photo 9 of 29">
+      </figure>
+      <figure class="shot shot--t">
+        <img src="/assets/block-party/bp-10.jpg" width="600" height="900" loading="lazy" decoding="async"
+             alt="Block Party 2025 at Killjoy, photo 10 of 29">
+      </figure>
+      <figure class="shot shot--t">
+        <img src="/assets/block-party/bp-11.jpg" width="600" height="900" loading="lazy" decoding="async"
+             alt="Block Party 2025 at Killjoy, photo 11 of 29">
+      </figure>
+      <figure class="shot shot--t">
+        <img src="/assets/block-party/bp-12.jpg" width="600" height="900" loading="lazy" decoding="async"
+             alt="Block Party 2025 at Killjoy, photo 12 of 29">
+      </figure>
+      <figure class="shot shot--t">
+        <img src="/assets/block-party/bp-13.jpg" width="600" height="900" loading="lazy" decoding="async"
+             alt="Block Party 2025 at Killjoy, photo 13 of 29">
+      </figure>
+      <figure class="shot shot--t">
+        <img src="/assets/block-party/bp-14.jpg" width="600" height="900" loading="lazy" decoding="async"
+             alt="Block Party 2025 at Killjoy, photo 14 of 29">
+      </figure>
+      <figure class="shot shot--t">
+        <img src="/assets/block-party/bp-15.jpg" width="600" height="900" loading="lazy" decoding="async"
+             alt="Block Party 2025 at Killjoy, photo 15 of 29">
+      </figure>
+      <figure class="shot shot--t">
+        <img src="/assets/block-party/bp-16.jpg" width="600" height="900" loading="lazy" decoding="async"
+             alt="Block Party 2025 at Killjoy, photo 16 of 29">
+      </figure>
+      <figure class="shot shot--t">
+        <img src="/assets/block-party/bp-17.jpg" width="600" height="900" loading="lazy" decoding="async"
+             alt="Block Party 2025 at Killjoy, photo 17 of 29">
+      </figure>
+      <figure class="shot shot--t">
+        <img src="/assets/block-party/bp-18.jpg" width="600" height="900" loading="lazy" decoding="async"
+             alt="Block Party 2025 at Killjoy, photo 18 of 29">
+      </figure>
+      <figure class="shot shot--t">
+        <img src="/assets/block-party/bp-19.jpg" width="600" height="900" loading="lazy" decoding="async"
+             alt="Block Party 2025 at Killjoy, photo 19 of 29">
+      </figure>
+      <figure class="shot shot--t">
+        <img src="/assets/block-party/bp-20.jpg" width="600" height="900" loading="lazy" decoding="async"
+             alt="Block Party 2025 at Killjoy, photo 20 of 29">
+      </figure>
+      <figure class="shot shot--t">
+        <img src="/assets/block-party/bp-21.jpg" width="600" height="900" loading="lazy" decoding="async"
+             alt="Block Party 2025 at Killjoy, photo 21 of 29">
+      </figure>
+      <figure class="shot shot--w">
+        <img src="/assets/block-party/bp-22.jpg" width="900" height="600" loading="lazy" decoding="async"
+             alt="Block Party 2025 at Killjoy, photo 22 of 29">
+      </figure>
+      <figure class="shot shot--w">
+        <img src="/assets/block-party/bp-23.jpg" width="900" height="600" loading="lazy" decoding="async"
+             alt="Block Party 2025 at Killjoy, photo 23 of 29">
+      </figure>
+      <figure class="shot shot--t">
+        <img src="/assets/block-party/bp-24.jpg" width="600" height="900" loading="lazy" decoding="async"
+             alt="Block Party 2025 at Killjoy, photo 24 of 29">
+      </figure>
+      <figure class="shot shot--t">
+        <img src="/assets/block-party/bp-25.jpg" width="600" height="900" loading="lazy" decoding="async"
+             alt="Block Party 2025 at Killjoy, photo 25 of 29">
+      </figure>
+      <figure class="shot shot--w">
+        <img src="/assets/block-party/bp-26.jpg" width="900" height="600" loading="lazy" decoding="async"
+             alt="Block Party 2025 at Killjoy, photo 26 of 29">
+      </figure>
+      <figure class="shot shot--t">
+        <img src="/assets/block-party/bp-27.jpg" width="600" height="900" loading="lazy" decoding="async"
+             alt="Block Party 2025 at Killjoy, photo 27 of 29">
+      </figure>
+      <figure class="shot shot--t">
+        <img src="/assets/block-party/bp-28.jpg" width="600" height="900" loading="lazy" decoding="async"
+             alt="Block Party 2025 at Killjoy, photo 28 of 29">
+      </figure>
+      <figure class="shot shot--t">
+        <img src="/assets/block-party/bp-29.jpg" width="600" height="900" loading="lazy" decoding="async"
+             alt="Block Party 2025 at Killjoy, photo 29 of 29">
+      </figure>
+    </div>
+    <div class="shots__note">Pack Out State Block Party 2025 &middot; Killjoy, Raleigh</div>
+  </div>
+</section>
+
+<!-- ============================ FAQ ============================ -->
+<section class="section section--tight">
+  <div class="wrap">
+    <div class="section__head reveal">
+      <div class="eyebrow">Questions</div>
+      <h2 class="section__title">FAQ</h2>
+    </div>
+    <div class="faqlist reveal">
+      <details class="faq">
+        <summary>What does admission include?</summary>
+        <p>Your ticket gets you one wristband with in-and-out access all day and night. Go back to your hotel, freshen up, and pull back up when you're ready. We recommend purchasing tickets in advance. Capacity is limited and may sell out.</p>
+      </details>
+      <details class="faq">
+        <summary>Where should I park?</summary>
+        <p>The best option is the N West St. parking deck, just steps from Killjoy. We also encourage Uber or Lyft for convenience and safety.</p>
+      </details>
+      <details class="faq">
+        <summary>Can I bring my own stuff?</summary>
+        <p>Yes, you can bring a chair. No coolers, no outside food or drink. This is a rain-or-shine event.</p>
+      </details>
+      <details class="faq">
+        <summary>Will there be food?</summary>
+        <p>Yes. BBQn4U will be onsite serving fried chicken, fried fish, and all the fixins&rsquo;.</p>
+      </details>
+      <details class="faq">
+        <summary>Who's providing the music?</summary>
+        <p>The energy will be set by DJ Fredo, Brint City, and DJ JMar, guaranteed to keep the vibes right all day and night.</p>
+      </details>
+      <details class="faq">
+        <summary>Is there security?</summary>
+        <p>Yes. Security will be on site. Bags are allowed but will be searched upon entry.</p>
+      </details>
+      <details class="faq">
+        <summary>Could it sell out?</summary>
+        <p>Yes. Once we hit capacity, tickets will no longer be available. Secure yours early.</p>
+      </details>
+      <details class="faq">
+        <summary>What's the occasion?</summary>
+        <p>We're celebrating NC State Homecoming, and the Pack Out State Block Party is the place to be all day long.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ CLOSING CTA ============================ -->
+<section class="cta cta--bp">
+  <div class="wrap cta__inner">
+    <div>
+      <div class="cta__title">All damn<br>day <span>party</span></div>
+      <p class="cta__note">One wristband, 2:30 PM til 1 AM. Capacity is limited and it can sell out, so get yours before the weekend does.</p>
+    </div>
+    <div class="btnrow" style="margin-top:0">
+      <a class="btn btn--dark" href="https://tickets.venuepilot.com/e/the-downtown-block-party-tailgate-2026-10-31-killjoy-cocktail-lounge-raleigh-8c97cf" target="_blank" rel="noopener">Get tickets</a>
+      <a class="btn btn--ghost" href="https://www.handstamp.com/e/the-downtown-block-party-tailgate-ryle4rds" target="_blank" rel="noopener">Event details</a>
+    </div>
+  </div>
+</section>
+
+<!-- Slim cross-navigation, not another card grid. -->
+<nav class="alsonav" aria-label="Rest of the weekend">
+  <div class="wrap alsonav__row">
+    <span class="alsonav__k">Rest of the weekend</span>
+    <a href="/#the-warm-up">Thu &middot; The Warm Up</a>
+    <a href="/#clocked-out">Fri &middot; Clocked Out</a>
+    <a href="/#talley-tapes">Fri &middot; The Talley Tapes</a>
+    <a href="/#lineup">Full lineup</a>
+  </div>
+</nav>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__grid">
+      <a class="foot__brand" href="/">Pack <span>Out</span> State</a>
+      <nav class="foot__links" aria-label="Footer">
+        <a href="/">Home</a>
+        <a href="/#lineup">Full lineup</a>
+        <a href="https://killjoycocktail.com" target="_blank" rel="noopener">Killjoy</a>
+        <a href="https://tickets.venuepilot.com/e/the-downtown-block-party-tailgate-2026-10-31-killjoy-cocktail-lounge-raleigh-8c97cf" target="_blank" rel="noopener">Tickets</a>
+      </nav>
+    </div>
+    <div class="foot__fine">NC State Homecoming 2026 &middot; October 29 &ndash; 31 &middot; Raleigh &amp; Durham, NC</div>
+  </div>
+</footer>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Event",
+  "name":"Pack Out State Block Party",
+  "alternateName":"This is How We Homecoming Vol. 3",
+  "description":"An all-day Homecoming celebration taking over Killjoy and the parking lot: tailgate, watch party, and day party turned night party, with DJ sets running all day, food, and vendors.",
+  "startDate":"2026-10-31T14:30:00-04:00",
+  "endDate":"2026-11-01T01:00:00-04:00",
+  "eventStatus":"https://schema.org/EventScheduled",
+  "eventAttendanceMode":"https://schema.org/OfflineEventAttendanceMode",
+  "image":"https://packoutstate.com/flyer-block-party.jpg",
+  "url":"https://packoutstate.com/block-party",
+  "location":{
+    "@type":"Place",
+    "name":"Killjoy Kitchen & Cocktails",
+    "sameAs":"https://killjoycocktail.com",
+    "address":{
+      "@type":"PostalAddress",
+      "streetAddress":"116 N West St",
+      "addressLocality":"Raleigh",
+      "addressRegion":"NC",
+      "postalCode":"27603",
+      "addressCountry":"US"
+    }
+  },
+  "performer":[
+    {"@type":"PerformingGroup","name":"DJ Fredo"},
+    {"@type":"PerformingGroup","name":"Brint City"},
+    {"@type":"PerformingGroup","name":"DJ JMar"}
+  ],
+  "organizer":{"@type":"Organization","name":"Pack Out State","url":"https://packoutstate.com"},
+  "offers":{
+    "@type":"Offer",
+    "availability":"https://schema.org/InStock",
+    "url":"https://tickets.venuepilot.com/e/the-downtown-block-party-tailgate-2026-10-31-killjoy-cocktail-lounge-raleigh-8c97cf"
+  }
+}
+</script>
+
+<script>
+(function(){
+  'use strict';
+  var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ---- Hero video ----------------------------------------------------
+  // Poster carries the hero; the video is an upgrade fetched only when
+  // it is worth the bytes. The width test re-runs on resize and on
+  // becoming visible, because a hidden or not-yet-laid-out tab reports
+  // a zero-width viewport and would otherwise never upgrade.
+  (function(){
+    var v = document.getElementById('heroVideo');
+    if(!v) return;
+    var conn  = navigator.connection || {};
+    if(reduced || conn.saveData === true || /2g/.test(conn.effectiveType || '')) return;
+
+    var SOURCES = [
+      {src:'/assets/blockparty-hero.webm', type:'video/webm'},
+      {src:'/assets/blockparty-hero.mp4',  type:'video/mp4'}
+    ];
+    function load(){
+      if(v.querySelector('source')) return;
+      SOURCES.forEach(function(s){
+        var el = document.createElement('source');
+        el.src = s.src; el.type = s.type;
+        v.appendChild(el);
+      });
+      v.addEventListener('canplay', function(){ v.classList.add('is-ready'); }, {once:true});
+      v.load();
+      var p = v.play();
+      if(p && p.catch) p.catch(function(){ /* autoplay blocked — poster stands in */ });
+    }
+    var timer;
+    function check(){
+      if(v.querySelector('source')) return;
+      if(document.documentElement.clientWidth >= 768) load();
+    }
+    check();
+    addEventListener('resize', function(){ clearTimeout(timer); timer = setTimeout(check, 150); });
+    document.addEventListener('visibilitychange', check);
+  })();
+
+  // ---- Add to calendar -----------------------------------------------
+  var EV = {
+    id:'block-party',
+    name:'Pack Out State Block Party',
+    tagline:'This is How We Homecoming Vol. 3',
+    start:new Date('2026-10-31T14:30:00-04:00'),
+    end:new Date('2026-11-01T01:00:00-04:00'),
+    where:'Killjoy Kitchen & Cocktails, 116 N West St, Raleigh, NC',
+    url:'https://tickets.venuepilot.com/e/the-downtown-block-party-tailgate-2026-10-31-killjoy-cocktail-lounge-raleigh-8c97cf'
+  };
+  function utc(d){ return d.toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,''); }
+  function ice(s){ return String(s).replace(/\\/g,'\\\\').replace(/;/g,'\\;').replace(/,/g,'\\,').replace(/\n/g,'\\n'); }
+  var what = EV.tagline + '\n\n' + EV.url;
+
+  var g = document.getElementById('gcal');
+  if(g){
+    g.href = 'https://calendar.google.com/calendar/render?' + new URLSearchParams({
+      action:'TEMPLATE', text:EV.name, dates: utc(EV.start) + '/' + utc(EV.end),
+      details:what, location:EV.where, trp:'false'
+    }).toString();
+  }
+  var i = document.getElementById('ical');
+  if(i){
+    var body = [
+      'BEGIN:VCALENDAR','VERSION:2.0',
+      'PRODID:-//Pack Out State//Homecoming//EN','CALSCALE:GREGORIAN','METHOD:PUBLISH',
+      'BEGIN:VEVENT',
+      'UID:' + EV.id + '@packoutstate.com',
+      'DTSTAMP:' + utc(new Date()),
+      'DTSTART:' + utc(EV.start),
+      'DTEND:' + utc(EV.end),
+      'SUMMARY:' + ice(EV.name),
+      'LOCATION:' + ice(EV.where),
+      'DESCRIPTION:' + ice(what),
+      'URL:' + EV.url,
+      'END:VEVENT','END:VCALENDAR'
+    ].join('\r\n');
+    i.href = URL.createObjectURL(new Blob([body],{type:'text/calendar;charset=utf-8'}));
+  }
+  document.addEventListener('click', function(e){
+    document.querySelectorAll('.cal[open]').forEach(function(d){
+      if(!d.contains(e.target)) d.removeAttribute('open');
+    });
+  });
+
+  // ---- Reveal ---------------------------------------------------------
+  if(reduced || !('IntersectionObserver' in window)){
+    document.querySelectorAll('.reveal, [data-animate]').forEach(function(el){
+      el.classList.add('is-in'); el.style.opacity = 1; el.style.transform = 'none';
+    });
+  } else {
+    document.querySelectorAll('[data-animate]').forEach(function(el, n){
+      setTimeout(function(){
+        el.style.transition = 'opacity .7s ease, transform .7s ease';
+        el.style.opacity = 1; el.style.transform = 'none';
+      }, 120 + n * 90);
+    });
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){ en.target.classList.add('is-in'); io.unobserve(en.target); }
+      });
+    }, {rootMargin:'0px 0px -12% 0px'});
+    document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+  }
+})();
+</script>
+
+</body>
+</html>

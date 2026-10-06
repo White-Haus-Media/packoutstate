@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Untold: The Talley Tapes · Pack Out State · NC State Homecoming 2026</title>
+<meta name="description" content="A Homecoming Original. Before the posts, before the stories, there was Talley. Premiering Friday, October 30 at House of Art, downtown Raleigh.">
+
+<link rel="canonical" href="https://packoutstate.com/talley-tapes">
+
+<meta property="og:title" content="Untold: The Talley Tapes · A Homecoming Original">
+<meta property="og:description" content="Before bottle service, before sections, there was Talley. Premiering Friday, October 30 at House of Art, Raleigh.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://packoutstate.com/talley-tapes">
+<meta property="og:image" content="https://packoutstate.com/assets/talley-banner.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/site.css">
+
+<style>
+/* ============================================================
+   THE TALLEY TAPES — page-specific treatment
+
+   Direction, off the flyer and the teaser: full black, heavy
+   grain, brick and pavement texture, and the red redaction bar
+   struck through UNTOLD.
+
+   Organising principle: STORY. This is a documentary premiere,
+   not a logistics problem. The lore leads, the teaser plays
+   early, the archive is evidence, and the practical details sit
+   at the end where someone who is already sold goes looking for
+   them. No timeline, no FAQ accordion, no photo grid — the
+   Block Party owns those.
+
+   The redaction bar is the through-line: it is struck through
+   the title, it is already painted over the faces in the 2010s
+   archive photos, and it holds the things not announced yet.
+   ============================================================ */
+
+body{background:#000;color:#EDEBE6}
+
+/* Film grain over the whole page. Cheap, static, and it gives the
+   black a texture instead of a flat void. */
+.grain{
+  position:fixed;inset:0;z-index:40;pointer-events:none;opacity:.055;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+@media (prefers-reduced-motion: reduce){ .grain{opacity:.04} }
+
+/* ---------- REDACTION BAR ----------
+   The page's signature. Used on the title, on withheld details,
+   and echoed by the bars already painted on the archive photos. */
+.redact{
+  position:relative;display:inline-block;color:transparent;
+  background:var(--red);padding:0 .14em;
+  user-select:none;
+}
+.redact--label{
+  display:inline-block;background:var(--red);color:#fff;
+  font-weight:800;letter-spacing:.16em;text-transform:uppercase;
+  font-size:.66rem;padding:5px 9px;
+}
+
+/* ---------- HERO ----------
+   The banner is the hero. It is 16:9 artwork built for exactly this
+   slot and it already carries the lockup, the "Homecoming Original"
+   line and the premiere date — so it is shown whole rather than
+   cropped to fill, and the page adds no competing title over it.
+   The H1 is present for screen readers and search, visually hidden,
+   because the visible title is the artwork. */
+.thero{
+  position:relative;background:#000;overflow:hidden;
+  padding-block:clamp(28px,5vw,64px) clamp(44px,7vw,84px);
+}
+/* a faint wash of the artwork behind everything, for depth */
+.thero__wash{
+  position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:url('/assets/talley-banner.jpg') center/cover no-repeat;
+  filter:blur(60px) saturate(.7);opacity:.35;
+}
+.thero__inner{position:relative;z-index:1}
+.thero__art{
+  display:block;width:100%;height:auto;margin-inline:auto;max-width:1120px;
+  border:1px solid rgba(255,255,255,.14);
+  box-shadow:0 46px 120px rgba(0,0,0,.9);
+}
+.thero__bar{
+  max-width:1120px;margin:clamp(24px,4vw,40px) auto 0;
+  display:flex;flex-wrap:wrap;gap:18px 32px;align-items:center;justify-content:space-between;
+}
+.thero__meta{font-size:clamp(1rem,1.9vw,1.2rem);font-weight:700;color:#fff}
+.thero__meta .dot{color:var(--red-bright);margin-inline:10px}
+.thero__where{margin-top:6px;color:#B8B4AC;font-size:.95rem;font-weight:500;letter-spacing:.03em}
+.thero__cta{display:flex;flex-wrap:wrap;gap:12px}
+@media(max-width:620px){
+  .thero__bar{flex-direction:column;align-items:flex-start}
+  .thero__cta{width:100%}
+  .thero__cta .btn{flex:1 1 auto;text-align:center}
+}
+
+/* ---------- TEASER ---------- */
+.teaser{background:#000;padding-block:clamp(48px,8vw,90px)}
+.teaser__frame{
+  position:relative;border:1px solid rgba(255,255,255,.14);background:#000;
+  box-shadow:0 40px 100px rgba(0,0,0,.8);
+}
+.teaser__frame video{display:block;width:100%;height:auto;aspect-ratio:16/9;background:#000}
+/* Phone-native cut. The 9:16 master is framed for a full phone screen,
+   so it gets a portrait frame rather than being letterboxed into 16:9. */
+.teaser__frame.is-vertical{max-width:440px;margin-inline:auto}
+.teaser__frame.is-vertical video{aspect-ratio:9/16}
+.teaser__cap{
+  display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;
+  margin-top:16px;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;
+  font-weight:700;color:#7C7870;
+}
+
+/* ---------- THE STORY ----------
+   Editorial column, generous measure, no cards. */
+.story{background:#000;padding-block:clamp(64px,10vw,124px)}
+.story__inner{max-width:760px;margin-inline:auto}
+.story p{
+  font-size:clamp(1.08rem,1.6vw,1.24rem);line-height:1.72;color:#CFCBC4;
+  margin-bottom:26px;
+}
+.story p:last-child{margin-bottom:0}
+.story .open::first-letter{
+  float:left;font-family:var(--display);font-size:4.4rem;line-height:.82;
+  color:var(--red-bright);margin:6px 14px 0 0;
+}
+.pull{
+  margin:clamp(44px,7vw,76px) auto;max-width:900px;text-align:center;
+}
+.pull__q{
+  font-family:var(--display);font-size:clamp(1.9rem,5.2vw,3.6rem);
+  line-height:1.06;text-transform:uppercase;color:#fff;
+}
+.pull__a{
+  margin-top:18px;font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;
+  font-weight:700;color:#7C7870;
+}
+
+/* ---------- THE ARCHIVE ----------
+   Four frames, presented as evidence rather than a gallery. The red
+   bars over the faces are in the source photographs — the people in
+   them were anonymised on purpose, and the page leans on that. */
+.archive{background:#08080A;padding-block:clamp(64px,10vw,110px);border-top:1px solid rgba(255,255,255,.08)}
+.evid{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(12px,2.4vw,22px)}
+@media(max-width:700px){ .evid{grid-template-columns:1fr} }
+.ev{margin:0;position:relative}
+.ev img{
+  display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;
+  filter:contrast(1.06) saturate(.86);
+  border:1px solid rgba(255,255,255,.1);
+}
+.ev figcaption{
+  margin-top:10px;font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;
+  font-weight:700;color:#6E6A63;display:flex;justify-content:space-between;gap:12px;
+}
+.ev figcaption .n{color:var(--red-bright)}
+
+/* ---------- THE PREMIERE (practical details, last) ---------- */
+.prem{background:#000;padding-block:clamp(64px,10vw,110px);border-top:1px solid rgba(255,255,255,.08)}
+.prem__grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(32px,6vw,80px);align-items:start}
+@media(max-width:860px){ .prem__grid{grid-template-columns:1fr;gap:38px} }
+.lines{list-style:none;display:grid;gap:0}
+.lines li{
+  display:grid;grid-template-columns:130px 1fr;gap:20px;
+  padding-block:16px;border-top:1px solid rgba(255,255,255,.1);
+  font-size:1.02rem;color:#CFCBC4;
+}
+.lines li:last-child{border-bottom:1px solid rgba(255,255,255,.1)}
+.lines .k{
+  font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;
+  font-weight:800;color:#7C7870;padding-top:4px;
+}
+.lines a{color:#fff;text-decoration:underline;text-decoration-color:var(--red);text-underline-offset:3px}
+@media(max-width:560px){ .lines li{grid-template-columns:1fr;gap:4px} }
+
+/* Venue card — House of Art. White mark, because this ground is black. */
+.hoa{border:1px solid rgba(255,255,255,.14);background:#0C0C0E;padding:30px}
+.hoa__mark{display:block;width:auto;height:96px}
+.hoa__note{margin-top:20px;color:#B8B4AC;font-size:1rem;line-height:1.6}
+.hoa__addr{margin-top:16px;display:flex;flex-direction:column;gap:7px;align-items:flex-start}
+.tix-row{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.tix-link{
+  font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;font-weight:800;
+  color:#fff;text-decoration:none;background:var(--red);padding:8px 14px;
+}
+.tix-link::after{content:' \2192'}
+.tix-link:hover{background:var(--red-deep)}
+.hoa__soon{
+  margin-top:6px;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;
+  font-weight:800;color:#8C8880;
+}
+.hoa__links{display:flex;flex-wrap:wrap;gap:18px;margin-top:22px}
+.hoa__links a{
+  font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;font-weight:800;
+  color:#fff;text-decoration:none;border-bottom:2px solid var(--red);padding-bottom:3px;
+}
+.hoa__links a:hover{color:var(--red-bright)}
+
+/* ---------- CLOSE ---------- */
+.close{background:var(--red);color:#fff;padding-block:clamp(56px,9vw,96px)}
+.close__inner{display:flex;flex-wrap:wrap;gap:30px;align-items:center;justify-content:space-between}
+.close__t{font-family:var(--display);font-size:clamp(2rem,5.6vw,3.4rem);line-height:1.02;text-transform:uppercase;max-width:15ch}
+.close__n{margin-top:12px;font-size:.92rem;color:rgba(255,255,255,.88);max-width:42ch}
+.close .btn--dark{background:#000}
+.close .btn--ghost{border-color:rgba(255,255,255,.55);color:#fff}
+.close .btn--ghost:hover{background:rgba(255,255,255,.1);border-color:#fff}
+
+.alsonav{border-top:1px solid rgba(255,255,255,.1);padding-block:28px;background:#000}
+.alsonav__row{display:flex;flex-wrap:wrap;gap:8px 28px;align-items:baseline}
+.alsonav__k{font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;font-weight:800;color:#6E6A63}
+.alsonav a{font-weight:700;color:#EDEBE6;text-decoration:none;border-bottom:2px solid transparent}
+.alsonav a:hover{border-bottom-color:var(--red)}
+</style>
+</head>
+<body>
+
+<div class="grain" aria-hidden="true"></div>
+<a class="skip" href="#main">Skip to content</a>
+
+
+<header class="nav nav--event">
+  <div class="nav__inner">
+    <a class="nav__brand" href="/">Pack <span>Out</span> State</a>
+    <a class="nav__back" href="/#lineup">&larr; All events</a>
+    <a class="nav__cta" href="https://tickets.venuepilot.com/e/the-talley-tapes-2026-10-30-downtown-raleigh-raleigh-7a0918" target="_blank" rel="noopener">Get tickets</a>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ============================ HERO ============================ -->
+<section class="thero">
+  <div class="thero__wash" aria-hidden="true"></div>
+  <div class="wrap thero__inner">
+    <h1 class="sr-only">Untold: The Talley Tapes, a Homecoming Original, premiering Friday, October 30</h1>
+
+    <img class="thero__art" src="/assets/talley-banner.jpg"
+         alt="Untold: The Talley Tapes, a Homecoming Original. Friday premiering October 30th."
+         width="1920" height="1080" fetchpriority="high" decoding="async">
+
+    <div class="thero__bar">
+      <div>
+        <p class="thero__meta">Friday, October 30 <span class="dot">&middot;</span> 10:00 PM &ndash; 2:00 AM</p>
+        <p class="thero__where">House of Art &middot; Downtown Raleigh</p>
+      </div>
+      <div class="thero__cta">
+        <a class="btn btn--primary" href="https://tickets.venuepilot.com/e/the-talley-tapes-2026-10-30-downtown-raleigh-raleigh-7a0918" target="_blank" rel="noopener">Get tickets</a>
+        <a class="btn btn--ghost" href="#teaser">Watch the teaser</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ TEASER ============================
+     Plays with sound, on purpose. This is a trailer with people
+     telling stories in it, not wallpaper — so it is never autoplayed
+     and never muted by default. preload="none" means it costs a
+     visitor nothing until they choose to watch.
+     ================================================================ -->
+<section class="teaser" id="teaser">
+  <div class="wrap">
+    <div class="teaser__frame reveal">
+      <video id="teaserVideo" controls preload="none" playsinline
+             src="/assets/talley-teaser.mp4" poster="/assets/talley-banner.jpg">
+        Your browser can&rsquo;t play this video.
+        <a href="/assets/talley-teaser.mp4">Download the teaser instead.</a>
+      </video>
+    </div>
+    <div class="teaser__cap">
+      <span>Teaser</span>
+      <span>Untold: The Talley Tapes</span>
+      <span>&middot;</span>
+      <span>Premiering Friday, Oct 30</span>
+      <span id="cutLabel"></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ THE STORY ============================ -->
+<section class="story">
+  <div class="wrap story__inner">
+    <p class="open">Before bottle service, before sections, there was Talley. Before the posts, before the stories, before nights became content. When flyers moved hand to hand and word of mouth was currency, Talley became a legendary party known round the state, with students traveling from their respective campuses to be part of it.</p>
+
+    <p>Talley was not just a building; it was a rite of passage. If you knew, you went. If you missed it, you heard about it. Nights became lore, passed from generation to generation, sparking debate on who did it best.</p>
+
+    <p>No matter the era, the nostalgia takes over, and one phrase emerges:</p>
+  </div>
+
+  <div class="wrap pull">
+    <div class="pull__q">&ldquo;Damn&hellip; I remember<br>them Talley parties.&rdquo;</div>
+    <div class="pull__a">Everybody who was there</div>
+  </div>
+
+  <div class="wrap story__inner">
+    <p>Homecoming Friday night, The Talley Tapes brings the stories to life with a house party experience at House of Art, in the heart of downtown Raleigh.</p>
+
+    <p>A premiere night for the people who lived it, the people who heard about it, and everybody ready to be part of the next chapter.</p>
+  </div>
+</section>
+
+<!-- ============================ THE ARCHIVE ============================
+     The red bars over the faces are in the original photographs.
+     ================================================================ -->
+<section class="archive">
+  <div class="wrap">
+    <div class="section__head reveal" style="margin-bottom:clamp(28px,5vw,48px)">
+      <div class="eyebrow">The archive</div>
+      <h2 class="section__title" style="color:#fff">Names withheld</h2>
+      <p class="section__lead" style="color:#9B978F">Talley, back then. The faces stay covered. Some of these nights are still nobody's business.</p>
+    </div>
+
+    <div class="evid reveal">
+      <figure class="ev">
+        <img src="/assets/talley-tapes/talley-archive-01.jpg" alt="Archive photograph of a crowded Talley party" width="1000" height="562" loading="lazy" decoding="async">
+        <figcaption><span>Talley &middot; crowd</span><span class="n">Exhibit 01</span></figcaption>
+      </figure>
+      <figure class="ev">
+        <img src="/assets/talley-tapes/talley-archive-02.jpg" alt="Archive photograph from a Talley party, faces redacted" width="1000" height="562" loading="lazy" decoding="async">
+        <figcaption><span>Talley &middot; the girls</span><span class="n">Exhibit 02</span></figcaption>
+      </figure>
+      <figure class="ev">
+        <img src="/assets/talley-tapes/talley-archive-03.jpg" alt="Archive photograph from a Talley party, faces redacted" width="1000" height="562" loading="lazy" decoding="async">
+        <figcaption><span>Talley &middot; the crew</span><span class="n">Exhibit 03</span></figcaption>
+      </figure>
+      <figure class="ev">
+        <img src="/assets/talley-tapes/talley-archive-04.jpg" alt="Archive photograph of a packed Talley party floor" width="1000" height="562" loading="lazy" decoding="async">
+        <figcaption><span>Talley &middot; the floor</span><span class="n">Exhibit 04</span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ THE PREMIERE ============================ -->
+<section class="prem">
+  <div class="wrap">
+    <div class="prem__grid">
+      <div class="reveal">
+        <div class="eyebrow">The premiere</div>
+        <h2 class="section__title" style="color:#fff">Friday night,<br>October 30</h2>
+        <ul class="lines">
+          <li><span class="k">Doors</span><span>9:00 PM</span></li>
+          <li><span class="k">Runs</span><span>10:00 PM &ndash; 2:00 AM</span></li>
+          <li><span class="k">Where</span><span>House of Art &middot; Downtown Raleigh</span></li>
+          <li><span class="k">Address</span><span>Announced soon</span></li>
+          <li><span class="k">Tickets</span><span class="tix-row">On sale now
+            <a class="tix-link" href="https://tickets.venuepilot.com/e/the-talley-tapes-2026-10-30-downtown-raleigh-raleigh-7a0918" target="_blank" rel="noopener">Lock it in</a></span></li>
+          <li><span class="k">Age</span><span>21+ with valid photo ID</span></li>
+          <li><span class="k">Dress</span><span>Come like the cameras are out. Because they are.</span></li>
+          <li><span class="k">Capacity</span><span>Limited, this one will sell out.</span></li>
+        </ul>
+        <div class="event__cta">
+          <a class="btn btn--primary" href="https://tickets.venuepilot.com/e/the-talley-tapes-2026-10-30-downtown-raleigh-raleigh-7a0918" target="_blank" rel="noopener">Get tickets</a>
+          <a class="btn btn--ghost" href="https://www.handstamp.com/e/the-talley-tapes-wkuetvyk" target="_blank" rel="noopener">Event details</a>
+          <details class="cal">
+            <summary class="btn btn--ghost cal__trigger">Add to calendar</summary>
+            <div class="cal__menu">
+              <a class="cal__opt" id="gcal" target="_blank" rel="noopener">
+                <span class="cal__ico" aria-hidden="true">&#9670;</span>
+                <span>Google Calendar<small>Opens in a new tab</small></span></a>
+              <a class="cal__opt" id="ical" download="talley-tapes.ics">
+                <span class="cal__ico" aria-hidden="true">&#8595;</span>
+                <span>Apple &amp; Outlook<small>Downloads a .ics file</small></span></a>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <div class="hoa">
+          <!-- Logo is not linked yet: House of Art's site has no venue info up.
+               Re-link it once it does. -->
+          <img class="hoa__mark" src="/assets/houseofart-white.png" alt="House of Art" width="420" height="394">
+          <div class="hoa__addr">
+            <span class="hoa__soon">Address announced soon</span>
+          </div>
+          <p class="hoa__note">House of Art is confirmed. The street address goes up once the venue is ready to share it.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ CLOSE ============================ -->
+<section class="close">
+  <div class="wrap close__inner">
+    <div>
+      <div class="close__t">If you know,<br>you go</div>
+      <p class="close__n">One night, one house, and a room full of people who were there. Tickets are on sale now.</p>
+    </div>
+    <div class="btnrow" style="margin-top:0">
+      <a class="btn btn--dark" href="https://tickets.venuepilot.com/e/the-talley-tapes-2026-10-30-downtown-raleigh-raleigh-7a0918" target="_blank" rel="noopener">Get tickets</a>
+      <a class="btn btn--ghost" href="#teaser">Watch the teaser</a>
+    </div>
+  </div>
+</section>
+
+<nav class="alsonav" aria-label="Rest of the weekend">
+  <div class="wrap alsonav__row">
+    <span class="alsonav__k">Rest of the weekend</span>
+    <a href="/#the-warm-up">Thu &middot; The Warm Up</a>
+    <a href="/#clocked-out">Fri &middot; Clocked Out</a>
+    <a href="/block-party">Sat &middot; Block Party</a>
+    <a href="/#lineup">Full lineup</a>
+  </div>
+</nav>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__grid">
+      <a class="foot__brand" href="/">Pack <span>Out</span> State</a>
+      <nav class="foot__links" aria-label="Footer">
+        <a href="/">Home</a>
+        <a href="/#lineup">Full lineup</a>
+        <a href="https://tickets.venuepilot.com/e/the-talley-tapes-2026-10-30-downtown-raleigh-raleigh-7a0918" target="_blank" rel="noopener">Tickets</a>
+      </nav>
+    </div>
+    <div class="foot__fine">NC State Homecoming 2026 &middot; October 29 &ndash; 31 &middot; Raleigh &amp; Durham, NC</div>
+  </div>
+</footer>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Event",
+  "name":"Untold: The Talley Tapes",
+  "alternateName":"A Homecoming Original",
+  "description":"A premiere night bringing the lore of the legendary Talley parties to life as a house party experience for the people who lived it, the people who heard about it, and everybody ready to be part of the next chapter.",
+  "startDate":"2026-10-30T22:00:00-04:00",
+  "endDate":"2026-10-31T02:00:00-04:00",
+  "eventStatus":"https://schema.org/EventScheduled",
+  "eventAttendanceMode":"https://schema.org/OfflineEventAttendanceMode",
+  "image":"https://packoutstate.com/assets/talley-banner.jpg",
+  "url":"https://packoutstate.com/talley-tapes",
+  "location":{
+    "@type":"Place",
+    "name":"House of Art",
+    "address":{
+      "@type":"PostalAddress",
+      "addressLocality":"Raleigh",
+      "addressRegion":"NC",
+      "addressCountry":"US"
+    }
+  },
+  "organizer":{"@type":"Organization","name":"Pack Out State","url":"https://packoutstate.com"},
+  "offers":{
+    "@type":"Offer",
+    "availability":"https://schema.org/InStock",
+    "url":"https://tickets.venuepilot.com/e/the-talley-tapes-2026-10-30-downtown-raleigh-raleigh-7a0918"
+  }
+}
+</script>
+
+<script>
+(function(){
+  'use strict';
+  var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ---- Add to calendar -----------------------------------------------
+  var EV = {
+    id:'talley-tapes',
+    name:'Untold: The Talley Tapes',
+    tagline:'A Homecoming Original',
+    start:new Date('2026-10-30T22:00:00-04:00'),
+    end:new Date('2026-10-31T02:00:00-04:00'),
+    where:'House of Art, Downtown Raleigh, NC',
+    url:'https://tickets.venuepilot.com/e/the-talley-tapes-2026-10-30-downtown-raleigh-raleigh-7a0918'
+  };
+  function utc(d){ return d.toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,''); }
+  function ice(s){ return String(s).replace(/\\/g,'\\\\').replace(/;/g,'\\;').replace(/,/g,'\\,').replace(/\n/g,'\\n'); }
+  var what = EV.tagline + '\n\n' + EV.url;
+
+  var g = document.getElementById('gcal');
+  if(g){
+    g.href = 'https://calendar.google.com/calendar/render?' + new URLSearchParams({
+      action:'TEMPLATE', text:EV.name, dates: utc(EV.start) + '/' + utc(EV.end),
+      details:what, location:EV.where, trp:'false'
+    }).toString();
+  }
+  var i = document.getElementById('ical');
+  if(i){
+    var body = [
+      'BEGIN:VCALENDAR','VERSION:2.0',
+      'PRODID:-//Pack Out State//Homecoming//EN','CALSCALE:GREGORIAN','METHOD:PUBLISH',
+      'BEGIN:VEVENT',
+      'UID:' + EV.id + '@packoutstate.com',
+      'DTSTAMP:' + utc(new Date()),
+      'DTSTART:' + utc(EV.start),
+      'DTEND:' + utc(EV.end),
+      'SUMMARY:' + ice(EV.name),
+      'LOCATION:' + ice(EV.where),
+      'DESCRIPTION:' + ice(what),
+      'URL:' + EV.url,
+      'END:VEVENT','END:VCALENDAR'
+    ].join('\r\n');
+    i.href = URL.createObjectURL(new Blob([body],{type:'text/calendar;charset=utf-8'}));
+  }
+  document.addEventListener('click', function(e){
+    document.querySelectorAll('.cal[open]').forEach(function(d){
+      if(!d.contains(e.target)) d.removeAttribute('open');
+    });
+  });
+
+  // ---- Teaser: landscape or phone-native cut -------------------------
+  // There are two masters. The 16:9 is the clean cut; the 9:16 is framed
+  // for a full phone screen and carries its own burned-in text. Pick by
+  // viewport, and never swap out from under someone already watching.
+  // preload="none" means neither is fetched until the visitor presses
+  // play, so carrying both costs nothing.
+  (function(){
+    var v = document.getElementById('teaserVideo');
+    if(!v) return;
+    var frame = v.closest('.teaser__frame');
+    var label = document.getElementById('cutLabel');
+    var CUTS = {
+      wide:{src:'/assets/talley-teaser.mp4',
+            poster:'/assets/talley-banner.jpg', name:''},
+      tall:{src:'/assets/talley-teaser-vertical.mp4',
+            poster:'/assets/talley-teaser-vertical-poster.jpg', name:'\u00b7 Vertical cut'}
+    };
+    var phone = matchMedia('(max-width: 768px)');
+
+    function pick(){
+      if(!v.paused || v.currentTime > 0) return;   // already watching — leave it
+      var c = phone.matches ? CUTS.tall : CUTS.wide;
+      if(v.getAttribute('src') === c.src) return;
+      v.setAttribute('src', c.src);
+      v.setAttribute('poster', c.poster);
+      frame.classList.toggle('is-vertical', phone.matches);
+      if(label) label.textContent = c.name;
+      v.load();                                    // no bytes fetched: preload="none"
+    }
+
+    pick();
+    if(phone.addEventListener) phone.addEventListener('change', pick);
+    else if(phone.addListener) phone.addListener(pick);
+  })();
+
+  // Pause the teaser if it scrolls out of view — nobody wants audio
+  // playing from a section they have left behind.
+  var vid = document.getElementById('teaserVideo');
+  if(vid && 'IntersectionObserver' in window){
+    new IntersectionObserver(function(es){
+      es.forEach(function(en){ if(!en.isIntersecting && !vid.paused) vid.pause(); });
+    }, {threshold:.15}).observe(vid);
+  }
+
+  // ---- Reveal ---------------------------------------------------------
+  if(reduced || !('IntersectionObserver' in window)){
+    document.querySelectorAll('.reveal, [data-animate]').forEach(function(el){
+      el.classList.add('is-in'); el.style.opacity = 1; el.style.transform = 'none';
+    });
+  } else {
+    document.querySelectorAll('[data-animate]').forEach(function(el, n){
+      setTimeout(function(){
+        el.style.transition = 'opacity .8s ease, transform .8s ease';
+        el.style.opacity = 1; el.style.transform = 'none';
+      }, 140 + n * 110);
+    });
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){ en.target.classList.add('is-in'); io.unobserve(en.target); }
+      });
+    }, {rootMargin:'0px 0px -12% 0px'});
+    document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+  }
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Clocked Out reservation · Pack Out State</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/site.css">
+<style>
+/* Reached only from the private link in a confirmation email. */
+body{background:var(--bone);color:var(--ink)}
+.shell{max-width:620px;margin-inline:auto;padding:clamp(28px,6vw,70px) var(--pad)}
+.card{background:var(--white);border:1px solid #E2DCD1;padding:clamp(24px,4vw,34px)}
+.card__t{font-family:var(--display);font-size:clamp(1.8rem,5vw,2.6rem);text-transform:uppercase;line-height:1.05}
+.when{font-size:1.2rem;font-weight:800;margin-top:12px}
+.meta{color:#5a5a5e;margin-top:6px}
+.msg{padding:14px 16px;border-radius:3px;font-size:.96rem;margin:16px 0;display:none}
+.msg--bad{background:#FDECEC;border:1px solid #F3C2C2;color:#8A1B1B;display:block}
+.msg--ok{background:#EAF6EC;border:1px solid #B9DFC1;color:#1E5B2A;display:block}
+.times{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:9px;margin-top:14px}
+.time{font-weight:800;font-size:.95rem;padding:13px 8px;border:2px solid var(--ink);background:var(--white);
+      color:var(--ink);border-radius:3px;cursor:pointer}
+.time[aria-pressed="true"]{background:var(--red);border-color:var(--red);color:var(--white)}
+.time:disabled{border-color:#DDD8CE;background:#F1EEE7;color:#A9A49A;cursor:not-allowed}
+.row{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+.lbl{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;font-weight:800;color:#6c6c70;margin-top:26px}
+</style>
+</head>
+<body>
+<header class="nav nav--event">
+  <div class="nav__inner">
+    <a class="nav__brand" href="/">Pack <span>Out</span> State</a>
+    <a class="nav__back" href="/clocked-out">&larr; Clocked Out</a>
+  </div>
+</header>
+
+<main class="shell">
+  <div class="card">
+    <div id="state">Loading your reservation</div>
+
+    <div id="view" hidden>
+      <div class="card__t">Your session</div>
+      <div class="when" id="when"></div>
+      <div class="meta" id="who"></div>
+      <div class="meta">District Bar &amp; Lounge, 222 Glenwood Ave, Apt 109, Raleigh</div>
+
+      <div class="msg" id="msg"></div>
+
+      <div id="changeArea">
+        <div class="lbl">Move to another time</div>
+        <div class="times" id="times"></div>
+        <div class="row">
+          <button class="btn btn--primary" id="moveBtn" type="button" disabled>Move my session</button>
+          <button class="btn btn--ghost" id="cancelBtn" type="button" style="color:var(--ink);border-color:rgba(11,11,12,.3)">Cancel my session</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+(function(){
+  'use strict';
+  var $ = function(s){ return document.querySelector(s); };
+  var token = new URLSearchParams(location.search).get('t') || '';
+  var picked = null;
+
+  var fmtTime = function(iso){ return new Date(iso).toLocaleTimeString('en-US',
+    {timeZone:'America/New_York',hour:'numeric',minute:'2-digit'}); };
+  var fmtFull = function(iso){ return new Date(iso).toLocaleString('en-US',
+    {timeZone:'America/New_York',weekday:'long',month:'long',day:'numeric',hour:'numeric',minute:'2-digit'}); };
+
+  function say(text, kind){
+    var m = $('#msg'); m.textContent = text;
+    m.className = 'msg ' + (kind === 'ok' ? 'msg--ok' : 'msg--bad');
+  }
+
+  if(!token){ $('#state').textContent = 'This link is missing its code. Use the link from your confirmation email.'; return; }
+
+  fetch('/api/manage?t=' + encodeURIComponent(token))
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if(d.error){ $('#state').textContent = d.error; return; }
+      $('#state').hidden = true; $('#view').hidden = false;
+      $('#when').textContent = fmtFull(d.starts_at);
+      $('#who').textContent = d.name + ', ' + d.party_size + ' people';
+
+      if(d.status === 'cancelled'){
+        $('#changeArea').hidden = true;
+        say('This session is cancelled. Book a new time on the Clocked Out page.', 'ok');
+        return;
+      }
+      if(!d.can_change){
+        $('#changeArea').hidden = true;
+        say('Changes close 24 hours before the event. Email info@dccsocial.com and we will sort it out.');
+        return;
+      }
+
+      $('#times').innerHTML = (d.slots || []).filter(function(s){ return !s.taken; })
+        .map(function(s){ return '<button class="time" type="button" aria-pressed="false" data-slot="' +
+          s.id + '">' + fmtTime(s.starts_at) + '</button>'; }).join('') ||
+        '<p class="meta">No other times are open right now.</p>';
+    })
+    .catch(function(){ $('#state').textContent = 'We could not load that booking. Please try again.'; });
+
+  $('#times').addEventListener('click', function(e){
+    var b = e.target.closest('.time'); if(!b) return;
+    [].forEach.call(document.querySelectorAll('.time'), function(x){ x.setAttribute('aria-pressed','false'); });
+    b.setAttribute('aria-pressed','true'); picked = b.dataset.slot; $('#moveBtn').disabled = false;
+  });
+
+  $('#moveBtn').addEventListener('click', function(){
+    if(!picked) return;
+    this.disabled = true; this.textContent = 'Moving';
+    fetch('/api/manage', {method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({t: token, action:'move', slot: picked})})
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        if(d.error){ say(d.error); $('#moveBtn').disabled = false; $('#moveBtn').textContent = 'Move my session'; return; }
+        $('#when').textContent = d.when;
+        $('#changeArea').hidden = true;
+        say('Moved. Check your email for the new details.', 'ok');
+      })
+      .catch(function(){ say('Something went wrong. Please try again.'); });
+  });
+
+  $('#cancelBtn').addEventListener('click', function(){
+    if(!confirm('Cancel your session? This frees the time for someone else.')) return;
+    this.disabled = true;
+    fetch('/api/manage', {method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({t: token, action:'cancel'})})
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        if(d.error){ say(d.error); $('#cancelBtn').disabled = false; return; }
+        $('#changeArea').hidden = true;
+        say('Cancelled. Your time is open for someone else now.', 'ok');
+      })
+      .catch(function(){ say('Something went wrong. Please try again.'); });
+  });
+})();
+</script>
+</body>
+</html>

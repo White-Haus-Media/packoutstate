@@ -1,0 +1,466 @@
+/* ============================================================
+   PACK OUT STATE — SHARED FOUNDATION
+   Loaded by the home page and every event landing page.
+
+   What lives here: design tokens, reset, nav, buttons, ticker,
+   section shell, chips, event detail lists, add-to-calendar,
+   expandable info + FAQ, footer, reveal animation, and the
+   event-page components (fact rail, media hero, run of show,
+   venue, policies, gallery, CTA block, weekend cross-links).
+
+   What does NOT live here: anything unique to a single page.
+   Page-specific treatments stay in that page's own <style>.
+   ============================================================ */
+
+:root{
+  --red:#CC0000;
+  --red-deep:#A30000;
+  --red-bright:#FF3B30;
+  --ink:#0B0B0C;
+  --carbon:#17181A;
+  --carbon-2:#212327;
+  --bone:#F4F0E8;
+  --bone-2:#E7E0D2;
+  --white:#FFFFFF;
+  --ash:#9A9CA1;
+  --line:rgba(255,255,255,.12);
+  --line-dark:rgba(11,11,12,.14);
+  --display:'Anton', Impact, sans-serif;
+  --sans:'Archivo', system-ui, -apple-system, sans-serif;
+  --wrap:1200px;
+  --pad:clamp(20px, 5vw, 64px);
+  --draft:#B8860B;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
+
+body{
+  font-family:var(--sans);
+  background:var(--ink);
+  color:var(--white);
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+.wrap{max-width:var(--wrap);margin-inline:auto;padding-inline:var(--pad)}
+
+.eyebrow{
+  font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;
+  font-weight:700;color:var(--red);
+}
+.eyebrow--light{color:var(--red-deep)}
+
+a{color:inherit}
+:focus-visible{outline:3px solid var(--red);outline-offset:3px}
+
+/* Visually hidden, still read by screen readers and indexed. For
+   headings whose visible form is designed artwork. */
+.sr-only{
+  position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+  overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0;
+}
+
+/* Skip link — every page gets one. */
+.skip{
+  position:absolute;left:-9999px;top:0;z-index:100;
+  background:var(--red);color:var(--white);padding:12px 18px;
+  font-weight:700;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;
+}
+.skip:focus{left:0}
+
+/* ---------- DRAFT MARKER ----------
+   Wraps any value we invented and you have not confirmed. Visible on
+   purpose: nothing fake should be able to ship by accident.
+   Delete the <span> (keep the text) once the value is real. */
+.draft{
+  border-bottom:2px dotted var(--draft);
+  cursor:help;
+}
+.draft::after{
+  content:'?';
+  display:inline-block;vertical-align:super;
+  font-size:.62em;font-weight:700;color:var(--draft);
+  margin-left:2px;
+}
+.draft-banner{
+  background:#FFF8E1;color:#5C4405;border-bottom:1px solid #E8D9A0;
+  padding:10px var(--pad);font-size:.78rem;font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;text-align:center;
+}
+.draft-banner b{color:#8A6D08}
+
+/* ---------- STICKY NAV ---------- */
+.nav{
+  position:sticky;top:0;z-index:50;
+  background:rgba(11,11,12,.82);
+  backdrop-filter:saturate(140%) blur(10px);
+  border-bottom:1px solid var(--line);
+  color:var(--white);
+}
+.nav__inner{
+  display:flex;align-items:center;gap:20px;
+  padding:12px var(--pad);max-width:var(--wrap);margin-inline:auto;
+}
+.nav__brand{
+  font-family:var(--display);font-size:1.05rem;letter-spacing:.04em;
+  text-transform:uppercase;white-space:nowrap;text-decoration:none;
+}
+.nav__brand span{color:var(--red-bright)}
+.nav__days{
+  display:flex;gap:6px;margin-left:auto;overflow-x:auto;
+  scrollbar-width:none;-ms-overflow-style:none;
+}
+.nav__days::-webkit-scrollbar{display:none}
+.day-pill{
+  border:1px solid var(--line);background:transparent;color:var(--ash);
+  font-family:var(--sans);font-weight:700;font-size:.7rem;letter-spacing:.12em;
+  text-transform:uppercase;padding:8px 12px;border-radius:2px;cursor:pointer;
+  white-space:nowrap;transition:color .2s, border-color .2s, background .2s;
+}
+.day-pill small{display:block;font-weight:500;font-size:.62rem;color:var(--ash);letter-spacing:.06em;margin-top:2px}
+.day-pill:hover{color:var(--white);border-color:var(--ash)}
+.day-pill.is-active{background:var(--red);border-color:var(--red);color:var(--white)}
+.day-pill.is-active small{color:rgba(255,255,255,.85)}
+
+/* Event pages: a back link on the left, ticket CTA always on the right.
+   Unlike the home page this CTA shows at every width — buying should
+   never be more than one tap away. */
+.nav__back{
+  margin-left:auto;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;
+  font-weight:700;color:var(--ash);text-decoration:none;white-space:nowrap;
+}
+.nav__back:hover{color:var(--white)}
+.nav__cta{
+  display:none;background:var(--red);color:var(--white);border:none;
+  font-family:var(--sans);font-weight:700;font-size:.72rem;letter-spacing:.1em;
+  text-transform:uppercase;padding:10px 16px;border-radius:2px;cursor:pointer;
+  white-space:nowrap;text-decoration:none;
+}
+.nav__cta:hover{background:var(--red-deep)}
+@media(min-width:980px){ .nav__cta{display:inline-block} }
+.nav--event .nav__cta{display:inline-block;margin-left:16px}
+@media(max-width:520px){
+  .nav--event .nav__back{display:none}
+  .nav--event .nav__cta{margin-left:auto}
+}
+
+/* ---------- BUTTONS ---------- */
+.btnrow{display:flex;flex-wrap:wrap;gap:14px;margin-top:44px}
+.btn{
+  font-family:var(--sans);font-weight:700;font-size:.8rem;letter-spacing:.1em;
+  text-transform:uppercase;padding:15px 26px;border-radius:2px;cursor:pointer;
+  text-decoration:none;display:inline-block;transition:transform .15s, background .2s, color .2s;
+  border:1px solid transparent;
+}
+.btn--primary{background:var(--red);color:var(--white)}
+.btn--primary:hover{background:var(--red-deep)}
+.btn--ghost{background:transparent;color:var(--white);border-color:var(--line)}
+.btn--ghost:hover{border-color:var(--white)}
+.section--bone .btn--ghost{color:var(--ink);border-color:rgba(11,11,12,.3)}
+.section--bone .btn--ghost:hover{border-color:var(--ink)}
+.btn--dark{background:var(--ink);color:var(--white)}
+.btn--dark:hover{background:var(--carbon)}
+.btn:active{transform:translateY(1px)}
+
+/* ---------- RED MARQUEE TICKER ---------- */
+.ticker{background:var(--red);overflow:hidden;padding-block:12px;border-block:1px solid var(--red-deep)}
+.ticker__track{display:inline-flex;align-items:center;gap:34px;white-space:nowrap;will-change:transform;animation:ticker 26s linear infinite}
+.ticker span{
+  font-family:var(--display);font-size:1.05rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--white);
+}
+.ticker em{font-style:normal;color:rgba(255,255,255,.65);font-size:.8rem}
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ---------- SECTION SHELL ---------- */
+.section{padding-block:clamp(64px,10vw,120px)}
+.section--bone{background:var(--white);color:var(--ink)}
+.section--sand{background:var(--bone);color:var(--ink)}
+.section--dark{background:var(--ink);color:var(--white)}
+.section--tight{padding-block:clamp(44px,7vw,80px)}
+.section--bone .eyebrow,.section--sand .eyebrow{color:var(--red-deep)}
+.section__head{max-width:720px;margin-bottom:clamp(36px,6vw,64px)}
+.section__title{
+  font-family:var(--display);font-weight:400;
+  font-size:clamp(2.2rem,6vw,4rem);line-height:1.04;text-transform:uppercase;
+  margin-top:16px;
+}
+.section__lead{margin-top:18px;font-size:1.05rem;max-width:60ch}
+.section--dark .section__lead{color:var(--ash)}
+.section--bone .section__lead,.section--sand .section__lead{color:#3a3a3c}
+
+/* ---------- CHIPS ---------- */
+.chip{
+  font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;
+  padding:7px 12px;border-radius:2px;border:1px solid #D8D3C8;color:#5a5a5e;
+}
+.chip--day{background:var(--red);border-color:var(--red);color:var(--white)}
+.chip--age{color:var(--ink);border-color:var(--ink)}
+.chip--free{background:var(--ink);border-color:var(--ink);color:var(--white)}
+.chiprow{display:flex;flex-wrap:wrap;gap:8px}
+
+/* ---------- EVENT DETAIL LIST ---------- */
+.event__details{list-style:none;margin-top:22px;display:grid;gap:10px}
+.event__details li{display:flex;gap:12px;font-size:1.02rem;color:#3a3a3c}
+.event__details .k{
+  font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;
+  color:#8a8a8e;min-width:74px;padding-top:3px;
+}
+.event__details a{color:var(--ink);text-decoration:underline;text-decoration-color:var(--red);text-underline-offset:3px}
+.event__cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px;align-items:flex-start}
+.event__onsale{margin-top:12px;font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--red-deep)}
+
+/* ============================================================
+   EVENT PAGE COMPONENTS
+   ============================================================ */
+
+/* ---------- MEDIA HERO ----------
+   Full-bleed photo or video behind the title block. The poster image
+   is always the base layer so the page paints instantly; the video
+   fades in on top once it can actually play. Content sits left,
+   where the footage is quietest. */
+.ehero{
+  position:relative;min-height:92vh;display:flex;align-items:flex-end;
+  padding-block:clamp(80px,14vh,150px);overflow:hidden;
+  background:var(--ink);color:var(--white);
+}
+.ehero__media{position:absolute;inset:0;z-index:0}
+.ehero__media img,.ehero__media video{
+  width:100%;height:100%;object-fit:cover;display:block;
+}
+.ehero__media video{
+  position:absolute;inset:0;opacity:0;transition:opacity 1.2s ease;
+}
+.ehero__media video.is-ready{opacity:1}
+/* Scrim: dark from the left so the type always has ground under it,
+   plus a floor at the bottom and a cap at the top for the nav. */
+.ehero__scrim{
+  position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:
+    linear-gradient(90deg, rgba(11,11,12,.92) 0%, rgba(11,11,12,.72) 38%, rgba(11,11,12,.18) 70%, rgba(11,11,12,.35) 100%),
+    linear-gradient(180deg, rgba(11,11,12,.75) 0%, transparent 26%, transparent 55%, rgba(11,11,12,.85) 100%);
+}
+.ehero__inner{position:relative;z-index:2;max-width:760px}
+.ehero__eyebrow{margin-bottom:20px;color:var(--red-bright)}
+.ehero h1{
+  font-family:var(--display);font-weight:400;
+  font-size:clamp(2.8rem,10vw,7rem);line-height:.9;letter-spacing:.01em;
+  text-transform:uppercase;
+}
+.ehero h1 .accent{color:var(--red-bright)}
+.ehero__sub{
+  margin-top:22px;font-size:clamp(1rem,2vw,1.3rem);font-weight:600;color:var(--white);
+}
+.ehero__sub .dot{color:var(--red-bright);margin-inline:10px}
+.ehero__meta{margin-top:8px;color:#D6D3CC;font-size:.98rem}
+.ehero__cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:36px;align-items:center}
+
+/* ---------- FACT RAIL ----------
+   The dotted spine off the flyer, rebuilt as the page's fact bar.
+   Everything a patron needs before they decide, above the pitch. */
+.factrail{background:var(--ink);border-top:1px solid var(--line);color:var(--white)}
+.factrail__grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:0;position:relative;
+}
+.fact{
+  position:relative;padding:26px 24px 26px 30px;
+  border-left:1px solid var(--line);
+}
+.fact:first-child{border-left:none;padding-left:0}
+@media(max-width:720px){
+  .factrail__grid{grid-template-columns:1fr 1fr}
+  .fact{padding:20px 16px 20px 22px}
+  .fact:first-child{padding-left:22px;border-left:1px solid var(--line)}
+  .fact:nth-child(odd){border-left:none;padding-left:0}
+}
+/* the dot marker from the flyer */
+.fact::before{
+  content:'';position:absolute;left:-4px;top:32px;
+  width:7px;height:7px;background:var(--red);
+}
+.fact:first-child::before{left:0}
+@media(max-width:720px){
+  .fact::before{top:26px}
+  .fact:nth-child(odd)::before{left:0}
+}
+.fact__k{
+  font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;
+  font-weight:700;color:var(--ash);margin-bottom:8px;
+}
+.fact__v{font-size:1.02rem;font-weight:700;line-height:1.35}
+.fact__v a{color:var(--white);text-decoration:underline;text-decoration-color:var(--red);text-underline-offset:3px}
+.fact__v small{display:block;font-weight:500;font-size:.86rem;color:var(--ash);margin-top:4px}
+
+/* ---------- PROSE ---------- */
+.prose{max-width:62ch}
+.prose p{font-size:1.08rem;color:#333336;margin-bottom:18px}
+.prose p:last-child{margin-bottom:0}
+.section--dark .prose p{color:#C9C7C2}
+.prose .lead{font-size:1.28rem;font-weight:600;color:var(--ink);line-height:1.45}
+.section--dark .prose .lead{color:var(--white)}
+
+/* ---------- RUN OF SHOW ---------- */
+.rundown{display:grid;gap:0;margin-top:8px}
+.run{
+  display:grid;grid-template-columns:130px 1fr;gap:20px;
+  padding-block:22px;border-top:1px solid #E9E5DD;align-items:baseline;
+}
+.section--dark .run{border-top-color:var(--line)}
+.run:last-child{border-bottom:1px solid #E9E5DD}
+.section--dark .run:last-child{border-bottom-color:var(--line)}
+.run__time{
+  font-family:var(--display);font-size:1.3rem;text-transform:uppercase;
+  color:var(--red);line-height:1;letter-spacing:.02em;
+}
+.run__name{font-weight:800;font-size:1.15rem;line-height:1.3}
+.run__note{margin-top:5px;font-size:.98rem;color:#5a5a5e}
+.section--dark .run__note{color:var(--ash)}
+@media(max-width:600px){
+  .run{grid-template-columns:1fr;gap:6px}
+}
+
+/* ---------- SPLIT (venue / getting there) ---------- */
+.split{
+  display:grid;grid-template-columns:1.05fr .95fr;
+  gap:clamp(28px,6vw,72px);align-items:start;
+}
+@media(max-width:860px){ .split{grid-template-columns:1fr;gap:32px} }
+.split__media img{width:100%;height:auto;display:block;border:1px solid #E5E1D8}
+
+/* ---------- INFO CARDS (know before you go) ---------- */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px}
+.card{
+  background:var(--white);border:1px solid #E9E5DD;border-top:4px solid var(--red);
+  padding:24px;box-shadow:0 2px 10px rgba(11,11,12,.04);
+}
+.section--dark .card{background:var(--carbon);border-color:var(--line);box-shadow:none}
+.card__k{
+  font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;
+  font-weight:700;color:var(--red-deep);margin-bottom:10px;
+}
+.section--dark .card__k{color:var(--red-bright)}
+.card__v{font-size:1.02rem;color:#333336;line-height:1.5}
+.section--dark .card__v{color:#C9C7C2}
+
+/* ---------- ADD TO CALENDAR ---------- */
+.cal{position:relative;display:inline-block}
+.cal__trigger{list-style:none;cursor:pointer;user-select:none}
+.cal__trigger::-webkit-details-marker{display:none}
+.cal__trigger::after{content:'\25BE';margin-left:6px;font-size:.9em}
+.cal[open] .cal__trigger::after{content:'\25B4'}
+.cal__menu{
+  position:absolute;z-index:20;top:calc(100% + 8px);left:0;min-width:236px;
+  background:var(--white);border:1px solid #E5E1D8;padding:8px;
+  box-shadow:0 14px 34px rgba(11,11,12,.16);
+}
+.cal__opt{
+  display:flex;align-items:center;gap:12px;padding:12px;min-height:44px;
+  text-decoration:none;color:var(--ink);font-size:.92rem;font-weight:700;
+  border-radius:2px;
+}
+.cal__opt:hover{background:var(--bone)}
+.cal__opt small{display:block;font-weight:500;font-size:.74rem;color:#6c6c6f}
+.cal__ico{flex:none;width:20px;text-align:center;font-size:1rem;color:var(--red)}
+.cal__all{margin-top:20px}
+@media(max-width:479px){ .cal{display:block} .cal__menu{left:0;right:0} }
+
+/* ---------- EXPANDABLE INFO + FAQ ---------- */
+.xtra{margin-top:26px;border:1px solid #E5E1D8;background:#FBFAF7}
+.xtra summary{
+  list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;
+  gap:12px;padding:16px 18px;font-weight:700;font-size:.88rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink);user-select:none;
+}
+.xtra summary::-webkit-details-marker{display:none}
+.xtra summary::after{
+  content:'+';font-family:var(--display);font-size:1.3rem;color:var(--red);
+  line-height:1;transition:transform .2s;
+}
+.xtra[open] summary::after{transform:rotate(45deg)}
+.xtra summary:hover{background:#F3F0E9}
+.xtra__body{padding:6px 18px 22px;border-top:1px solid #E5E1D8}
+.xtra__h{
+  font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;font-weight:700;
+  color:var(--red);margin:20px 0 10px;
+}
+.xtra__body ul{list-style:none;display:grid;gap:8px}
+.xtra__body li{position:relative;padding-left:16px;color:#333336;font-size:1rem}
+.xtra__body li::before{content:'';position:absolute;left:0;top:.55em;width:6px;height:6px;background:var(--red)}
+.xtra__p{color:#333336;font-size:1rem;margin-bottom:8px}
+
+.faqlist{max-width:820px}
+.faq{border-top:1px solid #E5E1D8}
+.faq:last-child{border-bottom:1px solid #E5E1D8}
+.section--dark .faq{border-top-color:var(--line)}
+.section--dark .faq:last-child{border-bottom-color:var(--line)}
+.faq summary{
+  list-style:none;cursor:pointer;padding:18px 0;font-weight:700;font-size:1.05rem;
+  color:var(--ink);display:flex;justify-content:space-between;align-items:center;gap:12px;user-select:none;
+}
+.section--dark .faq summary{color:var(--white)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:'+';color:var(--red);font-family:var(--display);font-size:1.2rem;line-height:1;transition:transform .2s;flex:none}
+.faq[open] summary::after{transform:rotate(45deg)}
+.faq p{color:#3a3a3c;font-size:.99rem;padding:0 0 18px;max-width:60ch}
+.section--dark .faq p{color:var(--ash)}
+
+/* ---------- GALLERY ---------- */
+.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.gallery img{width:100%;height:100%;object-fit:cover;display:block;aspect-ratio:4/5}
+.gallery figure{overflow:hidden;background:var(--carbon)}
+.gallery img{transition:transform .5s ease}
+.gallery figure:hover img{transform:scale(1.04)}
+
+/* ---------- CLOSING CTA BLOCK ---------- */
+.cta{background:var(--red);color:var(--white);padding-block:clamp(56px,9vw,96px)}
+.cta__inner{display:flex;flex-wrap:wrap;gap:32px;align-items:center;justify-content:space-between}
+.cta__title{
+  font-family:var(--display);font-size:clamp(2rem,6vw,3.6rem);line-height:1;
+  text-transform:uppercase;max-width:16ch;
+}
+.cta__note{margin-top:14px;font-size:.9rem;color:rgba(255,255,255,.85);max-width:44ch}
+.cta .btn--dark{background:var(--ink)}
+.cta .btn--ghost{border-color:rgba(255,255,255,.5);color:var(--white)}
+.cta .btn--ghost:hover{border-color:var(--white);background:rgba(255,255,255,.08)}
+
+/* ---------- REST OF THE WEEKEND ---------- */
+.weekend{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.wk{
+  display:block;text-decoration:none;color:var(--white);
+  background:var(--carbon);border:1px solid var(--line);
+  padding:24px;transition:transform .28s ease, border-color .28s ease, background .28s ease;
+}
+.wk:hover{transform:translateY(-5px);border-color:var(--red);background:var(--carbon-2)}
+.wk__day{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:var(--red-bright)}
+.wk__name{font-family:var(--display);font-size:1.5rem;text-transform:uppercase;line-height:1.05;margin-top:10px}
+.wk__meta{margin-top:10px;font-size:.88rem;color:var(--ash)}
+.wk__go{margin-top:16px;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--white)}
+.wk__go::after{content:' \2192';color:var(--red-bright)}
+
+/* ---------- FOOTER ---------- */
+.foot{background:var(--ink);color:var(--white);border-top:1px solid var(--line);padding-block:56px}
+.foot__grid{display:flex;flex-wrap:wrap;justify-content:space-between;gap:28px;align-items:flex-end}
+.foot__brand{font-family:var(--display);font-size:1.6rem;text-transform:uppercase;letter-spacing:.03em;text-decoration:none}
+.foot__brand span{color:var(--red)}
+.foot__links{display:flex;gap:20px;flex-wrap:wrap}
+.foot__links a{font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--ash);text-decoration:none}
+.foot__links a:hover{color:var(--white)}
+.foot__fine{margin-top:36px;color:#8A8B8E;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase}
+
+/* ---------- REVEAL ANIMATION ---------- */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .6s ease, transform .6s ease}
+.reveal.is-in{opacity:1;transform:none}
+[data-animate]{opacity:0;transform:translateY(18px)}
+
+@media (prefers-reduced-motion: reduce){
+  .reveal{opacity:1;transform:none;transition:none}
+  [data-animate]{opacity:1 !important;transform:none !important}
+  .ticker__track{animation:none !important}
+  .gallery figure:hover img{transform:none}
+  .wk:hover{transform:none}
+  .ehero__media video{transition:none}
+}
