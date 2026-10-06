@@ -75,7 +75,10 @@ database. Everything else on the site is still plain static files.
 - **Database:** Supabase project `studio-ops`, in its own `packoutstate`
   schema so it cannot collide with anything else in there. Three tables:
   slots, reservations, creators.
-- **Email:** Resend, sending from info@dccsocial.com.
+- **Email:** Resend, sending from hello@mail.packoutstate.com, which is
+  the domain already verified on the account. Replies go to
+  info@dccsocial.com. dccsocial.com itself is not verified in Resend, so do
+  not set the from address to it without doing the DNS work first.
 - **Server:** four files in `api/`, running on Vercel. Plain Node with no
   npm packages, so there is still no build step and no package.json.
 
@@ -91,6 +94,10 @@ only the server has.
 **Environment variables**, all set in Vercel, never in the code:
 `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `RESEND_API_KEY`,
 `HQ_PASSWORD`, `TEAM_EMAIL`, `MAIL_FROM`.
+
+The project also carries older variables from the mixtape and contact form
+work: `TURNSTILE_SECRET_KEY`, `CLIENT_ID`, `FROM_EMAIL`, `NOTIFY_EMAIL`,
+`SITE_NAME`. Leave them alone, they belong to those features.
 
 **Email never fails a booking.** If Resend is down, the reservation is still
 saved and the person still sees their confirmation on screen. Mail errors
@@ -182,9 +189,10 @@ There is also a local preview at http://localhost:4173 using
 `python3 -m http.server 4173`. The event pages use root absolute paths, so
 opening the files directly with file:// will not load the CSS.
 
-## Known issue: GitHub is behind
+## Other things in this repo
 
-The landing page work exists on this Mac and in Vercel, but was never pushed
-to GitHub. That matters because Vercel also rebuilds the site when GitHub's
-main branch changes, so a future push could revert the live site to the old
-version. Getting the commits onto GitHub is the fix.
+The site also carries a Talley Mixtape page at `/mixtape` and a contact form
+on the home page, both built in separate sessions. They use `api/mixtape.js`,
+`api/song-search.js`, `api/contact.js` and the `talley_mixtape` schema in the
+same Supabase project. Do not remove them when working on event pages.
+
