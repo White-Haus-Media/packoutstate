@@ -75,6 +75,14 @@ Change all three together.
 
 Every footer has an HQ link (`/hq`, nofollow) so partners can reach the
 dashboard from the site.
+Every footer also has a "Follow us @packoutstate" Instagram button
+(instagram.com/packoutstate).
+
+Buttons in the page body (`.btn`, and `.submit` on the mixtape page) use body
+text size (1.05rem, 16.8px), normal case, bold, 44px tall. Colton found the
+old capitals-and-padding buttons too bulky (Oct 2026). The rule sits at the
+end of `index.html`, `css/site.css` and the mixtape page so it wins; keep the
+three in step. The header button is separate and stays 12px.
 
 ## Event landing pages
 

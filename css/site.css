@@ -590,3 +590,16 @@ a{color:inherit}
 .nav__pages a{color:#fff}
 .nav__pages a:hover{border-bottom-color:rgba(255,255,255,.45)}
 .nav__pages a[aria-current="page"]{border-bottom-color:#fff}
+
+/* Buttons: body-text size and normal case, slimmer than before. Set by
+   Colton Oct 2026 ("too bulky"). Kept last so it wins over the earlier
+   button rules. 44px tall is the smallest comfortable tap target. The red
+   header button is .nav__cta, not .btn, and stays at 12px on purpose. */
+.btn{font-size:1.05rem;letter-spacing:0;text-transform:none;padding:10px 20px;min-height:44px;line-height:1.2}
+
+/* Instagram button in the footer, same size and shape as the page buttons. */
+.foot .foot__ig{display:inline-flex;align-items:center;gap:10px;margin-top:32px;min-height:44px;padding:10px 20px;
+  border:1px solid rgba(255,255,255,.35);border-radius:2px;color:#fff;font-family:var(--sans);
+  font-weight:700;font-size:1.05rem;line-height:1.2;text-decoration:none;transition:border-color .2s}
+.foot .foot__ig:hover{border-color:#fff}
+.foot .foot__ig svg{width:20px;height:20px;flex:none}
