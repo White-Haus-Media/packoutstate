@@ -14,8 +14,10 @@ no package.json, no dependencies. Open a file, edit it, done.
 Do not introduce React, a static site generator, Tailwind, npm packages or a
 build pipeline without asking first.
 
-Fonts come from Google Fonts (Anton for display, Archivo for everything
-else). That is the only outside request the pages make.
+Display font is Field Gothic Condensed Bold, loaded from Colton's Adobe Fonts
+web kit `pfm7vyg` (approved by Colton Oct 2026, replacing Anton). Archivo for
+everything else comes from Google Fonts. The mixtape page also loads its own
+kit `fir6kvv`. HQ uses plain system fonts.
 
 ## Layout of the folder
 

@@ -13,7 +13,9 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://use.typekit.net" crossorigin>
+<link rel="stylesheet" href="https://use.typekit.net/pfm7vyg.css">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/dseg@0.46.0/css/dseg.css" rel="stylesheet">
 
 <style>
@@ -31,7 +33,7 @@
   --ash:#9A9CA1;
   --line:rgba(255,255,255,.12);
   --line-dark:rgba(11,11,12,.14);
-  --display:'Anton', Impact, sans-serif;
+  --display:'field-gothic-condensed', Impact, sans-serif;
   --sans:'Archivo', system-ui, -apple-system, sans-serif;
   --wrap:1200px;
   --pad:clamp(20px, 5vw, 64px);
@@ -446,6 +448,47 @@ a{color:inherit}
   .event__media:hover .flyer{transform:none}
 }
 [data-animate]{opacity:0;transform:translateY(18px)}
+
+/* =====================================================================
+   Title face + design foundations pass (Oct 2026)
+   Title face: Field Gothic Condensed (Adobe Fonts kit, linked in <head>)
+   replaces Anton. Anton has a single, very heavy weight, so every title
+   was set at 400; Field Gothic's matching cut is Bold (700).
+   Foundations (website-design-foundations skill): 14px floor for labels
+   and metadata, 15px button text, 24px mobile side margins, 44px tap
+   targets, full-width buttons on phones, time above event name in the
+   at-a-glance cards. Remove this block to return to the previous look.
+   ===================================================================== */
+:root{
+  --display:'field-gothic-condensed', Impact, sans-serif;
+  --pad:clamp(24px, 5vw, 64px);
+}
+.nav__brand,.hero__ghost,.hero h1,.board__plate,.count__live,.ticker span,
+.section__title,.glance__day,.daygroup__label,.event__name,.flyer__ico,
+.flyer__ph-name,.foot__brand{font-weight:700}
+
+/* Labels and metadata: 14px floor; tracking eased so the larger size stays compact. */
+.eyebrow,.chip,.event__details .k,.glance__time,.event__onsale,.foot__fine,
+.foot__links a,.daygroup__label .dt,.nav__cta,.inq__field span{font-size:14px;letter-spacing:.12em}
+.inq__field input,.inq__field textarea{font-size:16px;line-height:1.5}   /* form inputs 16 */
+.xtra__h,.board__plate,.cal small{font-size:14px;letter-spacing:.08em}
+/* Header day pills and scoreboard labels: 12px (approved exception). */
+.day-pill,.day-pill small,.count__label{font-size:12px;letter-spacing:.08em}
+.nav__brand{padding-block:10px}
+.btn{font-size:15px;min-height:48px}
+.event__details .k{min-width:84px;padding-top:2px}
+
+/* At a glance: time on its own line above the event name. */
+.glance__time{display:block;margin-bottom:2px}
+
+/* Address links: taller tap area without moving the text. */
+.event__details a{display:inline-block;padding-block:12px;margin-block:-12px}
+
+@media (max-width:600px){
+  .btnrow .btn,.event__cta > .btn,.event__cta > .cal,.event__cta > .cal .btn{flex:1 1 100%;width:100%;text-align:center}
+  .day-pill{padding:8px 10px}
+  .inq__foot .btn{flex:1 1 100%}
+}
 </style>
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
