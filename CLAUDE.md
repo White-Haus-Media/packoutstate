@@ -203,6 +203,21 @@ There is also a local preview at http://localhost:4173 using
 `python3 -m http.server 4173`. The event pages use root absolute paths, so
 opening the files directly with file:// will not load the CSS.
 
+## HQ, the internal dashboard
+
+`/hq` is one password (`HQ_PASSWORD`) for the whole team, who see every
+name, email and phone number on it. Colton approved that in Oct 2026. It has
+three sections: Tickets, Clocked Out, Mixtape.
+
+`api/hq.js` checks the password, then calls `pos_hq` (bookings) and
+`pos_hq_mixtape` (mixtape results) side by side. If one fails the other still
+shows. `pos_hq_mixtape` is read only and its SQL is in
+`supabase/hq-mixtape.sql`.
+
+Ticket sales are not connected yet. VenuePilot's public API has no sales
+data, by their own docs. The plan is each event's Ticket Counts share link,
+kept in a Vercel env var, never in the code.
+
 ## Other things in this repo
 
 The site also carries a Talley Mixtape page at `/mixtape` and a contact form

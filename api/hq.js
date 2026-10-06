@@ -36,11 +36,18 @@ module.exports = async (req, res) => {
     return res.status(401).json({ error: 'Wrong password' });
   }
 
-  try {
-    const data = await rpc('pos_hq');
-    res.status(200).json({ ok: true, ...data });
-  } catch (err) {
-    console.error('hq failed:', err.message);
-    res.status(500).json({ error: 'Could not load the list' });
+  // Bookings and mixtape load side by side. If one fails the other still
+  // shows, and the page says which part is missing.
+  const [booking, mixtape] = await Promise.allSettled([rpc('pos_hq'), rpc('pos_hq_mixtape')]);
+  if (booking.status === 'rejected') console.error('hq bookings failed:', booking.reason.message);
+  if (mixtape.status === 'rejected') console.error('hq mixtape failed:', mixtape.reason.message);
+  if (booking.status === 'rejected' && mixtape.status === 'rejected') {
+    return res.status(500).json({ error: 'Could not load the list' });
   }
+
+  res.status(200).json({
+    ok: true,
+    ...(booking.status === 'fulfilled' ? booking.value : { bookingError: true }),
+    mixtape: mixtape.status === 'fulfilled' ? mixtape.value : null
+  });
 };
