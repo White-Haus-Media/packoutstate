@@ -42,10 +42,24 @@ body{background:var(--bone);color:var(--ink)}
 <body>
 <a class="skip" href="#main">Skip to content</a>
 
-<header class="nav nav--event">
+<header class="nav">
   <div class="nav__inner">
-    <a class="nav__brand" href="/">Pack <span>Out</span> State</a>
-    <a class="nav__back" href="/clocked-out">&larr; Clocked Out</a>
+    <a class="nav__brand" href="/">Pack Out <span>State</span></a>
+    <nav class="nav__days" aria-label="Homecoming weekend">
+      <a class="day-pill" href="/#day-thu">Thu<small>Oct 29</small></a>
+      <a class="day-pill" href="/#day-fri">Fri<small>Oct 30</small></a>
+      <a class="day-pill" href="/#day-sat">Sat<small>Oct 31</small></a>
+    </nav>
+  </div>
+  <div class="nav__sub">
+    <div class="nav__subin">
+      <nav class="nav__pages" aria-label="Pages">
+        <a href="/clocked-out" aria-current="page">Clocked Out</a>
+        <a href="/talley-tapes">Talley Tapes</a>
+        <a href="/block-party">Block Party</a>
+        <a href="/mixtape">Mixtape</a>
+      </nav>
+    </div>
   </div>
 </header>
 

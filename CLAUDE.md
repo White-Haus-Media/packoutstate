@@ -50,6 +50,30 @@ Edit those, not the markup below them.
 Give an event a `pageUrl` and its card automatically links to that landing
 page instead of the outside details link.
 
+## Header and footer
+
+Every public page (home, the three event pages, the Clocked Out manage page,
+the mixtape page) carries the same two-row header, set in Oct 2026:
+- Row 1: the Pack Out State wordmark ("State" in red), the Thu, Fri and Sat
+  date boxes, and a red button on the right. The button is per page: Get
+  tickets, or Reserve a time on Clocked Out, none on the manage page. Below
+  660px wide there is no room, so the button is hidden and each page's hero
+  button carries it.
+- Row 2: links to Clocked Out, Talley Tapes, Block Party and Mixtape, shown
+  at every width, the current page underlined.
+On the home page the date boxes scroll to that day. Everywhere else they link
+to `/#day-thu` and so on, and the home page script jumps there once the day
+sections are drawn.
+The header CSS lives in three places, because the home page and the mixtape
+page keep their own styles: `index.html`, `css/site.css`, `mixtape/index.html`.
+Change all three together.
+
+**Remove the Mixtape link from row 2 after submissions close (Sunday, Oct 11,
+11:59 PM).** It is the last link in each page's header markup.
+
+Every footer has an HQ link (`/hq`, nofollow) so partners can reach the
+dashboard from the site.
+
 ## Event landing pages
 
 Not every event gets a page. A page is worth building when someone needs to

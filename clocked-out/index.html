@@ -156,16 +156,25 @@ body{background:var(--white);color:var(--ink)}
 
 <a class="skip" href="#main">Skip to content</a>
 
-<header class="nav nav--event">
+<header class="nav">
   <div class="nav__inner">
-    <a class="nav__brand" href="/">Pack <span>Out</span> State</a>
-    <nav class="nav__pages" aria-label="Event pages">
-      <a href="/clocked-out" aria-current="page">Clocked Out</a>
-      <a href="/talley-tapes">Talley Tapes</a>
-      <a href="/block-party">Block Party</a>
+    <a class="nav__brand" href="/">Pack Out <span>State</span></a>
+    <nav class="nav__days" aria-label="Homecoming weekend">
+      <a class="day-pill" href="/#day-thu">Thu<small>Oct 29</small></a>
+      <a class="day-pill" href="/#day-fri">Fri<small>Oct 30</small></a>
+      <a class="day-pill" href="/#day-sat">Sat<small>Oct 31</small></a>
     </nav>
-    <a class="nav__back" href="/#lineup">&larr; All events</a>
-    <a class="nav__cta" href="#reserve">Reserve a time</a>
+    <a class="nav__cta nav__cta--top" href="#reserve">Reserve a time</a>
+  </div>
+  <div class="nav__sub">
+    <div class="nav__subin">
+      <nav class="nav__pages" aria-label="Pages">
+        <a href="/clocked-out" aria-current="page">Clocked Out</a>
+        <a href="/talley-tapes">Talley Tapes</a>
+        <a href="/block-party">Block Party</a>
+        <a href="/mixtape">Mixtape</a>
+      </nav>
+    </div>
   </div>
 </header>
 
@@ -422,6 +431,7 @@ body{background:var(--white);color:var(--ink)}
         <a href="/">Home</a>
         <a href="/#lineup">Full lineup</a>
         <a href="https://www.google.com/maps/search/?api=1&amp;query=District+Bar+%26+Lounge+222+Glenwood+Ave+Apt+109+Raleigh+NC" target="_blank" rel="noopener">Directions</a>
+        <a href="/hq" rel="nofollow">HQ</a>
       </nav>
     </div>
     <div class="foot__fine">NC State Homecoming 2026 &middot; October 29 &ndash; 31 &middot; Raleigh &amp; Durham, NC</div>
