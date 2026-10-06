@@ -72,6 +72,17 @@ td a{color:#16161a}
 .list li::before{content:counter(n);color:#6B6761;font-weight:700}
 .list li span{font-variant-numeric:tabular-nums;color:#55555c;font-weight:700}
 .list small{display:block;color:#6B6761;font-size:.84rem}
+
+details.manual{margin-top:16px;border:1px solid #E6E1D8;border-radius:6px;padding:12px 16px}
+details.manual summary{cursor:pointer;font-weight:700;font-size:.92rem}
+.mgrid{display:grid;grid-template-columns:minmax(140px,1.4fr) repeat(3,minmax(90px,1fr));gap:8px 12px;
+       align-items:end;margin-top:16px;min-width:480px}
+.mgrid .h{font-size:.78rem;font-weight:700;color:#55555c}
+.mgrid .ev{font-size:.93rem;font-weight:600;align-self:center}
+.mgrid input{min-height:40px;padding:0 10px}
+.mwrap{overflow-x:auto}
+.mrow{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:16px}
+.ok{color:#1F6F3A;font-size:.92rem}
 </style>
 </head>
 <body>
@@ -103,8 +114,20 @@ td a{color:#16161a}
 
   <section class="block" id="tickets">
     <h2 class="sec">Ticket sales</h2>
-    <p class="secsub">Sold through VenuePilot.</p>
+    <p class="secsub">Sold through OasisTix. Read from the OasisTix events list a few times a day.</p>
     <div id="ticketBody"></div>
+    <details class="manual">
+      <summary>Update counts by hand</summary>
+      <p class="note">Use this if the numbers look stale. Copy them from the OasisTix events list. Leave a row blank to skip it.</p>
+      <form id="manualForm">
+        <div class="mwrap"><div class="mgrid" id="manualGrid"></div></div>
+        <div class="mrow">
+          <button class="refresh" type="submit" id="manualBtn">Save counts</button>
+          <span class="err" id="manualErr" role="alert"></span>
+          <span class="ok" id="manualOk" role="status"></span>
+        </div>
+      </form>
+    </details>
   </section>
 
   <section class="block" id="clocked-out">
@@ -183,19 +206,30 @@ td a{color:#16161a}
     ['top10', 'Talley Era Top 3']
   ];
 
+  // Ticketed events, in date order. Keys match packoutstate.ticket_counts.
+  // Clocked Out is free and booked on this site, so it is not here.
+  var TICKETED = [
+    ['warm-up', 'The Warm Up', 'Thu, Oct 29'],
+    ['talley-tapes', 'The Talley Tapes', 'Fri, Oct 30'],
+    ['block-party', 'Downtown Block Party', 'Sat, Oct 31']
+  ];
+
   // Held in memory only so Refresh works. Gone when the tab closes.
   var password = '';
 
-  function load(pw, onError){
+  function load(pw, onError, extra){
     $('#refresh').disabled = true;
-    fetch('/api/hq', {method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({password: pw})})
+    var body = {password: pw};
+    if (extra) for (var k in extra) body[k] = extra[k];
+    return fetch('/api/hq', {method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify(body)})
       .then(function(r){ return r.json().then(function(d){ return {ok:r.ok, d:d}; }); })
       .then(function(res){
         $('#refresh').disabled = false;
         if(!res.ok){ onError(res.d.error && res.d.error !== 'Wrong password' ? res.d.error : 'Wrong password. Check it and try again.'); return; }
         password = pw;
         render(res.d);
+        return true;
       })
       .catch(function(){ $('#refresh').disabled = false; onError('Could not reach the server. Check your connection and try again.'); });
   }
@@ -225,10 +259,80 @@ td a{color:#16161a}
     else renderMixtape(d.mixtape);
   }
 
-  function renderTickets(t){
-    $('#ticketBody').innerHTML = '<p class="warn">Live sales are not connected yet. ' +
-      'For now, check the Ticket Counts report in VenuePilot.</p>';
+  function renderTickets(list){
+    if (!list) { $('#ticketBody').innerHTML = '<p class="warn">Ticket counts did not load. Try Refresh.</p>'; return; }
+    var by = {}; list.forEach(function(t){ by[t.event_key] = t; });
+    if (!list.length) { $('#ticketBody').innerHTML = '<p class="warn">No ticket counts recorded yet.</p>'; return; }
+
+    var sold = 0, cents = 0, newest = null;
+    list.forEach(function(t){
+      sold += t.sold; cents += t.sales_cents || 0;
+      if (!newest || t.recorded_at > newest.recorded_at) newest = t;
+    });
+    var ageH = (Date.now() - new Date(newest.recorded_at).getTime()) / 36e5;
+
+    var rows = TICKETED.map(function(e){
+      var t = by[e[0]];
+      if (!t) return '<tr class="open"><td>' + e[1] + '</td><td>' + e[2] + '</td><td colspan="5">No reading yet</td></tr>';
+      var cap = t.available == null ? null : t.sold + t.available;
+      var pct = cap ? Math.round(t.sold / cap * 100) + '%' : '';
+      var since = t.sold_day_before == null ? '' : (t.sold - t.sold_day_before >= 0 ? '+' : '') + (t.sold - t.sold_day_before);
+      return '<tr><td>' + e[1] + '</td><td>' + e[2] + '</td><td class="num"><b>' + t.sold + '</b></td><td class="num">' +
+        (t.available == null ? '' : t.available) + '</td><td class="num">' + pct + '</td><td class="num">' + since +
+        '</td><td class="num">' + (t.sales_cents == null ? '' : money(t.sales_cents)) + '</td></tr>';
+    }).join('');
+
+    $('#ticketBody').innerHTML =
+      '<div class="tally"><div>Tickets sold<b>' + sold + '</b></div><div>Sales<b>' + money(cents) + '</b></div></div>' +
+      '<p class="note">Last read ' + fmtDay(newest.recorded_at) +
+        (newest.source === 'manual' ? ', typed in by hand.' : ' from OasisTix.') +
+        (ageH > 12 ? ' <b>These numbers are more than 12 hours old.</b>' : '') + '</p>' +
+      '<h3>By event</h3><div class="wrapx"><table><thead><tr><th>Event</th><th>Date</th><th class="num">Sold</th>' +
+      '<th class="num">Available</th><th class="num">% sold</th><th class="num">Last 24 hours</th><th class="num">Sales</th></tr></thead>' +
+      '<tbody>' + rows + '</tbody></table></div>';
+
+    // Pre-fill the backup form with the latest numbers so a change is one edit.
+    $('#manualGrid').innerHTML = '<span class="h">Event</span><span class="h">Sold</span><span class="h">Available</span><span class="h">Sales ($)</span>' +
+      TICKETED.map(function(e){
+        var t = by[e[0]] || {};
+        return '<span class="ev">' + e[1] + '</span>' +
+          field(e[0], 'sold', t.sold, e[1] + ' sold') +
+          field(e[0], 'available', t.available, e[1] + ' available') +
+          field(e[0], 'sales', t.sales_cents == null ? '' : t.sales_cents / 100, e[1] + ' sales in dollars');
+      }).join('');
   }
+
+  function field(key, name, val, label){
+    return '<input inputmode="decimal" autocomplete="off" data-key="' + key + '" data-f="' + name +
+      '" aria-label="' + esc(label) + '" value="' + (val == null ? '' : esc(val)) + '">';
+  }
+
+  function money(cents){
+    var cents2 = cents % 100 ? 2 : 0;
+    return '$' + (cents / 100).toLocaleString('en-US', {minimumFractionDigits: cents2, maximumFractionDigits: 2});
+  }
+
+  $('#manualForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    var err = $('#manualErr'), ok = $('#manualOk'); err.className = 'err'; ok.textContent = '';
+    var bad = false;
+    var tickets = TICKETED.map(function(ev){
+      var get = function(f){
+        var v = $('#manualGrid input[data-key="' + ev[0] + '"][data-f="' + f + '"]').value.replace(/[$,\s]/g, '');
+        if (v !== '' && !/^\d+(\.\d{1,2})?$/.test(v)) bad = true;
+        return v;
+      };
+      var sold = get('sold'), available = get('available'), sales = get('sales');
+      return {event_key: ev[0], sold: sold, available: available,
+              sales_cents: sales === '' ? '' : Math.round(parseFloat(sales) * 100)};
+    }).filter(function(t){ return t.sold !== ''; });
+    if (bad || !tickets.length) {
+      err.textContent = bad ? 'Use plain numbers only.' : 'Enter at least one sold count.'; err.className = 'err on'; return;
+    }
+    var btn = $('#manualBtn'); btn.disabled = true;
+    load(password, function(msg){ btn.disabled = false; err.textContent = msg; err.className = 'err on'; }, {tickets: tickets})
+      .then(function(done){ if (done) { btn.disabled = false; ok.textContent = 'Saved.'; } });
+  });
 
   function renderBookings(d){
     var t = d.totals || {};

@@ -214,9 +214,19 @@ three sections: Tickets, Clocked Out, Mixtape.
 shows. `pos_hq_mixtape` is read only and its SQL is in
 `supabase/hq-mixtape.sql`.
 
-Ticket sales are not connected yet. VenuePilot's public API has no sales
-data, by their own docs. The plan is each event's Ticket Counts share link,
-kept in a Vercel env var, never in the code.
+Ticket sales come from OasisTix (VenuePilot underneath). Colton's OasisTix
+login cannot create API keys and has no Ticket Counts share link, and
+VenuePilot's public API has no sales data. So readings land in
+`packoutstate.ticket_counts` two ways, both through `pos_tickets_record`:
+- A scheduled Claude task, `pos-ticket-sync` (9am, 1pm, 5pm, 9pm), reads the
+  OasisTix events list in Colton's Chrome and saves the numbers. It needs the
+  Mac on, the Claude app open, and Chrome logged in to OasisTix. It never logs
+  in itself.
+- The "Update counts by hand" form on HQ, as a backup.
+HQ shows the latest reading per event (`pos_hq_tickets`), when it was taken,
+and warns when it is over 12 hours old. Dollar totals show here because HQ is
+private; the no-prices rule is for public pages. SQL is in
+`supabase/hq-tickets.sql`.
 
 ## Other things in this repo
 

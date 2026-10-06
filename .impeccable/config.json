@@ -1,0 +1,26 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "marquee",
+        "value": "*",
+        "files": [
+          "hq/index.html"
+        ],
+        "createdAt": "2026-10-06T14:43:30.052Z",
+        "reason": "Claude triage: HQ has no auto-scrolling content; the jump bar only scrolls sideways when a person swipes it"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "hq/index.html"
+        ],
+        "createdAt": "2026-10-06T14:43:30.067Z",
+        "reason": "Claude triage: status pills use 3px by 9px chip padding, standard for small labels; bordered boxes have 14-16px inset"
+      }
+    ]
+  }
+}
