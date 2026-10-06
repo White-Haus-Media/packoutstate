@@ -262,11 +262,12 @@ a{color:inherit}
 .section--bone .section__lead{color:#3a3a3c}
 
 /* ---------- WEEKEND AT A GLANCE ---------- */
-.glance{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;align-items:start}
+.glance{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;align-items:stretch}
 .glance__col{
   background:var(--white);border:1px solid #E9E5DD;border-top:4px solid var(--red);
   padding:24px 24px 14px;box-shadow:0 2px 10px rgba(11,11,12,.04);
   transition:transform .28s ease, box-shadow .28s ease;
+  display:flex;flex-direction:column;
 }
 .glance__col:hover{transform:translateY(-6px);box-shadow:0 20px 44px rgba(11,11,12,.12)}
 .reveal .glance__col{opacity:0;transform:translateY(16px)}
@@ -290,6 +291,13 @@ a{color:inherit}
 .glance__item:hover::after{opacity:1;transform:translateY(-50%)}
 .glance__time{font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;color:#6c6c6f;font-weight:700}
 .glance__name{font-weight:800;font-size:1.25rem;margin-top:4px;line-height:1.25}
+.glance__item--fixture{color:var(--ink);cursor:default}
+.glance__item--fixture::after{content:none}
+.glance__item--fixture:hover{color:var(--ink);padding-left:0}
+.glance__tag{
+  display:block;margin-bottom:6px;font-size:.68rem;letter-spacing:.18em;
+  text-transform:uppercase;font-weight:800;color:var(--red-deep);
+}
 
 /* ---------- EVENT CARDS ---------- */
 .daygroup{padding-top:8px}
@@ -640,6 +648,17 @@ const DAYS = [
   {key:'sat', label:'Sat', date:'Oct 31'}
 ];
 
+// The football game itself. It is not our event and we sell nothing for it,
+// so it shows in the weekend overview only, never as an event card. The
+// conference has not released kickoff, so the time stays TBA. When it is
+// announced, change `time` here and update the Block Party run of show.
+const FIXTURES = [
+  {
+    day:'sat', time:'Time TBA', tag:'The game',
+    name:'NC State Wolfpack vs. California Golden Bears'
+  }
+];
+
 const EVENTS = [
   {
     id:'the-warm-up', day:'thu', time:'9:00 PM – 1:00 AM',
@@ -817,7 +836,15 @@ $('#dayRail').addEventListener('click', e=>{
 
 // ---- Weekend at a glance ----
 $('#glance').innerHTML = grouped.map(d=>{
-  const items = d.items.map(e=>
+  // Fixtures lead the day. The game sits above the Block Party even though
+  // its time is unknown, because it anchors the day.
+  const fixtures = FIXTURES.filter(f => f.day === d.key).map(f=>
+    `<div class="glance__item glance__item--fixture">
+       ${f.tag ? `<span class="glance__tag">${esc(f.tag)}</span>` : ''}
+       <span class="glance__time">${esc(f.time)}</span>
+       <span class="glance__name">${esc(f.name)}</span>
+     </div>`).join('');
+  const items = fixtures + d.items.map(e=>
     `<a class="glance__item" href="#${e.id}">
        <span class="glance__time">${esc(e.time)}</span>
        <span class="glance__name">${esc(e.name)}</span>
