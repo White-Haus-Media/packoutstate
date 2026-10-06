@@ -580,3 +580,13 @@ a{color:inherit}
   .faq summary::after,.xtra summary::after{transition:none}
   .vidtoggle{transition:none}
 }
+
+/* Header text: white and 12px on every page, set by Colton Oct 2026. Kept
+   last in the stylesheet so it wins over the earlier size and color rules.
+   The current page keeps a white underline, hover shows a fainter one. */
+.nav__cta{font-size:12px;letter-spacing:.1em}
+.day-pill,.day-pill small{color:#fff}
+.day-pill:hover{border-color:#fff}
+.nav__pages a{color:#fff}
+.nav__pages a:hover{border-bottom-color:rgba(255,255,255,.45)}
+.nav__pages a[aria-current="page"]{border-bottom-color:#fff}

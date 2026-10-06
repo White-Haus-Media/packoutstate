@@ -225,6 +225,16 @@ a,button,label{touch-action:manipulation;-webkit-tap-highlight-color:rgba(204,0,
 .foot{background:var(--ink);color:#C9C5BD;padding:48px 0;font-size:.875rem}
 .foot a{color:var(--paper);font-weight:500;text-decoration:none}
 .foot p + p{margin-top:8px}
+
+/* Header text: white and 12px on every page, set by Colton Oct 2026. Kept
+   last in the stylesheet so it wins over the earlier size and color rules.
+   The current page keeps a white underline, hover shows a fainter one. */
+.nav__cta{font-size:12px;letter-spacing:.1em}
+.day-pill,.day-pill small{color:#fff}
+.day-pill:hover{border-color:#fff}
+.nav__pages a{color:#fff}
+.nav__pages a:hover{border-bottom-color:rgba(255,255,255,.45)}
+.nav__pages a[aria-current="page"]{border-bottom-color:#fff}
 </style>
 </head>
 <body>
