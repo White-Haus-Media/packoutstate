@@ -65,9 +65,16 @@ a shared template and stamp it out.
   game, so the real question is when to come and how it works around
   kickoff. It has a timeline, the wristband re-entry rule, an FAQ, and a
   photo grid.
-- Talley Tapes is organised around STORY. It is a documentary premiere. The
-  lore leads, the teaser plays early, the archive is evidence, and the
-  practical details sit at the end. No timeline, no FAQ, no photo grid.
+- Talley Tapes is organised around STORY. It is a Homecoming party at House
+  of Art, not a documentary screening. Colton's line for it: same people,
+  different era, same energy. The one sheet leads, the facts sit directly
+  under it, the lore follows, the archive is evidence, and the FAQ sits at
+  the end. No timeline, no photo grid.
+  The teaser videos were pulled from the page in Oct 2026 and the one sheet
+  carries the hero on its own. The cuts are still in assets/ for when they
+  go back.
+  Dress code on this page defers to House of Art's own policies. Do not
+  invent one.
 
 ## The booking system
 
@@ -116,8 +123,13 @@ These came from Colton and are not up for reinterpretation.
   swap in another symbol.
 - **No kickoff time, not even an estimate.** The conference has not released
   it. The Block Party says so plainly and the schedule reads "Until kickoff"
-  and "Kickoff TBA". When the time is released, update the notice at the top
-  of the run of show, the kickoff row, and the tailgate row.
+  and "Kickoff TBA". When the time is released, four things change: the
+  notice at the top of the run of show, the kickoff row, the tailgate row,
+  and the `FIXTURES` entry near the top of the script in index.html, which
+  currently reads "Time TBA".
+  That `FIXTURES` array holds schedule entries that are not our ticketed
+  events, such as the game itself. They show in the weekend overview only,
+  never as an event card, and they lead their day.
 - **The House of Art street address stays off the site.** The venue name is
   announced, the address is not. There is no address in the markup, no map
   link, and the structured data carries city and state only. When it is

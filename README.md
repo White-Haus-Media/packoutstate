@@ -35,9 +35,9 @@ so no two pages read the same. Each page has its own organising principle:
 - **Block Party** — TIME. It runs 10.5 hours across a football game, so
   "when do I come, and how does it work around kickoff?" is the real
   question. Timeline spine, wristband mechanic, FAQ, photo grid.
-- **Talley Tapes** — STORY. A documentary premiere. Lore leads, the teaser
-  plays early, the archive is evidence, logistics sit at the end. No
-  timeline, no FAQ, no grid.
+- **Talley Tapes** — STORY. A Homecoming party at House of Art, not a
+  documentary screening. One sheet leads, facts sit under it, lore follows,
+  the archive is evidence, FAQ at the end. No timeline, no grid.
 
 Venue logos link to the venue's own site, and ship in two variants — the
 black mark on light sections, the white mark on dark. Pick the variant to
