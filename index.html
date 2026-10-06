@@ -403,6 +403,26 @@ a{color:inherit}
 .faq[open] summary::after{transform:rotate(45deg)}
 .faq p{color:#3a3a3c;font-size:.98rem;padding:0 0 14px;max-width:56ch}
 
+/* ---------- CONTACT ---------- */
+.inq{background:var(--carbon);color:var(--white)}
+.inq .section__lead{color:var(--ash)}
+.inq__form{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:760px}
+.inq__field{display:flex;flex-direction:column;gap:8px}
+.inq__field--full{grid-column:1/-1}
+.inq__field span{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--ash)}
+.inq__field input,.inq__field textarea{
+  font:inherit;font-size:1rem;color:var(--white);background:var(--ink);
+  border:1px solid var(--line);border-radius:0;padding:14px 16px;width:100%;
+}
+.inq__field textarea{resize:vertical;min-height:140px}
+.inq__field input:focus,.inq__field textarea:focus{outline:2px solid var(--red-bright);outline-offset:1px;border-color:transparent}
+.inq__hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.inq__foot{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;gap:18px}
+.inq__foot .btn{border:0;cursor:pointer}
+.inq__foot .btn[disabled]{opacity:.6;cursor:wait}
+.inq__status{font-size:.95rem;color:var(--ash)}
+@media(max-width:640px){ .inq__form{grid-template-columns:1fr} }
+
 /* ---------- FOOTER ---------- */
 .foot{background:var(--ink);border-top:1px solid var(--line);padding-block:56px}
 .foot__grid{display:flex;flex-wrap:wrap;justify-content:space-between;gap:28px;align-items:flex-end}
@@ -427,6 +447,7 @@ a{color:inherit}
 }
 [data-animate]{opacity:0;transform:translateY(18px)}
 </style>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <body>
 
@@ -494,14 +515,43 @@ a{color:inherit}
   </div>
 </section>
 
+<!-- ============================ CONTACT ============================ -->
+<section class="section inq" id="contact">
+  <div class="wrap">
+    <div class="section__head reveal">
+      <div class="eyebrow">Get in touch</div>
+      <h2 class="section__title">Questions, tables &amp; sponsorships</h2>
+      <p class="section__lead">Booking a table, bringing a group, or want your brand on the weekend? Send a note and we&rsquo;ll get back to you.</p>
+    </div>
+
+    <form id="contact-form" class="inq__form reveal" novalidate>
+      <label class="inq__field"><span>Name</span><input name="name" type="text" required autocomplete="name"></label>
+      <label class="inq__field"><span>Email</span><input name="email" type="email" required autocomplete="email"></label>
+      <label class="inq__field inq__field--full"><span>Phone (optional)</span><input name="phone" type="tel" autocomplete="tel"></label>
+      <label class="inq__field inq__field--full"><span>Message</span><textarea name="message" rows="5" required></textarea></label>
+
+      <div class="inq__hp" aria-hidden="true"><label>Website <input name="website" type="text" tabindex="-1" autocomplete="off"></label></div>
+      <input type="hidden" name="form_name" value="contact">
+
+      <div class="inq__field--full"><div class="cf-turnstile" data-sitekey="0x4AAAAAAFFpKUeNszgP2VMx" data-theme="dark"></div></div>
+
+      <div class="inq__foot">
+        <button type="submit" class="btn btn--primary">Send message</button>
+        <p id="form-status" class="inq__status" role="status" aria-live="polite"></p>
+      </div>
+    </form>
+  </div>
+</section>
+
 <!-- ============================ FOOTER ============================ -->
-<footer class="foot" id="contact">
+<footer class="foot">
   <div class="wrap">
     <div class="foot__grid">
       <div class="foot__brand">PACK OUT <span>STATE</span></div>
       <nav class="foot__links" aria-label="Footer">
         <a href="#lineup">Lineup</a>
         <a href="#top">Tickets</a>
+        <a href="#contact">Contact</a>
       </nav>
     </div>
     <p class="foot__fine">Pack Out State · DCC Social Inc. · NC State Homecoming 2026</p>
@@ -906,6 +956,57 @@ const spy = new IntersectionObserver((entries)=>{
   });
 },{rootMargin:'-45% 0px -50% 0px'});
 dayAnchors.forEach(a=>spy.observe(a));
+</script>
+<script>
+/* Contact form: posts to /api/contact (Turnstile + Supabase + Resend) */
+(function () {
+  var form = document.getElementById("contact-form");
+  if (!form) return;
+  var status = document.getElementById("form-status");
+  var button = form.querySelector('button[type="submit"]');
+
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+    status.textContent = "";
+
+    var data = Object.fromEntries(new FormData(form).entries());
+    if (!data.name || !data.email || !data.message) {
+      status.textContent = "Please add your name, email and a message.";
+      return;
+    }
+    if (!data["cf-turnstile-response"]) {
+      status.textContent = "Please wait for the verification to finish.";
+      return;
+    }
+
+    button.disabled = true;
+    var original = button.textContent;
+    button.textContent = "Sending...";
+
+    try {
+      var r = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+      var json = await r.json();
+      if (json.ok) {
+        form.reset();
+        if (window.turnstile) window.turnstile.reset();
+        status.textContent = "Thanks. Your message was sent.";
+      } else {
+        status.textContent = json.error || "Something went wrong. Please try again.";
+        if (window.turnstile) window.turnstile.reset();
+      }
+    } catch (err) {
+      status.textContent = "Network error. Please try again.";
+      if (window.turnstile) window.turnstile.reset();
+    } finally {
+      button.disabled = false;
+      button.textContent = original;
+    }
+  });
+})();
 </script>
 </body>
 </html>
