@@ -79,6 +79,17 @@ a{color:inherit}
   text-transform:uppercase;white-space:nowrap;
 }
 .nav__brand span{color:var(--red)}
+/* Event page links. Hidden on narrow screens where the day rail already
+   fills the bar; the lineup cards carry the same links further down. */
+.nav__pages{display:none;gap:20px;margin-left:14px}
+.nav__pages a{
+  font-family:var(--sans);font-weight:700;font-size:.72rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ash);text-decoration:none;white-space:nowrap;
+  transition:color .2s;
+}
+.nav__pages a:hover{color:var(--white)}
+@media(min-width:1120px){ .nav__pages{display:flex} }
+
 .nav__days{
   display:flex;gap:6px;margin-left:auto;overflow-x:auto;
   scrollbar-width:none;-ms-overflow-style:none;
@@ -498,6 +509,11 @@ a{color:inherit}
 <header class="nav">
   <div class="nav__inner">
     <a href="#top" class="nav__brand">PACK OUT <span>STATE</span></a>
+    <nav class="nav__pages" aria-label="Event pages">
+      <a href="/clocked-out">Clocked Out</a>
+      <a href="/talley-tapes">Talley Tapes</a>
+      <a href="/block-party">Block Party</a>
+    </nav>
     <nav class="nav__days" id="dayRail" aria-label="Jump to a day"></nav>
     <a href="#lineup" class="nav__cta">Get tickets</a>
   </div>
@@ -638,9 +654,9 @@ const EVENTS = [
   },
   {
     id:'clocked-out', day:'fri', time:'4:00 PM – 8:00 PM',
-    // Held back for a soft launch. The page is live at /clocked-out and can be
-    // shared directly; add this line back to surface it in the lineup.
-    // pageUrl:'/clocked-out',
+    // RSVP sends people to the booking page. The card deliberately shows RSVP
+    // rather than "Full event page", because reserving a time is the point.
+    rsvpUrl:'/clocked-out',
     start:'2026-10-30T16:00:00-04:00', end:'2026-10-30T20:00:00-04:00',
     name:'Clocked Out', tagline:'It\u2019s a Photoshoot',
     desc:[
@@ -839,6 +855,7 @@ $('#events').innerHTML = grouped.map(d=>{
     // place for the full details, so it takes the slot the outbound
     // "Event details" link would otherwise occupy.
     const ctas = [
+      e.rsvpUrl ? `<a href="${esc(e.rsvpUrl)}" class="btn btn--primary">RSVP</a>` : '',
       e.ticketsUrl ? `<a href="${esc(e.ticketsUrl)}" class="btn btn--primary" target="_blank" rel="noopener">${esc(e.ticketsLabel || 'Get tickets')}</a>` : '',
       e.pageUrl
         ? `<a href="${esc(e.pageUrl)}" class="btn btn--dark">Full event page</a>`
