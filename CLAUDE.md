@@ -3,7 +3,8 @@
 NC State Homecoming 2026 event site. Four events across three days, run by
 Colton Palmer. The site sells tickets through outside ticketing links.
 
-Live at packoutstate.com. Repo: github.com/cpalmer-source/packoutstate.
+Live at packoutstate.com. Repo: github.com/White-Haus-Media/packoutstate.
+Local copy: ~/Desktop/Claude/packoutstate (the only one, see below).
 
 ## What it is built with
 
@@ -154,6 +155,14 @@ of the web versions. The full masters are untouched in the assets folder.
 
 Raw camera files and full resolution photos do not belong in the repo. Put
 optimised derivatives in assets/ and keep originals elsewhere.
+
+## One working copy
+
+There used to be two clones of this repo, one in Downloads and one in
+Documents/GitHub. Work happened in both and they drifted a month apart, which
+nearly wiped the mixtape page off the live site during a deploy. There is now
+one copy, at ~/Desktop/Claude/packoutstate. Keep it that way, and push to
+GitHub at the end of a session rather than letting a local copy run ahead.
 
 ## Previewing and publishing
 
