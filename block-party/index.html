@@ -14,8 +14,11 @@
 <meta property="og:url" content="https://packoutstate.com/block-party">
 <meta property="og:image" content="https://packoutstate.com/flyer-block-party.jpg">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0B0B0C">
+<script>document.documentElement.classList.add('js')</script>
 
 <link rel="preconnect" href="https://use.typekit.net" crossorigin>
+<link rel="preconnect" href="https://p.typekit.net" crossorigin>
 <link rel="stylesheet" href="https://use.typekit.net/pfm7vyg.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -55,10 +58,10 @@ body{background:var(--white);color:var(--ink)}
    holds up no matter how tall that block grows. */
 /* On a computer the hero fills the whole first screen below the sticky
    nav, so the footage runs edge to edge with nothing peeking up from the
-   next section. 62px is the nav's rendered height. */
+   next section. --nav-h is the nav's rendered height. */
 .ehero{min-height:88vh}
-@media(min-width:861px){
-  .ehero{min-height:calc(100vh - 62px);min-height:calc(100svh - 62px)}
+@media(min-width:768px){
+  .ehero{min-height:calc(100vh - var(--nav-h));min-height:calc(100svh - var(--nav-h))}
 }
 .bp-scrim{
   position:absolute;inset:0;z-index:1;pointer-events:none;
@@ -69,7 +72,7 @@ body{background:var(--white);color:var(--ink)}
 /* On narrow screens the title block fills most of the hero rather than
    sitting in the bottom third, so it needs real ground under all of it.
    Legibility wins over how much daylight shows through. */
-@media(max-width:860px){
+@media(max-width:1023px){
   .bp-scrim{
     background:
       linear-gradient(180deg, rgba(11,11,12,.75) 0%, rgba(11,11,12,.34) 16%, transparent 26%),
@@ -79,10 +82,11 @@ body{background:var(--white);color:var(--ink)}
 /* Content sits on the same left edge as the nav brand: full container
    width, left-aligned, rather than a narrower centred block. */
 .ehero .ehero__inner{width:100%;max-width:var(--wrap);margin-inline:auto;text-align:left}
+/* Plain red text label, no chip: red strips are not decoration here. */
 .bp-kicker{
-  display:inline-block;background:var(--red);color:var(--white);
+  display:block;color:var(--red-bright);
   font-weight:800;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;
-  padding:8px 14px;border-radius:2px;margin-bottom:20px;
+  margin-bottom:24px;
 }
 .ehero h1{font-size:clamp(2.6rem,8.2vw,6.4rem);line-height:.88}
 .ehero h1 .sm{display:block;font-size:.42em;letter-spacing:.04em;color:#F2EFE9;line-height:1;margin-bottom:.4em}
@@ -91,7 +95,7 @@ body{background:var(--white);color:var(--ink)}
 .patch{color:var(--red)}
 
 /* Price + status sit in the hero, because they decide the purchase. */
-.bp-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.bp-meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
 .bp-meta .chip{border-color:rgba(255,255,255,.4);color:#F2EFE9}
 .bp-meta .chip--now{background:var(--white);border-color:var(--white);color:var(--ink)}
 
@@ -104,7 +108,7 @@ body{background:var(--white);color:var(--ink)}
 .day__marquee{display:none}
 @media(min-width:1500px){
   .day__marquee{
-    position:absolute;left:26px;top:0;bottom:0;width:180px;z-index:0;
+    position:absolute;left:24px;top:0;bottom:0;width:180px;z-index:0;
     display:flex;flex-direction:column;justify-content:center;gap:2px;
     pointer-events:none;user-select:none;overflow:hidden;
   }
@@ -116,7 +120,7 @@ body{background:var(--white);color:var(--ink)}
 
 .day__inner{position:relative;z-index:1}
 
-.slot{padding-block:clamp(20px,3.2vw,30px);border-top:2px solid var(--ink)}
+.slot{padding-block:24px;border-top:2px solid var(--ink)}
 .slot:last-of-type{border-bottom:2px solid var(--ink)}
 /* One line per row: the time sits beside the heading in the same face
    and size, so the schedule reads as one voice rather than four. */
@@ -125,85 +129,84 @@ body{background:var(--white);color:var(--ink)}
   font-size:clamp(1.4rem,2.9vw,2.1rem);line-height:1.1;text-transform:uppercase;
 }
 .slot__time{color:var(--red);margin-right:.5em}
-.slot__p{margin-top:10px;color:#3a3a3c;font-size:1.04rem;max-width:64ch}
+.slot__p{margin-top:8px;color:#3a3a3c;font-size:1.04rem;max-width:64ch}
 
 /* The kickoff gap — the one moment the crowd leaves and comes back.
    Rendered as an actual break in the spine rather than another row,
    because that break IS the thing the wristband solves. */
 .gap{
-  padding-block:clamp(18px,3vw,26px);
+  padding-block:24px;
   border-top:2px dashed #C9C3B6;background:#FBFAF7;
   margin-inline:calc(var(--pad) * -1);padding-inline:var(--pad);
 }
 .gap__p{margin-top:8px;color:#4a4a4e;font-size:1.02rem;max-width:64ch}
+@media(min-width:1024px){ .slot,.gap{padding-block:32px} }
 
 /* Schedule caveat. The run of show hangs off a kickoff time that has not
    been announced, so the page says so plainly rather than presenting
    provisional times as settled. */
 .notice{
-  display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:start;
+  display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;
   border:1px solid #E0DACE;background:#FBF8F1;
-  padding:22px 24px;margin-bottom:clamp(30px,5vw,48px);
+  padding:24px;margin-bottom:32px;
 }
 .notice__k{
   font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;font-weight:800;
   color:var(--red-deep);white-space:nowrap;padding-top:3px;
 }
 .notice__p{color:#3a3a3c;font-size:1.02rem;max-width:62ch}
-@media(max-width:620px){ .notice{grid-template-columns:1fr;gap:10px} }
+@media(max-width:479px){ .notice{grid-template-columns:1fr;gap:8px} }
 
 /* The wristband rule — the single most important mechanic on this page. */
 .band{
-  margin-top:clamp(32px,5vw,52px);
+  margin-top:48px;
   background:var(--ink);color:var(--white);
-  padding:clamp(26px,4vw,40px);
-  display:grid;grid-template-columns:auto 1fr;gap:clamp(20px,3vw,36px);align-items:center;
+  padding:32px;
+  display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:center;
 }
+@media(min-width:768px){ .band{padding:48px;gap:32px} }
 .band__ico{
   font-family:var(--display);font-size:clamp(2.6rem,6vw,4.4rem);line-height:.9;
   color:var(--red-bright);font-weight:700}
 .band__h{font-family:var(--display);font-size:clamp(1.5rem,3.4vw,2.3rem);text-transform:uppercase;line-height:1.05;font-weight:700}
-.band__p{margin-top:10px;color:#C9C7C2;font-size:1.04rem;max-width:56ch}
-@media(max-width:620px){ .band{grid-template-columns:1fr;gap:14px} }
+.band__p{margin-top:8px;color:#C9C7C2;font-size:1.04rem;max-width:56ch}
+@media(max-width:479px){ .band{grid-template-columns:1fr;gap:16px} }
 
 /* ---------- ON SITE ---------- */
 .onsite{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:0;border-top:2px solid var(--ink)}
-.bit{padding:26px 26px 26px 0;border-right:1px solid #E5E1D8}
+.bit{padding:24px;border-right:1px solid #E5E1D8}
+.bit:first-child{padding-left:0}
 .bit:last-child{border-right:none}
-@media(max-width:760px){
+@media(max-width:767px){
   .onsite{grid-template-columns:1fr}
-  .bit{border-right:none;border-bottom:1px solid #E5E1D8;padding-right:0}
+  .bit{border-right:none;border-bottom:1px solid #E5E1D8;padding:24px 0}
   .bit:last-child{border-bottom:none}
 }
-.bit__k{font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;font-weight:800;color:var(--red-deep);margin-bottom:12px}
+.bit__k{font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;font-weight:800;color:var(--red-deep);margin-bottom:8px}
 .bit__v{font-family:var(--display);font-size:1.5rem;text-transform:uppercase;line-height:1.15;font-weight:700}
 .bit__sep{color:var(--red);margin-inline:.12em}
-.bit__n{margin-top:10px;color:#4a4a4e;font-size:.99rem}
+.bit__n{margin-top:8px;color:#4a4a4e;font-size:.99rem}
 
 /* ---------- GETTING IN ---------- */
-.gi{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(30px,6vw,72px);align-items:start}
-@media(max-width:860px){ .gi{grid-template-columns:1fr;gap:34px} }
-.rules{list-style:none;display:grid;gap:0}
-.rules li{
-  display:grid;grid-template-columns:132px 1fr;gap:18px;
-  padding-block:15px;border-top:1px solid #E5E1D8;font-size:1.02rem;color:#3a3a3c;
-}
-.rules li:last-child{border-bottom:1px solid #E5E1D8}
-.rules .k{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;font-weight:800;color:#8a8a8e;padding-top:4px}
-@media(max-width:560px){ .rules li{grid-template-columns:1fr;gap:4px} }
+.gi{display:grid;grid-template-columns:minmax(0,1fr);gap:32px;align-items:start}
+@media(min-width:768px){ .gi{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr)} }
+@media(min-width:1024px){ .gi{gap:64px} }
+/* .rules itself lives in site.css. Here it sits under the H2 with no
+   .section__head around it, so it takes the heading-to-body step. */
+.gi .rules{margin-top:48px}
 
 /* Venue block — logo links out to the venue's own site. The black
    mark is used here because this section sits on white. */
 .venue{border:1px solid #E5E1D8;background:#FBFAF7}
 .venue__img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover}
-.venue__body{padding:26px}
+.venue__body{padding:24px}
 .venue__logo{display:inline-block;text-decoration:none}
 .venue__logo img{display:block;width:auto;height:46px}
-.venue__addr{margin-top:18px;color:#4a4a4e;font-size:1.02rem;line-height:1.5}
-.venue__links{display:flex;flex-wrap:wrap;gap:18px;margin-top:20px}
+.venue__addr{margin-top:16px;color:#4a4a4e;font-size:1.02rem;line-height:1.5}
+.venue__links{display:flex;flex-wrap:wrap;gap:16px;margin-top:16px}
 .venue__links a{
   font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;font-weight:800;
-  color:var(--ink);text-decoration:none;border-bottom:2px solid var(--red);padding-bottom:3px;
+  color:var(--ink);text-decoration:none;border-bottom:2px solid var(--red);padding-bottom:4px;
 }
 .venue__links a:hover{color:var(--red-deep)}
 
@@ -213,31 +216,26 @@ body{background:var(--white);color:var(--ink)}
 .night{background:var(--ink);color:var(--white)}
 .night .section__title{color:var(--white)}
 .night .eyebrow{color:var(--red-bright)}
-.shots{columns:4;column-gap:10px}
-@media(max-width:1100px){ .shots{columns:3} }
-@media(max-width:760px){ .shots{columns:2} }
+.shots{columns:4;column-gap:8px}
+@media(min-width:768px){ .shots{column-gap:16px} }
+@media(max-width:1023px){ .shots{columns:3} }
+@media(max-width:767px){ .shots{columns:2} }
 @media(max-width:420px){ .shots{columns:1} }
-.shot{break-inside:avoid;margin:0 0 10px;overflow:hidden;background:var(--carbon);position:relative}
+.shot{break-inside:avoid;margin:0 0 8px;overflow:hidden;background:var(--carbon);position:relative}
+@media(min-width:768px){ .shot{margin-bottom:16px} }
 .shot img{
   display:block;width:100%;height:auto;
-  transition:transform .55s ease, filter .55s ease;
+  transition:transform .55s ease;
   filter:saturate(.94);
 }
-.shot:hover img{transform:scale(1.035);filter:saturate(1.06)}
+.shot:hover img{transform:scale(1.035)}
 @media (prefers-reduced-motion: reduce){ .shot:hover img{transform:none} }
-.shots__note{margin-top:22px;color:var(--ash);font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700}
+.shots__note{margin-top:24px;color:var(--ash);font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700}
 
 /* ---------- CLOSING ---------- */
 .cta--bp .cta__title span{-webkit-text-stroke:2px #fff;color:transparent}
 
-/* Slim cross-navigation. Deliberately a single line of links rather
-   than another card grid — the weekend nav should not out-weigh the
-   event the visitor is already reading about. */
-.alsonav{border-top:1px solid #E5E1D8;padding-block:28px;background:var(--white)}
-.alsonav__row{display:flex;flex-wrap:wrap;gap:8px 28px;align-items:baseline}
-.alsonav__k{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;font-weight:800;color:#8a8a8e}
-.alsonav a{font-weight:700;color:var(--ink);text-decoration:none;border-bottom:2px solid transparent}
-.alsonav a:hover{border-bottom-color:var(--red)}
+/* Rest-of-the-weekend cross-navigation (.alsonav) lives in site.css. */
 </style>
 </head>
 <body>
@@ -263,10 +261,14 @@ body{background:var(--white);color:var(--ink)}
 <!-- ============================ HERO ============================ -->
 <section class="ehero">
   <div class="ehero__media">
-    <img src="/assets/blockparty-hero-poster.jpg" alt="" aria-hidden="true">
+    <img src="/assets/blockparty-hero-poster.jpg" alt="" width="1920" height="1080" fetchpriority="high">
     <video id="heroVideo" muted loop playsinline preload="none" aria-hidden="true"></video>
   </div>
   <div class="bp-scrim" aria-hidden="true"></div>
+  <button class="vidtoggle" id="heroVideoToggle" type="button" aria-label="Pause background video" hidden>
+    <svg class="vidtoggle__pause" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 2h3v12H4zM9 2h3v12H9z" fill="currentColor"/></svg>
+    <svg class="vidtoggle__play" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 2l10 6-10 6z" fill="currentColor"/></svg>
+  </button>
 
   <div class="wrap ehero__inner">
     <div class="bp-kicker" data-animate>This is how we Homecoming &middot; Vol. 3</div>
@@ -274,7 +276,7 @@ body{background:var(--white);color:var(--ink)}
       <span class="sm">Pack Out State</span>
       Block Party <span class="patch">&rsquo;26</span>
     </h1>
-    <p class="ehero__sub" data-animate>Saturday, October 31 <span class="dot">&middot;</span> 2:30 PM &ndash; 1:00 AM</p>
+    <p class="ehero__sub" data-animate>Saturday, October 31 <span class="dot">&middot;</span> 2:30&nbsp;PM &ndash; 1:00&nbsp;AM</p>
     <p class="ehero__meta" data-animate>Killjoy Kitchen &amp; Cocktails &middot; 116 N West St, Raleigh</p>
 
     <div class="bp-meta" data-animate>
@@ -327,7 +329,7 @@ body{background:var(--white);color:var(--ink)}
 
     <div class="reveal">
       <div class="slot">
-        <h3 class="slot__line"><span class="slot__time">2:30 PM</span>The lot opens</h3>
+        <h3 class="slot__line"><span class="slot__time">2:30&nbsp;PM</span>The lot opens</h3>
         <div>
           <p class="slot__p">Killjoy and the parking lot become one space. Music starts, grills are on, vendors are set. Early is the easiest time to get in and the best time to find your people.</p>
         </div>
@@ -365,9 +367,9 @@ body{background:var(--white);color:var(--ink)}
       </div>
 
       <div class="slot">
-        <h3 class="slot__line"><span class="slot__time">1:00 AM</span>Last call</h3>
+        <h3 class="slot__line"><span class="slot__time">1:00&nbsp;AM</span>Last call</h3>
         <div>
-          <p class="slot__p">That's Homecoming. Get home safe. Rideshare is the move.</p>
+          <p class="slot__p">That&rsquo;s Homecoming. Get home safe. Rideshare is the move.</p>
         </div>
       </div>
     </div>
@@ -384,10 +386,10 @@ body{background:var(--white);color:var(--ink)}
 </section>
 
 <!-- ============================ ON SITE ============================ -->
-<section class="section section--tight">
+<section class="section section--tight section--flush">
   <div class="wrap">
     <div class="section__head reveal">
-      <h2 class="section__title">Who's on the block</h2>
+      <h2 class="section__title">Who&rsquo;s on the block</h2>
     </div>
     <div class="onsite reveal">
       <div class="bit">
@@ -426,7 +428,7 @@ body{background:var(--white);color:var(--ink)}
           <li><span class="k">Re-entry</span><span>One wristband, in and out all day and night.</span></li>
           <li><span class="k">Bags</span><span>Allowed, but searched on entry. Security is on site.</span></li>
           <li><span class="k">Bring</span><span>A chair, if you want one.</span></li>
-          <li><span class="k">Don't bring</span><span>Coolers, outside food, or outside drink.</span></li>
+          <li><span class="k">Don&rsquo;t bring</span><span>Coolers, outside food, or outside drink.</span></li>
           <li><span class="k">Weather</span><span>Rain or shine. It happens either way.</span></li>
           <li><span class="k">Age</span><span>21+ with valid photo ID.</span></li>
         </ul>
@@ -439,7 +441,7 @@ body{background:var(--white);color:var(--ink)}
             <!-- Venue logo links to the venue's own site. Black mark on
                  this light ground; the white mark is used on dark. -->
             <a class="venue__logo" href="https://killjoycocktail.com" target="_blank" rel="noopener">
-              <img src="/assets/killjoy-black.png" alt="Killjoy Kitchen &amp; Cocktails, visit their website" width="640" height="261">
+              <img src="/assets/killjoy-black.png" alt="Killjoy Kitchen &amp; Cocktails, visit their website" width="640" height="260" loading="lazy" decoding="async">
             </a>
             <div class="venue__addr">
               116 N West St<br>
@@ -589,7 +591,7 @@ body{background:var(--white);color:var(--ink)}
 </section>
 
 <!-- ============================ FAQ ============================ -->
-<section class="section section--tight">
+<section class="section">
   <div class="wrap">
     <div class="section__head reveal">
       <div class="eyebrow">Questions</div>
@@ -598,7 +600,7 @@ body{background:var(--white);color:var(--ink)}
     <div class="faqlist reveal">
       <details class="faq">
         <summary>What does admission include?</summary>
-        <p>Your ticket gets you one wristband with in-and-out access all day and night. Go back to your hotel, freshen up, and pull back up when you're ready. We recommend purchasing tickets in advance. Capacity is limited and may sell out.</p>
+        <p>Your ticket gets you one wristband with in-and-out access all day and night. Go back to your hotel, freshen up, and pull back up when you&rsquo;re ready. We recommend purchasing tickets in advance. Capacity is limited and may sell out.</p>
       </details>
       <details class="faq">
         <summary>Where should I park?</summary>
@@ -613,7 +615,7 @@ body{background:var(--white);color:var(--ink)}
         <p>Yes. BBQn4U will be onsite serving fried chicken, fried fish, and all the fixins&rsquo;.</p>
       </details>
       <details class="faq">
-        <summary>Who's providing the music?</summary>
+        <summary>Who&rsquo;s providing the music?</summary>
         <p>The energy will be set by DJ Fredo, Brint City, and DJ JMar, guaranteed to keep the vibes right all day and night.</p>
       </details>
       <details class="faq">
@@ -625,8 +627,8 @@ body{background:var(--white);color:var(--ink)}
         <p>Yes. Once we hit capacity, tickets will no longer be available. Secure yours early.</p>
       </details>
       <details class="faq">
-        <summary>What's the occasion?</summary>
-        <p>We're celebrating NC State Homecoming, and the Pack Out State Block Party is the place to be all day long.</p>
+        <summary>What&rsquo;s the occasion?</summary>
+        <p>We&rsquo;re celebrating NC State Homecoming, and the Pack Out State Block Party is the place to be all day long.</p>
       </details>
     </div>
   </div>
@@ -637,9 +639,9 @@ body{background:var(--white);color:var(--ink)}
   <div class="wrap cta__inner">
     <div>
       <div class="cta__title">All damn<br>day <span>party</span></div>
-      <p class="cta__note">One wristband, 2:30 PM til 1 AM. Capacity is limited and it can sell out, so get yours before the weekend does.</p>
+      <p class="cta__note">One wristband, 2:30&nbsp;PM til 1&nbsp;AM. Capacity is limited and it can sell out, so get yours before the weekend does.</p>
     </div>
-    <div class="btnrow" style="margin-top:0">
+    <div class="btnrow">
       <a class="btn btn--dark" href="https://tickets.venuepilot.com/e/the-downtown-block-party-tailgate-2026-10-31-killjoy-cocktail-lounge-raleigh-8c97cf" target="_blank" rel="noopener">Get tickets</a>
       <a class="btn btn--ghost" href="https://www.handstamp.com/e/the-downtown-block-party-tailgate-ryle4rds" target="_blank" rel="noopener">Event details</a>
     </div>
@@ -724,11 +726,35 @@ body{background:var(--white);color:var(--ink)}
   // it is worth the bytes. The width test re-runs on resize and on
   // becoming visible, because a hidden or not-yet-laid-out tab reports
   // a zero-width viewport and would otherwise never upgrade.
+  // The pause button stays hidden until the video is really playing, so
+  // it never appears when the poster carries the hero. Once the visitor
+  // pauses, nothing on the page resumes the video for them.
   (function(){
     var v = document.getElementById('heroVideo');
     if(!v) return;
     var conn  = navigator.connection || {};
     if(reduced || conn.saveData === true || /2g/.test(conn.effectiveType || '')) return;
+
+    var btn = document.getElementById('heroVideoToggle');
+    function sync(){
+      if(!btn) return;
+      var paused = v.paused;
+      btn.setAttribute('data-state', paused ? 'paused' : 'playing');
+      btn.setAttribute('aria-label', paused ? 'Play background video' : 'Pause background video');
+    }
+    if(btn){
+      v.addEventListener('playing', function(){ btn.hidden = false; sync(); });
+      v.addEventListener('pause', sync);
+      v.addEventListener('play', sync);
+      btn.addEventListener('click', function(){
+        if(v.paused){
+          var pp = v.play();
+          if(pp && pp.catch) pp.catch(function(){});
+        } else {
+          v.pause();
+        }
+      });
+    }
 
     var SOURCES = [
       {src:'/assets/blockparty-hero.webm', type:'video/webm'},
@@ -798,6 +824,15 @@ body{background:var(--white);color:var(--ink)}
   document.addEventListener('click', function(e){
     document.querySelectorAll('.cal[open]').forEach(function(d){
       if(!d.contains(e.target)) d.removeAttribute('open');
+    });
+  });
+  // Escape closes an open calendar menu and hands focus back to its toggle.
+  document.addEventListener('keydown', function(e){
+    if(e.key !== 'Escape') return;
+    document.querySelectorAll('.cal[open]').forEach(function(d){
+      d.removeAttribute('open');
+      var t = d.querySelector('summary');
+      if(t) t.focus();
     });
   });
 

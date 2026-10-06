@@ -9,6 +9,28 @@ anti-patterns, and implementation.
 redefined. Every rule below uses them by variable name so the palette and type
 stack remain the single source of truth.
 
+### Applied Oct 2026 (event pages)
+
+What is actually in `css/site.css` now, used by Block Party, Talley Tapes,
+Clocked Out and HQ (the home page keeps its own inline styles):
+
+- Tokens on `:root`: `--sp-xs` 4, `--sp-sm` 8, `--sp-md` 16, `--sp-lg` 24,
+  `--sp-xl` 32, `--sp-2xl` 48, `--sp-3xl` 64, `--sp-4xl` 96, `--sp-5xl` 128,
+  `--wrap-narrow` 760px, `--pad` clamp(24px, 5vw, 64px), `--nav-h` 61px
+  (measured event-page nav), `--section-y` 64px, 96px from 1024 up.
+- Section rhythm: `.section` and the closing `.cta` pad by `--section-y`;
+  `.section--tight` is 48; `.section--flush` drops the top padding when two
+  sections share a ground (Block Party "The day" to "Who's on the block", Talley
+  fact bar to story). Section heading to body is 48, sub-group breaks 32.
+- Hero: 96 padding on phones, 128 from 1024. Hero video gets the shared
+  `.vidtoggle` pause button (markup documented in site.css).
+- Shared lists: `.rules` and `.alsonav` now live in site.css. FAQ and prose
+  cap at `--wrap-narrow` or 68ch.
+- Breakpoints in use: 480 / 768 / 1024 (one exception: the Block Party photo
+  grid keeps a 420px one-column break so large phones stay two-up).
+- Reveal animation only hides content under `html.js`, so pages read fine
+  without JavaScript.
+
 ---
 
 ## 0. Three corrections to the brief

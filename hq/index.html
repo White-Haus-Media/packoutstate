@@ -5,136 +5,670 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Homecoming HQ · Pack Out State</title>
 <meta name="robots" content="noindex, nofollow">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/css/site.css">
 <style>
-/* Internal page. Plain and readable on purpose: body font throughout, no
-   display face, white background. This is a working tool, not a showpiece. */
-body{background:#fff;color:#16161a;font-family:var(--sans)}
-.shell{max-width:1100px;margin-inline:auto;padding:clamp(24px,4vw,48px) var(--pad)}
+/* Internal dashboard. "Clean Ops" direction, chosen by Colton Oct 2026: white
+   cards on a light grey ground, system fonts, one fixed color per event.
+   Standalone on purpose, it does not load css/site.css. */
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --ground:#F6F7F9; --card:#fff; --line:#E6E8EC; --line-2:#F0F1F4;
+  --ink:#16181D; --ink-2:#5C6270; --ink-3:#6B7280;
+  --brand:#D91F26; --good:#1F7A47; --stale:#B45309; --err:#A8071A;
+  /* One color per event, fixed, never by rank. Validated together on white:
+     every pair passes colorblind separation. Charts also label directly. */
+  --ev-warm-up:#B07818; --ev-talley-tapes:#C8102E; --ev-clocked-out:#2E6BD1; --ev-block-party:#14967C;
+}
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--sans);background:var(--ground);color:var(--ink);font-size:15px;line-height:1.45}
+button,input{font:inherit;color:inherit}
+a{color:inherit}
+.num,td,.kpi .n{font-variant-numeric:tabular-nums}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+[hidden]{display:none !important}
 
-.gate{max-width:380px;margin:12vh auto;background:#fff;border:1px solid #E2DCD1;padding:30px;border-radius:6px}
-.gate h1{font-family:var(--sans);font-weight:800;font-size:1.4rem;line-height:1.2;margin-bottom:18px;letter-spacing:-.01em}
-label span{display:block;font-size:.8rem;font-weight:700;color:#55555c;margin-bottom:7px}
-input{width:100%;font-family:var(--sans);font-size:1rem;padding:12px 14px;border:1px solid #CFC9BE;
-      border-radius:4px;background:#fff;color:#16161a}
-input:focus{outline:3px solid var(--red);outline-offset:1px;border-color:var(--red)}
-.err{color:#A8071A;font-size:.92rem;margin-top:12px;display:none}
+/* gate */
+.gate{max-width:380px;margin:12vh auto;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:32px;
+      box-shadow:0 1px 2px rgba(16,24,40,.04)}
+.gate .brand{margin-bottom:20px}
+.gate label span{display:block;font-size:.8rem;font-weight:700;color:var(--ink-2);margin-bottom:8px}
+input{width:100%;min-height:44px;padding:0 12px;border:1px solid #CDD1D8;border-radius:6px;background:#fff}
+input:focus{outline:3px solid rgba(46,107,209,.35);outline-offset:1px;border-color:#2E6BD1}
+.primary{width:100%;margin-top:16px;min-height:44px;border:0;border-radius:6px;background:var(--ink);color:#fff;font-weight:700;cursor:pointer}
+.primary:disabled{opacity:.6;cursor:wait}
+.err{color:var(--err);font-size:.9rem;margin-top:12px;display:none}
 .err.on{display:block}
 
-h1.page{font-family:var(--sans);font-weight:800;font-size:1.75rem;letter-spacing:-.015em;margin-bottom:4px}
-.sub{color:#55555c;font-size:.98rem;margin-bottom:26px}
-h2{font-family:var(--sans);font-weight:800;font-size:1.15rem;letter-spacing:-.01em;margin:34px 0 12px}
+/* header */
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.15rem;letter-spacing:-.01em}
+.brand i{width:26px;height:26px;border-radius:6px;background:var(--brand);display:inline-block;flex:none}
+.top{background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.top .wrap{padding-top:14px}
+.bar1{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.status{display:flex;gap:12px;align-items:center;font-size:.8rem;color:var(--ink-2);flex-wrap:wrap}
+.status .dot{width:8px;height:8px;border-radius:50%;background:var(--good);display:inline-block;margin-right:6px}
+.status .dot.stale{background:var(--stale)}
+.ghost{border:1px solid var(--line);background:#fff;border-radius:6px;padding:6px 12px;font-size:.8rem;font-weight:700;cursor:pointer}
+.ghost:disabled{opacity:.5;cursor:wait}
+.tabs{display:flex;gap:2px;margin-top:10px;overflow-x:auto}
+.tabs button{background:none;border:0;border-bottom:2px solid transparent;padding:10px 14px;font-size:.88rem;font-weight:600;
+             color:var(--ink-2);cursor:pointer;white-space:nowrap}
+.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--ink)}
+.tabs button:focus-visible{outline:2px solid #2E6BD1;outline-offset:-2px}
 
-.tally{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:6px}
-.tally div{flex:1 1 150px;border:1px solid #E6E1D8;border-radius:6px;padding:14px 16px;
-           font-size:.8rem;font-weight:700;color:#55555c}
-.tally b{display:block;font-family:var(--sans);font-weight:800;font-size:1.8rem;color:#16161a;
-         letter-spacing:-.02em;margin-top:2px}
+/* layout */
+main.body{padding:24px 0 64px}
+.grid{display:grid;gap:16px}
+.kpis{grid-template-columns:repeat(4,minmax(0,1fr));margin-bottom:16px}
+.main{grid-template-columns:minmax(0,2fr) minmax(0,1fr)}
+.row3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.mt{margin-top:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:18px 20px;box-shadow:0 1px 2px rgba(16,24,40,.04);min-width:0}
+.card.flush{padding:0;overflow:hidden}
+h2{font-size:.95rem;font-weight:700}
+.hint{font-size:.8rem;color:var(--ink-3)}
+h2 + .hint{margin-bottom:14px}
+.kpi{border-top:3px solid var(--c,var(--ink))}
+.kpi .lbl{font-size:.75rem;font-weight:700;color:var(--ink-2);text-transform:uppercase;letter-spacing:.05em}
+.kpi .n{font-size:1.9rem;font-weight:800;letter-spacing:-.02em;margin-top:6px;line-height:1.15}
+.kpi .n small{font-size:1rem;font-weight:700;color:var(--ink-3)}
+.kpi .d{display:block;font-size:.78rem;font-weight:700;color:var(--ink-3);margin-top:2px}
+.kpi .d.up{color:var(--good)}
+.note{font-size:.85rem;color:var(--ink-2);margin-top:10px}
+.warn{border:1px solid var(--line);background:#FAFBFC;border-radius:6px;padding:14px 16px;color:var(--ink-2);font-size:.9rem}
+.empty{display:flex;align-items:center;justify-content:center;text-align:center;min-height:200px;color:var(--ink-3);
+       font-size:.88rem;background:#FAFBFC;border:1px dashed var(--line);border-radius:6px;padding:20px}
 
-.wrapx{overflow-x:auto;border:1px solid #E6E1D8;border-radius:6px}
-table{width:100%;border-collapse:collapse;font-size:.95rem;min-width:620px}
-th{text-align:left;font-size:.78rem;font-weight:700;color:#55555c;background:#FAF8F4;
-   padding:11px 14px;border-bottom:1px solid #E6E1D8;white-space:nowrap}
-td{padding:12px 14px;border-bottom:1px solid #F0ECE4;vertical-align:top}
-tbody tr:last-child td{border-bottom:none}
-tr.open td{color:#6B6761}
-td a{color:#16161a}
-.pill{display:inline-block;font-size:.78rem;font-weight:700;padding:3px 9px;
-      background:#F3EFE8;color:#44444a;border-radius:20px}
-.note{color:#55555c;font-size:.9rem;margin-top:10px}
+/* tables */
+.scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.88rem}
+th{text-align:left;font-size:.75rem;font-weight:700;color:var(--ink-2);padding:10px 14px;border-bottom:1px solid var(--line);white-space:nowrap;background:#FAFBFC}
+td{padding:11px 14px;border-bottom:1px solid var(--line-2);vertical-align:middle;overflow-wrap:anywhere}
+tbody tr:last-child td{border-bottom:0}
+.r{text-align:right}
+tr.open td{color:var(--ink-3)}
+.dot-ev{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:8px;vertical-align:1px}
+.cap{height:10px;border-radius:5px;background:#EEF0F3;overflow:hidden;min-width:120px}
+.cap i{display:block;height:100%;border-radius:5px}
+.pill{display:inline-block;font-size:.74rem;font-weight:700;padding:3px 8px;border-radius:20px;background:#EEF0F3;color:#3F4450}
+
+/* charts */
+svg{display:block;width:100%;height:auto;overflow:visible}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:.78rem;color:var(--ink-2);margin-bottom:12px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:10px;height:10px;border-radius:2px;display:inline-block}
+.hb{display:grid;gap:10px}
+.hb-row{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) 40px;gap:12px;align-items:center;font-size:.86rem}
+.hb-row .t{min-width:0}
+.hb-row .t b,.hb-row .t small{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:400}
+.hb-row .t small{color:var(--ink-3);font-size:.76rem}
+.track{height:12px;display:flex;gap:2px}
+.track i{display:block;height:100%}
+.track i:last-child{border-radius:0 4px 4px 0}
+.hb-row .v{text-align:right;font-weight:700}
+.sales .hb-row{grid-template-columns:96px minmax(0,1fr) 64px}
+.days{display:flex;gap:10px;margin-top:8px}
+.days div{flex:1;border-left:3px solid var(--c);padding-left:10px}
+.days b{font-size:1.4rem;font-weight:800;display:block;line-height:1.1}
+.lane{font-size:.75rem;font-weight:700;color:var(--ink-2);margin:10px 0 6px}
+.lane:first-child{margin-top:0}
+.slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(52px,1fr));gap:4px}
+.slot{height:30px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;
+      background:#EEF0F3;color:var(--ink-3)}
+.slot.booked{background:var(--ev-clocked-out);color:#fff}
+.pips{display:inline-flex;gap:4px;vertical-align:middle;margin-left:8px}
+.pips i{width:18px;height:8px;border-radius:2px;background:#EEF0F3;display:block}
+.pips i.on{background:var(--ev-clocked-out)}
+
+/* lists (mixtape tab) */
+.lists{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.list ol{list-style:none;counter-reset:n}
+.list li{counter-increment:n;display:grid;grid-template-columns:22px minmax(0,1fr) auto;gap:6px;padding:7px 0;border-top:1px solid var(--line-2);font-size:.88rem}
+.list li:first-child{border-top:0}
+.list li::before{content:counter(n);color:var(--ink-3);font-weight:700}
+.list li span{font-weight:700;color:var(--ink-2)}
+.list small{display:block;color:var(--ink-3);font-size:.78rem}
+
+/* manual ticket form */
+.mgrid{display:grid;grid-template-columns:minmax(140px,1.4fr) repeat(3,minmax(90px,1fr));gap:8px 12px;align-items:center;min-width:480px;margin-top:14px}
+.mgrid .h{font-size:.75rem;font-weight:700;color:var(--ink-2)}
+.mgrid input{min-height:38px}
+.mrow{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:14px}
+.mrow .ghost{padding:9px 14px;font-size:.85rem}
+.mrow .err{margin-top:0}
+.ok{color:var(--good);font-size:.88rem;font-weight:700}
+
+@media (max-width:900px){
+  .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .main,.row3,.two{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:480px){
+  .wrap{padding:0 16px}
+  .kpi .n{font-size:1.5rem}
+}
 </style>
 </head>
 <body>
 
 <div id="gate" class="gate">
-  <h1>Homecoming HQ</h1>
+  <div class="brand"><i aria-hidden="true"></i>Homecoming HQ</div>
   <form id="gateForm">
-    <label><span>Password</span><input type="password" id="pw" autocomplete="current-password" autofocus></label>
-    <div class="err" id="err"></div>
-    <button class="btn btn--primary" type="submit" style="width:100%;margin-top:16px">Open</button>
+    <label><span>Password</span><input type="password" id="pw" name="password" autocomplete="current-password" autofocus></label>
+    <div class="err" id="err" role="alert"></div>
+    <button class="primary" type="submit" id="openBtn">Open</button>
   </form>
 </div>
 
-<main class="shell" id="app" hidden>
-  <h1 class="page">Clocked Out signups</h1>
-  <p class="sub">Live list of reservations and shooters for Friday, October 30 at District.</p>
+<div id="app" hidden>
+  <header class="top">
+    <div class="wrap">
+      <div class="bar1">
+        <div class="brand"><i aria-hidden="true"></i>Homecoming HQ</div>
+        <div class="status"><span id="syncStatus"></span><span id="stamp"></span>
+          <button class="ghost" id="refresh" type="button">Refresh</button></div>
+      </div>
+      <div class="tabs" role="tablist" aria-label="Sections">
+        <button role="tab" id="tab-overview" aria-controls="overview" aria-selected="true">Overview</button>
+        <button role="tab" id="tab-tickets" aria-controls="tickets" aria-selected="false" tabindex="-1">Tickets</button>
+        <button role="tab" id="tab-clocked-out" aria-controls="clocked-out" aria-selected="false" tabindex="-1">Clocked Out</button>
+        <button role="tab" id="tab-mixtape" aria-controls="mixtape" aria-selected="false" tabindex="-1">Mixtape</button>
+      </div>
+    </div>
+  </header>
 
-  <div class="tally" id="tally"></div>
+  <main class="body wrap">
+    <!-- OVERVIEW -->
+    <section role="tabpanel" id="overview" aria-labelledby="tab-overview">
+      <div class="grid kpis" id="kpis"></div>
+      <div class="grid main">
+        <div class="card"><h2>Tickets sold over time</h2><p class="hint">Running total, one line per event</p><div id="trend"></div></div>
+        <div class="card"><h2>Sales by event</h2><p class="hint">Gross, before fees</p><div class="hb sales" id="salesBars"></div>
+          <h2 style="margin-top:22px">Days to go</h2><div class="days" id="daysToGo"></div></div>
+      </div>
+      <div class="card flush mt"><div class="scroll" id="eventTable"></div></div>
+      <div class="grid row3 mt">
+        <div class="card"><h2>Clocked Out slots</h2><p class="hint" id="slotHint"></p><div id="slotGrid"></div></div>
+        <div class="card"><h2>Top mixtape songs</h2><p class="hint">By number of people</p><div id="songBars"></div></div>
+        <div class="card"><h2>Contributor eras</h2><p class="hint">Each bar is one person's years at State</p><div id="eras"></div></div>
+      </div>
+    </section>
 
-  <h2>The schedule</h2>
-  <div class="wrapx">
-    <table>
-      <thead><tr><th>Time</th><th>Name</th><th>People</th><th>Contact</th><th>Note</th></tr></thead>
-      <tbody id="rows"></tbody>
-    </table>
-  </div>
+    <!-- TICKETS -->
+    <section role="tabpanel" id="tickets" aria-labelledby="tab-tickets" hidden>
+      <div class="card"><h2>Tickets sold over time</h2><p class="hint">Running total, one line per event. Hover a line for each reading.</p><div id="trend2"></div></div>
+      <div class="card flush mt"><div class="scroll" id="eventTable2"></div></div>
+      <div class="card mt">
+        <h2>Update counts by hand</h2>
+        <p class="hint">Use this if the numbers look stale. Copy them from the OasisTix events list. Leave a row's sold box blank to skip it.</p>
+        <form id="manualForm">
+          <div class="scroll"><div class="mgrid" id="manualGrid"></div></div>
+          <div class="mrow">
+            <button class="ghost" type="submit" id="manualBtn">Save counts</button>
+            <span class="err" id="manualErr" role="alert"></span>
+            <span class="ok" id="manualOk" role="status"></span>
+          </div>
+        </form>
+      </div>
+    </section>
 
-  <h2>Photographers and videographers</h2>
-  <div class="wrapx">
-    <table>
-      <thead><tr><th>Name</th><th>Role</th><th>Contact</th><th>Link</th></tr></thead>
-      <tbody id="crew"></tbody>
-    </table>
-  </div>
-  <p class="note" id="crewNote"></p>
-</main>
+    <!-- CLOCKED OUT -->
+    <section role="tabpanel" id="clocked-out" aria-labelledby="tab-clocked-out" hidden>
+      <div id="bookingBody">
+        <div class="grid kpis" id="bookKpis"></div>
+        <div class="grid two">
+          <div class="card"><h2>Slots</h2><p class="hint">Friday, October 30 at District. Blue is booked.</p><div id="slotGrid2"></div></div>
+          <div class="card"><h2>Shooters</h2><p class="hint">Three photographers and three videographers needed</p><div id="crewMeters"></div></div>
+        </div>
+        <div class="card flush mt"><div class="scroll">
+          <table><thead><tr><th>Time</th><th>Name</th><th class="r">People</th><th>Contact</th><th>Note</th></tr></thead><tbody id="rows"></tbody></table>
+        </div></div>
+        <div class="card flush mt"><div class="scroll">
+          <table><thead><tr><th>Photographer or videographer</th><th>Role</th><th>Contact</th><th>Link</th></tr></thead><tbody id="crew"></tbody></table>
+        </div></div>
+      </div>
+    </section>
+
+    <!-- MIXTAPE -->
+    <section role="tabpanel" id="mixtape" aria-labelledby="tab-mixtape" hidden>
+      <div id="mixBody">
+        <div class="grid kpis" id="mixKpis"></div>
+        <p class="note" id="reviewNote" style="margin:-4px 0 16px"></p>
+        <div class="grid two">
+          <div class="card"><h2>Most picked songs</h2><p class="hint">Split by question</p><div id="songBars2"></div></div>
+          <div class="card"><h2>Submissions per day</h2><p class="hint">Last 7 days. Closes Sunday, October 11 at 11:59 PM.</p><div id="subsChart"></div>
+            <h2 style="margin-top:20px">Contributor eras</h2><p class="hint">Years at State</p><div id="eras2"></div></div>
+        </div>
+        <div class="card flush mt"><div class="scroll">
+          <table><thead><tr><th class="r">#</th><th>Song</th><th>Artist</th><th class="r">People</th>
+            <th class="r">Takes me back</th><th class="r">Slow jam</th><th class="r">Top 3</th></tr></thead><tbody id="rankRows"></tbody></table>
+        </div></div>
+        <h2 style="margin:24px 0 12px">DJ brief</h2>
+        <div class="lists" id="djLists"></div>
+        <h2 style="margin:24px 0 12px">By decade</h2>
+        <div class="lists" id="decadeLists"></div>
+        <div class="card flush mt"><div class="scroll">
+          <table><thead><tr><th>Name</th><th>Years at State</th><th>Instagram</th><th>Email</th>
+            <th class="r">Songs</th><th>Marketing</th><th>Submitted</th></tr></thead><tbody id="people"></tbody></table>
+        </div></div>
+      </div>
+    </section>
+  </main>
+</div>
 
 <script>
 (function(){
   'use strict';
   var $ = function(s){ return document.querySelector(s); };
-  var fmt = function(iso){ return new Date(iso).toLocaleString('en-US',
-    {timeZone:'America/New_York',weekday:'short',hour:'numeric',minute:'2-digit'}); };
+  var NY = 'America/New_York';
+  var fmt = function(iso){ return new Date(iso).toLocaleString('en-US',{timeZone:NY,weekday:'short',hour:'numeric',minute:'2-digit'}); };
+  var fmtDay = function(iso){ return new Date(iso).toLocaleString('en-US',{timeZone:NY,month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}); };
+  var fmtTime = function(iso){ return new Date(iso).toLocaleTimeString('en-US',{timeZone:NY,hour:'numeric',minute:'2-digit'}); };
+  var fmtDate = function(iso){ return new Date(iso).toLocaleDateString('en-US',{timeZone:NY,month:'short',day:'numeric'}); };
+  var nyDate = function(d){ return new Date(d).toLocaleDateString('en-CA',{timeZone:NY}); }; // YYYY-MM-DD
+
+  // Ticketed events in date order. Keys match packoutstate.ticket_counts.
+  // Colors are the --ev-* tokens and follow the event everywhere on the page.
+  var TICKETED = [
+    {key:'warm-up', name:'The Warm Up', short:'Warm Up', date:'2026-10-29', label:'Thu Oct 29', day:'Thu', free:true},
+    {key:'talley-tapes', name:'The Talley Tapes', short:'Talley Tapes', date:'2026-10-30', label:'Fri Oct 30', day:'Fri'},
+    {key:'block-party', name:'Downtown Block Party', short:'Block Party', date:'2026-10-31', label:'Sat Oct 31', day:'Sat'}
+  ];
+  var col = function(key){ return 'var(--ev-' + key + ')'; };
+
+  // Mixtape prompts as they read on the mixtape page.
+  var SLOTS = [
+    ['takes_me_back', 'Takes me back', 'What song puts you right back at Talley?', '#2E6BD1'],
+    ['lights_coming_on', 'Slow jam', 'Best slow jam to end the night', '#B07818'],
+    ['top10', 'Top 3', 'Talley Era Top 3', '#14967C']
+  ];
+
+  var password = '';   // in memory only, so Refresh works; gone when the tab closes
+  var last = null;     // last payload, for redrawing charts on resize
+
+  // ---------- tabs ----------
+  var TABS = ['overview','tickets','clocked-out','mixtape'];
+  function showTab(id, focus){
+    if (TABS.indexOf(id) < 0) id = 'overview';
+    TABS.forEach(function(t){
+      var on = t === id, b = $('#tab-' + t);
+      b.setAttribute('aria-selected', on); b.tabIndex = on ? 0 : -1;
+      $('#' + t).hidden = !on;
+      if (on && focus) b.focus();
+    });
+    if (location.hash.slice(1) !== id) history.replaceState(null, '', id === 'overview' ? location.pathname : '#' + id);
+    // Charts measure their container, which is zero wide while hidden.
+    if (last) render(last);
+  }
+  TABS.forEach(function(t, i){
+    var b = $('#tab-' + t);
+    b.addEventListener('click', function(){ showTab(t); window.scrollTo(0, 0); });
+    b.addEventListener('keydown', function(e){
+      var k = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (k) { e.preventDefault(); showTab(TABS[(i + k + TABS.length) % TABS.length], true); }
+    });
+  });
+  showTab(location.hash.slice(1));
+
+  // ---------- loading ----------
+  function load(pw, onError, extra){
+    $('#refresh').disabled = true;
+    var body = {password: pw};
+    if (extra) for (var k in extra) body[k] = extra[k];
+    return fetch('/api/hq', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body)})
+      .then(function(r){ return r.json().then(function(d){ return {ok:r.ok, d:d}; }); })
+      .then(function(res){
+        $('#refresh').disabled = false;
+        if (!res.ok) { onError(res.d.error && res.d.error !== 'Wrong password' ? res.d.error : 'Wrong password. Check it and try again.'); return; }
+        password = pw; last = res.d;
+        $('#stamp').textContent = 'Refreshed ' + fmtTime(new Date());
+        render(res.d);
+        return true;
+      })
+      .catch(function(){ $('#refresh').disabled = false; onError('Could not reach the server. Check your connection and try again.'); });
+  }
 
   $('#gateForm').addEventListener('submit', function(e){
     e.preventDefault();
     var err = $('#err'); err.className = 'err';
-    fetch('/api/hq', {method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({password: $('#pw').value})})
-      .then(function(r){ return r.json().then(function(d){ return {ok:r.ok, d:d}; }); })
-      .then(function(res){
-        if(!res.ok){ err.textContent = res.d.error || 'Wrong password'; err.className = 'err on'; return; }
-        render(res.d);
-      })
-      .catch(function(){ err.textContent = 'Could not reach the server'; err.className = 'err on'; });
+    var btn = $('#openBtn'); btn.disabled = true; btn.textContent = 'Opening…';
+    load($('#pw').value, function(msg){ btn.disabled = false; btn.textContent = 'Open'; err.textContent = msg; err.className = 'err on'; });
   });
+  $('#refresh').addEventListener('click', function(){
+    load(password, function(msg){ $('#stamp').textContent = 'Refresh failed: ' + msg; });
+  });
+
+  var rt; window.addEventListener('resize', function(){ clearTimeout(rt); rt = setTimeout(function(){ if (last) render(last); }, 150); });
 
   function render(d){
     $('#gate').hidden = true; $('#app').hidden = false;
-    var t = d.totals || {};
-    $('#tally').innerHTML =
-      '<div>Booked<b>' + (t.booked||0) + ' / ' + (t.slots||0) + '</b></div>' +
-      '<div>People coming<b>' + (t.guests||0) + '</b></div>' +
-      '<div>Shooters<b>' + (d.creators||[]).length + '</b></div>';
-
-    $('#rows').innerHTML = (d.schedule||[]).map(function(r){
-      if(!r.name) return '<tr class="open"><td>' + fmt(r.starts_at) +
-        '</td><td colspan="4">Open</td></tr>';
-      return '<tr><td>' + fmt(r.starts_at) + '</td><td>' + esc(r.name) +
-        '</td><td>' + r.party_size + '</td><td><a href="mailto:' + esc(r.email) + '">' + esc(r.email) +
-        '</a><br><a href="tel:' + esc(r.phone) + '">' + esc(r.phone) + '</a></td><td>' +
-        (r.notes ? esc(r.notes) : '') + '</td></tr>';
-    }).join('');
-
-    $('#crew').innerHTML = (d.creators||[]).map(function(c){
-      return '<tr><td>' + esc(c.name) + '</td><td><span class="pill">' +
-        (c.role === 'photo' ? 'Photo' : 'Video') + '</span></td><td><a href="mailto:' + esc(c.email) +
-        '">' + esc(c.email) + '</a><br><a href="tel:' + esc(c.phone) + '">' + esc(c.phone) +
-        '</a></td><td>' + (c.link ? esc(c.link) : '') + '</td></tr>';
-    }).join('') || '<tr class="open"><td colspan="4">Nobody signed up yet</td></tr>';
-
-    var photo = (d.creators||[]).filter(function(c){ return c.role === 'photo'; }).length;
-    var video = (d.creators||[]).length - photo;
-    $('#crewNote').textContent = 'Photo ' + photo + ' of 3, video ' + video + ' of 3.';
+    var t = d.tickets || null;
+    var latest = t && t.latest ? t.latest : [];
+    var by = {}; latest.forEach(function(r){ by[r.event_key] = r; });
+    renderStatus(latest);
+    renderKpis(d, by);
+    renderTickets(t, by);
+    if (d.bookingError) {
+      $('#bookingBody').innerHTML = '<p class="warn">Bookings did not load. Try Refresh.</p>';
+      $('#slotGrid').innerHTML = '<p class="warn">Bookings did not load.</p>';
+    } else renderBookings(d);
+    if (!d.mixtape) {
+      $('#mixBody').innerHTML = '<p class="warn">Mixtape results did not load. Try Refresh.</p>';
+      $('#songBars').innerHTML = $('#eras').innerHTML = '<p class="warn">Mixtape did not load.</p>';
+    } else renderMixtape(d.mixtape);
   }
 
-  function esc(s){
-    return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){
-      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+  // ---------- status + KPIs ----------
+  function renderStatus(latest){
+    var n = null; latest.forEach(function(r){ if (!n || r.recorded_at > n.recorded_at) n = r; });
+    var el = $('#syncStatus');
+    if (!n) { el.innerHTML = '<span class="dot stale"></span>No ticket counts yet'; return; }
+    var stale = (Date.now() - new Date(n.recorded_at)) / 36e5 > 12;
+    el.innerHTML = '<span class="dot' + (stale ? ' stale' : '') + '"></span>' +
+      (n.source === 'manual' ? 'Tickets typed in ' : 'Tickets synced ') +
+      (nyDate(n.recorded_at) === nyDate(new Date()) ? fmtTime(n.recorded_at) : fmtDay(n.recorded_at)) +
+      (stale ? ', over 12 hours ago' : '');
+  }
+
+  function renderKpis(d, by){
+    var sold = 0, cents = 0, delta = 0, haveDelta = true, any = false;
+    TICKETED.forEach(function(e){
+      var r = by[e.key]; if (!r) return; any = true;
+      sold += r.sold; cents += r.sales_cents || 0;
+      if (r.sold_day_before == null) haveDelta = false; else delta += r.sold - r.sold_day_before;
     });
+    var tt = d.totals || {}, crew = d.creators || [], m = d.mixtape && d.mixtape.totals || {};
+    $('#kpis').innerHTML =
+      kpi('var(--ev-talley-tapes)', 'Tickets sold', any ? sold : '–',
+          any && haveDelta ? '<span class="d up">▲ ' + delta + ' in 24 hours</span>' : '<span class="d">Across the three ticketed events</span>') +
+      kpi('var(--ev-block-party)', 'Gross sales', any ? money(cents) : '–', '<span class="d">Before fees</span>') +
+      kpi('var(--ev-clocked-out)', 'Clocked Out', d.bookingError ? '–' : (tt.booked || 0) + '<small> / ' + (tt.slots || 0) + ' slots</small>',
+          '<span class="d">' + crew.length + ' shooters of 6 · ' + (tt.guests || 0) + ' guests</span>') +
+      kpi('var(--ev-warm-up)', 'Mixtape', d.mixtape ? (m.contributors || 0) + '<small> people</small>' : '–',
+          '<span class="d">' + (m.songs || 0) + ' songs' + (m.to_review ? ' · ' + m.to_review + ' to review' : '') + '</span>');
+  }
+  function kpi(c, lbl, n, sub){
+    return '<div class="card kpi" style="--c:' + c + '"><div class="lbl">' + lbl + '</div><div class="n">' + n + '</div>' + sub + '</div>';
+  }
+
+  // ---------- tickets ----------
+  function renderTickets(t, by){
+    if (!t) {
+      ['#trend','#trend2','#eventTable','#eventTable2','#salesBars'].forEach(function(s){ $(s).innerHTML = '<p class="warn">Ticket counts did not load. Try Refresh.</p>'; });
+      return;
+    }
+    $('#trend').innerHTML = trendChart(t.history || [], $('#trend').clientWidth || 640, 240);
+    $('#trend2').innerHTML = trendChart(t.history || [], $('#trend2').clientWidth || 1000, 280);
+    var table = eventTable(by);
+    $('#eventTable').innerHTML = table; $('#eventTable2').innerHTML = table;
+
+    var maxC = 1; TICKETED.forEach(function(e){ var r = by[e.key]; if (r && r.sales_cents > maxC) maxC = r.sales_cents; });
+    $('#salesBars').innerHTML = TICKETED.map(function(e){
+      var r = by[e.key] || {}, c = r.sales_cents || 0;
+      return '<div class="hb-row"><div class="t">' + e.short + '</div><div class="track" title="' + e.name + ': ' + money(c) + '">' +
+        '<i style="width:' + Math.max(c / maxC * 100, c ? 2 : 0.6) + '%;background:' + col(e.key) + ';border-radius:2px 4px 4px 2px"></i></div>' +
+        '<div class="v">' + (e.free ? 'Free' : money(c)) + '</div></div>';
+    }).join('');
+
+    var today = nyDate(new Date());
+    $('#daysToGo').innerHTML = TICKETED.map(function(e){
+      var n = Math.round((new Date(e.date) - new Date(today)) / 864e5);
+      return '<div style="--c:' + col(e.key) + '"><b>' + (n > 0 ? n : n === 0 ? 'Today' : 'Done') + '</b><span class="hint">' + e.day + '</span></div>';
+    }).join('');
+
+    // Leave the form alone while someone is typing in it.
+    if (!$('#manualGrid').contains(document.activeElement)) renderManual(by);
+  }
+
+  function eventTable(by){
+    return '<table><thead><tr><th>Event</th><th>Date</th><th class="r">Sold</th><th>Capacity</th><th class="r">Full</th><th class="r">Last 24 hours</th><th class="r">Sales</th></tr></thead><tbody>' +
+      TICKETED.map(function(e){
+        var r = by[e.key];
+        if (!r) return '<tr class="open"><td><span class="dot-ev" style="background:' + col(e.key) + '"></span>' + e.name + '</td><td>' + e.label + '</td><td colspan="5">No reading yet</td></tr>';
+        var cap = r.available == null ? null : r.sold + r.available, pct = cap ? Math.round(r.sold / cap * 100) : null;
+        var since = r.sold_day_before == null ? '' : (r.sold - r.sold_day_before >= 0 ? '+' : '') + (r.sold - r.sold_day_before);
+        return '<tr><td><span class="dot-ev" style="background:' + col(e.key) + '"></span>' + e.name + '</td><td>' + e.label + '</td>' +
+          '<td class="r"><b>' + r.sold + '</b></td>' +
+          '<td style="width:26%">' + (cap ? '<div class="cap" title="' + r.sold + ' of ' + cap + '"><i style="width:' + pct + '%;background:' + col(e.key) + '"></i></div>' : '') + '</td>' +
+          '<td class="r">' + (pct == null ? '' : pct + '%') + '</td><td class="r">' + since + '</td>' +
+          '<td class="r">' + (e.free ? 'Free' : r.sales_cents == null ? '' : money(r.sales_cents)) + '</td></tr>';
+      }).join('') + '</tbody></table>';
+  }
+
+  // Running total per event from the stored readings. Needs two reading times
+  // before a line means anything.
+  function trendChart(hist, w, h){
+    var times = {}; hist.forEach(function(p){ times[p.recorded_at] = 1; });
+    if (Object.keys(times).length < 2) {
+      return '<div class="empty" style="min-height:' + (h - 20) + 'px">The line starts after the second reading.<br>The sync reads OasisTix at 9 AM, 1 PM, 5 PM and 9 PM.</div>';
+    }
+    w = Math.max(320, Math.round(w));
+    var pl = 34, pr = w < 520 ? 92 : 130, pt = 12, pb = 26, iw = w - pl - pr, ih = h - pt - pb;
+    var t0 = Infinity, t1 = -Infinity, max = 0;
+    hist.forEach(function(p){ var t = +new Date(p.recorded_at); t0 = Math.min(t0, t); t1 = Math.max(t1, t); max = Math.max(max, p.sold); });
+    var step = niceStep(max), top = Math.max(step, Math.ceil(max / step) * step);
+    var X = function(t){ return pl + iw * (t - t0) / (t1 - t0); }, Y = function(v){ return pt + ih - ih * v / top; };
+    var s = '<svg viewBox="0 0 ' + w + ' ' + h + '" role="img" aria-label="Tickets sold over time by event">';
+    for (var v = 0; v <= top; v += step) {
+      s += '<line x1="' + pl + '" x2="' + (pl + iw) + '" y1="' + Y(v) + '" y2="' + Y(v) + '" stroke="#EEF0F3"/>' +
+           '<text x="' + (pl - 8) + '" y="' + (Y(v) + 4) + '" text-anchor="end" font-size="10" fill="#6B7280">' + v + '</text>';
+    }
+    // Up to five date ticks, at most one per calendar day.
+    var ticks = [], seen = {};
+    for (var i = 0; i < 5; i++) {
+      var tt = t0 + (t1 - t0) * i / 4, key = nyDate(tt);
+      if (seen[key]) continue; seen[key] = 1; ticks.push(tt);
+    }
+    ticks.forEach(function(tt, i){
+      var anchor = i === 0 ? 'start' : i === ticks.length - 1 && ticks.length > 1 ? 'end' : 'middle';
+      s += '<text x="' + X(tt) + '" y="' + (h - 6) + '" text-anchor="' + anchor + '" font-size="10" fill="#6B7280">' + fmtDate(tt) + '</text>';
+    });
+    var ends = [];
+    TICKETED.forEach(function(e){
+      var pts = hist.filter(function(p){ return p.event_key === e.key; });
+      if (!pts.length) return;
+      var d = pts.map(function(p, i){ return (i ? 'L' : 'M') + X(+new Date(p.recorded_at)).toFixed(1) + ' ' + Y(p.sold).toFixed(1); }).join('');
+      s += '<path d="' + d + '" fill="none" stroke="' + col(e.key) + '" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>';
+      pts.forEach(function(p){
+        s += '<circle cx="' + X(+new Date(p.recorded_at)) + '" cy="' + Y(p.sold) + '" r="7" fill="transparent"><title>' + e.name + ': ' + p.sold + ' sold, ' + fmtDay(p.recorded_at) + '</title></circle>';
+      });
+      var lp = pts[pts.length - 1];
+      s += '<circle cx="' + X(+new Date(lp.recorded_at)) + '" cy="' + Y(lp.sold) + '" r="4" fill="' + col(e.key) + '" stroke="#fff" stroke-width="2" pointer-events="none"/>';
+      ends.push({e:e, v:lp.sold, y:Y(lp.sold)});
+    });
+    ends.sort(function(a, b){ return a.y - b.y; });
+    for (var k = 1; k < ends.length; k++) if (ends[k].y - ends[k - 1].y < 14) ends[k].y = ends[k - 1].y + 14;
+    ends.forEach(function(x){
+      s += '<text x="' + (pl + iw + 10) + '" y="' + (x.y + 4) + '" font-size="11" fill="#16181D"><tspan font-weight="700">' + x.v + '</tspan> ' + (w < 520 ? x.e.short : x.e.name) + '</text>';
+    });
+    return s + '</svg>';
+  }
+  function niceStep(max){
+    var raw = Math.max(max, 4) / 4, p = Math.pow(10, Math.floor(Math.log10(raw))), f = raw / p;
+    return (f <= 1 ? 1 : f <= 2 ? 2 : f <= 5 ? 5 : 10) * p;
+  }
+
+  function renderManual(by){
+    $('#manualGrid').innerHTML = '<span class="h">Event</span><span class="h">Sold</span><span class="h">Available</span><span class="h">Sales ($)</span>' +
+      TICKETED.map(function(e){
+        var r = by[e.key] || {};
+        return '<span><span class="dot-ev" style="background:' + col(e.key) + '"></span>' + e.name + '</span>' +
+          field(e.key, 'sold', r.sold, e.name + ' sold') + field(e.key, 'available', r.available, e.name + ' available') +
+          field(e.key, 'sales', r.sales_cents == null ? '' : r.sales_cents / 100, e.name + ' sales in dollars');
+      }).join('');
+  }
+  function field(key, name, val, label){
+    return '<input inputmode="decimal" autocomplete="off" data-key="' + key + '" data-f="' + name + '" aria-label="' + esc(label) + '" value="' + (val == null ? '' : esc(val)) + '">';
+  }
+
+  $('#manualForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    var err = $('#manualErr'), ok = $('#manualOk'); err.className = 'err'; ok.textContent = '';
+    var bad = false;
+    var tickets = TICKETED.map(function(ev){
+      var get = function(f, isMoney){
+        var v = $('#manualGrid input[data-key="' + ev.key + '"][data-f="' + f + '"]').value.replace(/[$,\s]/g, '');
+        if (v !== '' && !(isMoney ? /^\d+(\.\d{1,2})?$/ : /^\d+$/).test(v)) bad = true;
+        return v;
+      };
+      var sold = get('sold'), available = get('available'), sales = get('sales', true);
+      return {event_key: ev.key, sold: sold, available: available, sales_cents: sales === '' ? '' : Math.round(parseFloat(sales) * 100)};
+    }).filter(function(t){ return t.sold !== ''; });
+    if (bad || !tickets.length) { err.textContent = bad ? 'Use whole numbers for sold and available, and dollars for sales.' : 'Enter at least one sold count.'; err.className = 'err on'; return; }
+    var btn = $('#manualBtn'); btn.disabled = true;
+    document.activeElement.blur();
+    load(password, function(msg){ btn.disabled = false; err.textContent = msg; err.className = 'err on'; }, {tickets: tickets})
+      .then(function(done){ if (done) { btn.disabled = false; ok.textContent = 'Saved.'; } });
+  });
+
+  // ---------- Clocked Out ----------
+  function slotGrid(schedule){
+    var lanes = {};
+    schedule.forEach(function(r){ (lanes[r.lane] = lanes[r.lane] || []).push(r); });
+    var keys = Object.keys(lanes).sort();
+    if (!keys.length) return '<div class="empty">No slots set up</div>';
+    return keys.map(function(l){
+      return '<div class="lane">Lane ' + l + '</div><div class="slots">' + lanes[l].map(function(r){
+        var t = new Date(r.starts_at).toLocaleTimeString('en-US',{timeZone:NY,hour:'numeric',minute:'2-digit'}).replace(/\s?[AP]M/, '');
+        return '<div class="slot' + (r.name ? ' booked' : '') + '" title="' + fmt(r.starts_at) + ', lane ' + l + ': ' +
+          (r.name ? esc(r.name) + ', party of ' + r.party_size : 'open') + '">' + t + '</div>';
+      }).join('') + '</div>';
+    }).join('');
+  }
+
+  function renderBookings(d){
+    var t = d.totals || {}, crew = d.creators || [], sched = d.schedule || [];
+    var photo = crew.filter(function(c){ return c.role === 'photo'; }).length, video = crew.length - photo;
+    $('#slotHint').textContent = (t.booked || 0) + ' of ' + (t.slots || 0) + ' booked';
+    $('#slotGrid').innerHTML = slotGrid(sched);
+    $('#slotGrid2').innerHTML = slotGrid(sched);
+    $('#bookKpis').innerHTML =
+      kpi('var(--ev-clocked-out)', 'Slots booked', (t.booked || 0) + '<small> / ' + (t.slots || 0) + '</small>', '<span class="d">' + ((t.slots || 0) - (t.booked || 0)) + ' still open</span>') +
+      kpi('var(--ev-clocked-out)', 'People coming', t.guests || 0, '<span class="d">Across all bookings</span>') +
+      kpi('var(--ev-clocked-out)', 'Photographers', photo + '<small> / 3</small>', '<span class="d">' + (photo >= 3 ? 'Full' : (3 - photo) + ' to go') + '</span>') +
+      kpi('var(--ev-clocked-out)', 'Videographers', video + '<small> / 3</small>', '<span class="d">' + (video >= 3 ? 'Full' : (3 - video) + ' to go') + '</span>');
+    $('#crewMeters').innerHTML =
+      '<p style="display:flex;justify-content:space-between;padding:8px 0">Photographers <span><b>' + photo + ' / 3</b>' + pips(photo) + '</span></p>' +
+      '<p style="display:flex;justify-content:space-between;padding:8px 0;border-top:1px solid var(--line-2)">Videographers <span><b>' + video + ' / 3</b>' + pips(video) + '</span></p>';
+
+    $('#rows').innerHTML = sched.map(function(r){
+      if (!r.name) return '<tr class="open"><td>' + fmt(r.starts_at) + ', lane ' + r.lane + '</td><td colspan="4">Open</td></tr>';
+      return '<tr><td>' + fmt(r.starts_at) + ', lane ' + r.lane + '</td><td>' + esc(r.name) + '</td><td class="r">' + r.party_size +
+        '</td><td><a href="mailto:' + esc(r.email) + '">' + esc(r.email) + '</a><br><a href="tel:' + esc(r.phone) + '">' + esc(r.phone) +
+        '</a></td><td>' + (r.notes ? esc(r.notes) : '') + '</td></tr>';
+    }).join('') || '<tr class="open"><td colspan="5">No slots set up</td></tr>';
+
+    $('#crew').innerHTML = crew.map(function(c){
+      return '<tr><td>' + esc(c.name) + '</td><td><span class="pill">' + (c.role === 'photo' ? 'Photo' : 'Video') +
+        '</span></td><td><a href="mailto:' + esc(c.email) + '">' + esc(c.email) + '</a><br><a href="tel:' + esc(c.phone) + '">' + esc(c.phone) +
+        '</a></td><td>' + (c.link ? esc(c.link) : '') + '</td></tr>';
+    }).join('') || '<tr class="open"><td colspan="4">Nobody signed up yet</td></tr>';
+  }
+  function pips(n){ var h = '<span class="pips">'; for (var i = 0; i < 3; i++) h += '<i' + (i < n ? ' class="on"' : '') + '></i>'; return h + '</span>'; }
+
+  // ---------- Mixtape ----------
+  function songBars(rankings, n){
+    var list = (rankings || []).slice(0, n);
+    if (!list.length) return '<div class="empty">No picks yet</div>';
+    var max = Math.max.apply(null, list.map(function(r){ return r.contributors; }).concat([1]));
+    return '<div class="legend">' + SLOTS.map(function(s){ return '<span><i style="background:' + s[3] + '"></i>' + s[1] + '</span>'; }).join('') + '</div><div class="hb">' +
+      list.map(function(r){
+        var parts = [r.takes_me_back, r.lights_coming_on, r.top10], tot = parts[0] + parts[1] + parts[2] || 1;
+        var segs = parts.map(function(v, i){
+          return v ? '<i style="width:' + (v / tot * r.contributors / max * 100) + '%;background:' + SLOTS[i][3] + '"></i>' : '';
+        }).join('');
+        return '<div class="hb-row" title="' + esc(r.title) + ' by ' + esc(r.artist) + ': ' + r.contributors + ' people"><div class="t"><b>' + esc(r.title) +
+          '</b><small>' + esc(r.artist) + '</small></div><div class="track">' + segs + '</div><div class="v">' + r.contributors + '</div></div>';
+      }).join('') + '</div>';
+  }
+
+  function eraChart(people, w){
+    if (!people || !people.length) return '<div class="empty">Nobody yet</div>';
+    w = Math.max(260, Math.round(w));
+    var lo = Infinity, hi = -Infinity;
+    people.forEach(function(p){ lo = Math.min(lo, p.era_start); hi = Math.max(hi, p.era_end); });
+    lo = Math.floor((lo - 1) / 2) * 2; hi = Math.ceil((hi + 1) / 2) * 2;
+    var rows = people.slice().sort(function(a, b){ return a.era_start - b.era_start || a.era_end - b.era_end; });
+    var row = 16, h = 26 + rows.length * row, pl = 14, pr = 14;
+    var X = function(y){ return pl + (w - pl - pr) * (y - lo) / (hi - lo); };
+    var stepY = (hi - lo) > 16 ? 4 : 2;
+    var s = '<svg viewBox="0 0 ' + w + ' ' + h + '" role="img" aria-label="Years at State, one bar per contributor">';
+    for (var y = lo; y <= hi; y += stepY) {
+      s += '<line x1="' + X(y) + '" x2="' + X(y) + '" y1="0" y2="' + (h - 20) + '" stroke="#EEF0F3"/>' +
+           '<text x="' + X(y) + '" y="' + (h - 5) + '" text-anchor="middle" font-size="10" fill="#6B7280">' + y + '</text>';
+    }
+    rows.forEach(function(p, i){
+      s += '<rect x="' + X(p.era_start) + '" y="' + (4 + i * row) + '" width="' + Math.max(X(p.era_end) - X(p.era_start), 4) + '" height="10" rx="4" fill="#2E6BD1">' +
+           '<title>' + esc(p.full_name) + ': ' + p.era_start + ' to ' + p.era_end + '</title></rect>';
+    });
+    return s + '</svg>';
+  }
+
+  function subsChart(people, w){
+    // Last 7 days through today, counted by first submission date.
+    var days = [], counts = {}, now = Date.now();
+    for (var i = 6; i >= 0; i--) { var k0 = nyDate(now - i * 864e5); if (!(k0 in counts)) { days.push(k0); counts[k0] = 0; } }
+    (people || []).forEach(function(p){ var k = nyDate(p.created_at); if (k in counts) counts[k]++; });
+    w = Math.max(260, Math.round(w));
+    var h = 120, pb = 20, gap = 8, bw = (w - gap * (days.length - 1)) / days.length;
+    var max = Math.max.apply(null, days.map(function(k){ return counts[k]; }).concat([2]));
+    var s = '<svg viewBox="0 0 ' + w + ' ' + h + '" role="img" aria-label="Submissions per day, last 7 days">' +
+      '<line x1="0" x2="' + w + '" y1="' + (h - pb) + '" y2="' + (h - pb) + '" stroke="#E6E8EC"/>';
+    days.forEach(function(k, i){
+      var x = i * (bw + gap), n = counts[k], bh = (h - pb - 16) * n / max;
+      var lbl = new Date(k + 'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric'});
+      if (n) s += '<path d="M' + x + ' ' + (h - pb) + 'V' + (h - pb - bh + 4) + 'q0 -4 4 -4h' + (bw - 8) + 'q4 0 4 4V' + (h - pb) + 'z" fill="#2E6BD1"><title>' + lbl + ': ' + n + '</title></path>' +
+                 '<text x="' + (x + bw / 2) + '" y="' + (h - pb - bh - 4) + '" text-anchor="middle" font-size="10" font-weight="700" fill="#16181D">' + n + '</text>';
+      s += '<text x="' + (x + bw / 2) + '" y="' + (h - 5) + '" text-anchor="middle" font-size="10" fill="#6B7280">' + lbl + '</text>';
+    });
+    return s + '</svg>';
+  }
+
+  function renderMixtape(m){
+    var t = m.totals || {}, people = m.people || [];
+    $('#songBars').innerHTML = songBars(m.rankings, 5);
+    $('#songBars2').innerHTML = songBars(m.rankings, 10);
+    $('#eras').innerHTML = eraChart(people, $('#eras').clientWidth || 320);
+    $('#eras2').innerHTML = eraChart(people, $('#eras2').clientWidth || 480);
+    $('#subsChart').innerHTML = subsChart(people, $('#subsChart').clientWidth || 480);
+
+    var closes = new Date('2026-10-12T03:59:59Z'), left = Math.ceil((closes - Date.now()) / 864e5);
+    $('#mixKpis').innerHTML =
+      kpi('var(--ev-warm-up)', 'People submitted', t.contributors || 0, '<span class="d">' + (t.last_at ? 'Last ' + fmtDay(t.last_at) : 'None yet') + '</span>') +
+      kpi('var(--ev-warm-up)', 'Different songs', t.songs || 0, '<span class="d">' + (t.picks || 0) + ' picks in total</span>') +
+      kpi('var(--ev-warm-up)', 'Marketing opt-ins', t.opted_in || 0, '<span class="d">Said yes to emails</span>') +
+      kpi('var(--ev-warm-up)', 'Closes in', left > 0 ? left + '<small> days</small>' : 'Closed', '<span class="d">Sunday, Oct 11 at 11:59 PM</span>');
+    $('#reviewNote').textContent = t.to_review
+      ? t.to_review + ' typed-in song' + (t.to_review === 1 ? '' : 's') + ' could not be matched to Apple Music and may be duplicates. Check review_queue in Supabase.' : '';
+
+    $('#rankRows').innerHTML = (m.rankings || []).map(function(r, i){
+      return '<tr><td class="r" style="color:var(--ink-3)">' + (i + 1) + '</td><td>' + esc(r.title) + '</td><td>' + esc(r.artist) +
+        '</td><td class="r"><b>' + r.contributors + '</b></td><td class="r">' + (r.takes_me_back || '') + '</td><td class="r">' +
+        (r.lights_coming_on || '') + '</td><td class="r">' + (r.top10 || '') + '</td></tr>';
+    }).join('') || '<tr class="open"><td colspan="7">No picks yet</td></tr>';
+
+    var dj = m.dj || {};
+    $('#djLists').innerHTML = SLOTS.map(function(s){ return list(s[2], dj[s[0]]); }).join('');
+    $('#decadeLists').innerHTML = (m.decades || []).map(function(d){ return list(d.decade + 's', d.songs); }).join('') || '<p class="hint">No picks yet</p>';
+
+    $('#people').innerHTML = people.map(function(p){
+      var ig = p.ig_handle ? '<a href="https://instagram.com/' + encodeURIComponent(p.ig_handle) + '" target="_blank" rel="noopener">@' + esc(p.ig_handle) + '</a>' : '';
+      return '<tr><td>' + esc(p.full_name) + '</td><td>' + p.era_start + ' to ' + p.era_end + '</td><td>' + ig +
+        '</td><td><a href="mailto:' + esc(p.email) + '">' + esc(p.email) + '</a></td><td class="r">' + p.picks + '</td><td>' +
+        (p.marketing_opt_in ? '<span class="pill">Opted in</span>' : '') + '</td><td style="color:var(--ink-3)">' + fmtDay(p.created_at) + '</td></tr>';
+    }).join('') || '<tr class="open"><td colspan="7">Nobody yet</td></tr>';
+  }
+
+  function list(title, songs){
+    var items = (songs || []).map(function(s){
+      return '<li><div>' + esc(s.title) + '<small>' + esc(s.artist) + '</small></div><span>' + s.contributors + '</span></li>';
+    }).join('');
+    return '<div class="card list"><h2 style="margin-bottom:10px">' + esc(title) + '</h2>' + (items ? '<ol>' + items + '</ol>' : '<p class="hint">No picks yet</p>') + '</div>';
+  }
+
+  function money(c){ var two = c % 100 ? 2 : 0; return '$' + (c / 100).toLocaleString('en-US', {minimumFractionDigits: two, maximumFractionDigits: 2}); }
+  function esc(s){
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; });
   }
 })();
 </script>

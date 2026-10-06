@@ -203,6 +203,41 @@ There is also a local preview at http://localhost:4173 using
 `python3 -m http.server 4173`. The event pages use root absolute paths, so
 opening the files directly with file:// will not load the CSS.
 
+## HQ, the internal dashboard
+
+`/hq` is one password (`HQ_PASSWORD`) for the whole team, who see every
+name, email and phone number on it. Colton approved that in Oct 2026. It has
+four tabs: Overview, Tickets, Clocked Out, Mixtape.
+
+Look: the "Clean Ops" direction Colton picked in Oct 2026 out of four
+mockups. White cards on a light grey ground, system fonts, no dark
+background. It is standalone and does not load css/site.css. Each event has
+one fixed color, used on every chart, table dot and card edge for that
+event: Warm Up `#B07818`, Talley Tapes `#C8102E`, Clocked Out `#2E6BD1`,
+Block Party `#14967C`. That set was checked together for colorblind
+separation; change one and re-check the set. Charts are hand-drawn SVG in
+the page script, no chart library. The sales line needs two readings before
+it draws.
+
+`api/hq.js` checks the password, then calls `pos_hq` (bookings) and
+`pos_hq_mixtape` (mixtape results) side by side. If one fails the other still
+shows. `pos_hq_mixtape` is read only and its SQL is in
+`supabase/hq-mixtape.sql`.
+
+Ticket sales come from OasisTix (VenuePilot underneath). Colton's OasisTix
+login cannot create API keys and has no Ticket Counts share link, and
+VenuePilot's public API has no sales data. So readings land in
+`packoutstate.ticket_counts` two ways, both through `pos_tickets_record`:
+- A scheduled Claude task, `pos-ticket-sync` (9am, 1pm, 5pm, 9pm), reads the
+  OasisTix events list in Colton's Chrome and saves the numbers. It needs the
+  Mac on, the Claude app open, and Chrome logged in to OasisTix. It never logs
+  in itself.
+- The "Update counts by hand" form on HQ, as a backup.
+HQ shows the latest reading per event (`pos_hq_tickets`), when it was taken,
+and warns when it is over 12 hours old. Dollar totals show here because HQ is
+private; the no-prices rule is for public pages. SQL is in
+`supabase/hq-tickets.sql`.
+
 ## Other things in this repo
 
 The site also carries a Talley Mixtape page at `/mixtape` and a contact form

@@ -36,11 +36,50 @@ module.exports = async (req, res) => {
     return res.status(401).json({ error: 'Wrong password' });
   }
 
-  try {
-    const data = await rpc('pos_hq');
-    res.status(200).json({ ok: true, ...data });
-  } catch (err) {
-    console.error('hq failed:', err.message);
-    res.status(500).json({ error: 'Could not load the list' });
+  // Manual ticket update from the backup form on HQ. The usual source is a
+  // scheduled Claude task reading OasisTix, which writes straight to the
+  // database through the same function.
+  if (Array.isArray(body.tickets)) {
+    const rows = [];
+    for (const t of body.tickets.slice(0, 3)) {
+      if (!TICKET_EVENTS.includes(t && t.event_key)) continue;
+      const sold = wholeNumber(t.sold);
+      if (sold === null) continue;
+      rows.push({ event_key: t.event_key, sold, available: wholeNumber(t.available),
+                  sales_cents: wholeNumber(t.sales_cents) });
+    }
+    if (!rows.length) return res.status(400).json({ error: 'Enter at least one sold count' });
+    try { await rpc('pos_tickets_record', { p: rows, p_source: 'manual' }); }
+    catch (err) {
+      console.error('hq ticket update failed:', err.message);
+      return res.status(500).json({ error: 'Could not save the ticket counts' });
+    }
   }
+
+  // Bookings, mixtape and tickets load side by side. If one fails the others
+  // still show, and the page says which part is missing.
+  const [booking, mixtape, tickets] = await Promise.allSettled(
+    [rpc('pos_hq'), rpc('pos_hq_mixtape'), rpc('pos_hq_tickets')]);
+  if (booking.status === 'rejected') console.error('hq bookings failed:', booking.reason.message);
+  if (mixtape.status === 'rejected') console.error('hq mixtape failed:', mixtape.reason.message);
+  if (tickets.status === 'rejected') console.error('hq tickets failed:', tickets.reason.message);
+  if ([booking, mixtape, tickets].every(r => r.status === 'rejected')) {
+    return res.status(500).json({ error: 'Could not load the list' });
+  }
+
+  res.status(200).json({
+    ok: true,
+    ...(booking.status === 'fulfilled' ? booking.value : { bookingError: true }),
+    mixtape: mixtape.status === 'fulfilled' ? mixtape.value : null,
+    tickets: tickets.status === 'fulfilled' ? tickets.value : null
+  });
 };
+
+const TICKET_EVENTS = ['warm-up', 'talley-tapes', 'block-party'];
+
+// A blank box means "not given", anything else must be a whole number.
+function wholeNumber(v) {
+  if (v === '' || v == null) return null;
+  const n = Number(v);
+  return Number.isInteger(n) && n >= 0 && n < 1e9 ? n : null;
+}

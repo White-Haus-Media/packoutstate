@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0B0B0C">
+<script>document.documentElement.classList.add('js')</script>
 <title>Clocked Out · Pack Out State · NC State Homecoming 2026</title>
 <meta name="description" content="It's a photoshoot. Reserve a free 20 minute content shoot for you and your crew at District Bar and Lounge, Friday October 30, 4 to 8 PM.">
 
@@ -38,7 +40,7 @@
 body{background:var(--white);color:var(--ink)}
 
 .ehero{min-height:72vh}
-@media(min-width:861px){ .ehero{min-height:calc(78vh - 62px)} }
+@media(min-width:768px){ .ehero{min-height:calc(78vh - var(--nav-h, 62px))} }
 .co-scrim{
   position:absolute;inset:0;z-index:1;pointer-events:none;
   background:
@@ -46,56 +48,72 @@ body{background:var(--white);color:var(--ink)}
     linear-gradient(0deg, rgba(11,11,12,.92) 0%, rgba(11,11,12,.70) 38%, rgba(11,11,12,.30) 70%, transparent 100%);
 }
 .ehero .ehero__inner{width:100%;max-width:var(--wrap);margin-inline:auto;text-align:left}
+/* Plain red text label, no chip. */
 .co-kicker{
-  display:inline-block;background:var(--red);color:var(--white);
+  display:block;color:var(--red-bright);
   font-weight:800;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;
-  padding:8px 14px;border-radius:2px;margin-bottom:20px;
+  margin-bottom:24px;
 }
 .ehero h1{font-size:clamp(2.6rem,8vw,6rem);line-height:.9}
 .ehero h1 .sm{display:block;font-size:.4em;letter-spacing:.04em;color:#F2EFE9;line-height:1;margin-bottom:.4em}
 
-/* ---------- BOOKING ---------- */
-.book{background:var(--bone);padding-block:clamp(56px,9vw,100px)}
-.book__grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(30px,5vw,64px);align-items:start}
-@media(max-width:900px){ .book__grid{grid-template-columns:1fr;gap:34px} }
+.section__head--solo{margin-bottom:0}
 
-.times{display:grid;grid-template-columns:repeat(auto-fill,minmax(116px,1fr));gap:10px}
+/* ---------- BOOKING ---------- */
+.book{background:var(--bone);padding-block:var(--section-y)}
+.book__grid{display:grid;grid-template-columns:1fr;gap:32px;align-items:start}
+@media(min-width:1024px){ .book__grid{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:64px} }
+
+.times{display:grid;grid-template-columns:repeat(auto-fill,minmax(116px,1fr));gap:8px}
 .time{
   font-family:var(--sans);font-weight:800;font-size:1rem;
-  padding:16px 10px;border:2px solid var(--ink);background:var(--white);color:var(--ink);
+  padding:16px 8px;border:2px solid var(--ink);background:var(--white);color:var(--ink);
   border-radius:3px;cursor:pointer;text-align:center;
-  transition:background .15s, color .15s, border-color .15s, transform .12s;
+  transition:background-color .15s, color .15s, border-color .15s, transform .12s;
 }
 .time small{display:block;font-weight:600;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:#7a7a7e;margin-top:4px}
-.time:hover:not(:disabled){transform:translateY(-2px)}
+@media (hover:hover) and (prefers-reduced-motion:no-preference){
+  .time:hover:not(:disabled){transform:translateY(-2px)}
+}
+@media (prefers-reduced-motion:reduce){ .time{transition:background-color .15s, color .15s, border-color .15s} }
 .time[aria-pressed="true"]{background:var(--red);border-color:var(--red);color:var(--white)}
 .time[aria-pressed="true"] small{color:rgba(255,255,255,.85)}
 .time:disabled{border-color:#DDD8CE;background:#F1EEE7;color:#A9A49A;cursor:not-allowed;text-decoration:line-through}
 .time:disabled small{color:#A9A49A;text-decoration:none}
 
-.field{display:block;margin-bottom:16px}
-.field span{display:block;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;font-weight:800;color:#6c6c70;margin-bottom:7px}
+.field{display:grid;gap:8px;margin-bottom:16px}
+.field__l{display:block;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;font-weight:800;color:#6c6c70}
 .field input,.field select,.field textarea{
-  width:100%;font-family:var(--sans);font-size:1rem;padding:13px 14px;
+  width:100%;min-height:48px;font-family:var(--sans);font-size:1rem;padding:8px 16px;
   border:1px solid #CFC9BE;border-radius:3px;background:var(--white);color:var(--ink);
 }
 .field input:focus,.field select:focus,.field textarea:focus{outline:3px solid var(--red);outline-offset:1px;border-color:var(--red)}
-.field textarea{min-height:76px;resize:vertical}
-.field--half{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-@media(max-width:520px){ .field--half{grid-template-columns:1fr} }
-.hint{font-size:.86rem;color:#6c6c70;margin-top:-8px;margin-bottom:16px}
+.field textarea{min-height:96px;padding-block:16px;resize:vertical}
+.field [aria-invalid="true"]{border-color:#B42318}
+.field__error{font-size:.86rem;font-weight:600;color:#B42318}
+.crew .field__error{color:#FF8A80}
+.field--half{display:grid;grid-template-columns:1fr;gap:0 16px}
+@media(min-width:480px){ .field--half{grid-template-columns:1fr 1fr} }
+.hint{font-size:.86rem;color:#6c6c70;margin:0 0 16px}
+.field .hint{margin:0}
+.hint--top{margin:16px 0 0}
 
-.agree{display:flex;gap:12px;align-items:flex-start;margin:4px 0 18px;font-size:.95rem;color:#3a3a3c;line-height:1.5}
-.agree input{margin-top:3px;width:18px;height:18px;flex:none;accent-color:var(--red)}
+.agreewrap{display:grid;gap:8px;margin:0 0 24px}
+.agree{display:flex;gap:16px;align-items:flex-start;min-height:44px;font-size:.95rem;color:#3a3a3c;line-height:1.5;cursor:pointer}
+.agree input{margin-top:2px;width:20px;height:20px;flex:none;accent-color:var(--red)}
 
-.panel{background:var(--white);border:1px solid #E2DCD1;padding:clamp(22px,3vw,30px)}
-.panel__t{font-family:var(--display);font-size:1.5rem;text-transform:uppercase;line-height:1.1;margin-bottom:6px;font-weight:700}
+.btn--block{width:100%}
+
+.panel{background:var(--white);border:1px solid #E2DCD1;padding:24px;max-width:var(--wrap-narrow)}
+@media(min-width:768px){ .panel{padding:32px} }
+@media(min-width:1024px){ .panel{max-width:none} }
+.panel__t{font-family:var(--display);font-size:1.5rem;text-transform:uppercase;line-height:1.1;margin-bottom:8px;font-weight:700;text-wrap:balance}
 /* Ghost buttons default to white text for dark grounds. This section is
    light, so they need ink or they vanish. */
 .book .btn--ghost{color:var(--ink);border-color:rgba(11,11,12,.3)}
 .book .btn--ghost:hover{border-color:var(--ink)}
 
-.msg{padding:14px 16px;border-radius:3px;font-size:.96rem;margin-bottom:16px;display:none}
+.msg{padding:16px;border-radius:3px;font-size:.96rem;margin-bottom:16px;display:none}
 .msg--bad{background:#FDECEC;border:1px solid #F3C2C2;color:#8A1B1B;display:block}
 .msg--busy{background:#FFF8E1;border:1px solid #E8D9A0;color:#5C4405;display:block}
 
@@ -103,37 +121,35 @@ body{background:var(--white);color:var(--ink)}
    instructions are the only thing on screen when they matter most. */
 .done{display:none}
 .done.is-on{display:block}
-.done__t{font-family:var(--display);font-size:clamp(1.8rem,4vw,2.6rem);text-transform:uppercase;line-height:1.05;font-weight:700}
-.done__when{font-size:1.25rem;font-weight:800;margin-top:14px}
-.steps{list-style:none;display:grid;gap:12px;margin:22px 0}
-.steps li{display:grid;grid-template-columns:30px 1fr;gap:12px;font-size:1.03rem;color:#333336;align-items:start}
+.done__t{font-family:var(--display);font-size:clamp(1.8rem,4vw,2.6rem);text-transform:uppercase;line-height:1.05;font-weight:700;text-wrap:balance}
+.done__when{font-size:1.25rem;font-weight:800;margin-top:16px}
+.done__cta{margin-top:0}
+.done__body{margin-top:16px;color:#C9C7C2}
+.steps{list-style:none;display:grid;gap:16px;margin:24px 0}
+.steps li{display:grid;grid-template-columns:32px 1fr;gap:8px;font-size:1.03rem;color:#333336;align-items:start}
 .steps b{
   display:grid;place-items:center;width:26px;height:26px;border-radius:50%;
   background:var(--red);color:#fff;font-size:.8rem;
 }
 
 /* ---------- SHOOTERS ---------- */
-.crew{background:var(--ink);color:var(--white);padding-block:clamp(56px,9vw,100px)}
+.crew{background:var(--ink);color:var(--white);padding-block:var(--section-y)}
 .crew .section__title{color:#fff}
 .crew .eyebrow{color:var(--red-bright)}
-.crew .field span{color:#9A968E}
+.crew .field__l{color:#9A968E}
 .crew .field input,.crew .field select{background:#131315;border-color:rgba(255,255,255,.18);color:#fff}
 .crew .panel{background:#0F0F11;border-color:rgba(255,255,255,.14)}
 .crew .agree{color:#C9C7C2}
+.crew__note{color:#9A968E}
 .terms{
-  border:1px solid rgba(255,255,255,.16);background:#0B0B0D;padding:20px 22px;
-  margin-bottom:20px;font-size:.96rem;line-height:1.6;color:#C9C7C2;
+  border:1px solid rgba(255,255,255,.16);background:#0B0B0D;padding:24px;
+  margin-bottom:24px;font-size:.96rem;line-height:1.6;color:#C9C7C2;
 }
-.terms ul{list-style:none;display:grid;gap:8px;margin-top:10px}
+.terms ul{list-style:none;display:grid;gap:8px;margin-top:8px}
 .terms li{position:relative;padding-left:16px}
 .terms li::before{content:'';position:absolute;left:0;top:.6em;width:6px;height:6px;background:var(--red)}
-.roleleft{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;font-weight:800;color:var(--red-bright);margin-top:8px}
-
-.alsonav{border-top:1px solid #E5E1D8;padding-block:28px;background:var(--white)}
-.alsonav__row{display:flex;flex-wrap:wrap;gap:8px 28px;align-items:baseline}
-.alsonav__k{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;font-weight:800;color:#6c6c70}
-.alsonav a{font-weight:700;color:var(--ink);text-decoration:none;border-bottom:2px solid transparent}
-.alsonav a:hover{border-bottom-color:var(--red)}
+.roleleft{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;font-weight:800;color:var(--red-bright)}
+.roleleft:empty{display:none}
 </style>
 </head>
 <body>
@@ -158,29 +174,33 @@ body{background:var(--white);color:var(--ink)}
 <!-- ============================ HERO ============================ -->
 <section class="ehero">
   <div class="ehero__media">
-    <img src="/assets/clockedout-hero-poster.jpg" alt="" aria-hidden="true">
+    <img src="/assets/clockedout-hero-poster.jpg" alt="" aria-hidden="true" width="1920" height="1080" fetchpriority="high">
     <video id="heroVideo" muted loop playsinline preload="none" aria-hidden="true"></video>
   </div>
   <div class="co-scrim" aria-hidden="true"></div>
   <div class="wrap ehero__inner">
-    <div class="co-kicker" data-animate>It's a photoshoot</div>
+    <div class="co-kicker" data-animate>It’s a photoshoot</div>
     <h1 data-animate><span class="sm">Pack Out State</span>Clocked Out</h1>
-    <p class="ehero__sub" data-animate>Friday, October 30 <span class="dot">&middot;</span> 4:00 PM &ndash; 8:00 PM</p>
+    <p class="ehero__sub" data-animate>Friday, October 30 <span class="dot">&middot;</span> 4:00&nbsp;PM &ndash; 8:00&nbsp;PM</p>
     <p class="ehero__meta" data-animate>District Bar &amp; Lounge &middot; 222 Glenwood Ave, Raleigh</p>
     <div class="ehero__cta" data-animate>
       <a class="btn btn--primary" href="#reserve">Reserve your time</a>
       <a class="btn btn--ghost" href="#crew">Shoot with us</a>
     </div>
   </div>
+  <button class="vidtoggle" id="vidToggle" type="button" aria-label="Pause background video" data-state="playing" hidden>
+    <svg class="vidtoggle__pause" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 2h3v12H4zM9 2h3v12H9z" fill="currentColor"/></svg>
+    <svg class="vidtoggle__play" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 2l10 6-10 6z" fill="currentColor"/></svg>
+  </button>
 </section>
 
 <!-- ============================ PITCH ============================ -->
 <section class="section section--bone section--tight">
   <div class="wrap">
-    <div class="section__head reveal" style="margin-bottom:0">
+    <div class="section__head section__head--solo reveal">
       <div class="eyebrow">The alumni kick-off</div>
       <h2 class="section__title">Get the picture<br>before the weekend<br>gets away from you</h2>
-      <p class="section__lead">Get checked into your rooms, meet the crew at District, and capture the picture that belongs in this year's homecoming album. Reserve a free 20 minute content shoot for you and your friends with a professional photographer, then stay for a glass of wine, a craft cocktail, or a few shots as we kick off homecoming weekend.</p>
+      <p class="section__lead">Get checked into your rooms, meet the crew at District, and capture the picture that belongs in this year’s homecoming album. Reserve a free 20 minute content shoot for you and your friends with a professional photographer, then stay for a glass of wine, a craft cocktail, or a few shots as we kick off homecoming weekend.</p>
     </div>
   </div>
 </section>
@@ -191,58 +211,78 @@ body{background:var(--white);color:var(--ink)}
     <div class="section__head reveal">
       <div class="eyebrow eyebrow--light">Reserve</div>
       <h2 class="section__title">Pick your time</h2>
-      <p class="section__lead">Free. Twenty minutes per group. Six people is the sweet spot, and up to 10 works if you tell us below.</p>
+      <p class="section__lead">Free. 20 minutes per group. Six people is the sweet spot, and up to 10 works if you tell us below.</p>
     </div>
 
     <div class="book__grid">
       <div class="reveal">
-        <div id="loading" class="msg msg--busy">Loading available times</div>
-        <div id="slotError" class="msg msg--bad"></div>
+        <div id="loading" class="msg msg--busy" role="status">Loading available times…</div>
+        <div id="slotError" class="msg msg--bad" role="alert"></div>
         <div class="times" id="times" role="group" aria-label="Available times"></div>
-        <p class="hint" style="margin-top:14px" id="closesNote"></p>
+        <p class="field__error hint--top" id="err-time" hidden></p>
+        <p class="hint hint--top" id="closesNote"></p>
       </div>
 
       <div class="reveal">
         <div class="panel">
           <form id="bookForm" novalidate>
-            <div class="panel__t">Your details</div>
-            <p class="hint" id="pickedNote">Pick a time on the left to get started.</p>
+            <h3 class="panel__t">Your details</h3>
+            <p class="hint" id="pickedNote" aria-live="polite">Pick a time on the left to get started.</p>
 
-            <div id="formError" class="msg msg--bad"></div>
+            <div id="formError" class="msg msg--bad" role="alert"></div>
 
-            <label class="field"><span>Your name</span>
-              <input name="name" autocomplete="name" required></label>
-            <div class="field--half">
-              <label class="field"><span>Email</span>
-                <input name="email" type="email" autocomplete="email" inputmode="email" required></label>
-              <label class="field"><span>Phone</span>
-                <input name="phone" type="tel" autocomplete="tel" inputmode="tel" required></label>
+            <div class="field">
+              <label class="field__l" for="bk-name">Your name</label>
+              <input id="bk-name" name="name" autocomplete="name" required>
+              <p class="field__error" id="err-name" hidden></p>
             </div>
-            <label class="field"><span>How many people</span>
-              <select name="party" required>
+            <div class="field--half">
+              <div class="field">
+                <label class="field__l" for="bk-email">Email</label>
+                <input id="bk-email" name="email" type="email" autocomplete="email" inputmode="email" spellcheck="false" autocapitalize="none" required>
+                <p class="field__error" id="err-email" hidden></p>
+              </div>
+              <div class="field">
+                <label class="field__l" for="bk-phone">Phone</label>
+                <input id="bk-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required>
+                <p class="field__error" id="err-phone" hidden></p>
+              </div>
+            </div>
+            <div class="field">
+              <label class="field__l" for="bk-party">How many people</label>
+              <select id="bk-party" name="party" required>
                 <option value="">Choose</option>
                 <option>1</option><option>2</option><option>3</option><option>4</option>
                 <option>5</option><option selected>6</option><option>7</option><option>8</option>
                 <option>9</option><option>10</option>
-              </select></label>
-            <p class="hint" id="bigGroup" hidden>Over 6 is fine, we just need the heads up so we can plan the shot.</p>
+              </select>
+              <p class="field__error" id="err-party" hidden></p>
+              <p class="hint" id="bigGroup" hidden>Over 6 is fine, we just need the heads up so we can plan the shot.</p>
+            </div>
 
-            <label class="field"><span>Friends' emails, optional</span>
-              <textarea name="guests" placeholder="Separate with commas. We will send them the details too."></textarea></label>
+            <div class="field">
+              <label class="field__l" for="bk-guests">Friends’ emails, optional</label>
+              <textarea id="bk-guests" name="guests" spellcheck="false" autocapitalize="none" autocomplete="off" placeholder="Separate with commas. We will send them the details too…"></textarea>
+            </div>
 
-            <label class="field"><span>Anything we should know, optional</span>
-              <textarea name="notes" placeholder="Birthday, big crew, running late from check-in"></textarea></label>
+            <div class="field">
+              <label class="field__l" for="bk-notes">Anything we should know, optional</label>
+              <textarea id="bk-notes" name="notes" placeholder="Birthday, big crew, running late from check-in…"></textarea>
+            </div>
 
-            <label class="agree">
-              <input type="checkbox" name="consent" required>
-              <span>I agree that photos and video from this event may be used by Pack Out State, DCC Social and District Bar &amp; Lounge for promotional purposes.</span>
-            </label>
+            <div class="agreewrap">
+              <label class="agree">
+                <input type="checkbox" name="consent" required>
+                <span>I agree that photos and video from this event may be used by Pack Out State, DCC Social and District Bar &amp; Lounge for promotional purposes.</span>
+              </label>
+              <p class="field__error" id="err-consent" hidden></p>
+            </div>
 
-            <button class="btn btn--primary" type="submit" id="bookBtn" style="width:100%">Reserve this time</button>
+            <button class="btn btn--primary btn--block" type="submit" id="bookBtn">Reserve this time</button>
           </form>
 
           <div class="done" id="done">
-            <div class="done__t">You're in</div>
+            <h3 class="done__t" id="doneTitle" tabindex="-1">You’re in</h3>
             <div class="done__when" id="doneWhen"></div>
             <ol class="steps">
               <li><b>1</b><span id="doneArrive"></span></li>
@@ -250,11 +290,11 @@ body{background:var(--white);color:var(--ink)}
               <li><b>3</b><span>Have your whole group with you. Sessions run back to back, so a late group is a short group.</span></li>
               <li><b>4</b><span>Check your email for the confirmation. It has your cancel and reschedule link.</span></li>
             </ol>
-            <div class="event__cta" style="margin-top:4px">
+            <div class="event__cta done__cta">
               <a class="btn btn--dark" id="icsBtn" download="clocked-out.ics">Add to calendar</a>
               <button class="btn btn--ghost" id="shareBtn" type="button">Share with your group</button>
             </div>
-            <p class="hint" style="margin-top:16px" id="manageNote"></p>
+            <p class="hint hint--top" id="manageNote"></p>
           </div>
         </div>
       </div>
@@ -270,9 +310,9 @@ body{background:var(--white);color:var(--ink)}
       <h2 class="section__title">How it runs</h2>
     </div>
     <ul class="rules reveal">
-      <li><span class="k">Arrive</span><span>Ten minutes before your time, with your whole group.</span></li>
+      <li><span class="k">Arrive</span><span>10 minutes before your time, with your whole group.</span></li>
       <li><span class="k">Check in</span><span>At the front, under the name on your reservation.</span></li>
-      <li><span class="k">Your session</span><span>Twenty minutes with a professional photographer.</span></li>
+      <li><span class="k">Your session</span><span>20 minutes with a professional photographer.</span></li>
       <li><span class="k">After</span><span>Stay for a glass of wine, a craft cocktail, or a few shots. Homecoming weekend starts here.</span></li>
       <li><span class="k">Cost</span><span>Free. You only pay for what you drink.</span></li>
       <li><span class="k">Dress</span><span>Come dressed. This is the picture that goes in the album.</span></li>
@@ -296,48 +336,65 @@ body{background:var(--white);color:var(--ink)}
           <ul>
             <li>All photo and video content from this event is reviewed and approved before it is published.</li>
             <li>Approved content is shared with DCC Social and District Bar &amp; Lounge for promotional use.</li>
-            <li>Call time is 3:30 PM for setup. The event runs 4:00 to 8:00 PM.</li>
+            <li>Call time is 3:30&nbsp;PM for setup. The event runs 4:00 to 8:00&nbsp;PM.</li>
           </ul>
         </div>
-        <p class="section__lead" style="color:#9A968E">Bring your own gear. Sessions run back to back in 20 minute blocks, so the 3:30 call time gives us room to set up before the first group.</p>
+        <p class="section__lead crew__note">Bring your own gear. Sessions run back to back in 20 minute blocks, so the 3:30 call time gives us room to set up before the first group.</p>
       </div>
 
       <div class="reveal">
         <div class="panel">
           <form id="crewForm" novalidate>
-            <div class="panel__t">Sign up to shoot</div>
-            <div id="crewError" class="msg msg--bad"></div>
+            <h3 class="panel__t">Sign up to shoot</h3>
+            <div id="crewError" class="msg msg--bad" role="alert"></div>
 
-            <label class="field"><span>Your name</span>
-              <input name="name" autocomplete="name" required></label>
-            <div class="field--half">
-              <label class="field"><span>Email</span>
-                <input name="email" type="email" autocomplete="email" inputmode="email" required></label>
-              <label class="field"><span>Phone</span>
-                <input name="phone" type="tel" autocomplete="tel" inputmode="tel" required></label>
+            <div class="field">
+              <label class="field__l" for="cr-name">Your name</label>
+              <input id="cr-name" name="name" autocomplete="name" required>
+              <p class="field__error" id="err-crew-name" hidden></p>
             </div>
-            <label class="field"><span>What do you shoot</span>
-              <select name="role" required>
+            <div class="field--half">
+              <div class="field">
+                <label class="field__l" for="cr-email">Email</label>
+                <input id="cr-email" name="email" type="email" autocomplete="email" inputmode="email" spellcheck="false" autocapitalize="none" required>
+                <p class="field__error" id="err-crew-email" hidden></p>
+              </div>
+              <div class="field">
+                <label class="field__l" for="cr-phone">Phone</label>
+                <input id="cr-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required>
+                <p class="field__error" id="err-crew-phone" hidden></p>
+              </div>
+            </div>
+            <div class="field">
+              <label class="field__l" for="cr-role">What do you shoot</label>
+              <select id="cr-role" name="role" required>
                 <option value="">Choose</option>
                 <option value="photo">Photo</option>
                 <option value="video">Video</option>
-              </select></label>
-            <div class="roleleft" id="roleLeft"></div>
+              </select>
+              <p class="field__error" id="err-crew-role" hidden></p>
+              <div class="roleleft" id="roleLeft"></div>
+            </div>
 
-            <label class="field" style="margin-top:16px"><span>Instagram, website or portfolio, optional</span>
-              <input name="link" placeholder="@yourhandle or a link"></label>
+            <div class="field">
+              <label class="field__l" for="cr-link">Instagram, website or portfolio, optional</label>
+              <input id="cr-link" name="link" autocomplete="off" spellcheck="false" autocapitalize="none" placeholder="@yourhandle or a link…">
+            </div>
 
-            <label class="agree">
-              <input type="checkbox" name="agreed" required>
-              <span>I have read and agree to the terms above.</span>
-            </label>
+            <div class="agreewrap">
+              <label class="agree">
+                <input type="checkbox" name="agreed" required>
+                <span>I have read and agree to the terms above.</span>
+              </label>
+              <p class="field__error" id="err-crew-agreed" hidden></p>
+            </div>
 
-            <button class="btn btn--primary" type="submit" id="crewBtn" style="width:100%">Sign me up</button>
+            <button class="btn btn--primary btn--block" type="submit" id="crewBtn">Sign me up</button>
           </form>
 
           <div class="done" id="crewDone">
-            <div class="done__t">You're good to go</div>
-            <p style="margin-top:14px;color:#C9C7C2">Call time is 3:30 PM on Friday, October 30 at District Bar &amp; Lounge. Check your email for the details.</p>
+            <h3 class="done__t" id="crewDoneTitle" tabindex="-1">You’re good to go</h3>
+            <p class="done__body">Call time is 3:30&nbsp;PM on Friday, October 30 at District Bar &amp; Lounge. Check your email for the details.</p>
           </div>
         </div>
       </div>
@@ -395,11 +452,27 @@ body{background:var(--white);color:var(--ink)}
   var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   var $ = function(s){ return document.querySelector(s); };
 
-  /* ---- hero video, same rules as the other pages ---- */
+  /* ---- hero video, same rules as the other pages ----
+     The pause button only appears once the video is actually playing.
+     A user pause sticks: nothing here ever calls play() again on its own. */
   (function(){
     var v = document.getElementById('heroVideo'); if(!v) return;
+    var tog = document.getElementById('vidToggle');
     var conn = navigator.connection || {};
     if(reduced || conn.saveData === true || /2g/.test(conn.effectiveType || '')) return;
+    function setToggle(playing){
+      if(!tog) return;
+      tog.dataset.state = playing ? 'playing' : 'paused';
+      tog.setAttribute('aria-label', playing ? 'Pause background video' : 'Play background video');
+    }
+    v.addEventListener('playing', function(){ if(tog){ tog.hidden = false; } setToggle(true); });
+    v.addEventListener('pause', function(){ setToggle(false); });
+    if(tog){
+      tog.addEventListener('click', function(){
+        if(v.paused){ var p = v.play(); if(p && p.catch) p.catch(function(){}); }
+        else { v.pause(); }
+      });
+    }
     function load(){
       if(v.querySelector('source')) return;
       [['/assets/clockedout-hero.webm','video/webm'],['/assets/clockedout-hero.mp4','video/mp4']]
@@ -428,6 +501,43 @@ body{background:var(--white);color:var(--ink)}
   };
 
   function showError(el, text){ el.textContent = text; el.style.display = text ? 'block' : 'none'; }
+
+  /* Inline field errors. Each sits under its field, is linked with
+     aria-describedby, and clears as soon as the field is edited. */
+  var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  function describe(el, id, on){
+    var ids = (el.getAttribute('aria-describedby') || '').split(/\s+/).filter(function(x){ return x && x !== id; });
+    if(on) ids.push(id);
+    if(ids.length) el.setAttribute('aria-describedby', ids.join(' ')); else el.removeAttribute('aria-describedby');
+  }
+  function fieldError(el, id, text){
+    var p = document.getElementById(id); if(!p || !el) return;
+    p.textContent = text || ''; p.hidden = !text;
+    if(text) el.setAttribute('aria-invalid', 'true'); else el.removeAttribute('aria-invalid');
+    describe(el, id, !!text);
+  }
+  function errIdFor(form, name){ return (form.id === 'crewForm' ? 'err-crew-' : 'err-') + name; }
+  function clearOnEdit(e){
+    var el = e.target, f = e.currentTarget;
+    if(!el.name || el.getAttribute('aria-invalid') !== 'true') return;
+    fieldError(el, errIdFor(f, el.name), '');
+  }
+  /* Checks run in visual order. Returns the first invalid control, or null. */
+  function checkFields(f, rules){
+    var first = null;
+    rules.forEach(function(r){
+      var el = f.elements[r[0]], msg = r[1](el);
+      fieldError(el, errIdFor(f, r[0]), msg || '');
+      if(msg && !first) first = el;
+    });
+    return first;
+  }
+  var needName  = function(el){ return el.value.trim().length < 2 ? 'Please add your name.' : ''; };
+  var needEmail = function(el){
+    var v = el.value.trim();
+    return !v ? 'Please add your email.' : (!EMAIL_RE.test(v) ? 'Enter an email like you@example.com.' : '');
+  };
+  var needPhone = function(el){ return el.value.replace(/\D/g,'').length < 10 ? 'Please add a phone number.' : ''; };
 
   function drawSlots(data){
     loadingEl.style.display = 'none';
@@ -491,7 +601,13 @@ body{background:var(--white);color:var(--ink)}
     picked = b.dataset.slot; pickedISO = b.dataset.iso;
     $('#pickedNote').textContent = 'Your time: ' + fmtFull(pickedISO);
     showError($('#formError'), '');
+    fieldError(timesEl, 'err-time', '');
   });
+
+  $('#bookForm').addEventListener('input', clearOnEdit);
+  $('#bookForm').addEventListener('change', clearOnEdit);
+  $('#crewForm').addEventListener('input', clearOnEdit);
+  $('#crewForm').addEventListener('change', clearOnEdit);
 
   $('#bookForm').addEventListener('change', function(e){
     if(e.target.name === 'party'){
@@ -517,7 +633,20 @@ body{background:var(--white);color:var(--ink)}
     e.preventDefault();
     var f = e.target, btn = $('#bookBtn');
     showError($('#formError'), '');
-    if(!picked){ showError($('#formError'), 'Pick a time first.'); return; }
+
+    var firstBad = checkFields(f, [
+      ['name', needName], ['email', needEmail], ['phone', needPhone],
+      ['party', function(el){ return parseInt(el.value, 10) ? '' : 'How many people are coming?'; }],
+      ['consent', function(el){ return el.checked ? '' : 'Please agree to the photo release.'; }]
+    ]);
+    if(!picked){
+      fieldError(timesEl, 'err-time', 'Pick a time first.');
+      var firstTime = timesEl.querySelector('.time:not(:disabled)');
+      (firstTime || timesEl).focus();
+      return;
+    }
+    fieldError(timesEl, 'err-time', '');
+    if(firstBad){ firstBad.focus(); return; }
 
     var guests = (f.guests.value || '').split(/[,\s]+/).filter(function(x){ return x.indexOf('@') > 0; });
     var payload = {
@@ -526,11 +655,8 @@ body{background:var(--white);color:var(--ink)}
       party: parseInt(f.party.value, 10), notes: f.notes.value,
       guest_emails: guests, consent: f.consent.checked
     };
-    if(!payload.name.trim()){ showError($('#formError'),'Please add your name.'); return; }
-    if(!payload.party){ showError($('#formError'),'How many people are coming?'); return; }
-    if(!payload.consent){ showError($('#formError'),'Please agree to the photo release.'); return; }
 
-    btn.disabled = true; btn.textContent = 'Reserving';
+    btn.disabled = true; btn.textContent = 'Reserving\u2026';
     fetch('/api/reserve', {
       method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload)
     }).then(function(r){ return r.json().then(function(d){ return {ok:r.ok, d:d}; }); })
@@ -549,6 +675,7 @@ body{background:var(--white);color:var(--ink)}
         $('#icsBtn').href = icsFor(d.starts_at);
         $('#manageNote').innerHTML = 'Need to change it? <a href="' + d.manage_url + '">Use your private link</a>, or find it in your confirmation email.';
         $('#done').scrollIntoView({behavior: reduced ? 'auto' : 'smooth', block:'center'});
+        $('#doneTitle').focus({preventScroll:true});
       })
       .catch(function(){
         showError($('#formError'), 'Something went wrong. Please try again.');
@@ -557,9 +684,10 @@ body{background:var(--white);color:var(--ink)}
   });
 
   $('#shareBtn').addEventListener('click', function(){
-    var text = "We're booked for Clocked Out at District, " + fmtFull(pickedISO) +
+    var text = "We\u2019re booked for Clocked Out at District, " + fmtFull(pickedISO) +
                ". Arrive 10 minutes early. Details: https://packoutstate.com/clocked-out";
     if(navigator.share){ navigator.share({text: text}).catch(function(){}); return; }
+    if(!(navigator.clipboard && navigator.clipboard.writeText)) return;
     navigator.clipboard.writeText(text).then(function(){
       $('#shareBtn').textContent = 'Copied, now paste it to your group';
     }).catch(function(){});
@@ -570,10 +698,14 @@ body{background:var(--white);color:var(--ink)}
     e.preventDefault();
     var f = e.target, btn = $('#crewBtn');
     showError($('#crewError'), '');
-    if(!f.agreed.checked){ showError($('#crewError'), 'Please agree to the terms.'); return; }
-    if(!f.role.value){ showError($('#crewError'), 'Pick photo or video.'); return; }
+    var firstBad = checkFields(f, [
+      ['name', needName], ['email', needEmail], ['phone', needPhone],
+      ['role', function(el){ return el.value ? '' : 'Pick photo or video.'; }],
+      ['agreed', function(el){ return el.checked ? '' : 'Please agree to the terms.'; }]
+    ]);
+    if(firstBad){ firstBad.focus(); return; }
 
-    btn.disabled = true; btn.textContent = 'Signing you up';
+    btn.disabled = true; btn.textContent = 'Signing you up\u2026';
     fetch('/api/creator', {
       method:'POST', headers:{'Content-Type':'application/json'},
       body: JSON.stringify({ name:f.name.value, email:f.email.value, phone:f.phone.value,
@@ -588,6 +720,7 @@ body{background:var(--white);color:var(--ink)}
         }
         f.style.display = 'none';
         $('#crewDone').classList.add('is-on');
+        $('#crewDoneTitle').focus();
       })
       .catch(function(){
         showError($('#crewError'), 'Something went wrong. Please try again.');
