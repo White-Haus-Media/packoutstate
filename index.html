@@ -295,10 +295,9 @@ a,button,summary,label{touch-action:manipulation;-webkit-tap-highlight-color:rgb
 /* ---------- SECTION SHELL ---------- */
 .section{padding-block:var(--section-y)}
 .section--bone{background:var(--white);color:var(--ink);color-scheme:light}
-/* At a glance and the lineup share a background, so the lineup sits flush
-   (no top padding) and a hairline inside the wrap marks the change. */
+/* At a glance and the lineup share a background. The calendar pass at the
+   foot of At a glance introduces the lineup, so the lineup sits flush. */
 #lineup{padding-top:0}
-#lineup .section__head{padding-top:var(--section-y);border-top:1px solid #ECE8E0}
 .section--bone .eyebrow{color:var(--red-deep)}
 .section__head{max-width:720px;margin-bottom:48px}
 .section__title{
@@ -311,41 +310,135 @@ a,button,summary,label{touch-action:manipulation;-webkit-tap-highlight-color:rgb
 .section--bone .section__lead{color:#3a3a3c}
 
 /* ---------- WEEKEND AT A GLANCE ---------- */
-.glance{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;align-items:stretch}
-.glance__col{
-  background:var(--white);border:1px solid #E9E5DD;border-top:4px solid var(--red);
-  padding:24px;box-shadow:0 2px 10px rgba(11,11,12,.04);
-  transition:transform .28s ease, box-shadow .28s ease;
-  display:flex;flex-direction:column;
+/* Each event is a concert-style ticket: the main side carries the name,
+   time, venue and next step; a perforated tear-off stub on the right carries
+   the date and a barcode. The paper is masked to punch the two notches, so
+   the shadow sits on the outer link as a drop-shadow, which follows the
+   mask. The game, which we do not sell, is an NC State red ticket. */
+.glance{display:grid;gap:18px}
+@media(min-width:760px){ .glance{grid-template-columns:1fr 1fr;gap:22px} }
+.tk__day{grid-column:1/-1;display:flex;align-items:baseline;gap:12px;padding-top:16px;border-top:2px solid var(--ink);margin-top:8px}
+.tk__day:first-child{margin-top:0}
+.tk__d{font-family:var(--display);font-weight:700;font-size:2rem;text-transform:uppercase;line-height:1}
+.tk__dt{font-size:14px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--red-deep)}
+
+.ticket{
+  --stub:88px;
+  display:grid;text-decoration:none;color:var(--white);
+  filter:drop-shadow(0 10px 16px rgba(11,11,12,.16));
+  transition:transform .4s ease, filter .4s ease;
+  /* words wrap at spaces only, never mid-word */
+  overflow-wrap:normal;word-break:normal;hyphens:none;
 }
-.glance__col:hover{transform:translateY(-6px);box-shadow:0 20px 44px rgba(11,11,12,.12)}
-.reveal .glance__col{opacity:0;transform:translateY(16px)}
-.reveal.is-in .glance__col{opacity:1;transform:none;transition:opacity .55s ease, transform .55s ease, box-shadow .28s ease}
-.reveal.is-in .glance__col:nth-child(2){transition-delay:.1s}
-.reveal.is-in .glance__col:nth-child(3){transition-delay:.2s}
-.reveal.is-in .glance__col:nth-child(4){transition-delay:.3s}
-.reveal.is-in .glance__col:hover{transform:translateY(-6px);transition-delay:0s}
-.glance__day{font-family:var(--display);font-size:2.3rem;text-transform:uppercase;line-height:1}
-.glance__date{font-size:.9rem;letter-spacing:.14em;text-transform:uppercase;color:var(--red-deep);font-weight:700;margin-top:8px;margin-bottom:16px}
-.glance__item{
-  display:block;position:relative;padding:16px 24px 16px 0;border-top:1px solid #EFEBE3;
-  text-decoration:none;color:var(--ink);
-  transition:color .2s, transform .22s ease;
+@media(min-width:760px){ .ticket{--stub:104px} }
+.ticket__paper{
+  --notch:11px;
+  position:relative;overflow:hidden;display:grid;grid-template-columns:1fr var(--stub);
+  background:radial-gradient(130% 90% at 0% 0%, #2a2c31 0%, var(--ink) 62%);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.07);
+  -webkit-mask:
+    radial-gradient(circle var(--notch) at calc(100% - var(--stub)) 0,#0000 98%,#000) top/100% 51% no-repeat,
+    radial-gradient(circle var(--notch) at calc(100% - var(--stub)) 100%,#0000 98%,#000) bottom/100% 51% no-repeat;
+          mask:
+    radial-gradient(circle var(--notch) at calc(100% - var(--stub)) 0,#0000 98%,#000) top/100% 51% no-repeat,
+    radial-gradient(circle var(--notch) at calc(100% - var(--stub)) 100%,#0000 98%,#000) bottom/100% 51% no-repeat;
 }
-.glance__item::after{
-  content:'\2192';position:absolute;right:2px;top:50%;transform:translateY(-50%) translateX(-6px);
-  color:var(--red);font-weight:700;opacity:0;transition:opacity .2s, transform .22s ease;
+/* light sweep that crosses the ticket on hover */
+.ticket__paper::after{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(105deg,transparent 38%,rgba(255,255,255,.16) 50%,transparent 62%) no-repeat;
+  background-size:250% 100%;background-position:120% 0;
+  transition:background-position .9s ease;
 }
-.glance__item:hover{color:var(--red);transform:translateX(8px)}
-.glance__item:hover::after{opacity:1;transform:translateY(-50%)}
-.glance__time{font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;color:#6c6c6f;font-weight:700}
-.glance__name{font-weight:800;font-size:1.25rem;margin-top:4px;line-height:1.25}
-.glance__item--fixture{color:var(--ink);cursor:default}
-.glance__item--fixture::after{content:none}
-.glance__item--fixture:hover{color:var(--ink);transform:none}
-.glance__tag{
-  display:block;margin-bottom:8px;font-size:.68rem;letter-spacing:.18em;
-  text-transform:uppercase;font-weight:800;color:var(--red-deep);
+.ticket__main{padding:20px 16px 20px 20px;display:flex;flex-direction:column;min-width:0}
+.ticket__kicker{font-size:14px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--red-bright)}
+.ticket__name{
+  font-family:var(--display);font-weight:700;text-transform:uppercase;
+  font-size:clamp(1.75rem,6.4vw,2.2rem);line-height:.98;margin:8px 0 14px;text-wrap:balance;
+}
+.ticket__fields{display:grid;grid-template-columns:auto 1fr;gap:6px 12px;margin:0;align-items:baseline}
+.ticket__fields dt{font-size:14px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:rgba(255,255,255,.6)}
+.ticket__fields dd{margin:0;font-size:15px;font-weight:700;line-height:1.35;color:var(--white)}
+.ticket__go{margin-top:auto;padding-top:14px;font-size:14px;letter-spacing:.08em;text-transform:uppercase;font-weight:800;color:var(--red-bright)}
+.ticket__go b{white-space:nowrap;font-weight:inherit}
+.ticket__go i{font-style:normal;display:inline-block;transition:transform .3s ease}
+
+.ticket__stub{
+  border-left:2px dashed rgba(255,255,255,.28);
+  padding:18px 10px 16px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:12px;
+  text-align:center;text-transform:uppercase;
+}
+.ticket__wd,.ticket__mo{font-size:14px;letter-spacing:.14em;font-weight:800;line-height:1}
+.ticket__wd{color:var(--red-bright)}
+.ticket__dd{display:block;font-family:var(--display);font-weight:700;font-size:3rem;line-height:.9;margin:6px 0 4px}
+.ticket__code{width:100%;background:var(--white);padding:5px 5px 3px;border-radius:2px}
+.ticket__code svg{display:block;width:100%;height:46px}
+.ticket__code small{display:block;font-size:9px;letter-spacing:.12em;color:var(--ink);font-weight:700;margin-top:2px}
+
+/* The game: NC State red with a fine diagonal weave. */
+.ticket--game{cursor:default}
+.ticket--game .ticket__paper{
+  background:repeating-linear-gradient(135deg,rgba(255,255,255,.06) 0 2px,transparent 2px 9px),
+             linear-gradient(160deg,#D81A1A 0%,var(--red) 55%,#A80000 100%);
+}
+.ticket--game .ticket__kicker,.ticket--game .ticket__wd{color:var(--white)}
+.ticket--game .ticket__fields dt{color:rgba(255,255,255,.85)}
+.ticket--game .ticket__stub{border-left-color:rgba(255,255,255,.45)}
+
+/* Motion. Tickets are dealt in one after another when the section scrolls
+   in (--i is set per ticket by the script). On a mouse, hover tilts the
+   ticket like the flyers and sweeps the light across it. On touch, a tap
+   presses it down a little. */
+.glance.reveal:not(.is-in) .ticket{opacity:0}
+.glance.is-in .ticket{animation:deal .75s cubic-bezier(.2,.8,.2,1) backwards;animation-delay:calc(var(--i,0) * 110ms + 120ms)}
+@keyframes deal{from{opacity:0;transform:translateY(34px) rotate(-2.5deg)}}
+@media(hover:hover){
+  .ticket:hover,.ticket:focus-visible{
+    transform:perspective(1000px) rotateY(-3deg) rotateX(1.5deg) translateY(-8px);
+    filter:drop-shadow(0 26px 30px rgba(11,11,12,.26));
+  }
+  .ticket:hover .ticket__paper::after,.ticket:focus-visible .ticket__paper::after{background-position:-20% 0}
+  a.ticket:hover .ticket__go i{transform:translateX(4px)}
+}
+a.ticket:active{transform:scale(.985)}
+
+/* Calendar pass: one wide ticket under the event tickets, same paper, with
+   the add-to-calendar button on its tear-off stub. On phones the stub sits
+   below a dashed tear line; from 760px it sits to the right. */
+.pass{
+  --stub:320px;--notch:12px;
+  margin-top:40px;display:grid;color:var(--white);
+  background:radial-gradient(130% 90% at 0% 0%, #2a2c31 0%, var(--ink) 62%);
+  -webkit-mask:
+    radial-gradient(circle var(--notch) at 0 50%,#0000 98%,#000) left/51% 100% no-repeat,
+    radial-gradient(circle var(--notch) at 100% 50%,#0000 98%,#000) right/51% 100% no-repeat;
+          mask:
+    radial-gradient(circle var(--notch) at 0 50%,#0000 98%,#000) left/51% 100% no-repeat,
+    radial-gradient(circle var(--notch) at 100% 50%,#0000 98%,#000) right/51% 100% no-repeat;
+  overflow-wrap:normal;word-break:normal;hyphens:none;
+}
+.pass__main{padding:28px 24px 24px}
+.pass__kicker{font-size:14px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--red-bright)}
+.pass__title{font-family:var(--display);font-weight:700;text-transform:uppercase;font-size:clamp(2.1rem,7vw,3.4rem);line-height:.96;margin:10px 0 12px;text-wrap:balance}
+.pass__lead{font-size:1.05rem;line-height:1.5;color:var(--white);max-width:48ch}
+.pass__dates{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.pass__dates span{border:1px solid rgba(255,255,255,.3);padding:6px 10px;font-size:14px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.pass__stub{border-top:2px dashed rgba(255,255,255,.28);padding:22px 24px 26px;display:flex;flex-direction:column;gap:12px}
+.pass .btn{width:100%;gap:10px;font-weight:400}
+.pass__ico{width:22px;height:22px;flex:none}
+.pass__note{font-size:14px;color:var(--white)}
+@media(min-width:760px){
+  .pass{
+    grid-template-columns:1fr var(--stub);
+    -webkit-mask:
+      radial-gradient(circle var(--notch) at calc(100% - var(--stub)) 0,#0000 98%,#000) top/100% 51% no-repeat,
+      radial-gradient(circle var(--notch) at calc(100% - var(--stub)) 100%,#0000 98%,#000) bottom/100% 51% no-repeat;
+            mask:
+      radial-gradient(circle var(--notch) at calc(100% - var(--stub)) 0,#0000 98%,#000) top/100% 51% no-repeat,
+      radial-gradient(circle var(--notch) at calc(100% - var(--stub)) 100%,#0000 98%,#000) bottom/100% 51% no-repeat;
+  }
+  .pass__main{padding:36px 36px 34px}
+  .pass__stub{border-top:0;border-left:2px dashed rgba(255,255,255,.28);justify-content:center;padding:32px}
 }
 
 /* ---------- EVENT CARDS ---------- */
@@ -518,9 +611,10 @@ a,button,summary,label{touch-action:manipulation;-webkit-tap-highlight-color:rgb
   .sky__stars,.sky__cloud,.sky__beam{animation:none !important}
   .ticker__track{animation:none !important}
   .count__colon,.count__num.tick{animation:none !important}
-  .reveal .glance__col{opacity:1;transform:none;transition:none}
   .flyer-link:hover .flyer,.flyer-link:focus-visible .flyer{transform:none}
-  .glance__item:hover{transform:none}
+  .glance.is-in .ticket{animation:none}
+  .ticket:hover,.ticket:focus-visible,a.ticket:active{transform:none !important}
+  .ticket__paper::after{transition:none}
 }
 [data-animate]{opacity:0;transform:translateY(18px)}
 
@@ -536,11 +630,11 @@ a,button,summary,label{touch-action:manipulation;-webkit-tap-highlight-color:rgb
    (--display and the 24px --pad now live in the main :root above.)
    ===================================================================== */
 .nav__brand,.hero__ghost,.hero h1,.board__plate,.count__live,.ticker span,
-.section__title,.glance__day,.daygroup__label,.event__name,.flyer__ico,
+.section__title,.daygroup__label,.event__name,.flyer__ico,
 .flyer__ph-name,.foot__brand{font-weight:700}
 
 /* Labels and metadata: 14px floor; tracking eased so the larger size stays compact. */
-.eyebrow,.chip,.event__details .k,.glance__time,.event__onsale,.foot__fine,
+.eyebrow,.chip,.event__details .k,.event__onsale,.foot__fine,
 .foot__links a,.daygroup__label .dt,.nav__cta,.inq__field label{font-size:14px;letter-spacing:.12em}
 .inq__field input,.inq__field textarea{font-size:16px;line-height:1.5}   /* form inputs 16 */
 .xtra__h,.board__plate,.cal small{font-size:14px;letter-spacing:.08em}
@@ -549,9 +643,6 @@ a,button,summary,label{touch-action:manipulation;-webkit-tap-highlight-color:rgb
 .nav__brand{padding-block:8px}
 .btn{font-size:15px;min-height:48px}
 .event__details .k{min-width:84px;padding-top:2px}
-
-/* At a glance: time on its own line above the event name. */
-.glance__time{display:block;margin-bottom:4px}
 
 /* Address links: taller tap area without moving the text. */
 .event__details a{display:inline-block;padding-block:12px;margin-block:-12px}
@@ -649,18 +740,13 @@ a,button,summary,label{touch-action:manipulation;-webkit-tap-highlight-color:rgb
       <p class="section__lead">Everything happening across homecoming weekend, at a glance. Tap any event to jump to the details.</p>
     </div>
     <div class="glance reveal" id="glance"></div>
+    <div class="pass reveal" id="pass"></div>
   </div>
 </section>
 
 <!-- ============================ THE LINEUP ============================ -->
 <section class="section section--bone" id="lineup">
   <div class="wrap">
-    <div class="section__head reveal">
-      <div class="eyebrow">The lineup</div>
-      <h2 class="section__title">Every event, every night</h2>
-      <p class="section__lead">From the Thursday warm up to the Saturday block party. Flyers drop as they are finalized.</p>
-      <div class="cal__all"><a class="btn btn--dark" id="calAll" download="pack-out-state-2026.ics">Add the whole weekend to your calendar</a></div>
-    </div>
     <div id="events"></div>
   </div>
 </section>
@@ -740,7 +826,7 @@ const DAYS = [
 // announced, change `time` here and update the Block Party run of show.
 const FIXTURES = [
   {
-    day:'sat', time:'Time TBA', tag:'The game',
+    day:'sat', time:'Time TBA', tag:'The game', venue:'Carter-Finley Stadium',
     name:'NC State Wolfpack vs. California Golden Bears'
   }
 ];
@@ -920,27 +1006,88 @@ $('#dayRail').addEventListener('click', e=>{
   if(t) t.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto':'smooth', block:'start'});
 });
 
-// ---- Weekend at a glance ----
+// ---- Weekend at a glance: one ticket per event ----
+// Times on the ticket drop the ":00", so "9:00 PM – 1:00 AM" reads "9 PM – 1 AM".
+const shortTime = t => String(t).replace(/:00/g,'');
+// What the ticket tells you to do next, from the event's own fields.
+const nextStep = e => e.rsvpUrl ? 'Reserve a time' : (e.ticketsLabel || e.onSaleNote || 'See details');
+
+// A decorative barcode. Bar widths come from the event id, so each ticket
+// has its own pattern and it never changes between visits.
+function barcode(seed){
+  let h = 2166136261;
+  for(const c of seed){ h ^= c.charCodeAt(0); h = Math.imul(h, 16777619); }
+  const rnd = ()=>{ h ^= h << 13; h ^= h >>> 17; h ^= h << 5; return (h >>> 0) / 4294967296; };
+  let x = 0, bars = '';
+  while(x < 96){
+    const w = 1 + Math.floor(rnd()*3);
+    bars += `<rect x="${x}" y="0" width="${w}" height="40"/>`;
+    x += w + 1 + Math.floor(rnd()*2);
+  }
+  return `<svg viewBox="0 0 ${x} 40" preserveAspectRatio="none" aria-hidden="true" fill="#0B0B0C">${bars}</svg>`;
+}
+
+// A six digit ticket number printed under the barcode, also from the id.
+const serial = seed => String([...seed].reduce((n,c)=>(n*31 + c.charCodeAt(0)) % 900000, 7) + 100000);
+
+// The arrow is glued to the last word so it never wraps onto a line alone.
+function goLine(text){
+  const w = String(text).split(' '), last = w.pop();
+  return `<span class="ticket__go">${esc(w.join(' '))}${w.length ? ' ' : ''}<b>${esc(last)}<i aria-hidden="true">&nbsp;&#8594;</i></b></span>`;
+}
+
+function ticket({tag, href, cls, kicker, name, fields, go, day, code}){
+  const [mo, dd] = day.date.split(' ');
+  const rows = fields.map(([k,v])=>`<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join('');
+  const attrs = href ? ` href="${esc(href)}"` : '';
+  return `<${tag} class="ticket${cls ? ' '+cls : ''}"${attrs}><div class="ticket__paper">
+    <div class="ticket__main">
+      <span class="ticket__kicker">${esc(kicker)}</span>
+      <span class="ticket__name">${esc(name)}</span>
+      <dl class="ticket__fields">${rows}</dl>
+      ${go ? goLine(go) : ''}
+    </div>
+    <div class="ticket__stub" aria-label="${esc(day.label+' '+day.date)}">
+      <div><span class="ticket__wd">${esc(day.label)}</span><span class="ticket__dd">${esc(dd)}</span><span class="ticket__mo">${esc(mo)}</span></div>
+      <div class="ticket__code">${barcode(code)}<small>No. ${serial(code)}</small></div>
+    </div>
+  </div></${tag}>`;
+}
+
 $('#glance').innerHTML = grouped.map(d=>{
   // Fixtures lead the day. The game sits above the Block Party even though
   // its time is unknown, because it anchors the day.
-  const fixtures = FIXTURES.filter(f => f.day === d.key).map(f=>
-    `<div class="glance__item glance__item--fixture">
-       ${f.tag ? `<span class="glance__tag">${esc(f.tag)}</span>` : ''}
-       <span class="glance__time">${esc(f.time)}</span>
-       <span class="glance__name">${esc(f.name)}</span>
-     </div>`).join('');
-  const items = fixtures + d.items.map(e=>
-    `<a class="glance__item" href="#${e.id}">
-       <span class="glance__time">${esc(e.time)}</span>
-       <span class="glance__name">${esc(e.name)}</span>
-     </a>`).join('');
-  return `<div class="glance__col">
-    <div class="glance__day">${esc(d.label)}</div>
-    <div class="glance__date">${esc(d.date)}</div>
-    ${items || '<div class="glance__empty">No events</div>'}
-  </div>`;
+  const fixtures = FIXTURES.filter(f => f.day === d.key).map(f=>ticket({
+    tag:'div', cls:'ticket--game', kicker:f.tag || 'Fixture', name:f.name, day:d, code:'game-'+d.key,
+    fields:[['Kickoff', f.time === 'Time TBA' ? 'TBA' : shortTime(f.time)], ...(f.venue ? [['Venue', f.venue]] : [])]
+  })).join('');
+  const items = d.items.map(e=>ticket({
+    tag:'a', href:'#'+e.id, kicker:'Admit one', name:e.name, day:d, code:e.id,
+    fields:[['Time', shortTime(e.time)], ['Venue', e.venue]], go:nextStep(e)
+  })).join('');
+  return `<div class="tk__day"><span class="tk__d">${esc(d.label)}</span><span class="tk__dt">${esc(d.date)}</span></div>
+    ${fixtures}${items}`;
 }).join('');
+// ---- Calendar pass under the tickets ----
+// The count and the date chips come from EVENTS and DAYS, so they stay right
+// if an event is added or dropped. The calendar script further down points
+// #calAll at a file holding every dated event.
+$('#pass').innerHTML = `
+  <div class="pass__main">
+    <span class="pass__kicker">Homecoming weekend 2026</span>
+    <h2 class="pass__title">Add to your calendar</h2>
+    <p class="pass__lead">${EVENTS.length} events, ${grouped.length} days. Save them all at once, with times and venues, so nothing sneaks up on you.</p>
+    <div class="pass__dates">${grouped.map(d=>`<span>${esc(d.label)} ${esc(d.date.split(' ')[1])}</span>`).join('')}</div>
+  </div>
+  <div class="pass__stub">
+    <a class="btn btn--primary" id="calAll" download="pack-out-state-2026.ics">
+      <svg class="pass__ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16.5" rx="2"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4M12 13v5M9.5 15.5h5"/></svg>
+      Add all ${EVENTS.length} to my calendar</a>
+    <span class="pass__note">One tap. Opens in your calendar app.</span>
+  </div>`;
+
+// stagger index for the deal-in animation
+document.querySelectorAll('#glance .ticket').forEach((t,i)=>t.style.setProperty('--i', i));
 
 // ---- Event cards, grouped by day ----
 $('#events').innerHTML = grouped.map(d=>{
