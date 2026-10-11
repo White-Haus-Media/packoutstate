@@ -236,7 +236,7 @@ svg{display:block;width:100%;height:auto;overflow:visible}
         <p class="note" id="reviewNote" style="margin:-4px 0 16px"></p>
         <div class="grid two">
           <div class="card"><h2>Most picked songs</h2><p class="hint">Split by question</p><div id="songBars2"></div></div>
-          <div class="card"><h2>Submissions per day</h2><p class="hint">Last 7 days. Closes Sunday, October 11 at 11:59 PM.</p><div id="subsChart"></div>
+          <div class="card"><h2>Submissions per day</h2><p class="hint">Last 7 days. Closes Sunday, October 25 at 11:59 PM.</p><div id="subsChart"></div>
             <h2 style="margin-top:20px">Contributor eras</h2><p class="hint">Years at State</p><div id="eras2"></div></div>
         </div>
         <div class="card flush mt"><div class="scroll">
@@ -632,12 +632,12 @@ svg{display:block;width:100%;height:auto;overflow:visible}
     $('#eras2').innerHTML = eraChart(people, $('#eras2').clientWidth || 480);
     $('#subsChart').innerHTML = subsChart(people, $('#subsChart').clientWidth || 480);
 
-    var closes = new Date('2026-10-12T03:59:59Z'), left = Math.ceil((closes - Date.now()) / 864e5);
+    var closes = new Date('2026-10-26T03:59:59Z'), left = Math.ceil((closes - Date.now()) / 864e5);
     $('#mixKpis').innerHTML =
       kpi('var(--ev-warm-up)', 'People submitted', t.contributors || 0, '<span class="d">' + (t.last_at ? 'Last ' + fmtDay(t.last_at) : 'None yet') + '</span>') +
       kpi('var(--ev-warm-up)', 'Different songs', t.songs || 0, '<span class="d">' + (t.picks || 0) + ' picks in total</span>') +
       kpi('var(--ev-warm-up)', 'Marketing opt-ins', t.opted_in || 0, '<span class="d">Said yes to emails</span>') +
-      kpi('var(--ev-warm-up)', 'Closes in', left > 0 ? left + '<small> days</small>' : 'Closed', '<span class="d">Sunday, Oct 11 at 11:59 PM</span>');
+      kpi('var(--ev-warm-up)', 'Closes in', left > 0 ? left + '<small> days</small>' : 'Closed', '<span class="d">Sunday, Oct 25 at 11:59 PM</span>');
     $('#reviewNote').textContent = t.to_review
       ? t.to_review + ' typed-in song' + (t.to_review === 1 ? '' : 's') + ' could not be matched to Apple Music and may be duplicates. Check review_queue in Supabase.' : '';
 

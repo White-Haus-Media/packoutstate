@@ -6,8 +6,8 @@
 // Writes through one database function, public.talley_mixtape_submit
 // (see supabase/talley-mixtape.sql). No emails are sent.
 
-// Submissions close Sunday, Oct 11, 2026 at 11:59 PM Eastern.
-const CLOSES_AT = Date.parse("2026-10-12T03:59:59Z");
+// Submissions close Sunday, Oct 25, 2026 at 11:59 PM Eastern.
+const CLOSES_AT = Date.parse("2026-10-26T03:59:59Z");
 
 const PROMPT_SLOTS = ["takes_me_back", "lights_coming_on"];
 const MAX_TOP10 = 3;
