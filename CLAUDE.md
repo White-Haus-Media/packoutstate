@@ -70,7 +70,7 @@ The header CSS lives in three places, because the home page and the mixtape
 page keep their own styles: `index.html`, `css/site.css`, `mixtape/index.html`.
 Change all three together.
 
-**Remove the Mixtape link from row 2 after submissions close (Sunday, Oct 11,
+**Remove the Mixtape link from row 2 after submissions close (Sunday, Oct 25,
 11:59 PM).** It is the last link in each page's header markup.
 
 Every footer has an HQ link (`/hq`, nofollow) so partners can reach the
