@@ -62,7 +62,7 @@ over-served it; the home page card carries everything a patron needs.
 
 ## The Talley Tapes — page built, needs these values
 `/talley-tapes`
-Fri, Oct 30 · 10:00 PM – 2:00 AM · **House of Art**, downtown Raleigh
+Fri, Oct 30 · 9:00 PM – 2:00 AM · **House of Art**, downtown Raleigh
 Tickets on sale now
 
 Venue confirmed 2026-09-14. Banner, teaser, archive photos and the House
