@@ -821,12 +821,11 @@ const DAYS = [
 ];
 
 // The football game itself. It is not our event and we sell nothing for it,
-// so it shows in the weekend overview only, never as an event card. The
-// conference has not released kickoff, so the time stays TBA. When it is
-// announced, change `time` here and update the Block Party run of show.
+// so it shows in the weekend overview only, never as an event card.
+// Kickoff was announced in Oct 2026 as 12:00 PM ET.
 const FIXTURES = [
   {
-    day:'sat', time:'Time TBA', tag:'The game', venue:'Carter-Finley Stadium',
+    day:'sat', time:'12:00 PM', tag:'The game', venue:'Carter-Finley Stadium',
     name:'NC State Wolfpack vs. California Golden Bears'
   }
 ];
@@ -874,9 +873,9 @@ const EVENTS = [
     flyer:'flyer-talley-tapes.jpg', flyerW:820, flyerH:1025
   },
   {
-    id:'block-party', day:'sat', time:'2:30 PM – 1:00 AM',
+    id:'block-party', day:'sat', time:'12:00 PM – 1:00 AM',
     pageUrl:'/block-party',
-    start:'2026-10-31T14:30:00-04:00', end:'2026-11-01T01:00:00-04:00',    name:'Pack Out State Block Party', tagline:'This is How We Homecoming Vol. 3',
+    start:'2026-10-31T12:00:00-04:00', end:'2026-11-01T01:00:00-04:00',    name:'Pack Out State Block Party', tagline:'This is How We Homecoming Vol. 3',
     desc:'The Pack Out State Block Party is taking over Killjoy and the parking lot for an all-day Homecoming celebration. Pull up for an all-day experience that captures the essence of Homecoming in one event; tailgate, watch party, day party turned night party all in one. DJ sets running all day long with food, vendors, and curated vibes for you and your crew to celebrate together.',
     venue:'Killjoy Kitchen & Cocktails', address:'116 N West St. Raleigh, NC',
     mapUrl:'https://www.google.com/maps/search/?api=1&query=Killjoy+116+N+West+St+Raleigh+NC',
@@ -1055,8 +1054,8 @@ function ticket({tag, href, cls, kicker, name, fields, go, day, code}){
 }
 
 $('#glance').innerHTML = grouped.map(d=>{
-  // Fixtures lead the day. The game sits above the Block Party even though
-  // its time is unknown, because it anchors the day.
+  // Fixtures lead the day. The game sits above the Block Party because it
+  // anchors the day: both start at noon.
   const fixtures = FIXTURES.filter(f => f.day === d.key).map(f=>ticket({
     tag:'div', cls:'ticket--game', kicker:f.tag || 'Fixture', name:f.name, day:d, code:'game-'+d.key,
     fields:[['Kickoff', f.time === 'Time TBA' ? 'TBA' : shortTime(f.time)], ...(f.venue ? [['Venue', f.venue]] : [])]

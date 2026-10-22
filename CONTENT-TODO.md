@@ -9,7 +9,7 @@ amber underline (`class="draft"`), and in the source with a
 
 ## Block Party — page built, needs these values
 `/block-party`
-Sat, Oct 31 · 2:30 PM – 1:00 AM · Killjoy Kitchen & Cocktails, Raleigh
+Sat, Oct 31 · 12:00 PM – 1:00 AM · Killjoy Kitchen & Cocktails, Raleigh
 116 N West St · Tickets on sale now
 
 Already real, in the `EVENTS` data on the home page: description, venue,
@@ -27,23 +27,24 @@ Two placeholders remain, each marked on the page:
 | 1 | DJ set times | "announced closer to the date" | |
 | 2 | Vendor list | "local makers & retail" | |
 
-Confirmed: **21+**, and **2:30 PM is doors**.
+Confirmed: **21+**, and **12:00 PM is doors**. Kickoff was announced in
+Oct 2026 as **12:00 PM ET**, the same time, so there is no tailgate window
+before the game and the day opens as a watch party.
 
 Both remaining items are "announced closer to the date" on the page, which
 is honest rather than placeholder-ish — this page could ship as-is if you
 wanted, once the draft banner comes off.
 
-**Game time is TBA and the page says so — with no estimate.** A "Heads up"
-notice sits at the top of the run of show: the game time has not been
-announced, the day shifts once it does, the lot may open earlier, and the
-tailgate window gets longer or shorter depending on kickoff. The timeline
-reads "Until kickoff" and "Kickoff · TBA".
+**Game time is announced: 12:00 PM ET.** NC State vs California at
+Carter-Finley, Saturday Oct 31. The "Heads up" notice that said the time was
+unknown has been removed from the run of show, and the timeline now carries
+real times.
 
-No expected or approximate kickoff appears anywhere on the site. Do not
-add one — the time is genuinely unknown until the conference releases it.
-
-Update when the game time drops: the notice, the kickoff row, and the
-tailgate slot copy.
+Doors moved to 12:00 PM at the same time, so doors and kickoff are the same
+moment and there is no tailgate window before the game. The run of show
+opens as a watch party, the lot runs through the game, and the block fills
+back up from around 3:30. Do not put a pre-game tailgate row back; it would
+describe a window that does not exist.
 
 **No price shown**, same as Talley Tapes — pricing is subject to change,
 so the page carries the live ticket link instead of a number that can go
