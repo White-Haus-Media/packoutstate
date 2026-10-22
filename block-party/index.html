@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Block Party · Pack Out State · NC State Homecoming 2026</title>
-<meta name="description" content="This is how we Homecoming, Vol. 3. All-day block party at Killjoy. Tailgate, watch party, day party into night party. Saturday October 31, 2:30 PM til 1 AM. One wristband, in and out all day.">
+<meta name="description" content="This is how we Homecoming, Vol. 3. All-day block party at Killjoy. Tailgate, watch party, day party into night party. Saturday October 31, 12:00 PM til 1 AM. One wristband, in and out all day.">
 
 <link rel="canonical" href="https://packoutstate.com/block-party">
 
 <meta property="og:title" content="Pack Out State Block Party · This is How We Homecoming Vol. 3">
-<meta property="og:description" content="All day at Killjoy. Tailgate, watch party, day party into night party. Saturday, October 31 · 2:30 PM – 1:00 AM.">
+<meta property="og:description" content="All day at Killjoy. Tailgate, watch party, day party into night party. Saturday, October 31 · 12:00 PM – 1:00 AM.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://packoutstate.com/block-party">
 <meta property="og:image" content="https://packoutstate.com/flyer-block-party.jpg">
@@ -33,10 +33,15 @@
    patches, and that repeating marquee column of BLOCK PARTY /
    TAILGATE / WATCH PARTY / ALL DAMN DAY PARTY.
 
-   Organising principle: TIME. This event runs 10.5 hours across
+   Organising principle: TIME. This event runs 13 hours across
    a football game, so the question that actually matters is
    "when do I come, and how does it work around kickoff?" The
    timeline is the spine of the page, not a footnote.
+
+   Kickoff was announced in Oct 2026 as 12:00 PM ET, the same
+   time the lot opens, so there is no tailgate window before the
+   game. The day opens as a watch party and the lot runs through
+   it.
 
    The page tracks the event's own arc — it starts bright (the
    daytime lot footage) and goes dark at the photo album, which
@@ -131,9 +136,10 @@ body{background:var(--white);color:var(--ink)}
 .slot__time{color:var(--red);margin-right:.5em}
 .slot__p{margin-top:8px;color:#3a3a3c;font-size:1.04rem;max-width:64ch}
 
-/* The kickoff gap — the one moment the crowd leaves and comes back.
-   Rendered as an actual break in the spine rather than another row,
-   because that break IS the thing the wristband solves. */
+/* The fork in the day: Carter-Finley, or here. Rendered as an actual break
+   in the spine rather than another row, because that choice IS the thing the
+   wristband solves. With a noon kickoff nobody tailgates here first, so this
+   is the stadium-goer's path back, not a gap in the middle of the day. */
 .gap{
   padding-block:24px;
   border-top:2px dashed #C9C3B6;background:#FBFAF7;
@@ -142,9 +148,8 @@ body{background:var(--white);color:var(--ink)}
 .gap__p{margin-top:8px;color:#4a4a4e;font-size:1.02rem;max-width:64ch}
 @media(min-width:1024px){ .slot,.gap{padding-block:32px} }
 
-/* Schedule caveat. The run of show hangs off a kickoff time that has not
-   been announced, so the page says so plainly rather than presenting
-   provisional times as settled. */
+/* Schedule caveat styling. Kept for reuse: kickoff is now announced, so
+   the notice it styled has been removed from the markup. */
 .notice{
   display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;
   border:1px solid #E0DACE;background:#FBF8F1;
@@ -285,7 +290,7 @@ body{background:var(--white);color:var(--ink)}
       <span class="sm">Pack Out State</span>
       Block Party <span class="patch">&rsquo;26</span>
     </h1>
-    <p class="ehero__sub" data-animate>Saturday, October 31 <span class="dot">&middot;</span> 2:30&nbsp;PM &ndash; 1:00&nbsp;AM</p>
+    <p class="ehero__sub" data-animate>Saturday, October 31 <span class="dot">&middot;</span> 12:00&nbsp;PM &ndash; 1:00&nbsp;AM</p>
     <p class="ehero__meta" data-animate>Killjoy Kitchen &amp; Cocktails &middot; 116 N West St, Raleigh</p>
 
     <div class="bp-meta" data-animate>
@@ -328,43 +333,38 @@ body{background:var(--white);color:var(--ink)}
     <div class="section__head reveal">
       <div class="eyebrow">Ten and a half hours</div>
       <h2 class="section__title">The day,<br>start to finish</h2>
-      <p class="section__lead">Tailgate, watch party, day party turned night party, all in one place, all on one wristband. The day splits either side of the game. Come when it fits your Homecoming.</p>
-    </div>
-
-    <div class="notice reveal">
-      <div class="notice__k">Heads up</div>
-      <p class="notice__p">The game time hasn&rsquo;t been announced yet. Once it drops, the day below shifts to fit it. The lot may open earlier, and the tailgate window gets longer or shorter depending on kickoff. We&rsquo;ll make a final announcement as soon as the game time is released.</p>
+      <p class="section__lead">Tailgate, watch party, day party turned night party, all in one place, all on one wristband. The game opens it, the night closes it. Come when it fits your Homecoming.</p>
     </div>
 
     <div class="reveal">
       <div class="slot">
-        <h3 class="slot__line"><span class="slot__time">2:30&nbsp;PM</span>The lot opens</h3>
+        <h3 class="slot__line"><span class="slot__time">12:00&nbsp;PM</span>Doors and kickoff</h3>
         <div>
-          <p class="slot__p">Killjoy and the parking lot become one space. Music starts, grills are on, vendors are set. Early is the easiest time to get in and the best time to find your people.</p>
+          <p class="slot__p">Killjoy and the parking lot become one space, and the game goes on at the same time. Music, grills, vendors, and the Pack on screens inside. Early is the easiest time to get in and the best time to find your people.</p>
         </div>
       </div>
 
       <div class="slot">
-        <h3 class="slot__line"><span class="slot__time">Until kickoff</span>Tailgate mode</h3>
+        <h3 class="slot__line"><span class="slot__time">Through the game</span>Watch party</h3>
         <div>
-          <p class="slot__p">The outdoor lot running full tilt with DJ sets, food, and the cookout-meets-family-reunion energy this thing is built on. How long this window runs depends on kickoff, so if the tailgate is what you came for, come early.</p>
+          <p class="slot__p">The Pack on screens inside, the lot running full tilt outside with DJ sets, food, and the cookout-meets-family-reunion energy this thing is built on. Watch every snap or never look up, both work.</p>
         </div>
       </div>
     </div>
 
-    <!-- The break in the day -->
+    <!-- The one fork in the day: Carter-Finley, or here. -->
     <div class="gap reveal">
-      <h3 class="slot__line"><span class="slot__time">Kickoff TBA</span>Go to the game. Come back.</h3>
+      <h3 class="slot__line"><span class="slot__time">At the stadium</span>Come straight back</h3>
       <div>
-        <p class="gap__p">Head to Carter-Finley, or stay and watch it with us inside. Your wristband holds your spot either way.</p>
+        <p class="gap__p">Going to Carter-Finley instead? Your wristband has in and out all day, so head back to the block when the final whistle goes. Staying put? It is on every screen inside.</p>
       </div>
     </div>
 
     <div class="reveal">
       <div class="slot">
-        <h3 class="slot__line"><span class="slot__time">Post-game</span>Back to the block</h3>
+        <h3 class="slot__line"><span class="slot__time">~3:30&nbsp;PM</span>Back to the block</h3>
         <div>
-          <p class="slot__p">Games run about three and a half hours, so the block fills back up not long after the final whistle. Indoor lounge vibes at Killjoy, the lot still going outside. Whether you went to the game or watched it here, this is where everybody lands after.</p>
+          <p class="slot__p">Games run about three and a half hours, so the block fills back up from around 3:30. Indoor lounge vibes at Killjoy, the lot still going outside. Whether you went to the game or watched it here, this is where everybody lands after.</p>
         </div>
       </div>
 
@@ -648,7 +648,7 @@ body{background:var(--white);color:var(--ink)}
   <div class="wrap cta__inner">
     <div>
       <div class="cta__title">All damn<br>day <span>party</span></div>
-      <p class="cta__note">One wristband, 2:30&nbsp;PM til 1&nbsp;AM. Capacity is limited and it can sell out, so get yours before the weekend does.</p>
+      <p class="cta__note">One wristband, 12:00&nbsp;PM til 1&nbsp;AM. Capacity is limited and it can sell out, so get yours before the weekend does.</p>
     </div>
     <div class="btnrow">
       <a class="btn btn--dark" href="https://tickets.venuepilot.com/e/the-downtown-block-party-tailgate-2026-10-31-killjoy-cocktail-lounge-raleigh-8c97cf" target="_blank" rel="noopener">Get tickets</a>
@@ -694,7 +694,7 @@ body{background:var(--white);color:var(--ink)}
   "name":"Pack Out State Block Party",
   "alternateName":"This is How We Homecoming Vol. 3",
   "description":"An all-day Homecoming celebration taking over Killjoy and the parking lot: tailgate, watch party, and day party turned night party, with DJ sets running all day, food, and vendors.",
-  "startDate":"2026-10-31T14:30:00-04:00",
+  "startDate":"2026-10-31T12:00:00-04:00",
   "endDate":"2026-11-01T01:00:00-04:00",
   "eventStatus":"https://schema.org/EventScheduled",
   "eventAttendanceMode":"https://schema.org/OfflineEventAttendanceMode",
@@ -798,7 +798,7 @@ body{background:var(--white);color:var(--ink)}
     id:'block-party',
     name:'Pack Out State Block Party',
     tagline:'This is How We Homecoming Vol. 3',
-    start:new Date('2026-10-31T14:30:00-04:00'),
+    start:new Date('2026-10-31T12:00:00-04:00'),
     end:new Date('2026-11-01T01:00:00-04:00'),
     where:'Killjoy Kitchen & Cocktails, 116 N West St, Raleigh, NC',
     url:'https://tickets.venuepilot.com/e/the-downtown-block-party-tailgate-2026-10-31-killjoy-cocktail-lounge-raleigh-8c97cf'
