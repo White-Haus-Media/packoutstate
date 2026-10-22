@@ -280,7 +280,7 @@ literally what a weekend of events looks like.
   │   THE    │  │ CLOCKED  │  │  TALLEY  │  │  BLOCK   │
   │  WARM    │  │   OUT    │  │  TAPES   │  │  PARTY   │
   │   UP     │  │          │  │          │  │          │
-  │ ~~9 PM~~ │  │ ~~4 PM~~ │  │ ~~10 PM~ │  │ ~2:30 PM~│
+  │ ~~9 PM~~ │  │ ~~4 PM~~ │  │ ~~10 PM~ │  │ ~12 PM~~ │
   ╰──────────╯  ╰──────────╯  ╰──────────╯  ╰──────────╯
    RSVP free     No ticket     Sept 1        Sept 1
 ```

@@ -4,7 +4,7 @@ NC State Homecoming 2026 event site. Four events across three days, run by
 Colton Palmer. The site sells tickets through outside ticketing links.
 
 Live at packoutstate.com. Repo: github.com/White-Haus-Media/packoutstate.
-Local copy: ~/Desktop/Claude/packoutstate (the only one, see below).
+Local copy: ~/Projects/clients/packoutstate (the only one, see below).
 
 ## What it is built with
 
@@ -155,15 +155,18 @@ These came from Colton and are not up for reinterpretation.
   "Tickets on sale now" plus the link.
 - **No em dashes in any page copy.** Rewrite as commas or full stops. Do not
   swap in another symbol.
-- **No kickoff time, not even an estimate.** The conference has not released
-  it. The Block Party says so plainly and the schedule reads "Until kickoff"
-  and "Kickoff TBA". When the time is released, four things change: the
-  notice at the top of the run of show, the kickoff row, the tailgate row,
-  and the `FIXTURES` entry near the top of the script in index.html, which
-  currently reads "Time TBA".
-  That `FIXTURES` array holds schedule entries that are not our ticketed
-  events, such as the game itself. They show in the weekend overview only,
-  never as an event card, and they lead their day.
+- **Kickoff is 12:00 PM ET**, announced Oct 2026. NC State vs California at
+  Carter-Finley. It was TBA for most of the build, so if you find "Kickoff
+  TBA", "Until kickoff" or "Time TBA" anywhere, it is stale, fix it.
+  The Block Party doors moved to 12:00 PM at the same time, so doors and
+  kickoff are the same moment. There is no tailgate window before the game.
+  The run of show opens as a watch party, the lot runs through the game, and
+  the block fills back up from around 3:30. Do not reinstate a pre-game
+  tailgate row; it would describe a window that does not exist.
+  The `FIXTURES` array near the top of the script in index.html holds
+  schedule entries that are not our ticketed events, such as the game
+  itself. They show in the weekend overview only, never as an event card,
+  and they lead their day.
 - **The House of Art street address stays off the site.** The venue name is
   announced, the address is not. There is no address in the markup, no map
   link, and the structured data carries city and state only. When it is
@@ -216,7 +219,7 @@ optimised derivatives in assets/ and keep originals elsewhere.
 There used to be two clones of this repo, one in Downloads and one in
 Documents/GitHub. Work happened in both and they drifted a month apart, which
 nearly wiped the mixtape page off the live site during a deploy. There is now
-one copy, at ~/Desktop/Claude/packoutstate. Keep it that way, and push to
+one copy, at ~/Projects/clients/packoutstate. Keep it that way, and push to
 GitHub at the end of a session rather than letting a local copy run ahead.
 
 ## Previewing and publishing
