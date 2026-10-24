@@ -4,6 +4,10 @@ NC State Homecoming 2026 event site. Four events across three days, run by
 Colton Palmer. The site sells tickets through outside ticketing links.
 
 Live at packoutstate.com. Repo: github.com/White-Haus-Media/packoutstate.
+The site's real address is https://www.packoutstate.com. The bare domain
+redirects there (a Vercel domain setting). Every full URL in the code, such as
+canonical tags, share images, structured data, calendar exports and booking
+emails, uses the www address so nobody goes through the redirect.
 Local copy: ~/Projects/clients/packoutstate (the only one, see below).
 
 ## What it is built with
@@ -15,9 +19,18 @@ Do not introduce React, a static site generator, Tailwind, npm packages or a
 build pipeline without asking first.
 
 Display font is Field Gothic Condensed Bold, loaded from Colton's Adobe Fonts
-web kit `pfm7vyg` (approved by Colton Oct 2026, replacing Anton). Archivo for
-everything else comes from Google Fonts. The mixtape page also loads its own
-kit `fir6kvv`. HQ uses plain system fonts.
+web kit `pfm7vyg` (approved by Colton Oct 2026, replacing Anton). The mixtape
+page also loads its own kit `fir6kvv`. HQ uses plain system fonts.
+
+Adobe Fonts stays on Adobe's servers, because its license does not allow
+self-hosting. Everything else is self-hosted in `assets/fonts/` (Oct 2026,
+for speed), with the SIL OFL license files beside them:
+- Archivo for body text. One variable file per character set covers weights
+  400 to 800. Each public page declares it in a small `<style>` block in the
+  `<head>` and preloads `archivo-latin.woff2`.
+- DSEG7 Classic Bold for the home page countdown digits only.
+Do not add Google Fonts or jsDelivr links back. A new weight of Archivo
+needs no new file; a new font family gets its own files in `assets/fonts/`.
 
 ## Layout of the folder
 
@@ -42,6 +55,11 @@ The home page does not use css/site.css. It keeps its own styles inline, on
 purpose, so editing it cannot break the event pages.
 
 ## Home page content
+
+The hero text (`[data-animate]`) starts hidden and fades in as soon as the
+page markup is ready (DOMContentLoaded). It used to wait for the window
+`load` event, which held it back until every image, font and the contact
+form widget had loaded, about 6 seconds on a phone. Keep it off `load`.
 
 All event content lives in an `EVENTS` array near the top of the `<script>`
 in index.html, along with `EVENT_START` and `EVENT_END` for the countdown.
@@ -79,6 +97,13 @@ The plan had been to drop it after submissions closed (Sunday, Oct 25,
 untouched and still live at its own URL, it is only unlinked from the
 headers. Putting the link back is one line per page if that was not the
 intent.
+
+"State" in the wordmark uses `--red-bright` (#FF3B30) on all three header
+copies. Plain `--red` (#CC0000) is too dark to read on the near-black header.
+
+Every public page links the favicon: a white S on a solid #CC0000 square,
+`favicon.ico`, `favicon.svg` and `apple-touch-icon.png` at the site root.
+A new public page needs the same three `<link>` tags.
 
 Every footer has an HQ link (`/hq`, nofollow) so partners can reach the
 dashboard from the site.
