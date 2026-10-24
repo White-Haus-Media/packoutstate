@@ -63,7 +63,7 @@ module.exports = async (req, res) => {
 
   const when = prettyTime(out.starts_at);
   const arrive = arrivalTime(out.starts_at);
-  const site = 'https://packoutstate.com';
+  const site = 'https://www.packoutstate.com';
   const manage = `${site}/clocked-out/manage?t=${out.token}`;
   const share = `${site}/clocked-out`;
 

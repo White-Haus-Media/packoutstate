@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pack Out State · NC State Homecoming 2026</title>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="description" content="Pack Out State: an elevated NC State Homecoming weekend. The warm up, the block party, and everything in between. Get your tickets.">
 
 <!-- Social preview (Open Graph) -->
@@ -12,16 +15,21 @@
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#0B0B0C">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://use.typekit.net" crossorigin>
-<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="preconnect" href="https://challenges.cloudflare.com">
 <!-- Hero photo is a CSS background and the largest thing on first paint -->
 <link rel="preload" as="image" href="hero-carter-finley.jpg" fetchpriority="high">
 <link rel="stylesheet" href="https://use.typekit.net/pfm7vyg.css">
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/dseg@0.46.0/css/dseg.css" rel="stylesheet">
+<link rel="preload" href="/assets/fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+/* Archivo, self-hosted (SIL OFL, see assets/fonts/OFL-Archivo.txt). Variable font, one file covers 400 to 800. */
+@font-face{font-family:'Archivo';font-style:normal;font-weight:400 800;font-display:swap;src:url('/assets/fonts/archivo-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Archivo';font-style:normal;font-weight:400 800;font-display:swap;src:url('/assets/fonts/archivo-latin.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+</style>
+<style>
+/* DSEG7 Classic Bold, self-hosted (SIL OFL, see assets/fonts/OFL-DSEG.txt). Countdown digits only. */
+@font-face{font-family:'DSEG7-Classic';font-style:normal;font-weight:700;font-display:swap;src:url('/assets/fonts/DSEG7Classic-Bold.woff2') format('woff2')}
+</style>
 
 <style>
 :root{
@@ -99,7 +107,7 @@ a,button,summary,label{touch-action:manipulation;-webkit-tap-highlight-color:rgb
   font-family:var(--display);font-size:1.05rem;letter-spacing:.04em;
   text-transform:uppercase;white-space:nowrap;text-decoration:none;
 }
-.nav__brand span{color:var(--red)}
+.nav__brand span{color:var(--red-bright)}
 .nav__days{
   display:flex;gap:8px;margin-left:auto;overflow-x:auto;
   scrollbar-width:none;-ms-overflow-style:none;
@@ -925,7 +933,7 @@ const esc = (s)=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&g
    the display 'time' string can't be parsed reliably because most of
    these events cross midnight.
    ================================================================ */
-const SITE = 'https://packoutstate.com/';
+const SITE = 'https://www.packoutstate.com/';
 const hasTimes = e => !!(e.start && e.end);
 
 /* ICS wants UTC basic format: 20261030T010000Z */
@@ -1259,14 +1267,17 @@ const io = new IntersectionObserver((entries)=>{
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
 // ---- Hero load-in sequence ----
-window.addEventListener('load', ()=>{
+// Starts as soon as the markup is ready. Waiting for 'load' held the hero
+// text hidden until every image, font and the form widget had finished.
+function heroIn(){
   const items=[...document.querySelectorAll('[data-animate]')];
   if(matchMedia('(prefers-reduced-motion: reduce)').matches){ items.forEach(el=>{el.style.opacity=1;el.style.transform='none';}); return; }
   items.forEach((el,i)=>{
     el.style.transition='opacity .6s ease, transform .6s ease';
     setTimeout(()=>{ el.style.opacity=1; el.style.transform='none'; }, 120*i);
   });
-});
+}
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', heroIn); else heroIn();
 
 // ---- Scrollspy: highlight active day in rail ----
 const dayAnchors = grouped.map(d=>document.getElementById('day-'+d.key)).filter(Boolean);

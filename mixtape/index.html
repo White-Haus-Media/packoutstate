@@ -4,12 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Talley Mixtape · Pack Out State</title>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="description" content="Built from the songs that made Talley move. What song takes you back?">
 <meta property="og:title" content="The Talley Mixtape · Pack Out State">
 <meta property="og:description" content="Built from the songs that made Talley move. What song takes you back?">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://packoutstate.com/mixtape">
-<meta property="og:image" content="https://packoutstate.com/mixtape/og.jpg">
+<meta property="og:url" content="https://www.packoutstate.com/mixtape">
+<meta property="og:image" content="https://www.packoutstate.com/mixtape/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
@@ -17,9 +20,12 @@
 <link rel="preconnect" href="https://use.typekit.net" crossorigin>
 <link rel="stylesheet" href="https://use.typekit.net/fir6kvv.css">
 <link rel="stylesheet" href="https://use.typekit.net/pfm7vyg.css">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700&display=swap" rel="stylesheet">
+<link rel="preload" href="/assets/fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+/* Archivo, self-hosted (SIL OFL, see assets/fonts/OFL-Archivo.txt). Variable font, one file covers 400 to 800. */
+@font-face{font-family:'Archivo';font-style:normal;font-weight:400 800;font-display:swap;src:url('/assets/fonts/archivo-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Archivo';font-style:normal;font-weight:400 800;font-display:swap;src:url('/assets/fonts/archivo-latin.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+</style>
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <style>
 :root{
@@ -29,6 +35,7 @@
   --char:#272727;
   --muted:#5C5A56;
   --red:#CC0000;
+  --red-bright:#FF3B30;  /* red text on dark, same value as index.html and css/site.css */
   --red-deep:#A30000;
   --line:#D9D3C7;
   --display:"field-gothic-xxcondensed", "Arial Narrow", Impact, sans-serif;
@@ -59,7 +66,7 @@ a,button,label{touch-action:manipulation;-webkit-tap-highlight-color:rgba(204,0,
 .nav{position:sticky;top:0;z-index:50;background:rgba(11,11,12,.82);-webkit-backdrop-filter:saturate(140%) blur(10px);backdrop-filter:saturate(140%) blur(10px);border-bottom:1px solid rgba(255,255,255,.12);color:#fff}
 .nav__inner{display:flex;align-items:center;gap:24px;padding:8px var(--pad);max-width:1200px;margin-inline:auto}
 .nav__brand{font-family:'field-gothic-condensed',Impact,sans-serif;font-weight:700;font-size:1.05rem;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap;text-decoration:none;color:#fff;padding-block:8px}
-.nav__brand span{color:var(--red)}
+.nav__brand span{color:var(--red-bright)}
 .nav__days{display:flex;gap:8px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
 .nav__days::-webkit-scrollbar{display:none}
 .day-pill{border:1px solid rgba(255,255,255,.12);color:#9A9CA1;font-family:'Archivo',system-ui,sans-serif;font-weight:700;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;padding:8px 12px;border-radius:2px;white-space:nowrap;text-decoration:none;line-height:1.5;transition:color .2s,border-color .2s}
@@ -805,7 +812,7 @@ a,button,label{touch-action:manipulation;-webkit-tap-highlight-color:rgba(204,0,
   }
 
   $("#copy-link").addEventListener("click", function () {
-    var link = "https://packoutstate.com/mixtape";
+    var link = "https://www.packoutstate.com/mixtape";
     var ok = function () { $("#copy-ok").textContent = "Copied."; };
     if (navigator.clipboard) navigator.clipboard.writeText(link).then(ok, function () { prompt("Copy this link:", link); });
     else prompt("Copy this link:", link);
