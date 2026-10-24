@@ -268,6 +268,12 @@ Publish to packoutstate.com. Colton runs this, Claude is not permitted to:
 npx vercel@latest deploy --prod --scope colton-palmers-projects
 ```
 
+**Pushing to `main` on GitHub also publishes to packoutstate.com.** The Vercel
+project is connected to the repo, so every push to main goes live within a
+minute, with no separate deploy step (confirmed Oct 24 2026). Treat a push to
+main exactly like the publish command above: only when Colton asks for it.
+Pushing any other branch makes a private preview, never a live change.
+
 There is also a local preview at http://localhost:4173 using
 `python3 -m http.server 4173`. The event pages use root absolute paths, so
 opening the files directly with file:// will not load the CSS.
