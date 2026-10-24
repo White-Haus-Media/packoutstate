@@ -70,8 +70,15 @@ The header CSS lives in three places, because the home page and the mixtape
 page keep their own styles: `index.html`, `css/site.css`, `mixtape/index.html`.
 Change all three together.
 
-**Remove the Mixtape link from row 2 after submissions close (Sunday, Oct 25,
-11:59 PM).** It is the last link in each page's header markup.
+**The Mixtape link is gone from row 2.** Removed Oct 22 2026 at Colton's
+request, from all six headers: index.html, the three event pages,
+clocked-out/manage and mixtape itself. Row 2 is now Clocked Out, Talley
+Tapes, Block Party.
+The plan had been to drop it after submissions closed (Sunday, Oct 25,
+11:59 PM), so this went three days early. The `/mixtape` page itself is
+untouched and still live at its own URL, it is only unlinked from the
+headers. Putting the link back is one line per page if that was not the
+intent.
 
 Every footer has an HQ link (`/hq`, nofollow) so partners can reach the
 dashboard from the site.
