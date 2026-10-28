@@ -611,8 +611,14 @@ body{background:var(--white);color:var(--ink)}
       return;
     }
     if(data.closes_at){
-      $('#closesNote').textContent = 'Reservations close ' + new Date(data.closes_at)
-        .toLocaleDateString('en-US',{timeZone:'America/New_York',weekday:'long',month:'long',day:'numeric'}) + '.';
+      // The deadline can fall on the day of the event, where a bare date
+      // reads as all day and somebody turns up at 2 PM for a noon cutoff.
+      // Show the time with it.
+      var closes = new Date(data.closes_at);
+      $('#closesNote').textContent = 'Reservations close ' + closes
+        .toLocaleDateString('en-US',{timeZone:'America/New_York',weekday:'long',month:'long',day:'numeric'})
+        + ' at ' + closes
+        .toLocaleTimeString('en-US',{timeZone:'America/New_York',hour:'numeric',minute:'2-digit'}) + '.';
     }
   }
 
