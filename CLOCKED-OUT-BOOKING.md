@@ -85,7 +85,10 @@ their own tab, so the team can see who is shooting.
 
 ## Answered
 
-1. **Free.** No ticket or purchase required.
+1. **Free.** No ticket or purchase required. Confirmed again on
+   Oct 28 2026 for the OasisTix RSVP link added that week: it costs
+   nothing either, so the "Free. You only pay for what you drink"
+   line on the page covers both ways in.
 2. **Reservations close two days before**, so end of day Wed Oct 28.
    Assuming 11:59 PM unless told otherwise.
 3. **Emails send from info@dccsocial.com**, and team notifications go to
@@ -94,7 +97,9 @@ their own tab, so the team can see who is shooting.
 5. **No photographer or videographer names** on the page for now.
 6. **Call it a content shoot.** Guests are not told photo versus video.
 7. **Nothing about what to wear or bring** for now.
-8. **Open all 18 reservations.**
+8. **Open all 18 reservations.** Superseded on Oct 28 2026, when the
+   4 PM hour and the second lane came out and this became 9. See
+   Sessions above.
 9. **Live list** lives on an internal page behind a shared password that
    Colton sets, plus the email notifications.
 
