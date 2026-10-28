@@ -2,19 +2,22 @@
 
 Working spec. Nothing built yet.
 
-Fri, Oct 30 - 4:00 PM to 8:00 PM - District Bar & Lounge,
+Fri, Oct 30 - 5:00 PM to 8:00 PM - District Bar & Lounge,
 222 Glenwood Ave, Apt 109, Raleigh NC.
 
 ## Decided so far
 
-**Sessions.** 20 minute blocks, 4:00 PM through 7:40 PM start times.
-The first six blocks (4:00, 4:20, 4:40, 5:00, 5:20, 5:40) take two groups
-each, because a second photographer or videographer is on, and that also
-absorbs early arrivals. The last six blocks (6:00 through 7:40) take one
-group each.
+**Sessions.** 20 minute blocks, 5:00 PM through 7:40 PM start times, one
+group each. That is **9 reservations**.
 
-That works out to 12 + 6 = **18 reservations**. Colton asked for 15 or 16,
-so this has room to spare. Open question below on whether to cap it lower.
+Changed Oct 28 2026 at Colton's request. It used to start at 4:00 PM, and
+the first six blocks (4:00 through 5:40) each took two groups, because a
+second shooter was on and the doubling also absorbed early arrivals. That
+came to 18. Colton cut the 4 PM hour and the second lane on the same day,
+so every time now holds exactly one group. The nine slots removed were all
+empty, and the four reservations already taken were untouched. The event
+start moved to 5:00 PM at the same time, so doors and the first shoot are
+now the same moment.
 
 **Group size.** Six is ideal. Up to 8 or 10 is fine if they tell us in
 advance, so anything over 6 asks for a heads up on the form.
@@ -56,7 +59,7 @@ Approved wording, with the credit line removed:
 >   before it is published.
 > - Approved content is shared with DCC Social and District Bar & Lounge
 >   for promotional use.
-> - Call time is 3:30 PM for setup. The event runs 4:00 to 8:00 PM.
+> - Call time is 4:30 PM for setup. The event runs 5:00 to 8:00 PM.
 >
 > [ ] I have read and agree to the above.
 
@@ -66,15 +69,16 @@ realistic. Colton approved this version on 2026-10-05.
 **Caps.** 3 photographers and 3 videographers, counted separately. When one
 role fills, that role closes and the other stays open.
 
-**Hours.** The whole window. 3:30 PM call time through 8:00 PM, same for
-everyone.
+**Hours.** The whole window. 4:30 PM call time through 8:00 PM, same for
+everyone. The call time is half an hour before the first session, so it
+moved with the start time on Oct 28 2026.
 
 **What we collect.** Name, email, phone, role (photo or video), and an
 optional link for Instagram, a website or a portfolio. Nothing is blocked if
 they skip the link.
 
 **On submit.** Confirmed automatically, with a "you are good to go" email
-from info@dccsocial.com carrying the 3:30 PM call time and the address.
+from info@dccsocial.com carrying the 4:30 PM call time and the address.
 
 **Team view.** Creators show on the same live list as guest bookings, on
 their own tab, so the team can see who is shooting.
