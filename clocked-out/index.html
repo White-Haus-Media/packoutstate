@@ -162,6 +162,7 @@ body{background:var(--white);color:var(--ink)}
 .roleleft{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;font-weight:800;color:var(--red-bright)}
 .roleleft:empty{display:none}
 </style>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <body>
 
@@ -419,6 +420,9 @@ body{background:var(--white);color:var(--ink)}
               </label>
               <p class="field__error" id="err-crew-agreed" hidden></p>
             </div>
+
+            <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+            <div class="cf-turnstile" data-sitekey="0x4AAAAAAFFpKUeNszgP2VMx" data-theme="dark" style="margin:4px 0 14px"></div>
 
             <button class="btn btn--primary btn--block" type="submit" id="crewBtn">Sign me up</button>
           </form>
@@ -737,17 +741,22 @@ body{background:var(--white);color:var(--ink)}
       ['agreed', function(el){ return el.checked ? '' : 'Please agree to the terms.'; }]
     ]);
     if(firstBad){ firstBad.focus(); return; }
+    var tokenEl = f.querySelector('[name="cf-turnstile-response"]');
+    var token = tokenEl ? tokenEl.value : '';
+    if(!token){ showError($('#crewError'), 'Please complete the check that you are a real person.'); return; }
 
     btn.disabled = true; btn.textContent = 'Signing you up\u2026';
     fetch('/api/creator', {
       method:'POST', headers:{'Content-Type':'application/json'},
       body: JSON.stringify({ name:f.name.value, email:f.email.value, phone:f.phone.value,
-                             role:f.role.value, link:f.link.value, agreed:true })
+                             role:f.role.value, link:f.link.value, agreed:true,
+                             website:f.website.value, 'cf-turnstile-response':token })
     }).then(function(r){ return r.json().then(function(d){ return {ok:r.ok, d:d}; }); })
       .then(function(res){
         if(!res.ok){
           showError($('#crewError'), res.d.error || 'Could not complete that signup.');
           btn.disabled = false; btn.textContent = 'Sign me up';
+          if(window.turnstile) try { window.turnstile.reset(); } catch(e2){}
           loadSlots();
           return;
         }
@@ -758,6 +767,7 @@ body{background:var(--white);color:var(--ink)}
       .catch(function(){
         showError($('#crewError'), 'Something went wrong. Please try again.');
         btn.disabled = false; btn.textContent = 'Sign me up';
+        if(window.turnstile) try { window.turnstile.reset(); } catch(e2){}
       });
   });
 

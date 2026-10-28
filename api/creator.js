@@ -22,6 +22,24 @@ module.exports = async (req, res) => {
   try { body = await readBody(req); }
   catch { return res.status(400).json({ error: 'Could not read that' }); }
 
+  // Honeypot. Bots fill hidden fields; tell them it worked and store nothing.
+  if (body.website) return res.status(200).json({ ok: true, role: 'photo' });
+
+  // Real-person check (Cloudflare Turnstile), verified on the server.
+  const ip = (req.headers['x-forwarded-for'] || '').split(',')[0].trim();
+  const verify = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      secret: process.env.TURNSTILE_SECRET_KEY,
+      response: body['cf-turnstile-response'] || '',
+      remoteip: ip
+    })
+  }).then(r => r.json()).catch(() => ({ success: false }));
+  if (!verify.success) {
+    return res.status(403).json({ error: 'Could not confirm you are a real person. Please try the check again.' });
+  }
+
   const name  = clean(body.name, 80);
   const email = clean(body.email, 120).toLowerCase();
   const phone = clean(body.phone, 30);
