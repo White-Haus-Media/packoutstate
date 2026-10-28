@@ -208,7 +208,7 @@ always know where you are in the weekend.
 │         │  │ flyer  │  [ RSVP free ]  [ Details ]
 │         │  └────────┘
 │         │
-│ FRI ────■  4:00 PM – 8:00 PM
+│ FRI ────■  5:00 PM – 8:00 PM
 │         │  CLOCKED OUT
 ```
 

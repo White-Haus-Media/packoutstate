@@ -850,11 +850,12 @@ const EVENTS = [
     flyer:'flyer-warm-up.jpg', flyerW:820, flyerH:1093
   },
   {
-    id:'clocked-out', day:'fri', time:'4:00 PM – 8:00 PM',
-    // RSVP sends people to the booking page. The card deliberately shows RSVP
-    // rather than "Full event page", because reserving a time is the point.
-    rsvpUrl:'/clocked-out',
-    start:'2026-10-30T16:00:00-04:00', end:'2026-10-30T20:00:00-04:00',
+    id:'clocked-out', day:'fri', time:'5:00 PM – 8:00 PM',
+    // Two ways in, so each button says which is which. The first goes to the
+    // booking page, because reserving a time is still the point. The second
+    // is for anyone who wants the night without a photo session.
+    rsvpUrl:'/clocked-out', rsvpLabel:'Reserve a photo time',
+    start:'2026-10-30T17:00:00-04:00', end:'2026-10-30T20:00:00-04:00',
     name:'Clocked Out', tagline:'It\u2019s a Photoshoot',
     desc:[
       'Official Alumni kick-off. Get checked into your rooms, meet the crew at District, and capture the picture that belongs in this year\u2019s homecoming album. Reserve a 20-minute photo session for you and your friends with a professional photographer, then stay for a glass of wine, a craft cocktail, or a few shots as we kick off homecoming weekend',
@@ -862,7 +863,9 @@ const EVENTS = [
     ],
     venue:'District Bar & Lounge', address:'222 Glenwood Ave, Apt 109, Raleigh, NC',
     mapUrl:'https://www.google.com/maps/search/?api=1&query=District+Bar+%26+Lounge+222+Glenwood+Ave+Apt+109+Raleigh+NC',
-    detailsUrl:null, ticketsUrl:null,
+    detailsUrl:null,
+    ticketsUrl:'https://checkout.oasistix.com/e/clocked-out-it-s-a-photo-shoot-2026-10-30-district-raleigh-fab389',
+    ticketsLabel:'RSVP ONLY',
     flyer:'flyer-clocked-out.jpg', flyerW:820, flyerH:1093
   },
   {
@@ -1121,7 +1124,7 @@ $('#events').innerHTML = grouped.map(d=>{
     // place for the full details, so it takes the slot the outbound
     // "Event details" link would otherwise occupy.
     const ctas = [
-      e.rsvpUrl ? `<a href="${esc(e.rsvpUrl)}" class="btn btn--primary">RSVP</a>` : '',
+      e.rsvpUrl ? `<a href="${esc(e.rsvpUrl)}" class="btn btn--primary">${esc(e.rsvpLabel || 'RSVP')}</a>` : '',
       e.ticketsUrl ? `<a href="${esc(e.ticketsUrl)}" class="btn btn--primary" target="_blank" rel="noopener">${esc(e.ticketsLabel || 'Get tickets')}</a>` : '',
       e.pageUrl
         ? `<a href="${esc(e.pageUrl)}" class="btn btn--dark">Full event page</a>`

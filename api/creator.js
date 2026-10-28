@@ -12,7 +12,7 @@ const AGREEMENT = [
   'This is an unpaid volunteer role. By signing up you agree that:',
   'All photo and video content from this event is reviewed and approved before it is published.',
   'Approved content is shared with DCC Social and District Bar & Lounge for promotional use.',
-  'Call time is 3:30 PM for setup. The event runs 4:00 to 8:00 PM.'
+  'Call time is 4:30 PM for setup. The event runs 5:00 to 8:00 PM.'
 ].join(' ');
 
 module.exports = async (req, res) => {
@@ -80,10 +80,10 @@ module.exports = async (req, res) => {
       subject: 'You are good to go for Clocked Out',
       html: `<div style="font-family:system-ui,-apple-system,sans-serif;font-size:15px;line-height:1.55;color:#111">
         <h2 style="margin:0 0 14px">You are confirmed to shoot Clocked Out</h2>
-        <p style="margin:0 0 6px"><strong>Call time:</strong> 3:30 PM for setup, Friday October 30</p>
-        <p style="margin:0 0 6px"><strong>Event runs:</strong> 4:00 PM to 8:00 PM</p>
+        <p style="margin:0 0 6px"><strong>Call time:</strong> 4:30 PM for setup, Friday October 30</p>
+        <p style="margin:0 0 6px"><strong>Event runs:</strong> 5:00 PM to 8:00 PM</p>
         <p style="margin:0 0 16px"><strong>Where:</strong> ${VENUE}</p>
-        <p style="margin:0 0 16px">Bring your own gear. Sessions run back to back in 20 minute blocks, so arriving at 3:30 gives us time to set up before the first group.</p>
+        <p style="margin:0 0 16px">Bring your own gear. Sessions run back to back in 20 minute blocks, so arriving at 4:30 gives us time to set up before the first group.</p>
         <p style="margin:0 0 6px;color:#666;font-size:13px">What you agreed to when you signed up:</p>
         <p style="margin:0 0 16px;color:#666;font-size:13px">${AGREEMENT}</p>
         <p style="margin:0">Questions, reply to this email.</p>
