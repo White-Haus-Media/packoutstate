@@ -83,7 +83,7 @@ module.exports = async (req, res) => {
       subject: `You are booked for Clocked Out, ${when}`,
       html: `<div style="font-family:system-ui,-apple-system,sans-serif;font-size:15px;line-height:1.55;color:#111">
         <h2 style="margin:0 0 14px">Clocked Out, you are in</h2>${guestList}
-        <p style="margin:0 0 6px">Tell your group: <a href="${share}">${share}</a></p>
+        <p style="margin:0 0 6px">Bringing more people? Forward this email. Anyone can come hang out without booking a session, they just need to RSVP, and that is free too: <a href="${share}">${share}</a></p>
         <p style="margin:24px 0 0;color:#666;font-size:13px">Pack Out State, NC State Homecoming 2026</p>
       </div>`
     });
