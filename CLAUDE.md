@@ -299,15 +299,24 @@ it draws.
 shows. `pos_hq_mixtape` is read only and its SQL is in
 `supabase/hq-mixtape.sql`.
 
-Ticket sales come from OasisTix (VenuePilot underneath). Colton's OasisTix
+Ticket sales came from OasisTix (VenuePilot underneath). Colton's OasisTix
 login cannot create API keys and has no Ticket Counts share link, and
-VenuePilot's public API has no sales data. So readings land in
+VenuePilot's public API has no sales data. So readings landed in
 `packoutstate.ticket_counts` two ways, both through `pos_tickets_record`:
-- A scheduled Claude task, `pos-ticket-sync` (9am, 1pm, 5pm, 9pm), reads the
-  OasisTix events list in Colton's Chrome and saves the numbers. It needs the
-  Mac on, the Claude app open, and Chrome logged in to OasisTix. It never logs
-  in itself.
-- The "Update counts by hand" form on HQ, as a backup.
+- A scheduled Claude task, `pos-ticket-sync` (9am, 1pm, 5pm, 9pm), read the
+  OasisTix events list in Colton's Chrome and saved the numbers. It needed the
+  Mac on, the Claude app open, and Chrome logged in to OasisTix. It never
+  logged in itself.
+  **Deleted Nov 1 2026**, the event weekend over, at Colton's request. It is
+  gone from the scheduler, so no new readings are coming in and HQ shows its
+  "over 12 hours old" warning from then on. That is expected now, not a fault.
+  The prompt was left at
+  `~/.claude/scheduled-tasks/pos-ticket-sync/SKILL.md`, so a future event can
+  have the same task back without rebuilding it.
+- The "Update counts by hand" form on HQ, which still works and is now the
+  only way a number gets in.
+Every reading taken through Homecoming 2026 is still in the table, the last
+one on Nov 1 2026 at 5:37 PM, so HQ keeps showing the final numbers.
 HQ shows the latest reading per event (`pos_hq_tickets`), when it was taken,
 and warns when it is over 12 hours old. Dollar totals show here because HQ is
 private; the no-prices rule is for public pages. SQL is in
