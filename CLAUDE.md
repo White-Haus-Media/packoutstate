@@ -77,8 +77,8 @@ the mixtape page) carries the same two-row header, set in Oct 2026:
   tickets, or Reserve a time on Clocked Out, none on the manage page. Below
   660px wide there is no room, so the button is hidden and each page's hero
   button carries it.
-- Row 2: links to Clocked Out, Talley Tapes, Block Party and Mixtape, shown
-  at every width, the current page underlined.
+- Row 2: links to Clocked Out, Talley Tapes and Block Party, shown at
+  every width, the current page underlined.
 All header text (date boxes, page links, button) is white and 12px on every
 page; only the wordmark is larger. Colton set this, so do not grey it back.
 On the home page the date boxes scroll to that day. Everywhere else they link
