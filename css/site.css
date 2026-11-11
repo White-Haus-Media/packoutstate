@@ -140,38 +140,11 @@ a{color:inherit}
   font-family:var(--display);font-size:1.05rem;letter-spacing:.04em;
   text-transform:uppercase;white-space:nowrap;text-decoration:none;font-weight:700}
 .nav__brand span{color:var(--red-bright)}
-.nav__days{
-  display:flex;gap:8px;margin-left:auto;overflow-x:auto;
-  scrollbar-width:none;-ms-overflow-style:none;
-}
-.nav__days::-webkit-scrollbar{display:none}
-.day-pill{
-  border:1px solid var(--line);background:transparent;color:var(--ash);
-  font-family:var(--sans);font-weight:700;font-size:.7rem;letter-spacing:.12em;
-  text-transform:uppercase;padding:8px 16px;border-radius:2px;cursor:pointer;
-  white-space:nowrap;transition:color .2s, border-color .2s, background-color .2s;
-}
-.day-pill small{display:block;font-weight:500;font-size:.62rem;color:var(--ash);letter-spacing:.06em;margin-top:2px}
-.day-pill:hover{color:var(--white);border-color:var(--ash)}
-.day-pill.is-active{background:var(--red);border-color:var(--red);color:var(--white)}
-.day-pill.is-active small{color:rgba(255,255,255,.85)}
-
-.nav__cta{
-  display:none;align-items:center;justify-content:center;min-height:44px;
-  background:var(--red);color:var(--white);border:none;
-  font-family:var(--sans);font-weight:700;font-size:.72rem;letter-spacing:.1em;
-  text-transform:uppercase;padding:0 16px;border-radius:2px;cursor:pointer;
-  white-space:nowrap;text-decoration:none;
-}
-.nav__cta:hover{background:var(--red-deep)}
-.day-pill{text-decoration:none;font-size:12px;letter-spacing:.08em;display:inline-block;line-height:1.3}
 .nav__brand{padding-block:8px}
-.day-pill small{font-size:12px;letter-spacing:.08em}
-@media(max-width:479px){ .day-pill{padding:8px} }
 /* Row 2 of the header: the page links, shown at every width so the event
-   pages are reachable on a phone. Same markup and rules on every page. On
-   phones there is no room for the red button next to the brand and the
-   three date boxes, so it is left to the button in each page's hero. */
+   pages are reachable on a phone. Same markup and rules on every page.
+   Row 1 is the wordmark only: the date boxes and red button came off
+   after the event weekend (Nov 2026). */
 .nav__sub{border-top:1px solid var(--line)}
 .nav__subin{display:flex;align-items:center;gap:16px;max-width:var(--wrap);margin-inline:auto;padding:0 var(--pad)}
 .nav__pages{display:flex;gap:24px;flex:1;min-width:0;margin:0;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}
@@ -183,9 +156,7 @@ a{color:inherit}
 }
 .nav__pages a:hover{color:#fff}
 .nav__pages a[aria-current="page"]{color:#fff;border-bottom-color:#fff}
-@media(min-width:660px){ .nav__cta--top{display:inline-flex} }
 @media(max-width:659px){
-  .nav__cta--top{display:none !important}
   .nav__inner{padding:8px 16px;gap:12px}
   .nav__subin{padding:0 16px}
   .nav__pages{justify-content:space-between;gap:8px}
@@ -194,9 +165,6 @@ a{color:inherit}
 @media(max-width:389px){
   .nav__pages{gap:4px}
   .nav__pages a{letter-spacing:0}
-  .nav__days{gap:6px}
-  .day-pill,.day-pill small{letter-spacing:.02em}
-  .day-pill{padding:8px 6px}
 }
 
 /* ---------- BUTTONS ---------- */
@@ -584,17 +552,13 @@ a{color:inherit}
 /* Header text: white and 12px on every page, set by Colton Oct 2026. Kept
    last in the stylesheet so it wins over the earlier size and color rules.
    The current page keeps a white underline, hover shows a fainter one. */
-.nav__cta{font-size:12px;letter-spacing:.1em}
-.day-pill,.day-pill small{color:#fff}
-.day-pill:hover{border-color:#fff}
 .nav__pages a{color:#fff}
 .nav__pages a:hover{border-bottom-color:rgba(255,255,255,.45)}
 .nav__pages a[aria-current="page"]{border-bottom-color:#fff}
 
 /* Buttons: body-text size and normal case, slimmer than before. Set by
    Colton Oct 2026 ("too bulky"). Kept last so it wins over the earlier
-   button rules. 44px tall is the smallest comfortable tap target. The red
-   header button is .nav__cta, not .btn, and stays at 12px on purpose. */
+   button rules. 44px tall is the smallest comfortable tap target. */
 .btn{font-size:1.05rem;letter-spacing:0;text-transform:none;padding:10px 20px;min-height:44px;line-height:1.2}
 
 /* Instagram button in the footer, same size and shape as the page buttons. */

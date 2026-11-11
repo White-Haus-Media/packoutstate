@@ -72,18 +72,20 @@ page instead of the outside details link.
 
 Every public page (home, the three event pages, the Clocked Out manage page,
 the mixtape page) carries the same two-row header, set in Oct 2026:
-- Row 1: the Pack Out State wordmark ("State" in red), the Thu, Fri and Sat
-  date boxes, and a red button on the right. The button is per page: Get
-  tickets, or Reserve a time on Clocked Out, none on the manage page. Below
-  660px wide there is no room, so the button is hidden and each page's hero
-  button carries it.
+- Row 1: the Pack Out State wordmark ("State" in red), nothing else.
+  **The Thu, Fri and Sat date boxes and the red header button (Get tickets,
+  Reserve a time) were removed Nov 11 2026** at Colton's request, because
+  the event weekend is over and they were stale. Markup, CSS in all three
+  copies, and the home page script that drew and highlighted the date boxes
+  all went. The day sections on the home page (`#day-thu` etc.) are still
+  there. Do not bring the boxes back for a past weekend; a future event
+  would get its own dates.
 - Row 2: links to Clocked Out, Talley Tapes, Block Party and Mixtape, shown
   at every width, the current page underlined.
-All header text (date boxes, page links, button) is white and 12px on every
-page; only the wordmark is larger. Colton set this, so do not grey it back.
-On the home page the date boxes scroll to that day. Everywhere else they link
-to `/#day-thu` and so on, and the home page script jumps there once the day
-sections are drawn.
+All header text (page links) is white and 12px on every page; only the
+wordmark is larger. Colton set this, so do not grey it back.
+The header stays the same black two-row header on every page, including any
+new page such as the planned gallery. Colton confirmed this Nov 2026.
 The header CSS lives in three places, because the home page and the mixtape
 page keep their own styles: `index.html`, `css/site.css`, `mixtape/index.html`.
 Change all three together.
