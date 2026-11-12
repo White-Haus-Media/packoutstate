@@ -16,8 +16,10 @@ Homecoming 2026 is over and the site has been turned over for the year
 between events. Everything from the 2026 weekend build (countdown, lineup
 cards, flyers, calendar export, the Thu/Fri/Sat date boxes, ticket links,
 the Clocked Out booking form and photographer signup) was removed. All of
-it is preserved in git at the tag **`homecoming-2026`**: restore from there
-when next year's dates are set rather than rebuilding.
+it is preserved in git at commit **`1610060`** on main (tag it
+`homecoming-2026` from a local clone: `git tag homecoming-2026 1610060 &&
+git push origin homecoming-2026`). Restore from there when next year's dates
+are set rather than rebuilding. Later mentions of the tag mean this commit.
 
 What the site does now:
 - **Collect a "Get updates" list.** Email plus optional phone, on the home
