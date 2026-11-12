@@ -88,9 +88,16 @@ function arrivalTime(iso) {
   });
 }
 
+// Off-season switch for Clocked Out. While false, new bookings, photographer
+// signups and booking changes are all refused, whatever dates the database
+// holds. Set to true (and load the new slots) when the next event opens.
+const BOOKINGS_OPEN = false;
+const CLOSED_MSG = 'Clocked Out bookings are closed until next Homecoming.';
+
 const VENUE = 'District Bar & Lounge, 222 Glenwood Ave, Apt 109, Raleigh, NC';
 
 module.exports = {
   rpc, sendEmail, readBody, clean, isEmail,
-  prettyTime, arrivalTime, VENUE, TEAM_EMAIL
+  prettyTime, arrivalTime, VENUE, TEAM_EMAIL,
+  BOOKINGS_OPEN, CLOSED_MSG
 };

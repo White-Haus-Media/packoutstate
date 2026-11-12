@@ -3,15 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pack Out State · NC State Homecoming 2026</title>
+<title>Pack Out State · NC State Homecoming in Raleigh</title>
 <link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<meta name="description" content="Pack Out State: an elevated NC State Homecoming weekend. The warm up, the block party, and everything in between. Get your tickets.">
+<meta name="description" content="Pack Out State is NC State Homecoming weekend in Raleigh: The Warm Up, Clocked Out, The Talley Tapes and the Block Party. Back every fall. Get updates for 2027.">
 
 <!-- Social preview (Open Graph) -->
-<meta property="og:title" content="Pack Out State · NC State Homecoming 2026">
-<meta property="og:description" content="An elevated NC State Homecoming weekend.">
+<meta property="og:title" content="Pack Out State · NC State Homecoming in Raleigh">
+<meta property="og:description" content="Four events, one Homecoming weekend, back every fall. Get updates for 2027.">
+<link rel="canonical" href="https://www.packoutstate.com/">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#0B0B0C">
 
@@ -25,10 +26,6 @@
 /* Archivo, self-hosted (SIL OFL, see assets/fonts/OFL-Archivo.txt). Variable font, one file covers 400 to 800. */
 @font-face{font-family:'Archivo';font-style:normal;font-weight:400 800;font-display:swap;src:url('/assets/fonts/archivo-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
 @font-face{font-family:'Archivo';font-style:normal;font-weight:400 800;font-display:swap;src:url('/assets/fonts/archivo-latin.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
-</style>
-<style>
-/* DSEG7 Classic Bold, self-hosted (SIL OFL, see assets/fonts/OFL-DSEG.txt). Countdown digits only. */
-@font-face{font-family:'DSEG7-Classic';font-style:normal;font-weight:700;font-display:swap;src:url('/assets/fonts/DSEG7Classic-Bold.woff2') format('woff2')}
 </style>
 
 <style>
@@ -108,21 +105,6 @@ a,button,summary,label{touch-action:manipulation;-webkit-tap-highlight-color:rgb
   text-transform:uppercase;white-space:nowrap;text-decoration:none;
 }
 .nav__brand span{color:var(--red-bright)}
-.nav__days{
-  display:flex;gap:8px;margin-left:auto;overflow-x:auto;
-  scrollbar-width:none;-ms-overflow-style:none;
-}
-.nav__days::-webkit-scrollbar{display:none}
-.day-pill{
-  border:1px solid var(--line);background:transparent;color:var(--ash);
-  font-family:var(--sans);font-weight:700;font-size:.7rem;letter-spacing:.12em;
-  text-transform:uppercase;padding:8px 16px;border-radius:2px;cursor:pointer;
-  white-space:nowrap;transition:color .2s, border-color .2s, background .2s;
-}
-.day-pill small{display:block;font-weight:500;font-size:.62rem;color:var(--ash);letter-spacing:.06em;margin-top:2px}
-.day-pill:hover{color:var(--white);border-color:var(--ash)}
-.day-pill.is-active{background:var(--red);border-color:var(--red);color:var(--white)}
-.day-pill.is-active small{color:rgba(255,255,255,.85)}
 .nav__cta{
   display:none;background:var(--red);color:var(--white);border:none;
   font-family:var(--sans);font-weight:700;font-size:.72rem;letter-spacing:.1em;
@@ -130,11 +112,12 @@ a,button,summary,label{touch-action:manipulation;-webkit-tap-highlight-color:rgb
   text-decoration:none;align-items:center;
 }
 .nav__cta:hover{background:var(--red-deep)}
-.day-pill{display:inline-block;line-height:1.3}
+.nav__cta--top{margin-left:auto}
 /* Row 2 of the header: the page links, shown at every width so the event
    pages are reachable on a phone. Same markup and rules on every page. On
-   phones there is no room for the red button next to the brand and the
-   three date boxes, so it is left to the button in each page's hero. */
+   phones there is no room for the red button next to the brand, so it is
+   left to the button in each page's hero. The Thu/Fri/Sat date boxes were
+   removed Nov 2026, after the weekend. */
 .nav__sub{border-top:1px solid var(--line)}
 .nav__subin{display:flex;align-items:center;gap:16px;max-width:var(--wrap);margin-inline:auto;padding:0 var(--pad)}
 .nav__pages{display:flex;gap:24px;flex:1;min-width:0;margin:0;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}
@@ -157,9 +140,6 @@ a,button,summary,label{touch-action:manipulation;-webkit-tap-highlight-color:rgb
 @media(max-width:389px){
   .nav__pages{gap:4px}
   .nav__pages a{letter-spacing:0}
-  .nav__days{gap:6px}
-  .day-pill,.day-pill small{letter-spacing:.02em}
-  .day-pill{padding:8px 6px}
 }
 
 /* ---------- HERO ---------- */
@@ -222,56 +202,6 @@ a,button,summary,label{touch-action:manipulation;-webkit-tap-highlight-color:rgb
 .hero__sub .dot{color:var(--red);margin-inline:8px}
 .hero__meta{margin-top:8px;color:var(--ash);font-size:.95rem}
 
-/* countdown — stadium scoreboard */
-.board{margin-top:48px;max-width:680px}
-.board__plate{
-  display:inline-block;background:var(--red);color:var(--white);
-  font-family:var(--display);letter-spacing:.08em;text-transform:uppercase;
-  font-size:clamp(.8rem,2vw,1rem);padding:8px 24px;border-radius:4px 4px 0 0;
-}
-.board__shell{
-  position:relative;overflow:hidden;
-  background:linear-gradient(180deg,#1b1c20,#0d0e10);
-  border:1px solid #35373c;border-radius:0 8px 8px 8px;
-  padding:16px 24px;
-  box-shadow:0 0 0 4px #08090a, 0 26px 60px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.07);
-}
-@media(min-width:768px){ .board__shell{padding:24px 32px} }
-.board__shell::before{ /* LED pixel grid */
-  content:'';position:absolute;inset:0;pointer-events:none;
-  background-image:radial-gradient(rgba(255,255,255,.035) 1px, transparent 1px);
-  background-size:7px 7px;
-}
-.board__legs{display:flex;justify-content:space-evenly;height:26px;padding-inline:15%}
-.board__legs span{width:12px;background:linear-gradient(180deg,#2b2d31,#101113);border-radius:0 0 3px 3px}
-.count{display:flex;align-items:flex-start;gap:8px}
-@media(min-width:768px){ .count{gap:24px} }
-.count__unit{text-align:center}
-.count__num{
-  font-family:'DSEG7-Classic', var(--display), monospace;font-weight:700;
-  font-size:clamp(1.7rem,5.5vw,3.4rem);line-height:1;
-  color:#FF3B30;
-  text-shadow:0 0 5px rgba(255,45,45,.35);
-}
-.count__num.tick{animation:tick .35s ease}
-@keyframes tick{from{transform:translateY(-9px);opacity:0}to{transform:none;opacity:1}}
-.count__colon{
-  font-family:'DSEG7-Classic', var(--display), monospace;font-weight:700;
-  font-size:clamp(1.7rem,5.5vw,3.4rem);line-height:1;align-self:flex-start;
-  color:#FF3B30;text-shadow:0 0 5px rgba(255,45,45,.35);
-  animation:blink 1s steps(2, jump-none) infinite;
-}
-@keyframes blink{50%{opacity:.25}}
-.count__label{
-  font-size:.6rem;letter-spacing:.24em;text-transform:uppercase;
-  color:#85888f;margin-top:8px;font-weight:700;
-}
-.count__live{
-  font-family:var(--display);font-size:clamp(1.7rem,5vw,3rem);
-  text-transform:uppercase;color:#FF3B30;line-height:1;
-  text-shadow:0 0 6px rgba(255,45,45,.35);
-}
-
 .btnrow{display:flex;flex-wrap:wrap;gap:16px;margin-top:48px}
 .btn{
   font-family:var(--sans);font-weight:700;font-size:.8rem;letter-spacing:.1em;
@@ -303,9 +233,6 @@ a,button,summary,label{touch-action:manipulation;-webkit-tap-highlight-color:rgb
 /* ---------- SECTION SHELL ---------- */
 .section{padding-block:var(--section-y)}
 .section--bone{background:var(--white);color:var(--ink);color-scheme:light}
-/* At a glance and the lineup share a background. The calendar pass at the
-   foot of At a glance introduces the lineup, so the lineup sits flush. */
-#lineup{padding-top:0}
 .section--bone .eyebrow{color:var(--red-deep)}
 .section__head{max-width:720px;margin-bottom:48px}
 .section__title{
@@ -317,265 +244,33 @@ a,button,summary,label{touch-action:manipulation;-webkit-tap-highlight-color:rgb
 .section--dark .section__lead{color:var(--ash)}
 .section--bone .section__lead{color:#3a3a3c}
 
-/* ---------- WEEKEND AT A GLANCE ---------- */
-/* Each event is a concert-style ticket: the main side carries the name,
-   time, venue and next step; a perforated tear-off stub on the right carries
-   the date and a barcode. The paper is masked to punch the two notches, so
-   the shadow sits on the outer link as a drop-shadow, which follows the
-   mask. The game, which we do not sell, is an NC State red ticket. */
-.glance{display:grid;gap:18px}
-@media(min-width:760px){ .glance{grid-template-columns:1fr 1fr;gap:22px} }
-.tk__day{grid-column:1/-1;display:flex;align-items:baseline;gap:12px;padding-top:16px;border-top:2px solid var(--ink);margin-top:8px}
-.tk__day:first-child{margin-top:0}
-.tk__d{font-family:var(--display);font-weight:700;font-size:2rem;text-transform:uppercase;line-height:1}
-.tk__dt{font-size:14px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--red-deep)}
+/* ---------- THE EVENTS (off-season, Nov 2026) ----------
+   What each event is, written to last from year to year. No dates, no
+   prices, no ticket links. Each card links to that event's own page once
+   it has one. Photos go in when the 2026 albums arrive. */
+.series{display:grid;gap:24px;grid-template-columns:1fr}
+@media(min-width:760px){ .series{grid-template-columns:1fr 1fr} }
+.series__card{
+  display:flex;flex-direction:column;gap:16px;padding:32px;
+  border:1px solid var(--line-dark);background:#fff;color:var(--ink);text-decoration:none;
+  transition:border-color .2s, transform .2s;
+}
+a.series__card:hover{border-color:var(--ink)}
+a.series__card:active{transform:translateY(1px)}
+.series__role{font-size:14px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--red-deep)}
+.series__name{font-family:var(--display);font-size:clamp(1.9rem,4.5vw,2.6rem);line-height:1;text-transform:uppercase}
+.series__tag{font-weight:700;font-size:1.05rem}
+.series__desc{color:#3a3a3c;font-size:1rem;max-width:52ch;text-wrap:pretty}
+.series__go{margin-top:auto;padding-top:8px;font-weight:700;font-size:1.05rem}
+.series__go i{font-style:normal;color:var(--red-deep)}
+.series__next{margin-top:auto;padding-top:8px;color:#55565a;font-size:1rem}
 
-.ticket{
-  --stub:88px;
-  display:grid;text-decoration:none;color:var(--white);
-  filter:drop-shadow(0 10px 16px rgba(11,11,12,.16));
-  transition:transform .4s ease, filter .4s ease;
-  /* words wrap at spaces only, never mid-word */
-  overflow-wrap:normal;word-break:normal;hyphens:none;
-}
-@media(min-width:760px){ .ticket{--stub:104px} }
-.ticket__paper{
-  --notch:11px;
-  position:relative;overflow:hidden;display:grid;grid-template-columns:1fr var(--stub);
-  background:radial-gradient(130% 90% at 0% 0%, #2a2c31 0%, var(--ink) 62%);
-  box-shadow:inset 0 0 0 1px rgba(255,255,255,.07);
-  -webkit-mask:
-    radial-gradient(circle var(--notch) at calc(100% - var(--stub)) 0,#0000 98%,#000) top/100% 51% no-repeat,
-    radial-gradient(circle var(--notch) at calc(100% - var(--stub)) 100%,#0000 98%,#000) bottom/100% 51% no-repeat;
-          mask:
-    radial-gradient(circle var(--notch) at calc(100% - var(--stub)) 0,#0000 98%,#000) top/100% 51% no-repeat,
-    radial-gradient(circle var(--notch) at calc(100% - var(--stub)) 100%,#0000 98%,#000) bottom/100% 51% no-repeat;
-}
-/* light sweep that crosses the ticket on hover */
-.ticket__paper::after{
-  content:'';position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(105deg,transparent 38%,rgba(255,255,255,.16) 50%,transparent 62%) no-repeat;
-  background-size:250% 100%;background-position:120% 0;
-  transition:background-position .9s ease;
-}
-.ticket__main{padding:20px 16px 20px 20px;display:flex;flex-direction:column;min-width:0}
-.ticket__kicker{font-size:14px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--red-bright)}
-.ticket__name{
-  font-family:var(--display);font-weight:700;text-transform:uppercase;
-  font-size:clamp(1.75rem,6.4vw,2.2rem);line-height:.98;margin:8px 0 14px;text-wrap:balance;
-}
-.ticket__fields{display:grid;grid-template-columns:auto 1fr;gap:6px 12px;margin:0;align-items:baseline}
-.ticket__fields dt{font-size:14px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:rgba(255,255,255,.6)}
-.ticket__fields dd{margin:0;font-size:15px;font-weight:700;line-height:1.35;color:var(--white)}
-.ticket__go{margin-top:auto;padding-top:14px;font-size:14px;letter-spacing:.08em;text-transform:uppercase;font-weight:800;color:var(--red-bright)}
-.ticket__go b{white-space:nowrap;font-weight:inherit}
-.ticket__go i{font-style:normal;display:inline-block;transition:transform .3s ease}
-
-.ticket__stub{
-  border-left:2px dashed rgba(255,255,255,.28);
-  padding:18px 10px 16px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:12px;
-  text-align:center;text-transform:uppercase;
-}
-.ticket__wd,.ticket__mo{font-size:14px;letter-spacing:.14em;font-weight:800;line-height:1}
-.ticket__wd{color:var(--red-bright)}
-.ticket__dd{display:block;font-family:var(--display);font-weight:700;font-size:3rem;line-height:.9;margin:6px 0 4px}
-.ticket__code{width:100%;background:var(--white);padding:5px 5px 3px;border-radius:2px}
-.ticket__code svg{display:block;width:100%;height:46px}
-.ticket__code small{display:block;font-size:9px;letter-spacing:.12em;color:var(--ink);font-weight:700;margin-top:2px}
-
-/* The game: NC State red with a fine diagonal weave. */
-.ticket--game{cursor:default}
-.ticket--game .ticket__paper{
-  background:repeating-linear-gradient(135deg,rgba(255,255,255,.06) 0 2px,transparent 2px 9px),
-             linear-gradient(160deg,#D81A1A 0%,var(--red) 55%,#A80000 100%);
-}
-.ticket--game .ticket__kicker,.ticket--game .ticket__wd{color:var(--white)}
-.ticket--game .ticket__fields dt{color:rgba(255,255,255,.85)}
-.ticket--game .ticket__stub{border-left-color:rgba(255,255,255,.45)}
-
-/* Motion. Tickets are dealt in one after another when the section scrolls
-   in (--i is set per ticket by the script). On a mouse, hover tilts the
-   ticket like the flyers and sweeps the light across it. On touch, a tap
-   presses it down a little. */
-.glance.reveal:not(.is-in) .ticket{opacity:0}
-.glance.is-in .ticket{animation:deal .75s cubic-bezier(.2,.8,.2,1) backwards;animation-delay:calc(var(--i,0) * 110ms + 120ms)}
-@keyframes deal{from{opacity:0;transform:translateY(34px) rotate(-2.5deg)}}
-@media(hover:hover){
-  .ticket:hover,.ticket:focus-visible{
-    transform:perspective(1000px) rotateY(-3deg) rotateX(1.5deg) translateY(-8px);
-    filter:drop-shadow(0 26px 30px rgba(11,11,12,.26));
-  }
-  .ticket:hover .ticket__paper::after,.ticket:focus-visible .ticket__paper::after{background-position:-20% 0}
-  a.ticket:hover .ticket__go i{transform:translateX(4px)}
-}
-a.ticket:active{transform:scale(.985)}
-
-/* Calendar pass: one wide ticket under the event tickets, same paper, with
-   the add-to-calendar button on its tear-off stub. On phones the stub sits
-   below a dashed tear line; from 760px it sits to the right. */
-.pass{
-  --stub:320px;--notch:12px;
-  margin-top:40px;display:grid;color:var(--white);
-  background:radial-gradient(130% 90% at 0% 0%, #2a2c31 0%, var(--ink) 62%);
-  -webkit-mask:
-    radial-gradient(circle var(--notch) at 0 50%,#0000 98%,#000) left/51% 100% no-repeat,
-    radial-gradient(circle var(--notch) at 100% 50%,#0000 98%,#000) right/51% 100% no-repeat;
-          mask:
-    radial-gradient(circle var(--notch) at 0 50%,#0000 98%,#000) left/51% 100% no-repeat,
-    radial-gradient(circle var(--notch) at 100% 50%,#0000 98%,#000) right/51% 100% no-repeat;
-  overflow-wrap:normal;word-break:normal;hyphens:none;
-}
-.pass__main{padding:28px 24px 24px}
-.pass__kicker{font-size:14px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--red-bright)}
-.pass__title{font-family:var(--display);font-weight:700;text-transform:uppercase;font-size:clamp(2.1rem,7vw,3.4rem);line-height:.96;margin:10px 0 12px;text-wrap:balance}
-.pass__lead{font-size:1.05rem;line-height:1.5;color:var(--white);max-width:48ch}
-.pass__dates{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
-.pass__dates span{border:1px solid rgba(255,255,255,.3);padding:6px 10px;font-size:14px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
-.pass__stub{border-top:2px dashed rgba(255,255,255,.28);padding:22px 24px 26px;display:flex;flex-direction:column;gap:12px}
-.pass .btn{width:100%;gap:10px;font-weight:400}
-.pass__ico{width:22px;height:22px;flex:none}
-.pass__note{font-size:14px;color:var(--white)}
-@media(min-width:760px){
-  .pass{
-    grid-template-columns:1fr var(--stub);
-    -webkit-mask:
-      radial-gradient(circle var(--notch) at calc(100% - var(--stub)) 0,#0000 98%,#000) top/100% 51% no-repeat,
-      radial-gradient(circle var(--notch) at calc(100% - var(--stub)) 100%,#0000 98%,#000) bottom/100% 51% no-repeat;
-            mask:
-      radial-gradient(circle var(--notch) at calc(100% - var(--stub)) 0,#0000 98%,#000) top/100% 51% no-repeat,
-      radial-gradient(circle var(--notch) at calc(100% - var(--stub)) 100%,#0000 98%,#000) bottom/100% 51% no-repeat;
-  }
-  .pass__main{padding:36px 36px 34px}
-  .pass__stub{border-top:0;border-left:2px dashed rgba(255,255,255,.28);justify-content:center;padding:32px}
-}
-
-/* ---------- EVENT CARDS ---------- */
-.daygroup{padding-top:8px}
-.daygroup__label{
-  display:flex;align-items:baseline;gap:16px;
-  padding-block:24px;border-top:2px solid var(--ink);
-  font-family:var(--display);text-transform:uppercase;
-}
-.daygroup__label .d{font-size:clamp(1.6rem,4vw,2.4rem);line-height:1}
-.daygroup__label .dt{font-family:var(--sans);font-weight:700;font-size:.72rem;letter-spacing:.18em;color:var(--red)}
-
-.event{
-  display:grid;grid-template-columns:1fr 1fr;gap:64px;
-  align-items:center;padding-block:64px;
-  border-top:1px solid #ECE8E0;
-}
-.event:nth-of-type(even) .event__media{order:2}
-@media(max-width:767px){
-  .event{grid-template-columns:1fr;gap:24px;padding-block:48px}
-  .event:nth-of-type(even) .event__media{order:0}
-}
-
-.event__tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
-.chip{
-  font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;
-  padding:8px 16px;border-radius:2px;border:1px solid #D8D3C8;color:#5a5a5e;
-}
-.chip--day{background:var(--red);border-color:var(--red);color:var(--white)}
-.chip--age{color:var(--ink);border-color:var(--ink)}
-
-.event__tagline{color:var(--red-deep);font-size:1.1rem;font-weight:700;letter-spacing:.02em;text-transform:uppercase;margin-bottom:8px}
-.event__name{
-  font-family:var(--display);font-weight:400;
-  font-size:clamp(2rem,5.5vw,3.6rem);line-height:1.06;text-transform:uppercase;
-  text-wrap:balance;
-}
-.event__desc{margin-top:16px;color:#333336;font-size:1.05rem;max-width:52ch;text-wrap:pretty}
-
-.event__details{list-style:none;margin-top:24px;display:grid;gap:8px}
-.event__details li{display:flex;gap:16px;font-size:1.02rem;color:#3a3a3c}
-.event__details .k{
-  font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;
-  color:#6c6c6f;min-width:74px;padding-top:3px;
-}
-.event__details a{color:var(--ink);text-decoration:underline;text-decoration-color:var(--red);text-underline-offset:3px}
-
-.event__cta{display:flex;flex-wrap:wrap;gap:16px;margin-top:32px;align-items:flex-start}
-
-/* ---------- ADD TO CALENDAR ---------- */
-.cal{position:relative;display:inline-block}
-.cal__trigger{list-style:none;cursor:pointer;user-select:none}
-.cal__trigger::-webkit-details-marker{display:none}
-.cal__trigger::after{content:'\25BE';margin-left:8px;font-size:.9em}
-.cal[open] .cal__trigger::after{content:'\25B4'}
-.cal__menu{
-  position:absolute;z-index:20;top:calc(100% + 8px);left:0;min-width:236px;
-  background:var(--white);border:1px solid #E5E1D8;padding:8px;
-  box-shadow:0 14px 34px rgba(11,11,12,.16);
-}
-.cal__opt{
-  display:flex;align-items:center;gap:8px;padding:8px 16px;min-height:44px;
-  text-decoration:none;color:var(--ink);font-size:.92rem;font-weight:700;
-  border-radius:2px;
-}
-.cal__opt:hover{background:var(--bone)}
-.cal__opt small{display:block;font-weight:500;font-size:.74rem;color:#6c6c6f}
-.cal__ico{flex:none;width:20px;text-align:center;font-size:1rem;color:var(--red)}
-.cal__all{margin-top:24px}
-@media(max-width:479px){ .cal{display:block} .cal__menu{left:0;right:0} }
-.event__onsale{margin-top:16px;font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--red-deep)}
-
-/* flyer well — real art keeps its native ratio; placeholders lock to 3:4 */
-.flyer{
-  width:100%;position:relative;overflow:hidden;
-  background:var(--white);border:1px solid #E5E1D8;
-  transition:transform .4s ease, box-shadow .4s ease;
-}
-/* The tilt only plays when the flyer is a link to the event page. */
-.flyer-link{display:block}
-.flyer-link:hover .flyer,.flyer-link:focus-visible .flyer{
-  transform:perspective(1000px) rotateY(-3deg) rotateX(1.5deg) translateY(-8px);
-  box-shadow:0 30px 60px rgba(11,11,12,.22);
-}
-.flyer--ph{aspect-ratio:3/4}
-.flyer img{width:100%;height:auto;display:block}
-.flyer__placeholder{
-  position:absolute;inset:0;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;text-align:center;gap:16px;
-  border:2px dashed rgba(204,0,0,.5);margin:16px;
-  background:
-    repeating-linear-gradient(-45deg, transparent, transparent 14px, rgba(11,11,12,.025) 14px, rgba(11,11,12,.025) 28px);
-}
-.flyer__ico{font-family:var(--display);font-size:2.4rem;color:var(--red);line-height:1}
-.flyer__ph-name{font-family:var(--display);font-size:1.6rem;text-transform:uppercase;color:rgba(11,11,12,.5);padding-inline:16px;line-height:1.05}
-.flyer__ph-note{font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:#8a8a8e;font-weight:700}
-
-/* ---------- EXPANDABLE INFO (Block Party details + FAQ) ---------- */
-.xtra{margin-top:24px;border:1px solid #E5E1D8;background:#FBFAF7}
-.xtra summary{
-  list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;
-  gap:16px;padding:16px 24px;min-height:44px;font-weight:700;font-size:.88rem;letter-spacing:.14em;
-  text-transform:uppercase;color:var(--ink);user-select:none;
-}
-.xtra summary::-webkit-details-marker{display:none}
-.xtra summary::after{
-  content:'+';font-family:var(--display);font-size:1.3rem;color:var(--red);
-  line-height:1;transition:transform .2s;
-}
-.xtra[open] summary::after{transform:rotate(45deg)}
-.xtra summary:hover{background:#F3F0E9}
-.xtra__body{padding:0 24px 24px;border-top:1px solid #E5E1D8}
-.xtra__h{
-  font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;font-weight:700;
-  color:var(--red);margin:24px 0 8px;
-}
-.xtra__body ul{list-style:none;display:grid;gap:8px}
-.xtra__body li{position:relative;padding-left:16px;color:#333336;font-size:1rem}
-.xtra__body li::before{content:'';position:absolute;left:0;top:.55em;width:6px;height:6px;background:var(--red)}
-.xtra__p{color:#333336;font-size:1rem;margin-bottom:8px}
-.faq{border-top:1px solid #E5E1D8}
-.faq summary{
-  list-style:none;cursor:pointer;padding:16px 0;font-weight:700;font-size:1.02rem;
-  color:var(--ink);display:flex;justify-content:space-between;align-items:center;gap:16px;user-select:none;
-}
-.faq summary::-webkit-details-marker{display:none}
-.faq summary::after{content:'+';color:var(--red);font-family:var(--display);font-size:1.1rem;line-height:1;transition:transform .2s}
-.faq[open] summary::after{transform:rotate(45deg)}
-.faq p{color:#3a3a3c;font-size:.98rem;padding:0 0 16px;max-width:56ch;text-wrap:pretty}
+/* ---------- GET UPDATES ---------- */
+.upd{background:var(--ink);color:var(--white);border-top:1px solid var(--line)}
+.upd .eyebrow{color:var(--red-bright)}
+.upd .section__lead{color:var(--ash)}
+.upd__form{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:var(--wrap-narrow)}
+@media(max-width:767px){ .upd__form{grid-template-columns:1fr} }
 
 /* ---------- CONTACT ---------- */
 .inq{background:var(--carbon);color:var(--white)}
@@ -618,11 +313,6 @@ a.ticket:active{transform:scale(.985)}
   [data-animate]{opacity:1 !important;transform:none !important}
   .sky__stars,.sky__cloud,.sky__beam{animation:none !important}
   .ticker__track{animation:none !important}
-  .count__colon,.count__num.tick{animation:none !important}
-  .flyer-link:hover .flyer,.flyer-link:focus-visible .flyer{transform:none}
-  .glance.is-in .ticket{animation:none}
-  .ticket:hover,.ticket:focus-visible,a.ticket:active{transform:none !important}
-  .ticket__paper::after{transition:none}
 }
 [data-animate]{opacity:0;transform:translateY(18px)}
 
@@ -634,30 +324,20 @@ a.ticket:active{transform:scale(.985)}
    Foundations (website-design-foundations skill): 14px floor for labels
    and metadata, 15px button text, 24px mobile side margins, 44px tap
    targets, full-width buttons on phones, time above event name in the
-   at-a-glance cards. Remove this block to return to the previous look.
+   at-a-glance cards (since removed). Remove this block to return to the previous look.
    (--display and the 24px --pad now live in the main :root above.)
    ===================================================================== */
-.nav__brand,.hero__ghost,.hero h1,.board__plate,.count__live,.ticker span,
-.section__title,.daygroup__label,.event__name,.flyer__ico,
-.flyer__ph-name,.foot__brand{font-weight:700}
+.nav__brand,.hero__ghost,.hero h1,.ticker span,
+.section__title,.series__name,.foot__brand{font-weight:700}
 
 /* Labels and metadata: 14px floor; tracking eased so the larger size stays compact. */
-.eyebrow,.chip,.event__details .k,.event__onsale,.foot__fine,
-.foot__links a,.daygroup__label .dt,.nav__cta,.inq__field label{font-size:14px;letter-spacing:.12em}
+.eyebrow,.foot__fine,.foot__links a,.nav__cta,.inq__field label{font-size:14px;letter-spacing:.12em}
 .inq__field input,.inq__field textarea{font-size:16px;line-height:1.5}   /* form inputs 16 */
-.xtra__h,.board__plate,.cal small{font-size:14px;letter-spacing:.08em}
-/* Header day pills and scoreboard labels: 12px (approved exception). */
-.day-pill,.day-pill small,.count__label{font-size:12px;letter-spacing:.08em}
 .nav__brand{padding-block:8px}
 .btn{font-size:15px;min-height:48px}
-.event__details .k{min-width:84px;padding-top:2px}
-
-/* Address links: taller tap area without moving the text. */
-.event__details a{display:inline-block;padding-block:12px;margin-block:-12px}
 
 @media (max-width:479px){
-  .btnrow .btn,.event__cta > .btn,.event__cta > .cal,.event__cta > .cal .btn{flex:1 1 100%;width:100%;text-align:center}
-  .day-pill{padding:8px}
+  .btnrow .btn{flex:1 1 100%;width:100%;text-align:center}
   .inq__foot .btn{flex:1 1 100%}
 }
 
@@ -665,8 +345,6 @@ a.ticket:active{transform:scale(.985)}
    last in the stylesheet so it wins over the earlier size and color rules.
    The current page keeps a white underline, hover shows a fainter one. */
 .nav__cta{font-size:12px;letter-spacing:.1em}
-.day-pill,.day-pill small{color:#fff}
-.day-pill:hover{border-color:#fff}
 .nav__pages a{color:#fff}
 .nav__pages a:hover{border-bottom-color:rgba(255,255,255,.45)}
 .nav__pages a[aria-current="page"]{border-bottom-color:#fff}
@@ -689,12 +367,11 @@ a.ticket:active{transform:scale(.985)}
 <body>
 <a class="skip" href="#main">Skip to content</a>
 
-<!-- ============================ NAV / WEEKEND RAIL ============================ -->
+<!-- ============================ NAV ============================ -->
 <header class="nav">
   <div class="nav__inner">
     <a href="#top" class="nav__brand">PACK OUT <span>STATE</span></a>
-    <nav class="nav__days" id="dayRail" aria-label="Jump to a day"></nav>
-    <a href="#lineup" class="nav__cta nav__cta--top">Get tickets</a>
+    <a href="#updates" class="nav__cta nav__cta--top">Get updates</a>
   </div>
   <div class="nav__sub">
     <div class="nav__subin">
@@ -716,45 +393,87 @@ a.ticket:active{transform:scale(.985)}
     <div class="sky__cloud sky__cloud--2"></div>
     <div class="sky__cloud sky__cloud--3"></div>
   </div>
-  <div class="hero__ghost" aria-hidden="true">&rsquo;26</div>
+  <div class="hero__ghost" aria-hidden="true">&rsquo;27</div>
   <div class="wrap hero__inner">
     <div class="eyebrow hero__eyebrow" data-animate>NC State Homecoming</div>
     <h1 data-animate>Pack <span class="accent">Out</span> State</h1>
-    <p class="hero__sub" data-animate id="heroDates">NC State Homecoming <span class="dot">·</span> October 29 – 31, 2026</p>
-    <p class="hero__meta" data-animate>Raleigh, North Carolina</p>
-
-    <div class="board" data-animate>
-      <div class="board__plate">Countdown to Homecoming Wknd</div>
-      <div class="board__shell"><div class="count" id="countdown"></div></div>
-      <div class="board__legs" aria-hidden="true"><span></span><span></span></div>
-    </div>
+    <p class="hero__sub" data-animate>Homecoming weekend in Raleigh <span class="dot">·</span> <span style="white-space:nowrap">Every fall</span></p>
+    <p class="hero__meta" data-animate>2026 is in the books. Dates for 2027 are coming.</p>
 
     <div class="btnrow" data-animate>
-      <a href="#lineup" class="btn btn--primary">See the lineup</a>
+      <a href="#updates" class="btn btn--primary">Get updates</a>
+      <a href="#events" class="btn btn--ghost">The events</a>
     </div>
   </div>
 </section>
 
 <!-- ============================ TICKER ============================ -->
-<div class="ticker" aria-hidden="true"><div class="ticker__track"><span>Pack Out State</span><em>&#10022;</em><span>NC State Homecoming &rsquo;26</span><em>&#10022;</em><span>Oct 29 &ndash; 31</span><em>&#10022;</em><span>Raleigh, NC</span><em>&#10022;</em><span>Pack Out State</span><em>&#10022;</em><span>NC State Homecoming &rsquo;26</span><em>&#10022;</em><span>Oct 29 &ndash; 31</span><em>&#10022;</em><span>Raleigh, NC</span><em>&#10022;</em></div></div>
+<div class="ticker" aria-hidden="true"><div class="ticker__track"><span>Pack Out State</span><em>&#10022;</em><span>NC State Homecoming</span><em>&#10022;</em><span>Every fall</span><em>&#10022;</em><span>Raleigh, NC</span><em>&#10022;</em><span>Pack Out State</span><em>&#10022;</em><span>NC State Homecoming</span><em>&#10022;</em><span>Every fall</span><em>&#10022;</em><span>Raleigh, NC</span><em>&#10022;</em></div></div>
 
-<!-- ============================ WEEKEND AT A GLANCE ============================ -->
-<section class="section section--bone">
+<!-- ============================ THE EVENTS ============================ -->
+<section class="section section--bone" id="events">
+  <span id="lineup" aria-hidden="true"></span>
   <div class="wrap">
     <div class="section__head reveal">
       <div class="eyebrow">The weekend</div>
-      <h2 class="section__title">The weekend at a glance</h2>
-      <p class="section__lead">Everything happening across homecoming weekend, at a glance. Tap any event to jump to the details.</p>
+      <h2 class="section__title">Four events. Back every year.</h2>
+      <p class="section__lead">Pack Out State is NC State Homecoming weekend, from the first drink to the last song after the game. Here is what each night is, and what comes back next fall.</p>
     </div>
-    <div class="glance reveal" id="glance"></div>
-    <div class="pass reveal" id="pass"></div>
+    <div class="series">
+      <article class="series__card reveal">
+        <span class="series__role">Opening night</span>
+        <h3 class="series__name">The Warm Up</h3>
+        <p class="series__tag">Homecoming starts here.</p>
+        <p class="series__desc">The first night of the weekend. Craft cocktails, good company and the first look at who made it back, before the rest of Homecoming gets going.</p>
+        <p class="series__next">Back for 2027</p>
+      </article>
+      <a class="series__card reveal" href="/clocked-out">
+        <span class="series__role">The group photo</span>
+        <h3 class="series__name">Clocked Out</h3>
+        <p class="series__tag">It&rsquo;s a photoshoot.</p>
+        <p class="series__desc">Book a short session with a professional photographer, bring your people, and leave with this year&rsquo;s Homecoming picture. Then stay and kick it.</p>
+        <span class="series__go">Clocked Out<i aria-hidden="true">&nbsp;&#8594;</i></span>
+      </a>
+      <a class="series__card reveal" href="/talley-tapes">
+        <span class="series__role">The house party</span>
+        <h3 class="series__name">The Talley Tapes</h3>
+        <p class="series__tag">Same people, different era, same energy.</p>
+        <p class="series__desc">A Homecoming house party built on the legend of the Talley parties, for the people who lived it, the people who heard about it, and everybody ready for the next chapter.</p>
+        <span class="series__go">The Talley Tapes<i aria-hidden="true">&nbsp;&#8594;</i></span>
+      </a>
+      <a class="series__card reveal" href="/block-party">
+        <span class="series__role">Game day</span>
+        <h3 class="series__name">The Block Party</h3>
+        <p class="series__tag">This is how we Homecoming.</p>
+        <p class="series__desc">An all-day block party that runs right through the game: watch party, day party and night party in one. Three years in. Year four is next fall.</p>
+        <span class="series__go">The Block Party<i aria-hidden="true">&nbsp;&#8594;</i></span>
+      </a>
+    </div>
   </div>
 </section>
 
-<!-- ============================ THE LINEUP ============================ -->
-<section class="section section--bone" id="lineup">
+<!-- ============================ GET UPDATES ============================ -->
+<section class="section upd" id="updates">
   <div class="wrap">
-    <div id="events"></div>
+    <div class="section__head reveal">
+      <div class="eyebrow">Be first to know</div>
+      <h2 class="section__title">2027 dates land here first</h2>
+      <p class="section__lead">Join the list for next year&rsquo;s dates, lineup and early access. We only write when there is news.</p>
+    </div>
+
+    <form id="updates-form" class="upd__form inq__form reveal" novalidate>
+      <div class="inq__field"><label for="up-email">Email</label><input id="up-email" name="email" type="email" required autocomplete="email" inputmode="email" spellcheck="false" autocapitalize="none"><p class="inq__err" id="up-email-err" hidden></p></div>
+      <div class="inq__field"><label for="up-phone">Phone (optional)</label><input id="up-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel"></div>
+
+      <div class="inq__hp" aria-hidden="true"><label>Website <input name="website" type="text" tabindex="-1" autocomplete="off"></label></div>
+
+      <div class="inq__field--full"><div class="cf-turnstile" data-sitekey="0x4AAAAAAFFpKUeNszgP2VMx" data-theme="dark"></div></div>
+
+      <div class="inq__foot">
+        <button type="submit" class="btn btn--primary">Get updates</button>
+        <p id="updates-status" class="inq__status" role="status" aria-live="polite"></p>
+      </div>
+    </form>
   </div>
 </section>
 
@@ -763,8 +482,8 @@ a.ticket:active{transform:scale(.985)}
   <div class="wrap">
     <div class="section__head reveal">
       <div class="eyebrow">Get in touch</div>
-      <h2 class="section__title">Questions, tables &amp; sponsorships</h2>
-      <p class="section__lead">Booking a table, bringing a group, or want your brand on the weekend? Send a note and we&rsquo;ll get back to you.</p>
+      <h2 class="section__title">Questions and partnerships</h2>
+      <p class="section__lead">A question about this year, or want to be part of next year&rsquo;s weekend? Send a note and we&rsquo;ll get back to you.</p>
     </div>
 
     <form id="contact-form" class="inq__form reveal" novalidate>
@@ -793,475 +512,28 @@ a.ticket:active{transform:scale(.985)}
     <div class="foot__grid">
       <div class="foot__brand">PACK OUT <span>STATE</span></div>
       <nav class="foot__links" aria-label="Footer">
-        <a href="#lineup">Lineup</a>
-        <a href="#lineup">Tickets</a>
+        <a href="#events">Events</a>
+        <a href="#updates">Get updates</a>
         <a href="#contact">Contact</a>
         <a href="/hq" rel="nofollow">HQ</a>
       </nav>
     </div>
     <a class="foot__ig" href="https://instagram.com/packoutstate" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>Follow us @packoutstate</a>
-    <p class="foot__fine">Pack Out State · DCC Social Inc. · NC State Homecoming 2026</p>
+    <p class="foot__fine">Pack Out State · DCC Social Inc. · NC State Homecoming</p>
   </div>
 </footer>
 
 <script>
-/* ================================================================
-   EDIT ZONE 1 — DATES
-   Set your 2026 kickoff and end. The countdown, header line, and
-   end-states all read from these. Times are Eastern.
-   Format: 'YYYY-MM-DDTHH:MM:SS-04:00'  (-04:00 = EDT, -05:00 = EST)
-   ================================================================ */
-const EVENT_START = new Date('2026-10-29T21:00:00-04:00'); // The Warm Up, Thu 9 PM EDT
-const EVENT_END   = new Date('2026-10-31T23:59:00-04:00'); // weekend closes Sat Oct 31
+// The 2026 weekend build (countdown, lineup cards, calendar export, date
+// rail) was removed in Nov 2026. It is kept whole in git at the tag
+// homecoming-2026 for when next year's dates are set.
 
-/* ================================================================
-   EDIT ZONE 2 — LINEUP
-   Add / remove / reorder by editing this array. Order here = order
-   on the page. 'day' groups events under THU/FRI/SAT/SUN.
-   Set 'flyer' to an image path/URL when ready; null shows the
-   3:4 placeholder well and keeps the layout from shifting.
-   ================================================================ */
-const DAYS = [
-  {key:'thu', label:'Thu', date:'Oct 29'},
-  {key:'fri', label:'Fri', date:'Oct 30'},
-  {key:'sat', label:'Sat', date:'Oct 31'}
-];
-
-// The football game itself. It is not our event and we sell nothing for it,
-// so it shows in the weekend overview only, never as an event card.
-// Kickoff was announced in Oct 2026 as 12:00 PM ET.
-const FIXTURES = [
-  {
-    day:'sat', time:'12:00 PM', tag:'The game', venue:'Carter-Finley Stadium',
-    name:'NC State Wolfpack vs. California Golden Bears'
-  }
-];
-
-const EVENTS = [
-  {
-    id:'the-warm-up', day:'thu', time:'9:00 PM – 1:00 AM',
-    start:'2026-10-29T21:00:00-04:00', end:'2026-10-30T01:00:00-04:00',    name:'The Warm Up', tagline:'Homecoming Starts Here',
-    desc:'Enjoy craft cocktails, vibes, and a curated experience at the all-new Primrose location in downtown Durham. Owned and operated by two fellow Pack alums, Primrose opens its doors for a night that celebrates the Pack and sets the tone for the weekend ahead. Get warmed up for Homecoming with us. Homecoming starts here.',
-    venue:'Primrose Bar & Lounge', address:'111 W Main St. Durham, NC',
-    mapUrl:'https://www.google.com/maps/search/?api=1&query=Primrose+Bar+%26+Lounge+111+W+Main+St+Durham+NC',
-    detailsUrl:'https://www.handstamp.com/e/ncsh-homecoming-kickoff-4qvqve9f',
-    ticketsUrl:'https://tickets.venuepilot.com/e/ncsh-homecoming-kickoff-2026-10-29-primrose-bar-lounge-durham-9265aa',
-    ticketsLabel:'RSVP free',
-    flyer:'flyer-warm-up.jpg', flyerW:820, flyerH:1093
-  },
-  {
-    id:'clocked-out', day:'fri', time:'5:00 PM – 8:00 PM',
-    // Two ways in, so each button says which is which. The first goes to the
-    // booking page, because reserving a time is still the point. The second
-    // is for anyone who wants the night without a photo session.
-    rsvpUrl:'/clocked-out', rsvpLabel:'Reserve a photo time',
-    start:'2026-10-30T17:00:00-04:00', end:'2026-10-30T20:00:00-04:00',
-    name:'Clocked Out', tagline:'It\u2019s a Photoshoot',
-    desc:[
-      'Official Alumni kick-off. Get checked into your rooms, meet the crew at District, and capture the picture that belongs in this year\u2019s homecoming album. Reserve a 20-minute photo session for you and your friends with a professional photographer, then stay for a glass of wine, a craft cocktail, or a few shots as we kick off homecoming weekend',
-      'Come dressed, gather your people, and get the group photo before the weekend gets away from you. Reserve your time. Meet your friends. Get this year\u2019s homecoming picture. Then stay and Kick-it!'
-    ],
-    venue:'District Bar & Lounge', address:'222 Glenwood Ave, Apt 109, Raleigh, NC',
-    mapUrl:'https://www.google.com/maps/search/?api=1&query=District+Bar+%26+Lounge+222+Glenwood+Ave+Apt+109+Raleigh+NC',
-    detailsUrl:null,
-    ticketsUrl:'https://checkout.oasistix.com/e/clocked-out-it-s-a-photo-shoot-2026-10-30-district-raleigh-fab389',
-    ticketsLabel:'RSVP ONLY',
-    flyer:'flyer-clocked-out.jpg', flyerW:820, flyerH:1093
-  },
-  {
-    id:'talley-tapes', day:'fri', time:'9:00 PM – 2:00 AM',
-    pageUrl:'/talley-tapes',
-    start:'2026-10-30T21:00:00-04:00', end:'2026-10-31T02:00:00-04:00',    name:'The Talley Tapes [Untold]', tagline:'A Homecoming Original',
-    desc:[
-      'Before bottle service, before sections, there was Talley. Before the posts, before the stories, before nights became content. When flyers moved hand to hand and word of mouth was currency, Talley became a legendary party known round the state, with students traveling from their respective campuses to be part of it. Talley was not just a building; it was a rite of passage. If you knew, you went. If you missed it, you heard about it. Nights became lore, passed from generation to generation, sparking debate on who did it best. No matter the era, the nostalgia takes over, and one phrase emerges: Damn\u2026 I remember them Talley parties.',
-      'Homecoming Friday night, The Talley Tapes brings the stories to life with a house party experience at House of Art in downtown Raleigh. A premiere night for the people who lived it, the people who heard about it, and everybody ready to be part of the next chapter.'
-    ],
-    venue:'House of Art', address:null, mapUrl:null,
-    detailsUrl:'https://www.handstamp.com/e/the-talley-tapes-wkuetvyk',
-    ticketsUrl:'https://tickets.venuepilot.com/e/the-talley-tapes-2026-10-30-downtown-raleigh-raleigh-7a0918',
-    onSaleNote:'Tickets on sale now',
-    flyer:'flyer-talley-tapes.jpg', flyerW:820, flyerH:1025
-  },
-  {
-    id:'block-party', day:'sat', time:'12:00 PM – 1:00 AM',
-    pageUrl:'/block-party',
-    start:'2026-10-31T12:00:00-04:00', end:'2026-11-01T01:00:00-04:00',    name:'Pack Out State Block Party', tagline:'This is How We Homecoming Vol. 3',
-    desc:'The Pack Out State Block Party is taking over Killjoy and the parking lot for an all-day Homecoming celebration. Pull up for an all-day experience that captures the essence of Homecoming in one event; tailgate, watch party, day party turned night party all in one. DJ sets running all day long with food, vendors, and curated vibes for you and your crew to celebrate together.',
-    venue:'Killjoy Kitchen & Cocktails', address:'116 N West St. Raleigh, NC',
-    mapUrl:'https://www.google.com/maps/search/?api=1&query=Killjoy+116+N+West+St+Raleigh+NC',
-    detailsUrl:'https://www.handstamp.com/e/the-downtown-block-party-tailgate-ryle4rds',
-    ticketsUrl:'https://tickets.venuepilot.com/e/the-downtown-block-party-tailgate-2026-10-31-killjoy-cocktail-lounge-raleigh-8c97cf',
-    onSaleNote:'Tickets on sale now',
-    flyer:'flyer-block-party.jpg', flyerW:820, flyerH:1025,
-    extra:{
-      label:'Full details, schedule & FAQ',
-      schedule:[
-        'Format: All-day, come-and-go access'
-      ],
-      highlights:[
-        'Outdoor lot party with music and vendors',
-        'Indoor lounge vibes at Killjoy',
-        'Come through after the tailgate, before the game, or stay and cheer with us',
-        'One band = flexible re-entry all day'
-      ],
-      why:[
-        'Celebrate Homecoming with an event that lasts all day and into the night.',
-        'Enjoy a mix of culture, fashion, music, and food that feels like a cookout and family reunion combined.',
-        'Flexibility to join when it fits your Homecoming flow\u2026 tailgate, game, afterparty! This event covers it all.'
-      ],
-      faq:[
-        {q:'Where should I park?', a:'The best option is the N West St. parking deck, just steps from Killjoy. We also encourage Uber or Lyft for convenience and safety.'},
-        {q:'What does admission include?', a:'Your ticket gets you one wristband with in-and-out access all day and night. Go back to your hotel, freshen up, and pull back up when you\u2019re ready. We recommend purchasing tickets in advance. Capacity is limited and may sell out.'},
-        {q:'Can I bring my own stuff?', a:'Yes, you can bring a chair. No coolers, no outside food or drink. This is a rain-or-shine event.'},
-        {q:'Will there be food?', a:'Yes. BBQn4U will be onsite serving fried chicken, fried fish, and all the fixins\u2019.'},
-        {q:'Who\u2019s providing the music?', a:'The energy will be set by DJ Fredo, Brint City, and DJ JMar, guaranteed to keep the vibes right all day and night.'},
-        {q:'Is there security?', a:'Yes. Security will be on site. Bags are allowed but will be searched upon entry.'},
-        {q:'Could it sell out?', a:'Yes. Once we hit capacity, tickets will no longer be available. Secure yours early.'},
-        {q:'What\u2019s the occasion?', a:'We\u2019re celebrating NC State Homecoming, and the Pack Out State Block Party is the place to be all day long.'}
-      ]
-    }
-  }
-];
-
-/* ================================================================
-   RENDER — no edits needed below this line
-   ================================================================ */
-const $ = (s, r=document)=>r.querySelector(s);
-const esc = (s)=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-
-/* ================================================================
-   ADD TO CALENDAR
-   Generates a Google Calendar link and a .ics file in the browser.
-   No third-party service. Reads the start/end fields on each event —
-   the display 'time' string can't be parsed reliably because most of
-   these events cross midnight.
-   ================================================================ */
-const SITE = 'https://www.packoutstate.com/';
-const hasTimes = e => !!(e.start && e.end);
-
-/* ICS wants UTC basic format: 20261030T010000Z */
-const utc = s => new Date(s).toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');
-/* ICS escaping: backslash, semicolon, comma, newline */
-const ice = s => String(s).replace(/\\/g,'\\\\').replace(/;/g,'\\;')
-                          .replace(/,/g,'\\,').replace(/\n/g,'\\n');
-/* Fold at 75 OCTETS per RFC 5545 — not characters. Multi-byte characters
-   would silently overrun a character count and strict clients reject it. */
-const _enc = new TextEncoder(), _dec = new TextDecoder();
-function fold(line){
-  const b = _enc.encode(line);
-  if(b.length <= 75) return line;
-  const out = []; let i = 0, limit = 75;
-  while(i < b.length){
-    let take = Math.min(limit, b.length - i);
-    while(take > 0 && i + take < b.length && (b[i+take] & 0xC0) === 0x80) take--;
-    out.push(_dec.decode(b.slice(i, i+take)));
-    i += take; limit = 74;            // continuation lines carry a leading space
-  }
-  return out.join('\r\n ');
+// Old links pointed at #lineup and the day anchors (#day-thu and so on).
+// Send them to the events section instead of the top of the page.
+if (/^#(lineup|day-(thu|fri|sat))$/.test(location.hash)) {
+  const t = document.getElementById('events');
+  if (t) requestAnimationFrame(()=>t.scrollIntoView({block:'start'}));
 }
-const calWhere = e => e.address ? `${e.venue}, ${e.address}` : e.venue;
-const calWhat  = e => `${e.tagline}\n\n${e.ticketsUrl || SITE}`;
-
-function vevent(e){
-  return ['BEGIN:VEVENT',
-    `UID:${e.id}@packoutstate.com`,
-    `DTSTAMP:${utc(new Date())}`,
-    `DTSTART:${utc(e.start)}`,
-    `DTEND:${utc(e.end)}`,
-    `SUMMARY:${ice(e.name)}`,
-    `LOCATION:${ice(calWhere(e))}`,
-    `DESCRIPTION:${ice(calWhat(e))}`,
-    `URL:${e.ticketsUrl || e.detailsUrl || SITE}`,
-    'END:VEVENT'].map(fold).join('\r\n');
-}
-function icsHref(events){
-  const body = ['BEGIN:VCALENDAR','VERSION:2.0',
-    'PRODID:-//Pack Out State//Homecoming//EN','CALSCALE:GREGORIAN','METHOD:PUBLISH',
-    ...events.map(vevent),'END:VCALENDAR'].join('\r\n');
-  return URL.createObjectURL(new Blob([body],{type:'text/calendar;charset=utf-8'}));
-}
-function googleHref(e){
-  return 'https://calendar.google.com/calendar/render?' + new URLSearchParams({
-    action:'TEMPLATE', text:e.name, dates:`${utc(e.start)}/${utc(e.end)}`,
-    details:calWhat(e), location:calWhere(e), trp:'false'
-  }).toString();
-}
-function calMenu(e){
-  if(!hasTimes(e)) return '';
-  return `<details class="cal">
-    <summary class="btn btn--ghost cal__trigger">Add to calendar</summary>
-    <div class="cal__menu">
-      <a class="cal__opt" href="${esc(googleHref(e))}" target="_blank" rel="noopener">
-        <span class="cal__ico" aria-hidden="true">&#9670;</span>
-        <span>Google Calendar<small>Opens in a new tab</small></span></a>
-      <a class="cal__opt" data-ics="${esc(e.id)}" download="${esc(e.id)}.ics">
-        <span class="cal__ico" aria-hidden="true">&#8595;</span>
-        <span>Apple &amp; Outlook<small>Downloads a .ics file</small></span></a>
-    </div>
-  </details>`;
-}
-
-// group events by day, preserving day order
-const grouped = DAYS.map(d => ({...d, items: EVENTS.filter(e => e.day === d.key)}))
-                    .filter(d => d.items.length);
-
-// ---- Day rail (sticky nav) ----
-$('#dayRail').innerHTML = grouped.map(d =>
-  `<button class="day-pill" data-target="day-${d.key}">${esc(d.label)}<small>${esc(d.date)}</small></button>`
-).join('');
-$('#dayRail').addEventListener('click', e=>{
-  const b = e.target.closest('.day-pill'); if(!b) return;
-  const t = document.getElementById(b.dataset.target);
-  if(t) t.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto':'smooth', block:'start'});
-});
-
-// ---- Weekend at a glance: one ticket per event ----
-// Times on the ticket drop the ":00", so "9:00 PM – 1:00 AM" reads "9 PM – 1 AM".
-const shortTime = t => String(t).replace(/:00/g,'');
-// What the ticket tells you to do next, from the event's own fields.
-const nextStep = e => e.rsvpUrl ? 'Reserve a time' : (e.ticketsLabel || e.onSaleNote || 'See details');
-
-// A decorative barcode. Bar widths come from the event id, so each ticket
-// has its own pattern and it never changes between visits.
-function barcode(seed){
-  let h = 2166136261;
-  for(const c of seed){ h ^= c.charCodeAt(0); h = Math.imul(h, 16777619); }
-  const rnd = ()=>{ h ^= h << 13; h ^= h >>> 17; h ^= h << 5; return (h >>> 0) / 4294967296; };
-  let x = 0, bars = '';
-  while(x < 96){
-    const w = 1 + Math.floor(rnd()*3);
-    bars += `<rect x="${x}" y="0" width="${w}" height="40"/>`;
-    x += w + 1 + Math.floor(rnd()*2);
-  }
-  return `<svg viewBox="0 0 ${x} 40" preserveAspectRatio="none" aria-hidden="true" fill="#0B0B0C">${bars}</svg>`;
-}
-
-// A six digit ticket number printed under the barcode, also from the id.
-const serial = seed => String([...seed].reduce((n,c)=>(n*31 + c.charCodeAt(0)) % 900000, 7) + 100000);
-
-// The arrow is glued to the last word so it never wraps onto a line alone.
-function goLine(text){
-  const w = String(text).split(' '), last = w.pop();
-  return `<span class="ticket__go">${esc(w.join(' '))}${w.length ? ' ' : ''}<b>${esc(last)}<i aria-hidden="true">&nbsp;&#8594;</i></b></span>`;
-}
-
-function ticket({tag, href, cls, kicker, name, fields, go, day, code}){
-  const [mo, dd] = day.date.split(' ');
-  const rows = fields.map(([k,v])=>`<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join('');
-  const attrs = href ? ` href="${esc(href)}"` : '';
-  return `<${tag} class="ticket${cls ? ' '+cls : ''}"${attrs}><div class="ticket__paper">
-    <div class="ticket__main">
-      <span class="ticket__kicker">${esc(kicker)}</span>
-      <span class="ticket__name">${esc(name)}</span>
-      <dl class="ticket__fields">${rows}</dl>
-      ${go ? goLine(go) : ''}
-    </div>
-    <div class="ticket__stub" aria-label="${esc(day.label+' '+day.date)}">
-      <div><span class="ticket__wd">${esc(day.label)}</span><span class="ticket__dd">${esc(dd)}</span><span class="ticket__mo">${esc(mo)}</span></div>
-      <div class="ticket__code">${barcode(code)}<small>No. ${serial(code)}</small></div>
-    </div>
-  </div></${tag}>`;
-}
-
-$('#glance').innerHTML = grouped.map(d=>{
-  // Fixtures lead the day. The game sits above the Block Party because it
-  // anchors the day: both start at noon.
-  const fixtures = FIXTURES.filter(f => f.day === d.key).map(f=>ticket({
-    tag:'div', cls:'ticket--game', kicker:f.tag || 'Fixture', name:f.name, day:d, code:'game-'+d.key,
-    fields:[['Kickoff', f.time === 'Time TBA' ? 'TBA' : shortTime(f.time)], ...(f.venue ? [['Venue', f.venue]] : [])]
-  })).join('');
-  const items = d.items.map(e=>ticket({
-    tag:'a', href:'#'+e.id, kicker:'Admit one', name:e.name, day:d, code:e.id,
-    fields:[['Time', shortTime(e.time)], ['Venue', e.venue]], go:nextStep(e)
-  })).join('');
-  return `<div class="tk__day"><span class="tk__d">${esc(d.label)}</span><span class="tk__dt">${esc(d.date)}</span></div>
-    ${fixtures}${items}`;
-}).join('');
-// ---- Calendar pass under the tickets ----
-// The count and the date chips come from EVENTS and DAYS, so they stay right
-// if an event is added or dropped. The calendar script further down points
-// #calAll at a file holding every dated event.
-$('#pass').innerHTML = `
-  <div class="pass__main">
-    <span class="pass__kicker">Homecoming weekend 2026</span>
-    <h2 class="pass__title">Add to your calendar</h2>
-    <p class="pass__lead">${EVENTS.length} events, ${grouped.length} days. Save them all at once, with times and venues, so nothing sneaks up on you.</p>
-    <div class="pass__dates">${grouped.map(d=>`<span>${esc(d.label)} ${esc(d.date.split(' ')[1])}</span>`).join('')}</div>
-  </div>
-  <div class="pass__stub">
-    <a class="btn btn--primary" id="calAll" download="pack-out-state-2026.ics">
-      <svg class="pass__ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16.5" rx="2"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4M12 13v5M9.5 15.5h5"/></svg>
-      Add all ${EVENTS.length} to my calendar</a>
-    <span class="pass__note">One tap. Opens in your calendar app.</span>
-  </div>`;
-
-// stagger index for the deal-in animation
-document.querySelectorAll('#glance .ticket').forEach((t,i)=>t.style.setProperty('--i', i));
-
-// ---- Event cards, grouped by day ----
-$('#events').innerHTML = grouped.map(d=>{
-  const label = `<div class="daygroup__label" id="day-${d.key}">
-      <span class="d">${esc(d.label)}</span>
-      <span class="dt">${esc(d.date)}</span>
-    </div>`;
-  const cards = d.items.map(e=>{
-    // description: string or array of paragraphs, rendered verbatim
-    const paras = (Array.isArray(e.desc) ? e.desc : [e.desc])
-      .map(p=>`<p class="event__desc">${esc(p)}</p>`).join('');
-
-    // age chip only if provided
-    const ageChip = e.ages ? `<span class="chip chip--age">${esc(e.ages)}</span>` : '';
-
-    // address row only if provided; link only with a valid mapUrl
-    const addrRow = e.address
-      ? `<li><span class="k">Address</span><span>${
-          e.mapUrl ? `<a href="${esc(e.mapUrl)}" target="_blank" rel="noopener">${esc(e.address)}</a>` : esc(e.address)
-        }</span></li>` : '';
-
-    // CTA buttons render only when links exist. The calendar menu renders
-    // whenever the event has machine-readable start/end times.
-    // When an event has its own landing page, that page is the canonical
-    // place for the full details, so it takes the slot the outbound
-    // "Event details" link would otherwise occupy.
-    const ctas = [
-      e.rsvpUrl ? `<a href="${esc(e.rsvpUrl)}" class="btn btn--primary">${esc(e.rsvpLabel || 'RSVP')}</a>` : '',
-      e.ticketsUrl ? `<a href="${esc(e.ticketsUrl)}" class="btn btn--primary" target="_blank" rel="noopener">${esc(e.ticketsLabel || 'Get tickets')}</a>` : '',
-      e.pageUrl
-        ? `<a href="${esc(e.pageUrl)}" class="btn btn--dark">Full event page</a>`
-        : (e.detailsUrl ? `<a href="${esc(e.detailsUrl)}" class="btn btn--ghost" target="_blank" rel="noopener">Event details</a>` : ''),
-      calMenu(e)
-    ].join('');
-    const ctaRow = ctas ? `<div class="event__cta">${ctas}</div>` : '';
-    const onSale = e.onSaleNote ? `<p class="event__onsale">${esc(e.onSaleNote)}</p>` : '';
-
-    // flyer: real art at native ratio, else 3:4 placeholder well.
-    // flyerW/flyerH are the file's pixel size, so the browser reserves the
-    // space before the image loads. With an event page, the flyer links to it.
-    const dims = e.flyerW && e.flyerH ? ` width="${e.flyerW}" height="${e.flyerH}"` : '';
-    const art = e.flyer
-      ? `<div class="flyer"><img src="${esc(e.flyer)}" alt="${esc(e.name)} flyer"${dims} loading="lazy" decoding="async"></div>`
-      : '';
-    const flyer = e.flyer
-      ? (e.pageUrl ? `<a class="flyer-link" href="${esc(e.pageUrl)}">${art}</a>` : art)
-      : `<div class="flyer flyer--ph"><div class="flyer__placeholder">
-           <span class="flyer__ico">+</span>
-           <span class="flyer__ph-name">${esc(e.name)}</span>
-           <span class="flyer__ph-note">${esc(e.flyerNote || 'Flyer coming soon')}</span>
-         </div></div>`;
-
-    // expandable extended info (schedule / highlights / why / FAQ)
-    let extra = '';
-    if(e.extra){
-      const x = e.extra;
-      const list = (arr)=>`<ul>${arr.map(i=>`<li>${esc(i)}</li>`).join('')}</ul>`;
-      const faqs = (x.faq||[]).map(f=>
-        `<details class="faq"><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join('');
-      extra = `<details class="xtra">
-        <summary>${esc(x.label || 'More details')}</summary>
-        <div class="xtra__body">
-          ${x.schedule ? `<div class="xtra__h">Schedule</div>${list(x.schedule)}` : ''}
-          ${x.highlights ? `<div class="xtra__h">Highlights</div>${list(x.highlights)}` : ''}
-          ${x.why ? `<div class="xtra__h">Why you should pull up</div>${list(x.why)}` : ''}
-          ${faqs ? `<div class="xtra__h">FAQ</div>${faqs}` : ''}
-        </div>
-      </details>`;
-    }
-
-    return `<article class="event reveal" id="${esc(e.id)}">
-      <div class="event__body">
-        <div class="event__tags">
-          <span class="chip chip--day">${esc(d.label)} · ${esc(e.time)}</span>
-          ${ageChip}
-        </div>
-        <p class="event__tagline">${esc(e.tagline)}</p>
-        <h3 class="event__name">${esc(e.name)}</h3>
-        ${paras}
-        <ul class="event__details">
-          <li><span class="k">When</span><span>${esc(d.label)}, ${esc(d.date)} · ${esc(e.time)}</span></li>
-          <li><span class="k">Where</span><span>${esc(e.venue)}</span></li>
-          ${addrRow}
-        </ul>
-        ${extra}
-        ${ctaRow}
-        ${onSale}
-      </div>
-      <div class="event__media">${flyer}</div>
-    </article>`;
-  }).join('');
-  return label + cards;
-}).join('');
-
-// ---- Wire calendar downloads (blob URLs must be made after render) ----
-(function(){
-  const dated = EVENTS.filter(hasTimes);
-  document.querySelectorAll('[data-ics]').forEach(a=>{
-    const ev = EVENTS.find(e => e.id === a.dataset.ics);
-    if(ev) a.href = icsHref([ev]);
-  });
-  const all = $('#calAll');
-  if(all){
-    if(dated.length) all.href = icsHref(dated);
-    else all.remove();
-  }
-  // Esc closes an open menu and returns focus to its trigger
-  document.addEventListener('keydown', e=>{
-    if(e.key !== 'Escape') return;
-    document.querySelectorAll('.cal[open]').forEach(d=>{
-      d.open = false; d.querySelector('summary').focus();
-    });
-  });
-  // clicking outside closes it
-  document.addEventListener('click', e=>{
-    document.querySelectorAll('.cal[open]').forEach(d=>{
-      if(!d.contains(e.target)) d.open = false;
-    });
-  });
-})();
-
-// ---- Countdown ----
-const cd = $('#countdown');
-const prevCount = {};
-function pad(n){return String(n).padStart(2,'0')}
-function renderCountdown(){
-  const now = new Date();
-  if(now >= EVENT_START && now <= EVENT_END){
-    cd.innerHTML = `<div class="count__live">The weekend is live</div>`;
-    return;
-  }
-  if(now > EVENT_END){
-    cd.innerHTML = `<div class="count__live">That’s a wrap. See you next year.</div>`;
-    return;
-  }
-  let diff = Math.floor((EVENT_START - now)/1000);
-  const dys = Math.floor(diff/86400); diff-=dys*86400;
-  const hrs = Math.floor(diff/3600);  diff-=hrs*3600;
-  const min = Math.floor(diff/60);    const sec = diff-min*60;
-  const units = [[dys,'Days','d'],[hrs,'Hours','h'],[min,'Minutes','m'],[sec,'Seconds','s']];
-  cd.innerHTML = units.map((u,i)=>{
-    const val = pad(u[0]);
-    const changed = prevCount[u[2]] !== undefined && prevCount[u[2]] !== val;
-    prevCount[u[2]] = val;
-    return `<div class="count__unit"><div class="count__num${changed?' tick':''}">${val}</div><div class="count__label">${u[1]}</div></div>`
-      + (i<3?'<div class="count__colon" aria-hidden="true">:</div>':'');
-  }).join('');
-}
-renderCountdown();
-setInterval(renderCountdown, 1000);
-
-// ---- Hero date line auto-fill from constants ----
-(function(){
-  // Formatted in Eastern time, not the visitor's. The event is in North
-  // Carolina, so a 9 PM Thursday kickoff must read "October 29" whether
-  // this is opened in Raleigh or in London.
-  const TZ='America/New_York';
-  const fmt=(d,opt)=>d.toLocaleDateString('en-US',{timeZone:TZ, ...opt});
-  const s=EVENT_START, e=EVENT_END;
-  const sameMonth = fmt(s,{month:'numeric'})===fmt(e,{month:'numeric'});
-  const startStr = fmt(s,{month:'long', day:'numeric'});
-  const endStr = fmt(e, sameMonth?{day:'numeric'}:{month:'long', day:'numeric'});
-  $('#heroDates').innerHTML =
-    `NC State Homecoming <span class="dot">·</span> ${startStr} – ${endStr}, ${fmt(e,{year:'numeric'})}`;
-})();
 
 // ---- Scroll reveal ----
 const io = new IntersectionObserver((entries)=>{
@@ -1281,30 +553,58 @@ function heroIn(){
   });
 }
 if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', heroIn); else heroIn();
+</script>
+<script>
+/* Get updates: posts to /api/subscribe (Turnstile + Supabase pos_subscribe) */
+(function () {
+  var form = document.getElementById("updates-form");
+  if (!form) return;
+  var status = document.getElementById("updates-status");
+  var button = form.querySelector('button[type="submit"]');
+  var email = form.elements.email;
+  var err = document.getElementById("up-email-err");
 
-// ---- Scrollspy: highlight active day in rail ----
-const dayAnchors = grouped.map(d=>document.getElementById('day-'+d.key)).filter(Boolean);
-const spy = new IntersectionObserver((entries)=>{
-  entries.forEach(en=>{
-    if(en.isIntersecting){
-      const key = en.target.id.replace('day-','');
-      document.querySelectorAll('.day-pill').forEach(p=>{
-        const on = p.dataset.target==='day-'+key;
-        p.classList.toggle('is-active', on);
-        if(on) p.setAttribute('aria-current','true'); else p.removeAttribute('aria-current');
-      });
+  function check() {
+    if (!email.value.trim()) return "Enter your email.";
+    return email.validity.typeMismatch ? "Enter an email like you@example.com." : "";
+  }
+  function show(msg) {
+    if (msg) { email.setAttribute("aria-invalid", "true"); email.setAttribute("aria-describedby", err.id); err.textContent = msg; err.hidden = false; }
+    else { email.removeAttribute("aria-invalid"); email.removeAttribute("aria-describedby"); err.textContent = ""; err.hidden = true; }
+  }
+  email.addEventListener("input", function () { if (email.getAttribute("aria-invalid") === "true") show(check()); });
+
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+    status.textContent = "";
+    var msg = check(); show(msg);
+    if (msg) { email.focus(); return; }
+
+    var data = Object.fromEntries(new FormData(form).entries());
+    if (!data["cf-turnstile-response"]) { status.textContent = "Please wait for the verification to finish."; return; }
+    data.source = location.pathname;
+
+    button.disabled = true;
+    var original = button.textContent;
+    button.textContent = "Adding\u2026";
+    try {
+      var r = await fetch("/api/subscribe", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
+      var json = await r.json();
+      if (json.ok) {
+        form.reset();
+        status.textContent = json.already ? "You were already on the list. Details updated." : "You\u2019re on the list. See you next fall.";
+      } else {
+        status.textContent = json.error || "Something went wrong. Please try again.";
+      }
+    } catch (e2) {
+      status.textContent = "Network error. Please try again.";
+    } finally {
+      if (window.turnstile) window.turnstile.reset(form.querySelector(".cf-turnstile"));
+      button.disabled = false;
+      button.textContent = original;
     }
   });
-},{rootMargin:'-45% 0px -50% 0px'});
-dayAnchors.forEach(a=>spy.observe(a));
-
-// The date boxes on the other pages link to /#day-thu and so on. Those
-// anchors are drawn by this script, after the browser has already tried to
-// jump to them, so jump once more now that they exist.
-if (/^#day-(thu|fri|sat)$/.test(location.hash)) {
-  const t = document.getElementById(location.hash.slice(1));
-  if (t) requestAnimationFrame(()=>t.scrollIntoView({block:'start'}));
-}
+})();
 </script>
 <script>
 /* Contact form: posts to /api/contact (Turnstile + Supabase + Resend) */
@@ -1377,15 +677,15 @@ if (/^#day-(thu|fri|sat)$/.test(location.hash)) {
       var json = await r.json();
       if (json.ok) {
         form.reset();
-        if (window.turnstile) window.turnstile.reset();
+        if (window.turnstile) window.turnstile.reset(form.querySelector(".cf-turnstile"));
         status.textContent = "Thanks. Your message was sent.";
       } else {
         status.textContent = json.error || "Something went wrong. Please try again.";
-        if (window.turnstile) window.turnstile.reset();
+        if (window.turnstile) window.turnstile.reset(form.querySelector(".cf-turnstile"));
       }
     } catch (err) {
       status.textContent = "Network error. Please try again.";
-      if (window.turnstile) window.turnstile.reset();
+      if (window.turnstile) window.turnstile.reset(form.querySelector(".cf-turnstile"));
     } finally {
       button.disabled = false;
       button.textContent = original;

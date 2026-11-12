@@ -5,7 +5,7 @@
 // actually agreed to rather than whatever the current version says.
 
 const {
-  rpc, sendEmail, readBody, clean, isEmail, VENUE, TEAM_EMAIL
+  rpc, sendEmail, readBody, clean, isEmail, VENUE, TEAM_EMAIL, BOOKINGS_OPEN, CLOSED_MSG
 } = require('./_lib');
 
 const AGREEMENT = [
@@ -17,6 +17,7 @@ const AGREEMENT = [
 
 module.exports = async (req, res) => {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
+  if (!BOOKINGS_OPEN) return res.status(410).json({ error: CLOSED_MSG });
 
   let body;
   try { body = await readBody(req); }

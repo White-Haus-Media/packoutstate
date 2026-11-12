@@ -10,6 +10,41 @@ canonical tags, share images, structured data, calendar exports and booking
 emails, uses the www address so nobody goes through the redirect.
 Local copy: ~/Projects/clients/packoutstate (the only one, see below).
 
+## Off-season mode (since Nov 2026)
+
+Homecoming 2026 is over and the site has been turned over for the year
+between events. Everything from the 2026 weekend build (countdown, lineup
+cards, flyers, calendar export, the Thu/Fri/Sat date boxes, ticket links,
+the Clocked Out booking form and photographer signup) was removed. All of
+it is preserved in git at the tag **`homecoming-2026`**: restore from there
+when next year's dates are set rather than rebuilding.
+
+What the site does now:
+- **Collect a "Get updates" list.** Email plus optional phone, on the home
+  page (`#updates`), through `api/subscribe.js` and `pos_subscribe` into
+  `packoutstate.subscribers` (SQL in `supabase/subscribers.sql`). Nothing is
+  sent to these people automatically; the list is exported when there is
+  news. Every page's header button is "Get updates" and links to `/#updates`.
+- **Describe each event in terms that last.** The home page has one card per
+  event (The Warm Up, Clocked Out, The Talley Tapes, The Block Party). All
+  four come back every year. No dates, no prices, no ticket links.
+- **Recap 2026 on the event pages.** They are in a holding state: past
+  tense, no tickets, no FAQ or arrival logistics. The full recaps (Phase 3)
+  wait on Colton's 2026 photos and video, coming through Google Drive:
+  Block Party tells the 2026 day with photos by time of day; Talley Tapes
+  makes 2026 the next chapter of the lore; Clocked Out gets a gallery and
+  photographer credits. Colton has confirmed photo consent.
+
+Colton's rules for this period:
+- **No attendance figures or any other numbers on public pages.**
+- No dates for 2027 until they are announced. "Next fall" and "next
+  Homecoming" only.
+
+Clocked Out bookings are switched off in the API: `BOOKINGS_OPEN = false`
+in `api/_lib.js` makes `reserve`, `creator` and the change/cancel actions in
+`manage` refuse with a "closed until next Homecoming" message, whatever the
+database dates say.
+
 ## What it is built with
 
 Plain static HTML, CSS and vanilla JavaScript. No framework, no build step,
@@ -28,7 +63,8 @@ for speed), with the SIL OFL license files beside them:
 - Archivo for body text. One variable file per character set covers weights
   400 to 800. Each public page declares it in a small `<style>` block in the
   `<head>` and preloads `archivo-latin.woff2`.
-- DSEG7 Classic Bold for the home page countdown digits only.
+- DSEG7 Classic Bold for the home page countdown digits only. The countdown
+  is gone for the off-season; the font file stays for when it returns.
 Do not add Google Fonts or jsDelivr links back. A new weight of Archivo
 needs no new file; a new font family gets its own files in `assets/fonts/`.
 
@@ -61,29 +97,26 @@ page markup is ready (DOMContentLoaded). It used to wait for the window
 `load` event, which held it back until every image, font and the contact
 form widget had loaded, about 6 seconds on a phone. Keep it off `load`.
 
-All event content lives in an `EVENTS` array near the top of the `<script>`
-in index.html, along with `EVENT_START` and `EVENT_END` for the countdown.
-Edit those, not the markup below them.
-
-Give an event a `pageUrl` and its card automatically links to that landing
-page instead of the outside details link.
+Off-season (Nov 2026): the event cards are plain markup in the `#events`
+section, not generated from data. The 2026 data-driven version (the
+`EVENTS`, `FIXTURES`, `EVENT_START` and `EVENT_END` arrays and the code
+that drew the lineup from them) is at the tag `homecoming-2026`. Old links
+to `#lineup` and `#day-thu` etc. land on `#events`.
 
 ## Header and footer
 
 Every public page (home, the three event pages, the Clocked Out manage page,
 the mixtape page) carries the same two-row header, set in Oct 2026:
-- Row 1: the Pack Out State wordmark ("State" in red), the Thu, Fri and Sat
-  date boxes, and a red button on the right. The button is per page: Get
-  tickets, or Reserve a time on Clocked Out, none on the manage page. Below
-  660px wide there is no room, so the button is hidden and each page's hero
-  button carries it.
+- Row 1: the Pack Out State wordmark ("State" in red) and a red button on
+  the right. Off-season the button is "Get updates" (`/#updates`) on every
+  page, the manage page included. The Thu/Fri/Sat date boxes were removed
+  Nov 12 2026; they come back with next year's dates (tag
+  `homecoming-2026`). Below 660px wide the button is hidden and each page's
+  hero button carries it.
 - Row 2: links to Clocked Out, Talley Tapes, Block Party and Mixtape, shown
   at every width, the current page underlined.
-All header text (date boxes, page links, button) is white and 12px on every
+All header text (page links, button) is white and 12px on every
 page; only the wordmark is larger. Colton set this, so do not grey it back.
-On the home page the date boxes scroll to that day. Everywhere else they link
-to `/#day-thu` and so on, and the home page script jumps there once the day
-sections are drawn.
 The header CSS lives in three places, because the home page and the mixtape
 page keep their own styles: `index.html`, `css/site.css`, `mixtape/index.html`.
 Change all three together.
