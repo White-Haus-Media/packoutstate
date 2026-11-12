@@ -6,9 +6,30 @@ Colton Palmer. Tickets sold through outside ticketing links.
 - Live at https://www.packoutstate.com. The bare domain redirects there (a
   Vercel domain setting), so every full URL in the code uses the `www` address.
 - Repo: github.com/White-Haus-Media/packoutstate
-- **The event weekend is over (Nov 2026).** The site stays up showing the final
-  state. Do not bring back countdowns, date boxes or ticket buttons for the
-  past weekend. A future event would get its own dates.
+- **The event weekend is over (Nov 2026).** Do not bring back countdowns, date
+  boxes or ticket buttons for the past weekend. A future event gets its own
+  dates.
+
+## Off-season mode (since Nov 2026)
+
+The site is turned over for the year between events. All four events (The
+Warm Up, Clocked Out, Talley Tapes, Block Party) come back every year.
+
+- The full 2026 build (countdown, lineup cards, flyers, calendar export,
+  booking form) is at commit `1610060`. Restore from it when next year's
+  dates are set rather than rebuilding.
+- Home page: one plain-markup card per event in `#events`, written to last,
+  a "Get updates" signup (`#updates`) and the contact form. The signup goes
+  through `api/subscribe.js` and `pos_subscribe` into
+  `packoutstate.subscribers` (`supabase/subscribers.sql`). Nothing is sent
+  automatically; the list is exported when there is news.
+- Event pages are recaps. Colton's 2026 photos and video come in through
+  Google Drive; photo consent is confirmed. Do not write recap facts (who
+  played, what was served, how the day went) that Colton has not confirmed.
+- **No attendance figures or other numbers on public pages.** No 2027 dates
+  until announced: "next fall" and "next Homecoming" only.
+- Clocked Out booking is off in the API: `BOOKINGS_OPEN = false` in
+  `api/_lib.js` refuses new bookings, photographer signups and changes.
 
 ## How it is built
 
@@ -51,9 +72,8 @@ are listed in `.vercelignore`; a new notes file needs to be covered there too.
   body button rule at the end of each.
 - The home page does not use `css/site.css`, on purpose, so editing it cannot
   break the event pages.
-- Home page event content lives in the `EVENTS` array (and `FIXTURES` for
-  schedule items that are not our events) near the top of the script in
-  `index.html`. Edit the data, not the markup below it.
+- Off-season, the home page event cards are plain markup in `#events`. The
+  2026 `EVENTS`/`FIXTURES` data version is at commit `1610060`.
 - The header is the same black two-row header on every public page: wordmark
   on row 1, links to Clocked Out, Talley Tapes and Block Party on row 2. Header
   links are white and 12px. "State" in the wordmark uses `--red-bright`.
