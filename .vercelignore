@@ -3,3 +3,10 @@
 .vercel
 .env
 .env.*
+*.md
+docs
+supabase
+ui-preview.html
+_mockups
+.playwright-mcp
+.impeccable
