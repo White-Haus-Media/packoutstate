@@ -93,3 +93,5 @@ when Colton asks. Any other branch makes a private preview. Local preview:
 - `booking-system`: Clocked Out reservations, Supabase, Resend, env variables.
 - `hq-dashboard`: the HQ look, event colors, ticket counts.
 - `event-pages`: how each landing page is organized, venues, video.
+
+Build tier: 1 (public website). Use the interaction-polish-patterns skill for builds and reviews.
