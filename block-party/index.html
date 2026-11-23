@@ -38,41 +38,11 @@
    The page is the recap video and nothing else. The 2026 build
    (timeline, wristband rule, venue card, FAQ, 2025 photo grid)
    is at commit 1610060. Recap facts stay off the page until
-   Colton confirms them.
+   Colton confirms them. The recap player (.rc) is in site.css,
+   shared with Talley Tapes.
    ============================================================ */
 body{background:var(--ink);color:var(--white)}
 
-.rc{padding-block:48px 64px}
-@media(min-width:1024px){ .rc{padding-block:80px 96px} }
-.rc__kicker{font-size:14px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--red-bright)}
-.rc h1{
-  margin-top:16px;font-family:var(--display);font-weight:700;text-transform:uppercase;
-  font-size:clamp(2.6rem,8vw,6rem);line-height:.9;letter-spacing:.01em;
-}
-.rc h1 .yr{color:var(--red-bright)}
-
-/* The player. 16:9, full width of the content column, edge to edge on a
-   phone. Until the recap file is in, the poster shows with a label. */
-.rc__player{position:relative;margin-top:32px;aspect-ratio:16/9;background:#000;overflow:hidden}
-@media(max-width:659px){ .rc__player{margin-inline:calc(var(--pad) * -1)} }
-.rc__player img,.rc__player video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
-.rc__play{
-  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-  background:linear-gradient(180deg,rgba(11,11,12,.15),rgba(11,11,12,.55));
-  border:0;cursor:pointer;color:#fff;font:inherit;width:100%;
-}
-.rc__play span{
-  display:inline-flex;align-items:center;gap:12px;min-height:56px;padding:0 28px;
-  background:var(--red);font-weight:700;font-size:1.05rem;border-radius:2px;
-}
-.rc__play svg{width:18px;height:18px}
-.rc__play[disabled]{cursor:default}
-.rc__play[disabled] span{background:rgba(11,11,12,.75);border:1px solid rgba(255,255,255,.35)}
-
-.rc__next{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 32px;margin-top:32px}
-.rc__next p{font-size:1.05rem;color:#C9CACD;max-width:52ch}
-.rc__next .btn{flex:none}
-@media(max-width:479px){ .rc__next .btn{width:100%} }
 </style>
 </head>
 <body>

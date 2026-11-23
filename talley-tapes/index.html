@@ -73,7 +73,7 @@ body{background:var(--white);color:var(--ink)}
    column. */
 /* Same white ground as the fact bar above it, so no top padding: the
    fact bar's own bottom padding is the gap. */
-.story{background:var(--white);padding-block:var(--section-y);padding-top:0;color:var(--ink)}
+.story{background:var(--white);padding-block:var(--section-y);color:var(--ink)}
 /* These sit on .wrap, so they must not cancel its max-width or the
    prose runs wider than every other section on the page. */
 .story__inner{text-align:left}
@@ -171,26 +171,26 @@ body{background:var(--white);color:var(--ink)}
 
 <main id="main">
 
-<!-- ============================ HERO ============================ -->
-<section class="ahero">
-  <!-- The one sheet already carries the title and the tagline as artwork,
-       so the page heading is for screen readers and search only. -->
-  <h1 class="sr-only">Untold: The Talley Tapes, a Homecoming Original</h1>
-  <img class="ahero__art" src="/assets/talley-banner.jpg" alt="Untold: The Talley Tapes, a Homecoming Original" width="1920" height="1080" fetchpriority="high" decoding="async">
-</section>
-
-<!-- ============================ FACT BAR ============================ -->
-<section class="facts section--bone">
+<!-- ============================ RECAP ============================
+     Off-season (Nov 2026): the recap video leads. The one sheet stands in
+     as the poster until the video is in assets/. The 2026 facts bar, FAQ
+     and closing call to action are at commit 1610060.
+     ================================================================ -->
+<section class="rc">
   <div class="wrap">
-    <dl class="facts__grid">
-      <div class="fct"><dt class="fct__k">Premiered</dt><dd class="fct__v">Oct 30, 2026<small>Homecoming Friday</small></dd></div>
-      <div class="fct"><dt class="fct__k">Where</dt><dd class="fct__v">House of Art<small>Downtown Raleigh</small></dd></div>
-      <div class="fct"><dt class="fct__k">Age</dt><dd class="fct__v">21+<small>Valid photo ID</small></dd></div>
-      <div class="fct"><dt class="fct__k">Next chapter</dt><dd class="fct__v">Next Homecoming<small>Date to come</small></dd></div>
-    </dl>
-    <div class="facts__cta">
+    <div class="rc__kicker">A Homecoming Original &middot; 2026</div>
+    <h1>The Talley Tapes</h1>
+
+    <div class="rc__player" id="recap">
+      <img src="/assets/talley-banner.jpg" alt="" width="1920" height="1080" fetchpriority="high">
+      <button class="rc__play" id="recapPlay" type="button" disabled>
+        <span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2l10 6-10 6z" fill="currentColor"/></svg><b id="recapLabel">Recap video coming soon</b></span>
+      </button>
+    </div>
+
+    <div class="rc__next">
+      <p>The next chapter is next Homecoming. Get on the list and hear the date first.</p>
       <a class="btn btn--primary" href="/#updates">Get updates</a>
-      <span class="facts__note">The premiere is in the books. The tapes keep rolling.</span>
     </div>
   </div>
 </section>
@@ -231,19 +231,6 @@ body{background:var(--white);color:var(--ink)}
   </div>
 </section>
 
-<!-- ============================ CLOSE ============================ -->
-<section class="close">
-  <div class="wrap close__inner">
-    <div>
-      <div class="close__t">If you know,<br>you go</div>
-      <p class="close__n">The Talley Tapes comes back next Homecoming. Get on the list and hear the date before anyone else.</p>
-    </div>
-    <div class="btnrow">
-      <a class="btn btn--dark" href="/#updates">Get updates</a>
-    </div>
-  </div>
-</section>
-
 <nav class="alsonav" aria-label="Rest of the weekend">
   <div class="wrap alsonav__row">
     <span class="alsonav__k">Rest of the weekend</span>
@@ -271,5 +258,35 @@ body{background:var(--white);color:var(--ink)}
   </div>
 </footer>
 
+<script>
+(function(){
+  'use strict';
+  // Path to the recap, without extension (name.webm and name.mp4, encoded
+  // as in README.md), plus its poster. Leave null until the file is in
+  // assets/: the one sheet shows with "Recap video coming soon".
+  var RECAP = null;            // e.g. '/assets/talley-recap-2026'
+  var POSTER = null;           // e.g. '/assets/talley-recap-2026-poster.jpg'
+
+  var box = document.getElementById('recap');
+  var btn = document.getElementById('recapPlay');
+  if(!box || !btn) return;
+  if(POSTER) box.querySelector('img').src = POSTER;
+  if(!RECAP) return;
+
+  document.getElementById('recapLabel').textContent = 'Play the recap';
+  btn.disabled = false;
+  btn.addEventListener('click', function(){
+    var v = document.createElement('video');
+    v.controls = true; v.playsInline = true; v.preload = 'auto';
+    if(POSTER) v.poster = POSTER;
+    [['.webm','video/webm'],['.mp4','video/mp4']].forEach(function(s){
+      var el = document.createElement('source'); el.src = RECAP + s[0]; el.type = s[1]; v.appendChild(el);
+    });
+    box.replaceChildren(v);
+    var p = v.play(); if(p && p.catch) p.catch(function(){});
+    v.focus();
+  });
+})();
+</script>
 </body>
 </html>
