@@ -33,9 +33,11 @@
 <style>
 /* ============================================================
    GALLERY, "The Yearbook" (chosen Nov 2026, option A, white).
-   Year, then event album. Album cards up top, each album below
-   as a masonry wall, tap a photo for the viewer with download
-   and share. Everything is drawn from /gallery/manifest.json,
+   Pick a year, then a Photos section (one even grid, a filter
+   per event once there is more than one, 24 at a time with Show
+   more) and a separate Videos section (cover image with a play
+   button, tap to play). Tap a photo for the viewer with
+   download and share. Reworked Nov 23 2026 at Colton's ask. Everything is drawn from /gallery/manifest.json,
    which scripts/gallery/publish.py writes. Files live in a
    private Cloudflare R2 bucket and load through
    /api/gallery-file. Classes are prefixed yb- so nothing clashes
@@ -56,34 +58,51 @@ body{background:var(--white);color:var(--ink)}
 .yb-yr{font-family:var(--display);font-size:2.1rem;text-transform:uppercase;color:#6b6d72;background:none;border:0;padding:0;cursor:pointer;line-height:1}
 .yb-yr[aria-selected="true"]{color:var(--ink);text-decoration:underline;text-decoration-color:var(--red);text-underline-offset:10px;text-decoration-thickness:3px}
 
-/* Album cards */
-.yb-cards{display:grid;gap:28px 16px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
-.yb-card__img{position:relative;display:block;aspect-ratio:4/5;background:#ececee;overflow:hidden}
-.yb-card__img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
-.yb-card__img:hover img{transform:scale(1.03)}
-.yb-tag{position:absolute;left:10px;top:10px;background:var(--ink);color:#fff;font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:6px 8px}
-.yb-card h3{font-family:var(--display);text-transform:uppercase;font-size:1.9rem;line-height:1;margin:14px 0 6px;font-weight:400}
-.yb-card p{font-size:.92rem;font-weight:500;margin:0 0 14px}
-.yb-row{display:flex;flex-wrap:wrap;gap:8px}
+/* Sections: Photos, then Videos */
+.yb-sec{margin-top:48px}
+.yb-sec + .yb-sec{margin-top:72px;padding-top:40px;border-top:1px solid var(--line-dark)}
+.yb-sec__head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:12px 24px;margin-bottom:20px}
+.yb-sec__head h2{font-family:var(--display);text-transform:uppercase;font-size:clamp(2.4rem,6vw,3.4rem);line-height:.95;margin:10px 0 0;font-weight:400}
 .yb .btn{font-size:.95rem;padding:9px 16px}
 .btn--line{background:#fff;color:var(--ink);border-color:rgba(11,11,12,.28)}
 .btn--line:hover{border-color:var(--ink)}
 
-/* One album */
-.yb-album{margin-top:64px;border-top:1px solid var(--line-dark);padding-top:36px;scroll-margin-top:var(--nav-h)}
-.yb-album__head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:16px 24px;margin-bottom:24px}
-.yb-album__head h2{font-family:var(--display);text-transform:uppercase;font-size:clamp(2.4rem,6vw,3.4rem);line-height:.95;margin:10px 0 0;font-weight:400}
-.yb-wall{display:flex;gap:10px;align-items:flex-start}
-.yb-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:10px}
-.yb-tile{position:relative;display:block;padding:0;border:0;background:#ececee;cursor:zoom-in;overflow:hidden}
-.yb-tile img{display:block;width:100%;height:auto}
-.yb-tile::after{content:"";position:absolute;inset:0;background:rgba(11,11,12,0);transition:background .2s}
-.yb-tile:hover::after{background:rgba(11,11,12,.08)}
+/* Event filter (only shown once there is more than one photo album) */
+.yb-chips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin:0 0 18px;padding-bottom:2px}
+.yb-chips::-webkit-scrollbar{display:none}
+.yb-chip{flex:none;min-height:40px;padding:8px 14px;border:1px solid rgba(11,11,12,.25);border-radius:999px;background:#fff;color:var(--ink);font:600 .9rem/1 var(--sans);cursor:pointer;white-space:nowrap}
+.yb-chip:hover{border-color:var(--ink)}
+.yb-chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.yb-chip span{opacity:.6;margin-left:6px;font-weight:500}
 
-/* Video */
-.yb-video{margin-bottom:24px}
-.yb-video video{display:block;width:100%;max-height:78vh;background:#000}
-.yb-video__bar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;margin-top:12px;font-size:.92rem}
+/* Photo grid: even tiles, so it stays tidy at 18 photos or 800. Shows a
+   page at a time with a Show more button. */
+.yb-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+@media(min-width:600px){.yb-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}}
+@media(min-width:1000px){.yb-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}}
+.yb-tile{position:relative;display:block;aspect-ratio:4/5;padding:0;border:0;background:#ececee;cursor:zoom-in;overflow:hidden}
+.yb-tile img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 30%;transition:transform .45s cubic-bezier(.2,.7,.2,1)}
+.yb-tile:hover img{transform:scale(1.04)}
+.yb-tile__ev{position:absolute;left:8px;bottom:8px;background:rgba(11,11,12,.85);color:#fff;font-size:.66rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 7px}
+.yb-more{display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:28px;font-size:.9rem}
+.yb-dl{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:.92rem}
+.yb-sub{margin:10px 0 0;font-size:.95rem;font-weight:500}
+
+/* Videos: cover image with a play button; tap swaps in the player */
+.yb-vids{display:grid;gap:36px 20px;grid-template-columns:minmax(0,1fr)}
+@media(min-width:760px){.yb-vids{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.yb-vcard__media{position:relative;aspect-ratio:16/9;background:#000;overflow:hidden}
+.yb-vcard__play{position:absolute;inset:0;display:block;width:100%;height:100%;padding:0;border:0;background:#000;cursor:pointer}
+.yb-vcard__play img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .5s cubic-bezier(.2,.7,.2,1),opacity .3s}
+.yb-vcard__play::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(to top,rgba(11,11,12,.55),rgba(11,11,12,0) 45%)}
+.yb-pb{position:absolute;left:50%;top:50%;z-index:2;width:76px;height:76px;margin:-38px 0 0 -38px;border-radius:50%;background:rgba(11,11,12,.78);border:2px solid #fff;display:grid;place-items:center;transition:transform .25s cubic-bezier(.2,.7,.2,1),background-color .25s}
+.yb-pb::after{content:"";margin-left:6px;border-left:22px solid #fff;border-top:13px solid transparent;border-bottom:13px solid transparent}
+.yb-vcard__play:hover img{transform:scale(1.03);opacity:.85}
+.yb-vcard__play:hover .yb-pb,.yb-vcard__play:focus-visible .yb-pb{transform:scale(1.12);background:var(--red)}
+.yb-vcard__dur{position:absolute;right:10px;bottom:10px;z-index:2;color:#fff;font-size:.8rem;font-weight:700;letter-spacing:.06em}
+.yb-vcard video{position:absolute;inset:0;width:100%;height:100%;background:#000}
+.yb-vcard h3{font-family:var(--display);text-transform:uppercase;font-size:1.9rem;line-height:1;margin:16px 0 6px;font-weight:400}
+.yb-vcard p{font-size:.92rem;font-weight:500;margin:0 0 14px}
 
 /* Viewer */
 .yb-lb{position:fixed;inset:0;z-index:200;background:#fff;display:none;grid-template-rows:minmax(0,1fr) auto}
@@ -110,7 +129,7 @@ body{background:var(--white);color:var(--ink)}
 .yb-empty{padding:48px 0;font-size:1rem}
 body.yb-locked{overflow:hidden}
 
-@media (prefers-reduced-motion: reduce){.yb-card__img img,.yb-tile::after,.yb-toast{transition:none}.yb-card__img:hover img{transform:none}}
+@media (prefers-reduced-motion: reduce){.yb-tile img,.yb-vcard__play img,.yb-pb,.yb-toast{transition:none}.yb-tile:hover img,.yb-vcard__play:hover img,.yb-vcard__play:hover .yb-pb{transform:none}}
 
 /* Header text: white and 12px, same as every page (site.css sets it last). */
 </style>
@@ -192,23 +211,15 @@ body.yb-locked{overflow:hidden}
 (function(){
   'use strict';
   var FILE = '/api/gallery-file?k=';
+  var PAGE = 24; // photos per "Show more"
   var src = function(k){ return FILE + encodeURIComponent(k).replace(/%2F/g,'/'); };
   var dl = function(k){ return src(k) + '&dl=1'; };
   var $ = function(s, r){ return (r || document).querySelector(s); };
   var esc = function(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
   var mb = function(b){ return b >= 1e9 ? (b/1e9).toFixed(1) + ' GB' : Math.max(1, Math.round(b/1e6)) + ' MB'; };
-  var plural = function(n, w){ return n + ' ' + w + (n === 1 ? '' : 's'); };
   var mmss = function(s){ return Math.floor(s/60) + ':' + String(s%60).padStart(2,'0'); };
 
-  var data, year, flat = [], cur = -1, lastFocus = null;
-
-  function countLabel(a){
-    var bits = [];
-    if (a.photos.length) bits.push(plural(a.photos.length, 'photo'));
-    if (a.videos.length) bits.push(plural(a.videos.length, 'video'));
-    return bits.join(' · ');
-  }
-  function photoId(a, i){ return a.slug + '-' + year.year + '-' + String(i + 1).padStart(2, '0'); }
+  var data, year, all = [], list = [], shown = 0, filter = 'all', cur = -1, lastFocus = null;
 
   function renderYears(){
     var box = $('#years');
@@ -218,79 +229,130 @@ body.yb-locked{overflow:hidden}
     box.onclick = function(e){
       var b = e.target.closest('[data-year]'); if (!b) return;
       year = data.years.filter(function(y){ return String(y.year) === b.dataset.year; })[0];
-      renderYears(); renderYear();
+      filter = 'all'; renderYears(); renderYear();
     };
   }
 
   function renderYear(){
-    flat = [];
-    var cards = year.albums.map(function(a){
-      var main = a.photos.length
-        ? '<a class="btn btn--line" href="' + dl(a.zip.k) + '">Download all</a>'
-        : '<a class="btn btn--line" href="' + dl(a.videos[0].o) + '">Download video</a>';
-      return '<article class="yb-card">' +
-        '<a class="yb-card__img" href="#' + a.slug + '"><img src="' + src(a.cover) + '" alt="' + esc(a.title) + ' ' + year.year + '" decoding="async"><b class="yb-tag">' + countLabel(a) + '</b></a>' +
-        '<h3>' + esc(a.title) + '</h3><p class="yb-muted">' + esc(a.day) + ' · ' + esc(a.venue) + '</p>' +
-        '<div class="yb-row"><a class="btn btn--primary" href="#' + a.slug + '">View album</a>' + main + '</div></article>';
-    }).join('');
-
-    var albums = year.albums.map(function(a){
-      var head = '<div class="yb-album__head"><div><div class="eyebrow eyebrow--light">' + year.year + ' · ' + esc(a.title) + ' · ' + esc(a.venue) + '</div>' +
-        '<h2>' + countLabel(a) + '</h2></div>' +
-        (a.zip ? '<a class="btn btn--primary" href="' + dl(a.zip.k) + '">Download all photos (' + mb(a.zip.bytes) + ')</a>' : '') + '</div>';
-      var vids = a.videos.map(function(v){
-        return '<div class="yb-video"><video controls playsinline preload="none" poster="' + src(v.poster) + '" width="' + v.w + '" height="' + v.h + '">' +
-          '<source src="' + src(v.web) + '" type="video/mp4"></video>' +
-          '<div class="yb-video__bar"><span class="yb-muted">' + mmss(v.dur) + ' · recap video</span>' +
-          '<a class="btn btn--line" href="' + dl(v.o) + '">Download full quality (' + mb(v.bytes) + ')</a></div></div>';
-      }).join('');
-      var tiles = a.photos.map(function(p, i){
-        var n = flat.length;
-        flat.push({album: a, photo: p, i: i, id: photoId(a, i)});
-        return '<button class="yb-tile" type="button" data-n="' + n + '" style="aspect-ratio:' + p.w + '/' + p.h + '" aria-label="Open photo ' + (i + 1) + ' of ' + a.photos.length + '">' +
-          '<img src="' + src(p.t) + '" alt="' + esc(a.title) + ' ' + year.year + ', photo ' + (i + 1) + '" width="' + p.w + '" height="' + p.h + '" loading="lazy" decoding="async"></button>';
+    // Every photo of the year, in album order, then file order.
+    all = [];
+    var photoAlbums = year.albums.filter(function(a){ return a.photos.length; });
+    photoAlbums.forEach(function(a){
+      a.photos.forEach(function(p, i){
+        all.push({album: a, photo: p, id: a.slug + '-' + year.year + '-' + String(i + 1).padStart(2, '0')});
       });
-      return '<section class="yb-album" id="' + a.slug + '" aria-label="' + esc(a.title) + '">' + head + vids +
-        (tiles.length ? '<div class="yb-wall" data-tiles="' + encodeURIComponent(JSON.stringify(tiles)) + '"></div>' : '') + '</section>';
-    }).join('');
-
-    $('#year-body').innerHTML = '<div class="yb-cards">' + cards + '</div>' + albums;
-    layoutWalls();
-  }
-
-  // Masonry: deal tiles into columns, each to the shortest one, so the order
-  // reads left to right. Rebuilt only when the column count changes.
-  var cols = 0;
-  function colCount(){ var w = innerWidth; return w < 600 ? 2 : w < 1000 ? 3 : 4; }
-  function layoutWalls(){
-    cols = colCount();
-    document.querySelectorAll('.yb-wall').forEach(function(wall){
-      var tiles = JSON.parse(decodeURIComponent(wall.dataset.tiles));
-      var hs = [], html = [];
-      for (var c = 0; c < cols; c++){ hs.push(0); html.push(''); }
-      tiles.forEach(function(t){
-        var m = /aspect-ratio:(\d+)\/(\d+)/.exec(t), r = m ? m[2] / m[1] : 1.5;
-        var c = hs.indexOf(Math.min.apply(null, hs));
-        html[c] += t; hs[c] += r;
-      });
-      wall.innerHTML = html.map(function(h){ return '<div class="yb-col">' + h + '</div>'; }).join('');
     });
-  }
-  addEventListener('resize', function(){ if (colCount() !== cols) layoutWalls(); });
+    var videos = [];
+    year.albums.forEach(function(a){ a.videos.forEach(function(v){ videos.push({album: a, video: v}); }); });
 
-  // Viewer
+    var html = '';
+    if (all.length){
+      var chips = photoAlbums.length > 1
+        ? '<div class="yb-chips" role="group" aria-label="Filter by event">' +
+          '<button class="yb-chip" type="button" data-f="all">All<span>' + all.length + '</span></button>' +
+          photoAlbums.map(function(a){ return '<button class="yb-chip" type="button" data-f="' + a.slug + '">' + esc(a.title) + '<span>' + a.photos.length + '</span></button>'; }).join('') +
+          '</div>'
+        : '';
+      html += '<section class="yb-sec" id="photos" aria-labelledby="photos-h">' +
+        '<div class="yb-sec__head"><div><div class="eyebrow eyebrow--light">' + year.year + ' &middot; Photos</div><h2 id="photos-h">Photos</h2>' +
+        '<p class="yb-sub yb-muted" id="photos-sub"></p></div><div class="yb-dl" id="dlrow"></div></div>' +
+        chips + '<div class="yb-grid" id="grid"></div><div class="yb-more" id="more"></div></section>';
+    }
+    if (videos.length){
+      html += '<section class="yb-sec" id="videos" aria-labelledby="videos-h">' +
+        '<div class="yb-sec__head"><div><div class="eyebrow eyebrow--light">' + year.year + ' &middot; Recap videos</div><h2 id="videos-h">Videos</h2></div></div>' +
+        '<div class="yb-vids">' + videos.map(function(x, n){
+          var a = x.album, v = x.video;
+          return '<article class="yb-vcard"><div class="yb-vcard__media">' +
+            '<button class="yb-vcard__play" type="button" data-v="' + n + '" aria-label="Play the ' + esc(a.title) + ' video, ' + mmss(v.dur) + '">' +
+            '<img src="' + src(v.poster) + '" alt="" loading="lazy" decoding="async"><span class="yb-pb" aria-hidden="true"></span>' +
+            '<span class="yb-vcard__dur">' + mmss(v.dur) + '</span></button></div>' +
+            '<h3>' + esc(a.title) + '</h3><p class="yb-muted">' + esc(a.day) + ' &middot; ' + esc(a.venue) + '</p>' +
+            '<a class="btn btn--line" href="' + dl(v.o) + '">Download full quality (' + mb(v.bytes) + ')</a></article>';
+        }).join('') + '</div></section>';
+      renderYear.videos = videos;
+    }
+    if (!html) html = '<p class="yb-empty">Photos from ' + year.year + ' are on the way.</p>';
+    $('#year-body').innerHTML = html;
+    if (all.length) applyFilter();
+  }
+
+  function applyFilter(){
+    list = filter === 'all' ? all : all.filter(function(x){ return x.album.slug === filter; });
+    document.querySelectorAll('.yb-chip').forEach(function(c){ c.setAttribute('aria-pressed', String(c.dataset.f === filter)); });
+    $('#grid').innerHTML = ''; shown = 0;
+    showMore();
+    // Download all: the chosen event's zip, or every event's zip under All.
+    var albums = filter === 'all' ? year.albums.filter(function(a){ return a.zip; }) : list.length ? [list[0].album] : [];
+    $('#dlrow').innerHTML = albums.length > 1
+      ? '<span class="yb-muted">Pick an event to download all its photos.</span>'
+      : albums.map(function(a){
+      return '<a class="btn btn--primary" href="' + dl(a.zip.k) + '">Download all (' + mb(a.zip.bytes) + ')</a>';
+    }).join('');
+    // Which event(s) and how many, under the heading.
+    var evs = filter === 'all' ? year.albums.filter(function(a){ return a.photos.length; }) : albums;
+    $('#photos-sub').textContent = evs.length === 1
+      ? evs[0].title + ' \u00b7 ' + evs[0].day + ' \u00b7 ' + evs[0].venue + ' \u00b7 ' + list.length + ' photos'
+      : list.length + ' photos from ' + evs.length + ' events';
+  }
+
+  function showMore(){
+    var many = year.albums.filter(function(a){ return a.photos.length; }).length > 1;
+    var next = list.slice(shown, shown + PAGE), html = '';
+    next.forEach(function(x, j){
+      var n = shown + j, a = x.album, num = a.photos.indexOf(x.photo) + 1;
+      html += '<button class="yb-tile" type="button" data-n="' + n + '" aria-label="Open ' + esc(a.title) + ' photo ' + num + '">' +
+        '<img src="' + src(x.photo.t) + '" alt="' + esc(a.title) + ' ' + year.year + ', photo ' + num + '" width="' + x.photo.w + '" height="' + x.photo.h + '"' +
+        (n < 8 ? '' : ' loading="lazy"') + ' decoding="async">' +
+        (many && filter === 'all' ? '<span class="yb-tile__ev">' + esc(a.title) + '</span>' : '') + '</button>';
+    });
+    $('#grid').insertAdjacentHTML('beforeend', html);
+    shown += next.length;
+    var left = list.length - shown;
+    $('#more').innerHTML = left > 0
+      ? '<span class="yb-muted">Showing ' + shown + ' of ' + list.length + '</span><button class="btn btn--primary" type="button" id="more-btn">Show ' + Math.min(left, PAGE) + ' more</button>'
+      : (list.length > PAGE ? '<span class="yb-muted">All ' + list.length + ' photos shown</span>' : '');
+  }
+
+  document.addEventListener('click', function(e){
+    var t;
+    if ((t = e.target.closest('.yb-chip'))){ filter = t.dataset.f; applyFilter(); }
+    else if ((t = e.target.closest('#more-btn'))){
+      var first = shown; showMore();
+      var tile = document.querySelector('.yb-tile[data-n="' + first + '"]'); if (tile) tile.focus({preventScroll: true});
+    }
+    else if ((t = e.target.closest('.yb-tile'))) open(+t.dataset.n);
+    else if ((t = e.target.closest('.yb-vcard__play'))) playVideo(t);
+  });
+
+  // Video: swap the cover for the player and start it. One plays at a time.
+  function playVideo(btn){
+    var v = renderYear.videos[+btn.dataset.v].video;
+    document.querySelectorAll('.yb-vcard video').forEach(function(o){ o.pause(); });
+    var el = document.createElement('video');
+    el.controls = true; el.playsInline = true; el.preload = 'auto';
+    el.poster = src(v.poster); el.src = src(v.web);
+    el.setAttribute('aria-label', btn.getAttribute('aria-label').replace(/^Play the /, ''));
+    el.addEventListener('play', function(){ document.querySelectorAll('.yb-vcard video').forEach(function(o){ if (o !== el) o.pause(); }); });
+    btn.replaceWith(el);
+    var p = el.play(); if (p && p.catch) p.catch(function(){});
+    el.focus();
+  }
+
+  // Photo viewer. Steps through whatever the filter shows, including photos
+  // not yet loaded into the grid.
   var lb = $('#lb'), img = $('#lb-img');
   function show(n){
-    cur = (n + flat.length) % flat.length;
-    var f = flat[cur], a = f.album, p = f.photo;
+    cur = (n + list.length) % list.length;
+    var x = list[cur], a = x.album, p = x.photo;
     img.src = src(p.l);
-    img.alt = a.title + ' ' + year.year + ', photo ' + (f.i + 1);
+    img.alt = a.title + ' ' + year.year + ', photo ' + (a.photos.indexOf(p) + 1);
     $('#lb-where').textContent = year.year + ' · ' + a.title;
-    $('#lb-count').textContent = 'Photo ' + (f.i + 1) + ' of ' + a.photos.length;
+    $('#lb-count').textContent = 'Photo ' + (cur + 1) + ' of ' + list.length;
     $('#lb-dl').href = dl(p.o);
     $('#lb-dl').textContent = 'Download (' + mb(p.bytes) + ')';
-    history.replaceState(null, '', '#' + f.id);
-    var nx = flat[(cur + 1) % flat.length]; (new Image()).src = src(nx.photo.l);
+    history.replaceState(null, '', '#' + x.id);
+    var nx = list[(cur + 1) % list.length]; (new Image()).src = src(nx.photo.l);
   }
   function open(n){
     lastFocus = document.activeElement;
@@ -300,11 +362,12 @@ body.yb-locked{overflow:hidden}
   function close(){
     lb.classList.remove('is-open'); lb.hidden = true; document.body.classList.remove('yb-locked');
     history.replaceState(null, '', location.pathname + location.search);
-    if (lastFocus) lastFocus.focus();
+    // Grid may not show the last photo yet; load pages until it does.
+    while (cur >= shown && shown < list.length) showMore();
+    var tile = document.querySelector('.yb-tile[data-n="' + cur + '"]');
+    var back = tile || lastFocus;
+    if (back && back.focus) back.focus({preventScroll: !tile});
   }
-  document.addEventListener('click', function(e){
-    var t = e.target.closest('.yb-tile'); if (t) open(+t.dataset.n);
-  });
   $('#lb-close').onclick = close;
   $('#lb-prev').onclick = function(){ show(cur - 1); };
   $('#lb-next').onclick = function(){ show(cur + 1); };
@@ -328,7 +391,7 @@ body.yb-locked{overflow:hidden}
 
   function toast(msg){ var t = $('#toast'); t.textContent = msg; t.classList.add('is-on'); setTimeout(function(){ t.classList.remove('is-on'); }, 2200); }
   $('#lb-share').onclick = function(){
-    var url = location.origin + location.pathname + '#' + flat[cur].id;
+    var url = location.origin + location.pathname + '#' + list[cur].id;
     if (navigator.share) navigator.share({title: 'Pack Out State ' + year.year, url: url}).catch(function(){});
     else if (navigator.clipboard) navigator.clipboard.writeText(url).then(function(){ toast('Link copied'); }, function(){ toast(url); });
     else toast(url);
@@ -341,7 +404,7 @@ body.yb-locked{overflow:hidden}
     if (m) year = d.years.filter(function(y){ return String(y.year) === m[1]; })[0] || year;
     renderYears(); renderYear();
     if (m){
-      var n = flat.map(function(f){ return f.id; }).indexOf(hash);
+      var n = all.map(function(x){ return x.id; }).indexOf(hash);
       if (n > -1) open(n);
     } else if (hash && document.getElementById(hash)) document.getElementById(hash).scrollIntoView();
   }).catch(function(){
