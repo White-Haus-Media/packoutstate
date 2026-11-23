@@ -83,6 +83,14 @@ body{background:var(--white);color:var(--ink)}
 .yb-tile{position:relative;display:block;aspect-ratio:4/5;padding:0;border:0;background:#ececee;cursor:zoom-in;overflow:hidden}
 .yb-tile img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 30%;transition:transform .45s cubic-bezier(.2,.7,.2,1)}
 .yb-tile:hover img{transform:scale(1.04)}
+.yb-cell{position:relative}
+.yb-tile{width:100%}
+/* Download button on each photo: always shown on phones, appears on hover
+   or keyboard focus where there is a mouse. */
+.yb-tdl{position:absolute;top:8px;right:8px;display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.94);color:#0b0b0c;box-shadow:0 1px 6px rgba(0,0,0,.25);transition:opacity .2s,background .2s,color .2s}
+.yb-tdl svg{width:18px;height:18px}
+.yb-tdl:hover,.yb-tdl:focus-visible{background:var(--red-bright,#e1251b);color:#fff}
+@media(hover:hover){.yb-tdl{opacity:0}.yb-cell:hover .yb-tdl,.yb-cell:focus-within .yb-tdl{opacity:1}}
 .yb-tile__ev{position:absolute;left:8px;bottom:8px;background:rgba(11,11,12,.85);color:#fff;font-size:.66rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 7px}
 .yb-more{display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:28px;font-size:.9rem}
 .yb-dl{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:.92rem}
@@ -301,10 +309,12 @@ body.yb-locked{overflow:hidden}
     var next = list.slice(shown, shown + PAGE), html = '';
     next.forEach(function(x, j){
       var n = shown + j, a = x.album, num = a.photos.indexOf(x.photo) + 1;
-      html += '<button class="yb-tile" type="button" data-n="' + n + '" aria-label="Open ' + esc(a.title) + ' photo ' + num + '">' +
+      html += '<div class="yb-cell"><button class="yb-tile" type="button" data-n="' + n + '" aria-label="Open ' + esc(a.title) + ' photo ' + num + '">' +
         '<img src="' + src(x.photo.t) + '" alt="' + esc(a.title) + ' ' + year.year + ', photo ' + num + '" width="' + x.photo.w + '" height="' + x.photo.h + '"' +
         (n < 8 ? '' : ' loading="lazy"') + ' decoding="async">' +
-        (many && filter === 'all' ? '<span class="yb-tile__ev">' + esc(a.title) + '</span>' : '') + '</button>';
+        (many && filter === 'all' ? '<span class="yb-tile__ev">' + esc(a.title) + '</span>' : '') + '</button>' +
+        '<a class="yb-tdl" href="' + dl(x.photo.o) + '" aria-label="Download ' + esc(a.title) + ' photo ' + num + ' (' + mb(x.photo.bytes) + ')" title="Download (' + mb(x.photo.bytes) + ')">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg></a></div>';
     });
     $('#grid').insertAdjacentHTML('beforeend', html);
     shown += next.length;
