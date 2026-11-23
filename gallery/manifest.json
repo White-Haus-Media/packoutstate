@@ -1,0 +1,251 @@
+{
+ "updated": "2026-11-22",
+ "years": [
+  {
+   "year": 2026,
+   "albums": [
+    {
+     "slug": "clocked-out",
+     "title": "Clocked Out",
+     "day": "Fri Oct 30",
+     "date": "2026-10-30",
+     "venue": "District",
+     "photos": [
+      {
+       "t": "2026/clocked-out/thumb/clocked-out-2026-01-94db1d19.jpg",
+       "l": "2026/clocked-out/large/clocked-out-2026-01-c7134b94.jpg",
+       "o": "2026/clocked-out/original/clocked-out-2026-01-f3fd8269.jpg",
+       "w": 600,
+       "h": 900,
+       "ow": 5464,
+       "oh": 8192,
+       "bytes": 14362545
+      },
+      {
+       "t": "2026/clocked-out/thumb/clocked-out-2026-02-c2a22b89.jpg",
+       "l": "2026/clocked-out/large/clocked-out-2026-02-ede2e522.jpg",
+       "o": "2026/clocked-out/original/clocked-out-2026-02-6a5e2324.jpg",
+       "w": 600,
+       "h": 900,
+       "ow": 5464,
+       "oh": 8192,
+       "bytes": 10821415
+      },
+      {
+       "t": "2026/clocked-out/thumb/clocked-out-2026-03-cdd9db0e.jpg",
+       "l": "2026/clocked-out/large/clocked-out-2026-03-4c588ccb.jpg",
+       "o": "2026/clocked-out/original/clocked-out-2026-03-e73ee0eb.jpg",
+       "w": 600,
+       "h": 900,
+       "ow": 5464,
+       "oh": 8192,
+       "bytes": 12487555
+      },
+      {
+       "t": "2026/clocked-out/thumb/clocked-out-2026-04-6cbe1bdd.jpg",
+       "l": "2026/clocked-out/large/clocked-out-2026-04-6001ac46.jpg",
+       "o": "2026/clocked-out/original/clocked-out-2026-04-247863a4.jpg",
+       "w": 600,
+       "h": 900,
+       "ow": 5464,
+       "oh": 8192,
+       "bytes": 10153718
+      },
+      {
+       "t": "2026/clocked-out/thumb/clocked-out-2026-05-815ee7a7.jpg",
+       "l": "2026/clocked-out/large/clocked-out-2026-05-ce6addc7.jpg",
+       "o": "2026/clocked-out/original/clocked-out-2026-05-91f1dde3.jpg",
+       "w": 600,
+       "h": 900,
+       "ow": 5464,
+       "oh": 8192,
+       "bytes": 10175691
+      },
+      {
+       "t": "2026/clocked-out/thumb/clocked-out-2026-06-33e02bad.jpg",
+       "l": "2026/clocked-out/large/clocked-out-2026-06-446a8155.jpg",
+       "o": "2026/clocked-out/original/clocked-out-2026-06-b9b5fa39.jpg",
+       "w": 655,
+       "h": 900,
+       "ow": 1718,
+       "oh": 2360,
+       "bytes": 1281129
+      },
+      {
+       "t": "2026/clocked-out/thumb/clocked-out-2026-07-284dda22.jpg",
+       "l": "2026/clocked-out/large/clocked-out-2026-07-a4bd69bb.jpg",
+       "o": "2026/clocked-out/original/clocked-out-2026-07-489b1f0f.jpg",
+       "w": 648,
+       "h": 900,
+       "ow": 1718,
+       "oh": 2385,
+       "bytes": 1444870
+      },
+      {
+       "t": "2026/clocked-out/thumb/clocked-out-2026-08-11ab26eb.jpg",
+       "l": "2026/clocked-out/large/clocked-out-2026-08-cec7a7b3.jpg",
+       "o": "2026/clocked-out/original/clocked-out-2026-08-ce0893ef.jpg",
+       "w": 611,
+       "h": 900,
+       "ow": 1718,
+       "oh": 2528,
+       "bytes": 1346815
+      },
+      {
+       "t": "2026/clocked-out/thumb/clocked-out-2026-09-164c0459.jpg",
+       "l": "2026/clocked-out/large/clocked-out-2026-09-12dc0c52.jpg",
+       "o": "2026/clocked-out/original/clocked-out-2026-09-0a7e5725.jpg",
+       "w": 600,
+       "h": 900,
+       "ow": 1718,
+       "oh": 2576,
+       "bytes": 707738
+      },
+      {
+       "t": "2026/clocked-out/thumb/clocked-out-2026-10-6512dd8d.jpg",
+       "l": "2026/clocked-out/large/clocked-out-2026-10-819980b5.jpg",
+       "o": "2026/clocked-out/original/clocked-out-2026-10-6664f5d7.jpg",
+       "w": 602,
+       "h": 900,
+       "ow": 1718,
+       "oh": 2569,
+       "bytes": 1554914
+      },
+      {
+       "t": "2026/clocked-out/thumb/clocked-out-2026-11-fbc9610e.jpg",
+       "l": "2026/clocked-out/large/clocked-out-2026-11-619be55d.jpg",
+       "o": "2026/clocked-out/original/clocked-out-2026-11-bf726197.jpg",
+       "w": 613,
+       "h": 900,
+       "ow": 1718,
+       "oh": 2520,
+       "bytes": 1348864
+      },
+      {
+       "t": "2026/clocked-out/thumb/clocked-out-2026-12-e7861b2a.jpg",
+       "l": "2026/clocked-out/large/clocked-out-2026-12-34f025eb.jpg",
+       "o": "2026/clocked-out/original/clocked-out-2026-12-9e00e855.jpg",
+       "w": 600,
+       "h": 900,
+       "ow": 1718,
+       "oh": 2576,
+       "bytes": 592623
+      },
+      {
+       "t": "2026/clocked-out/thumb/clocked-out-2026-13-a537da8d.jpg",
+       "l": "2026/clocked-out/large/clocked-out-2026-13-a1128d9a.jpg",
+       "o": "2026/clocked-out/original/clocked-out-2026-13-00e0d0e5.jpg",
+       "w": 600,
+       "h": 900,
+       "ow": 1718,
+       "oh": 2576,
+       "bytes": 631281
+      },
+      {
+       "t": "2026/clocked-out/thumb/clocked-out-2026-14-7e184d46.jpg",
+       "l": "2026/clocked-out/large/clocked-out-2026-14-624b908f.jpg",
+       "o": "2026/clocked-out/original/clocked-out-2026-14-98334e9e.jpg",
+       "w": 600,
+       "h": 900,
+       "ow": 1718,
+       "oh": 2576,
+       "bytes": 642473
+      },
+      {
+       "t": "2026/clocked-out/thumb/clocked-out-2026-15-127a0a9d.jpg",
+       "l": "2026/clocked-out/large/clocked-out-2026-15-fc3c2eb6.jpg",
+       "o": "2026/clocked-out/original/clocked-out-2026-15-ab8d1513.jpg",
+       "w": 600,
+       "h": 900,
+       "ow": 1718,
+       "oh": 2576,
+       "bytes": 579605
+      },
+      {
+       "t": "2026/clocked-out/thumb/clocked-out-2026-16-28a4e440.jpg",
+       "l": "2026/clocked-out/large/clocked-out-2026-16-20f12730.jpg",
+       "o": "2026/clocked-out/original/clocked-out-2026-16-4e93e915.jpg",
+       "w": 654,
+       "h": 900,
+       "ow": 1718,
+       "oh": 2362,
+       "bytes": 1455105
+      },
+      {
+       "t": "2026/clocked-out/thumb/clocked-out-2026-17-3e2cf0b2.jpg",
+       "l": "2026/clocked-out/large/clocked-out-2026-17-f62d1a38.jpg",
+       "o": "2026/clocked-out/original/clocked-out-2026-17-b7b8f7df.jpg",
+       "w": 608,
+       "h": 900,
+       "ow": 1718,
+       "oh": 2541,
+       "bytes": 1570080
+      },
+      {
+       "t": "2026/clocked-out/thumb/clocked-out-2026-18-b040712b.jpg",
+       "l": "2026/clocked-out/large/clocked-out-2026-18-81f41902.jpg",
+       "o": "2026/clocked-out/original/clocked-out-2026-18-94686175.jpg",
+       "w": 636,
+       "h": 900,
+       "ow": 1718,
+       "oh": 2431,
+       "bytes": 1410201
+      }
+     ],
+     "videos": [],
+     "cover": "2026/clocked-out/thumb/clocked-out-2026-12-e7861b2a.jpg",
+     "zip": {
+      "k": "2026/clocked-out/zip/pack-out-state-clocked-out-2026-photos-94bf3662.zip",
+      "bytes": 72568840
+     }
+    },
+    {
+     "slug": "talley-tapes",
+     "title": "Talley Tapes",
+     "day": "Fri Oct 30",
+     "date": "2026-10-30",
+     "venue": "House of Art",
+     "photos": [],
+     "videos": [
+      {
+       "web": "2026/talley-tapes/video/talley-tapes-2026-1080p-5c57f33c.mp4",
+       "poster": "2026/talley-tapes/poster/talley-tapes-2026-poster-f8648687.jpg",
+       "o": "2026/talley-tapes/original/talley-tapes-2026-711eac75.mp4",
+       "w": 1974,
+       "h": 1080,
+       "ow": 3946,
+       "oh": 2160,
+       "dur": 238,
+       "bytes": 488613855,
+       "webBytes": 44707692
+      }
+     ],
+     "cover": "2026/talley-tapes/poster/talley-tapes-2026-poster-f8648687.jpg"
+    },
+    {
+     "slug": "block-party",
+     "title": "Block Party",
+     "day": "Sat Oct 31",
+     "date": "2026-10-31",
+     "venue": "Killjoy",
+     "photos": [],
+     "videos": [
+      {
+       "web": "2026/block-party/video/block-party-2026-1080p-7210ea8d.mp4",
+       "poster": "2026/block-party/poster/block-party-2026-poster-321f5f9c.jpg",
+       "o": "2026/block-party/original/block-party-2026-4434ba2b.mp4",
+       "w": 1920,
+       "h": 1080,
+       "ow": 3840,
+       "oh": 2160,
+       "dur": 56,
+       "bytes": 243466853,
+       "webBytes": 52335537
+      }
+     ],
+     "cover": "2026/block-party/poster/block-party-2026-poster-321f5f9c.jpg"
+    }
+   ]
+  }
+ ]
+}

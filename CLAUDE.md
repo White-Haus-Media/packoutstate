@@ -31,11 +31,13 @@ talley-tapes/         event page, Friday at House of Art
 clocked-out/          event page and booking, Friday at District
 clocked-out/manage/   private page to change or cancel a booking
 mixtape/              Talley Mixtape page, unlinked from headers, still live
+gallery/              photo and video gallery ("The Yearbook"), reads gallery/manifest.json
 hq/                   internal dashboard, password protected
 api/                  server code: booking, HQ, mixtape, contact form
 css/site.css          shared styles for the event pages only
 assets/               video, posters, logos, photos, fonts
 supabase/             SQL kept for reference
+scripts/gallery/      Mac-only tool that publishes Drive photos/video to R2 (not served)
 docs/HISTORY.md       why things are the way they are
 ```
 
@@ -55,7 +57,7 @@ are listed in `.vercelignore`; a new notes file needs to be covered there too.
   schedule items that are not our events) near the top of the script in
   `index.html`. Edit the data, not the markup below it.
 - The header is the same black two-row header on every public page: wordmark
-  on row 1, links to Clocked Out, Talley Tapes and Block Party on row 2. Header
+  on row 1, links to Clocked Out, Talley Tapes, Block Party and Gallery on row 2. Header
   links are white and 12px. "State" in the wordmark uses `--red-bright`.
 - Every public page carries the three favicon links, and every footer has the
   HQ link and the Instagram follow button.
@@ -73,6 +75,22 @@ are listed in `.vercelignore`; a new notes file needs to be covered there too.
   bars over faces in the Talley archive photos are part of the photographs.
 - Keep type styles per row low: one voice per row.
 - Dress code on the Talley page defers to House of Art. Do not invent one.
+
+## Gallery
+
+- Photos and video live in the private Cloudflare R2 bucket
+  `packoutstate-gallery`, never in the repo. The page loads them through
+  `api/gallery-file.js`, which redirects to a signed link.
+- To add or change photos: put them in the Drive folder "Pack Out State
+  Gallery" (one folder per event, "MM.DD Event - Venue - YYYY"), list it in
+  `scripts/gallery/albums.json`, then run
+  `python3 -I scripts/gallery/publish.py`. It uploads only what changed and
+  rewrites `gallery/manifest.json`, which then gets committed.
+- Every file name carries a fingerprint, so a changed photo gets a new name
+  and nobody sees a cached old copy. `--prune` removes unused old files.
+- Keys: R2_ACCOUNT_ID, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY, R2_BUCKET in
+  `.env.local` and in Vercel. Local preview with the gallery working:
+  `node scripts/gallery/devserver.js`, then http://localhost:4174/gallery/.
 
 ## Booking safety (Clocked Out)
 

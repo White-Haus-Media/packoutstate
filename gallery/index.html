@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gallery · Pack Out State · NC State Homecoming</title>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="description" content="Photos and video from Pack Out State, NC State Homecoming. Find your night, watch it back and download the full size files.">
+<link rel="canonical" href="https://www.packoutstate.com/gallery">
+<meta property="og:title" content="The Yearbook · Pack Out State">
+<meta property="og:description" content="Photos and video from every Pack Out State. Free to download and share.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.packoutstate.com/gallery">
+<meta property="og:image" content="https://www.packoutstate.com/flyer-clocked-out.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0B0B0C">
+<script>document.documentElement.classList.add('js')</script>
+
+<link rel="preconnect" href="https://use.typekit.net" crossorigin>
+<link rel="preconnect" href="https://p.typekit.net" crossorigin>
+<link rel="stylesheet" href="https://use.typekit.net/pfm7vyg.css">
+<link rel="preload" href="/assets/fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/gallery/manifest.json" as="fetch" crossorigin>
+<style>
+/* Archivo, self-hosted (SIL OFL, see assets/fonts/OFL-Archivo.txt). Variable font, one file covers 400 to 800. */
+@font-face{font-family:'Archivo';font-style:normal;font-weight:400 800;font-display:swap;src:url('/assets/fonts/archivo-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Archivo';font-style:normal;font-weight:400 800;font-display:swap;src:url('/assets/fonts/archivo-latin.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+</style>
+<link rel="stylesheet" href="/css/site.css">
+
+<style>
+/* ============================================================
+   GALLERY, "The Yearbook" (chosen Nov 2026, option A, white).
+   Year, then event album. Album cards up top, each album below
+   as a masonry wall, tap a photo for the viewer with download
+   and share. Everything is drawn from /gallery/manifest.json,
+   which scripts/gallery/publish.py writes. Files live in a
+   private Cloudflare R2 bucket and load through
+   /api/gallery-file. Classes are prefixed yb- so nothing clashes
+   with site.css (which already has a .gallery rule).
+   ============================================================ */
+body{background:var(--white);color:var(--ink)}
+.yb{padding-block:56px var(--section-y)}
+.yb-muted{color:#55575c}
+
+/* Hero */
+.yb-hero{display:grid;gap:20px;align-items:end}
+@media(min-width:900px){.yb-hero{grid-template-columns:1.1fr .9fr;gap:48px}}
+.yb-h1{font-family:var(--display);text-transform:uppercase;line-height:.9;font-size:clamp(4rem,11vw,7.5rem);margin:12px 0 0;letter-spacing:.005em}
+.yb-lede{font-size:1.06rem;line-height:1.6;margin:0;max-width:46ch}
+
+/* Year tabs */
+.yb-years{display:flex;gap:28px;margin:40px 0 28px;padding-bottom:18px;border-bottom:1px solid var(--line-dark);overflow-x:auto}
+.yb-yr{font-family:var(--display);font-size:2.1rem;text-transform:uppercase;color:#6b6d72;background:none;border:0;padding:0;cursor:pointer;line-height:1}
+.yb-yr[aria-selected="true"]{color:var(--ink);text-decoration:underline;text-decoration-color:var(--red);text-underline-offset:10px;text-decoration-thickness:3px}
+
+/* Album cards */
+.yb-cards{display:grid;gap:28px 16px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.yb-card__img{position:relative;display:block;aspect-ratio:4/5;background:#ececee;overflow:hidden}
+.yb-card__img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.yb-card__img:hover img{transform:scale(1.03)}
+.yb-tag{position:absolute;left:10px;top:10px;background:var(--ink);color:#fff;font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:6px 8px}
+.yb-card h3{font-family:var(--display);text-transform:uppercase;font-size:1.9rem;line-height:1;margin:14px 0 6px;font-weight:400}
+.yb-card p{font-size:.92rem;font-weight:500;margin:0 0 14px}
+.yb-row{display:flex;flex-wrap:wrap;gap:8px}
+.yb .btn{font-size:.95rem;padding:9px 16px}
+.btn--line{background:#fff;color:var(--ink);border-color:rgba(11,11,12,.28)}
+.btn--line:hover{border-color:var(--ink)}
+
+/* One album */
+.yb-album{margin-top:64px;border-top:1px solid var(--line-dark);padding-top:36px;scroll-margin-top:var(--nav-h)}
+.yb-album__head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:16px 24px;margin-bottom:24px}
+.yb-album__head h2{font-family:var(--display);text-transform:uppercase;font-size:clamp(2.4rem,6vw,3.4rem);line-height:.95;margin:10px 0 0;font-weight:400}
+.yb-wall{display:flex;gap:10px;align-items:flex-start}
+.yb-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:10px}
+.yb-tile{position:relative;display:block;padding:0;border:0;background:#ececee;cursor:zoom-in;overflow:hidden}
+.yb-tile img{display:block;width:100%;height:auto}
+.yb-tile::after{content:"";position:absolute;inset:0;background:rgba(11,11,12,0);transition:background .2s}
+.yb-tile:hover::after{background:rgba(11,11,12,.08)}
+
+/* Video */
+.yb-video{margin-bottom:24px}
+.yb-video video{display:block;width:100%;max-height:78vh;background:#000}
+.yb-video__bar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;margin-top:12px;font-size:.92rem}
+
+/* Viewer */
+.yb-lb{position:fixed;inset:0;z-index:200;background:#fff;display:none;grid-template-rows:minmax(0,1fr) auto}
+.yb-lb.is-open{display:grid}
+@media(min-width:900px){.yb-lb{grid-template-columns:minmax(0,1fr) 340px;grid-template-rows:minmax(0,1fr)}}
+.yb-lb__pic{position:relative;background:#f4f4f5;display:grid;place-items:center;min-height:0;overflow:hidden;padding:16px 56px;touch-action:pan-y}
+.yb-lb__pic img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block;min-height:0}
+.yb-lb__side{border-top:1px solid var(--line-dark);padding:18px 20px calc(18px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:10px;font-size:.92rem;line-height:1.5}
+@media(min-width:900px){.yb-lb__side{border-top:0;border-left:1px solid var(--line-dark);padding:32px 28px;gap:12px}}
+.yb-lb__count{font-family:var(--display);text-transform:uppercase;font-size:2rem;line-height:1}
+.yb-lb__note{margin-top:auto;font-size:.82rem}
+.yb-lb__note a{color:var(--ink)}
+.yb-lb__btns{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.yb-lb__btns .btn{white-space:nowrap;padding-inline:10px}
+@media(min-width:900px){.yb-lb__btns{grid-template-columns:1fr}}
+.yb-ic{position:absolute;width:44px;height:44px;border-radius:50%;border:0;background:var(--ink);color:#fff;display:grid;place-items:center;cursor:pointer;font:700 20px/1 var(--sans)}
+.yb-ic:hover{background:var(--carbon-2)}
+.yb-ic--close{top:12px;right:12px}
+.yb-ic--prev{left:6px;top:50%;margin-top:-22px}
+.yb-ic--next{right:6px;top:50%;margin-top:-22px}
+@media(max-width:599px){.yb-lb__pic{padding:60px 8px 8px}.yb-ic--prev,.yb-ic--next{top:12px;margin-top:0}.yb-ic--prev{left:12px}.yb-ic--next{left:64px;right:auto}.yb-lb__note{display:none}}
+.yb-toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 16px;font-size:.9rem;font-weight:600;z-index:300;opacity:0;transition:opacity .2s;pointer-events:none}
+.yb-toast.is-on{opacity:1}
+.yb-empty{padding:48px 0;font-size:1rem}
+body.yb-locked{overflow:hidden}
+
+@media (prefers-reduced-motion: reduce){.yb-card__img img,.yb-tile::after,.yb-toast{transition:none}.yb-card__img:hover img{transform:none}}
+
+/* Header text: white and 12px, same as every page (site.css sets it last). */
+</style>
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav">
+  <div class="nav__inner">
+    <a class="nav__brand" href="/">Pack Out <span>State</span></a>
+  </div>
+  <div class="nav__sub">
+    <div class="nav__subin">
+      <nav class="nav__pages" aria-label="Pages">
+        <a href="/clocked-out">Clocked Out</a>
+        <a href="/talley-tapes">Talley Tapes</a>
+        <a href="/block-party">Block Party</a>
+        <a href="/gallery" aria-current="page">Gallery</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main id="main" class="yb">
+  <div class="wrap">
+    <div class="yb-hero">
+      <div>
+        <div class="eyebrow eyebrow--light">Photos and video</div>
+        <h1 class="yb-h1">The Yearbook</h1>
+      </div>
+      <p class="yb-lede yb-muted">Every Pack Out State in one place. Find your night, watch it back, and download the full size file. Free to share, just tag @packoutstate.</p>
+    </div>
+
+    <div class="yb-years" id="years" role="tablist" aria-label="Year"></div>
+    <div id="year-body">
+      <noscript><p class="yb-empty">The gallery needs JavaScript turned on.</p></noscript>
+    </div>
+  </div>
+</main>
+
+<div class="yb-lb" id="lb" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
+  <div class="yb-lb__pic" id="lb-pic">
+    <img id="lb-img" alt="">
+    <button class="yb-ic yb-ic--prev" id="lb-prev" type="button" aria-label="Previous photo">&larr;</button>
+    <button class="yb-ic yb-ic--next" id="lb-next" type="button" aria-label="Next photo">&rarr;</button>
+    <button class="yb-ic yb-ic--close" id="lb-close" type="button" aria-label="Close">&times;</button>
+  </div>
+  <div class="yb-lb__side">
+    <div class="eyebrow eyebrow--light" id="lb-where"></div>
+    <div class="yb-lb__count" id="lb-count"></div>
+    <div class="yb-lb__btns">
+      <a class="btn btn--primary" id="lb-dl" href="#">Download</a>
+      <button class="btn btn--line" id="lb-share" type="button">Share</button>
+    </div>
+    <div class="yb-lb__note yb-muted">In this photo and want it taken down? Email <a href="mailto:info@dccsocial.com?subject=Gallery%20photo">info@dccsocial.com</a> and it comes down within a day.</div>
+  </div>
+</div>
+<div class="yb-toast" id="toast" role="status" aria-live="polite"></div>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__grid">
+      <a class="foot__brand" href="/">Pack <span>Out</span> State</a>
+      <nav class="foot__links" aria-label="Footer">
+        <a href="/">Home</a>
+        <a href="/clocked-out">Clocked Out</a>
+        <a href="/talley-tapes">Talley Tapes</a>
+        <a href="/block-party">Block Party</a>
+        <a href="/hq" rel="nofollow">HQ</a>
+      </nav>
+    </div>
+    <a class="foot__ig" href="https://instagram.com/packoutstate" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>Follow us @packoutstate</a>
+    <div class="foot__fine">NC State Homecoming &middot; Raleigh &amp; Durham, NC</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  'use strict';
+  var FILE = '/api/gallery-file?k=';
+  var src = function(k){ return FILE + encodeURIComponent(k).replace(/%2F/g,'/'); };
+  var dl = function(k){ return src(k) + '&dl=1'; };
+  var $ = function(s, r){ return (r || document).querySelector(s); };
+  var esc = function(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
+  var mb = function(b){ return b >= 1e9 ? (b/1e9).toFixed(1) + ' GB' : Math.max(1, Math.round(b/1e6)) + ' MB'; };
+  var plural = function(n, w){ return n + ' ' + w + (n === 1 ? '' : 's'); };
+  var mmss = function(s){ return Math.floor(s/60) + ':' + String(s%60).padStart(2,'0'); };
+
+  var data, year, flat = [], cur = -1, lastFocus = null;
+
+  function countLabel(a){
+    var bits = [];
+    if (a.photos.length) bits.push(plural(a.photos.length, 'photo'));
+    if (a.videos.length) bits.push(plural(a.videos.length, 'video'));
+    return bits.join(' · ');
+  }
+  function photoId(a, i){ return a.slug + '-' + year.year + '-' + String(i + 1).padStart(2, '0'); }
+
+  function renderYears(){
+    var box = $('#years');
+    box.innerHTML = data.years.map(function(y){
+      return '<button class="yb-yr" role="tab" type="button" data-year="' + y.year + '" aria-selected="' + (y === year) + '">' + y.year + '</button>';
+    }).join('');
+    box.onclick = function(e){
+      var b = e.target.closest('[data-year]'); if (!b) return;
+      year = data.years.filter(function(y){ return String(y.year) === b.dataset.year; })[0];
+      renderYears(); renderYear();
+    };
+  }
+
+  function renderYear(){
+    flat = [];
+    var cards = year.albums.map(function(a){
+      var main = a.photos.length
+        ? '<a class="btn btn--line" href="' + dl(a.zip.k) + '">Download all</a>'
+        : '<a class="btn btn--line" href="' + dl(a.videos[0].o) + '">Download video</a>';
+      return '<article class="yb-card">' +
+        '<a class="yb-card__img" href="#' + a.slug + '"><img src="' + src(a.cover) + '" alt="' + esc(a.title) + ' ' + year.year + '" decoding="async"><b class="yb-tag">' + countLabel(a) + '</b></a>' +
+        '<h3>' + esc(a.title) + '</h3><p class="yb-muted">' + esc(a.day) + ' · ' + esc(a.venue) + '</p>' +
+        '<div class="yb-row"><a class="btn btn--primary" href="#' + a.slug + '">View album</a>' + main + '</div></article>';
+    }).join('');
+
+    var albums = year.albums.map(function(a){
+      var head = '<div class="yb-album__head"><div><div class="eyebrow eyebrow--light">' + year.year + ' · ' + esc(a.title) + ' · ' + esc(a.venue) + '</div>' +
+        '<h2>' + countLabel(a) + '</h2></div>' +
+        (a.zip ? '<a class="btn btn--primary" href="' + dl(a.zip.k) + '">Download all photos (' + mb(a.zip.bytes) + ')</a>' : '') + '</div>';
+      var vids = a.videos.map(function(v){
+        return '<div class="yb-video"><video controls playsinline preload="none" poster="' + src(v.poster) + '" width="' + v.w + '" height="' + v.h + '">' +
+          '<source src="' + src(v.web) + '" type="video/mp4"></video>' +
+          '<div class="yb-video__bar"><span class="yb-muted">' + mmss(v.dur) + ' · recap video</span>' +
+          '<a class="btn btn--line" href="' + dl(v.o) + '">Download full quality (' + mb(v.bytes) + ')</a></div></div>';
+      }).join('');
+      var tiles = a.photos.map(function(p, i){
+        var n = flat.length;
+        flat.push({album: a, photo: p, i: i, id: photoId(a, i)});
+        return '<button class="yb-tile" type="button" data-n="' + n + '" style="aspect-ratio:' + p.w + '/' + p.h + '" aria-label="Open photo ' + (i + 1) + ' of ' + a.photos.length + '">' +
+          '<img src="' + src(p.t) + '" alt="' + esc(a.title) + ' ' + year.year + ', photo ' + (i + 1) + '" width="' + p.w + '" height="' + p.h + '" loading="lazy" decoding="async"></button>';
+      });
+      return '<section class="yb-album" id="' + a.slug + '" aria-label="' + esc(a.title) + '">' + head + vids +
+        (tiles.length ? '<div class="yb-wall" data-tiles="' + encodeURIComponent(JSON.stringify(tiles)) + '"></div>' : '') + '</section>';
+    }).join('');
+
+    $('#year-body').innerHTML = '<div class="yb-cards">' + cards + '</div>' + albums;
+    layoutWalls();
+  }
+
+  // Masonry: deal tiles into columns, each to the shortest one, so the order
+  // reads left to right. Rebuilt only when the column count changes.
+  var cols = 0;
+  function colCount(){ var w = innerWidth; return w < 600 ? 2 : w < 1000 ? 3 : 4; }
+  function layoutWalls(){
+    cols = colCount();
+    document.querySelectorAll('.yb-wall').forEach(function(wall){
+      var tiles = JSON.parse(decodeURIComponent(wall.dataset.tiles));
+      var hs = [], html = [];
+      for (var c = 0; c < cols; c++){ hs.push(0); html.push(''); }
+      tiles.forEach(function(t){
+        var m = /aspect-ratio:(\d+)\/(\d+)/.exec(t), r = m ? m[2] / m[1] : 1.5;
+        var c = hs.indexOf(Math.min.apply(null, hs));
+        html[c] += t; hs[c] += r;
+      });
+      wall.innerHTML = html.map(function(h){ return '<div class="yb-col">' + h + '</div>'; }).join('');
+    });
+  }
+  addEventListener('resize', function(){ if (colCount() !== cols) layoutWalls(); });
+
+  // Viewer
+  var lb = $('#lb'), img = $('#lb-img');
+  function show(n){
+    cur = (n + flat.length) % flat.length;
+    var f = flat[cur], a = f.album, p = f.photo;
+    img.src = src(p.l);
+    img.alt = a.title + ' ' + year.year + ', photo ' + (f.i + 1);
+    $('#lb-where').textContent = year.year + ' · ' + a.title;
+    $('#lb-count').textContent = 'Photo ' + (f.i + 1) + ' of ' + a.photos.length;
+    $('#lb-dl').href = dl(p.o);
+    $('#lb-dl').textContent = 'Download (' + mb(p.bytes) + ')';
+    history.replaceState(null, '', '#' + f.id);
+    var nx = flat[(cur + 1) % flat.length]; (new Image()).src = src(nx.photo.l);
+  }
+  function open(n){
+    lastFocus = document.activeElement;
+    lb.hidden = false; lb.classList.add('is-open'); document.body.classList.add('yb-locked');
+    show(n); $('#lb-close').focus();
+  }
+  function close(){
+    lb.classList.remove('is-open'); lb.hidden = true; document.body.classList.remove('yb-locked');
+    history.replaceState(null, '', location.pathname + location.search);
+    if (lastFocus) lastFocus.focus();
+  }
+  document.addEventListener('click', function(e){
+    var t = e.target.closest('.yb-tile'); if (t) open(+t.dataset.n);
+  });
+  $('#lb-close').onclick = close;
+  $('#lb-prev').onclick = function(){ show(cur - 1); };
+  $('#lb-next').onclick = function(){ show(cur + 1); };
+  document.addEventListener('keydown', function(e){
+    if (!lb.classList.contains('is-open')) return;
+    if (e.key === 'Escape') close();
+    else if (e.key === 'ArrowLeft') show(cur - 1);
+    else if (e.key === 'ArrowRight') show(cur + 1);
+    else if (e.key === 'Tab'){ // keep focus inside the viewer
+      var f = lb.querySelectorAll('button,a[href]'), first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+    }
+  });
+  var x0 = null;
+  $('#lb-pic').addEventListener('touchstart', function(e){ x0 = e.touches[0].clientX; }, {passive: true});
+  $('#lb-pic').addEventListener('touchend', function(e){
+    if (x0 === null) return; var dx = e.changedTouches[0].clientX - x0; x0 = null;
+    if (Math.abs(dx) > 50) show(cur + (dx < 0 ? 1 : -1));
+  });
+
+  function toast(msg){ var t = $('#toast'); t.textContent = msg; t.classList.add('is-on'); setTimeout(function(){ t.classList.remove('is-on'); }, 2200); }
+  $('#lb-share').onclick = function(){
+    var url = location.origin + location.pathname + '#' + flat[cur].id;
+    if (navigator.share) navigator.share({title: 'Pack Out State ' + year.year, url: url}).catch(function(){});
+    else if (navigator.clipboard) navigator.clipboard.writeText(url).then(function(){ toast('Link copied'); }, function(){ toast(url); });
+    else toast(url);
+  };
+
+  fetch('/gallery/manifest.json').then(function(r){ return r.json(); }).then(function(d){
+    data = d; year = d.years[0];
+    // A shared link (#clocked-out-2026-03) opens that year and photo.
+    var hash = location.hash.slice(1), m = /-(\d{4})-\d+$/.exec(hash);
+    if (m) year = d.years.filter(function(y){ return String(y.year) === m[1]; })[0] || year;
+    renderYears(); renderYear();
+    if (m){
+      var n = flat.map(function(f){ return f.id; }).indexOf(hash);
+      if (n > -1) open(n);
+    } else if (hash && document.getElementById(hash)) document.getElementById(hash).scrollIntoView();
+  }).catch(function(){
+    $('#year-body').innerHTML = '<p class="yb-empty">The gallery could not load. Refresh to try again.</p>';
+  });
+})();
+</script>
+</body>
+</html>

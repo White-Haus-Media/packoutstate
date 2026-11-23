@@ -4,8 +4,20 @@
     {
       "name": "packoutstate",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "4173"],
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "4173"
+      ],
       "port": 4173
+    },
+    {
+      "name": "gallery-dev",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [
+        "scripts/gallery/devserver.js"
+      ],
+      "port": 4174
     }
   ]
 }

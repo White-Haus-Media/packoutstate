@@ -1,0 +1,35 @@
+{
+  "_about": "Which Drive folders and videos become which gallery album. Read by scripts/gallery/publish.py. Albums show in this order. Talley Tapes was Friday Oct 30, even though its video file is named 10.31.",
+  "years": [
+    {
+      "year": 2026,
+      "albums": [
+        {
+          "slug": "clocked-out",
+          "title": "Clocked Out",
+          "date": "2026-10-30",
+          "venue": "District",
+          "photos": "10.30 Clocked Out - District - 2026",
+          "cover": "photo-07.jpg",
+          "videos": []
+        },
+        {
+          "slug": "talley-tapes",
+          "title": "Talley Tapes",
+          "date": "2026-10-30",
+          "venue": "House of Art",
+          "photos": null,
+          "videos": [{"file": "10.31 Talley Tapes - House of Art.mp4", "poster_at": 15}]
+        },
+        {
+          "slug": "block-party",
+          "title": "Block Party",
+          "date": "2026-10-31",
+          "venue": "Killjoy",
+          "photos": null,
+          "videos": ["10.31 The Block Party - Killjoy.mp4"]
+        }
+      ]
+    }
+  ]
+}
