@@ -207,15 +207,19 @@ def main():
 
             # videos
             for i, v in enumerate(al.get("videos") or [], 1):
-                # a video is a file name, or {"file": ..., "poster_at": seconds} to pick the cover frame
-                v, poster_at = (v["file"], v.get("poster_at", 4)) if isinstance(v, dict) else (v, 4)
+                # a video is a file name, or {"file": ..., "poster_at": seconds, "web_end": seconds}
+                # poster_at picks the cover frame; web_end cuts the on-page version there (with a
+                # short sound fade). The original download is never changed.
+                opts = v if isinstance(v, dict) else {"file": v}
+                v, poster_at, web_end = opts["file"], opts.get("poster_at", 4), opts.get("web_end")
                 src = os.path.join(DRIVE, v)
                 name = f"{slug}-{year}" + (f"-{i}" if i > 1 else "")
                 web = os.path.join(work, name + "-1080p.mp4")
                 poster = os.path.join(work, name + "-poster.jpg")
                 if not os.path.exists(web):
                     print(f"  encoding {v} (takes a few minutes)", flush=True)
-                    run(["ffmpeg", "-y", "-v", "error", "-i", src, "-vf", "scale=-2:1080,fps=30", "-c:v", "libx264", "-preset", "medium",
+                    cut = ["-t", str(web_end), "-af", f"afade=t=out:st={web_end - 2}:d=2"] if web_end else []
+                    run(["ffmpeg", "-y", "-v", "error", "-i", src, *cut, "-vf", "scale=-2:1080,fps=30", "-c:v", "libx264", "-preset", "medium",
                          "-crf", "21", "-maxrate", "8000k", "-bufsize", "12000k", "-pix_fmt", "yuv420p",
                          "-c:a", "aac", "-b:a", "128k", "-movflags", "+faststart", web + ".tmp.mp4"])
                     os.replace(web + ".tmp.mp4", web)

@@ -1,5 +1,5 @@
 {
-  "_about": "Which Drive folders and videos become which gallery album. Read by scripts/gallery/publish.py. Albums show in this order. Talley Tapes was Friday Oct 30, even though its video file is named 10.31.",
+  "_about": "Which Drive folders and videos become which gallery album. Read by scripts/gallery/publish.py. Albums show in this order. Talley Tapes was Friday Oct 30, even though its video file is named 10.31. Its export has 3 minutes of black after 1:05, so the on-page version stops at 66 seconds (Colton, Nov 22 2026); the download is the full original.",
   "years": [
     {
       "year": 2026,
@@ -19,7 +19,7 @@
           "date": "2026-10-30",
           "venue": "House of Art",
           "photos": null,
-          "videos": [{"file": "10.31 Talley Tapes - House of Art.mp4", "poster_at": 15}]
+          "videos": [{"file": "10.31 Talley Tapes - House of Art.mp4", "poster_at": 15, "web_end": 66}]
         },
         {
           "slug": "block-party",

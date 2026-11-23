@@ -208,16 +208,16 @@
      "photos": [],
      "videos": [
       {
-       "web": "2026/talley-tapes/video/talley-tapes-2026-1080p-5c57f33c.mp4",
+       "web": "2026/talley-tapes/video/talley-tapes-2026-1080p-522838cf.mp4",
        "poster": "2026/talley-tapes/poster/talley-tapes-2026-poster-f8648687.jpg",
        "o": "2026/talley-tapes/original/talley-tapes-2026-711eac75.mp4",
        "w": 1974,
        "h": 1080,
        "ow": 3946,
        "oh": 2160,
-       "dur": 238,
+       "dur": 66,
        "bytes": 488613855,
-       "webBytes": 44707692
+       "webBytes": 40232391
       }
      ],
      "cover": "2026/talley-tapes/poster/talley-tapes-2026-poster-f8648687.jpg"
