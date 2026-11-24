@@ -179,24 +179,35 @@ def main():
             if al.get("photos"):
                 folder = os.path.join(DRIVE, al["photos"])
                 files = sorted(f for f in os.listdir(folder) if f.lower().endswith((".jpg", ".jpeg")))
+                if al.get("cover") and al["cover"] not in files:
+                    print(f"  note: cover {al['cover']} is not in the folder, using the first photo", flush=True)
+                # Resized copies are cached under the source file's fingerprint, not its
+                # position. Keyed by position, a folder whose photos were replaced kept
+                # serving the old thumbnails and the old zip.
+                prints = []
                 for i, f in enumerate(files, 1):
                     name = f"{slug}-{year}-{i:02d}.jpg"
                     src = os.path.join(folder, f)
+                    fp = fingerprint(src)
+                    prints.append(fp)
                     for size_name, edge, q in (("thumb", 900, 78), ("large", 2400, 84)):
                         os.makedirs(os.path.join(work, size_name), exist_ok=True)
-                        resize(src, os.path.join(work, size_name, name), edge, q)
+                        resize(src, os.path.join(work, size_name, fp + ".jpg"), edge, q)
                     w, h = dims(src)
-                    tw, th = dims(os.path.join(work, "thumb", name))
+                    tw, th = dims(os.path.join(work, "thumb", fp + ".jpg"))
                     item = {"t": f"{base}/thumb/{name}", "l": f"{base}/large/{name}", "o": f"{base}/original/{name}",
                             "w": tw, "h": th, "ow": w, "oh": h, "bytes": os.path.getsize(src)}
                     album["photos"].append(item)
                     if f == al.get("cover"):
                         album["cover"] = item["t"]
-                    todo += [(os.path.join(work, "thumb", name), item["t"], "image/jpeg"),
-                             (os.path.join(work, "large", name), item["l"], "image/jpeg"),
+                    todo += [(os.path.join(work, "thumb", fp + ".jpg"), item["t"], "image/jpeg"),
+                             (os.path.join(work, "large", fp + ".jpg"), item["l"], "image/jpeg"),
                              (src, item["o"], "image/jpeg")]
                 zip_name = f"pack-out-state-{slug}-{year}-photos.zip"
-                zip_path = os.path.join(work, zip_name)
+                # The cached zip is named for the exact set of photos in it, so any
+                # added, removed or replaced photo builds a fresh one.
+                set_id = hashlib.md5("".join(prints).encode()).hexdigest()[:12]
+                zip_path = os.path.join(work, f"photos-{set_id}.zip")
                 if not os.path.exists(zip_path):
                     with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_STORED) as z:
                         for i, f in enumerate(files, 1):
@@ -214,8 +225,11 @@ def main():
                 v, poster_at, web_end = opts["file"], opts.get("poster_at", 4), opts.get("web_end")
                 src = os.path.join(DRIVE, v)
                 name = f"{slug}-{year}" + (f"-{i}" if i > 1 else "")
-                web = os.path.join(work, name + "-1080p.mp4")
-                poster = os.path.join(work, name + "-poster.jpg")
+                # Cache key: the source's size and modified time, plus the cut settings,
+                # so a replaced video or a new poster_at / web_end is re-encoded.
+                tag = f"{os.path.getsize(src)}-{int(os.path.getmtime(src))}-{poster_at}-{web_end}"
+                web = os.path.join(work, f"{name}-{tag}-1080p.mp4")
+                poster = os.path.join(work, f"{name}-{tag}-poster.jpg")
                 if not os.path.exists(web):
                     print(f"  encoding {v} (takes a few minutes)", flush=True)
                     cut = ["-t", str(web_end), "-af", f"afade=t=out:st={web_end - 2}:d=2"] if web_end else []
