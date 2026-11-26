@@ -43,6 +43,7 @@ gallery/              photo and video gallery ("The Yearbook"), reads gallery/ma
 hq/                   internal dashboard, password protected
 api/                  server code: booking, HQ, mixtape, contact form
 css/site.css          shared styles for the event pages only
+css/signal-button.css every button on the public pages (Signal Button), loaded last on each page
 assets/               video, posters, logos, photos, fonts
 supabase/             SQL kept for reference
 scripts/gallery/      Mac-only tool that publishes Drive photos/video to R2 (not served)
@@ -59,6 +60,11 @@ are listed in `.vercelignore`; a new notes file needs to be covered there too.
 - **Header CSS lives in three places:** `index.html`, `css/site.css` and
   `mixtape/index.html`. Change all three together. The same goes for the
   body button rule at the end of each.
+- **Buttons are Signal Buttons** (Nov 2026), set only in `css/signal-button.css`.
+  Primary: `.btn--primary`, `.btn--dark`, `.foot__ig`, `.submit` (pill + red
+  circle + arrow). Secondary: `.btn--ghost`, `.btn--line` (outline pill). Dark
+  and red sections are listed at the top of that file. Do not restyle buttons in
+  page CSS.
 - The home page does not use `css/site.css`, on purpose, so editing it cannot
   break the event pages.
 - Home page event content lives in the `EVENTS` array (and `FIXTURES` for

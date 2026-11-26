@@ -1,0 +1,107 @@
+/* ============================================================
+   SIGNAL BUTTON (Nov 2026). Every button on the public pages.
+   Reference: ~/Projects/tools/references/web/buttons/signal-button/.
+   Loaded by every public page, after the page's own styles, so this
+   is the one place button looks are set. HQ does not load it.
+
+   Primary (the action: tickets, RSVP, reserve, download, send,
+   follow, submit): a 52px pill with one red 36px circle, 8px in,
+   holding an arrow. On hover or keyboard focus only the arrow turns
+   (up-right to right). The pill never moves. It gives a little on
+   press.
+     .btn--primary  .btn--dark  .foot__ig  .submit
+   Secondary (somewhere to look: details, see the day, share,
+   add to calendar): the same pill as an outline, no circle.
+     .btn--ghost  .btn--line
+
+   Light sections: black pill, white text. Dark and red sections
+   (the list below): white pill, black text.
+   The circle and arrow are ::before and ::after, so no markup changes.
+   ============================================================ */
+
+:is(.btn,.foot .foot__ig,.submit){
+  --sig-dark:var(--ink,#0B0B0C);
+  --sig-light:#fff;
+  --sig-accent:var(--red,#CC0000);        /* white arrow on it: 5.9:1 */
+  --sig-accent-fg:#fff;
+  --sig-bg:var(--sig-dark);
+  --sig-fg:var(--sig-light);
+  --sig-shadow:0 1px 2px rgb(0 0 0 / .10),0 6px 16px -4px rgb(0 0 0 / .18);
+  --sig-ease:cubic-bezier(.23,1,.32,1);
+  position:relative;
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  height:52px;min-height:52px;margin-top:0;padding:0 58px 0 26px; /* right: 8px inset + 36px circle + 14px gap */
+  border:0;border-radius:9999px;
+  background:var(--sig-bg);color:var(--sig-fg);box-shadow:var(--sig-shadow);
+  font-family:var(--sans);font-size:var(--fs-body,1rem);font-weight:600;line-height:1;
+  letter-spacing:0;text-transform:none;text-decoration:none;white-space:nowrap;
+  cursor:pointer;-webkit-tap-highlight-color:transparent;
+  transform:none;
+  transition:scale 150ms var(--sig-ease),box-shadow .2s ease;
+}
+/* Footer Instagram button keeps its own spacing from the footer text */
+.foot .foot__ig{margin-top:32px}
+
+/* Dark and red sections: white pill, black text */
+:is(.hero,.ehero,.cta,.close,.foot,.inq,.crew,.section--dark,[data-surface="dark"]) :is(.btn,.foot__ig,.submit){
+  --sig-bg:var(--sig-light);
+  --sig-fg:var(--sig-dark);
+  --sig-shadow:0 1px 2px rgb(0 0 0 / .30),0 6px 16px -4px rgb(0 0 0 / .45);
+}
+
+/* Hover keeps the same colors; only the arrow moves */
+:is(.btn,.foot .foot__ig,.submit):hover{background:var(--sig-bg);color:var(--sig-fg);border-color:transparent}
+
+/* The red circle */
+:is(.btn--primary,.btn--dark,.foot .foot__ig,.submit)::before{
+  content:"";position:absolute;top:8px;right:8px;width:36px;height:36px;border-radius:50%;
+  background:var(--sig-accent);
+  box-shadow:0 1px 2px rgb(0 0 0 / .20),0 3px 8px -2px rgb(0 0 0 / .25);
+}
+/* The arrow, sitting on the circle. Only this turns. */
+:is(.btn--primary,.btn--dark,.foot .foot__ig,.submit)::after{
+  content:"";position:absolute;top:8px;right:8px;width:36px;height:36px;margin:0;
+  background:var(--sig-accent-fg);
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E") center/16px 16px no-repeat;
+          mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E") center/16px 16px no-repeat;
+  rotate:-45deg;
+  transition:rotate 350ms var(--sig-ease);
+}
+@media (hover:hover){
+  :is(.btn--primary,.btn--dark,.foot .foot__ig,.submit):hover::after{rotate:0deg}
+}
+:is(.btn--primary,.btn--dark,.foot .foot__ig,.submit):focus-visible::after{rotate:0deg}
+
+/* Focus: one red line hugging the pill */
+:is(.btn,.foot .foot__ig,.submit):focus-visible{outline:2px solid var(--sig-accent);outline-offset:2px}
+:is(.cta,.close) :is(.btn,.foot__ig):focus-visible{outline-color:#fff}
+
+/* Press */
+:is(.btn,.foot .foot__ig,.submit):active{scale:.97;transform:none}
+
+/* Secondary: the same pill as an outline, no circle */
+:is(.btn--ghost,.btn--line).btn{
+  padding:0 26px;background:transparent;color:var(--sig-bg);
+  box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--sig-bg) 45%,transparent);
+}
+:is(.btn--ghost,.btn--line).btn:hover{background:transparent;color:var(--sig-bg)}
+@media (hover:hover){
+  :is(.btn--ghost,.btn--line).btn:hover{box-shadow:inset 0 0 0 1.5px var(--sig-bg)}
+}
+/* Add to calendar keeps its small open/close caret */
+.btn--ghost.cal__trigger{padding-right:22px}
+
+/* Full-width buttons (booking form, mixtape submit, phone rows) */
+.btn--block,.submit{width:100%}
+
+/* Disabled (a form while it sends): keeps its faded look, no motion */
+:is(.btn,.submit):is(:disabled,[disabled]){opacity:.6;cursor:not-allowed;scale:1}
+:is(.btn,.submit):is(:disabled,[disabled])::after{rotate:-45deg}
+
+@media (prefers-reduced-motion:reduce){
+  :is(.btn,.foot .foot__ig,.submit),
+  :is(.btn,.foot .foot__ig,.submit)::after{transition:none}
+  :is(.btn,.foot .foot__ig,.submit):active{scale:1}
+  :is(.btn,.foot .foot__ig,.submit):hover::after,
+  :is(.btn,.foot .foot__ig,.submit):focus-visible::after{rotate:-45deg}
+}
