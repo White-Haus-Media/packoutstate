@@ -270,9 +270,6 @@ a,button,summary,label{touch-action:manipulation;-webkit-tap-highlight-color:rgb
 /* ---------- SECTION SHELL ---------- */
 .section{padding-block:var(--section-y)}
 .section--bone{background:var(--white);color:var(--ink);color-scheme:light}
-/* At a glance and the lineup share a background. The calendar pass at the
-   foot of At a glance introduces the lineup, so the lineup sits flush. */
-#lineup{padding-top:0}
 .section--bone .eyebrow{color:var(--red-deep)}
 .section__head{max-width:720px;margin-bottom:48px}
 .section__title{
@@ -425,7 +422,7 @@ a.ticket:active{transform:scale(.985)}
 .daygroup__label .dt{font-family:var(--sans);font-weight:600;font-size:var(--fs-small);letter-spacing:.18em;color:var(--red)}
 
 .event{
-  display:grid;grid-template-columns:1fr 1fr;gap:64px;
+  display:grid;grid-template-columns:minmax(0,760px);gap:64px;
   align-items:center;padding-block:64px;
   border-top:1px solid #ECE8E0;
 }
@@ -693,19 +690,6 @@ a.ticket:active{transform:scale(.985)}
 <!-- ============================ TICKER ============================ -->
 <div class="ticker" aria-hidden="true"><div class="ticker__track"><span>Pack Out State</span><em>&#10022;</em><span>NC State Homecoming &rsquo;26</span><em>&#10022;</em><span>Oct 29 &ndash; 31</span><em>&#10022;</em><span>Raleigh, NC</span><em>&#10022;</em><span>Pack Out State</span><em>&#10022;</em><span>NC State Homecoming &rsquo;26</span><em>&#10022;</em><span>Oct 29 &ndash; 31</span><em>&#10022;</em><span>Raleigh, NC</span><em>&#10022;</em></div></div>
 
-<!-- ============================ WEEKEND AT A GLANCE ============================ -->
-<section class="section section--bone">
-  <div class="wrap">
-    <div class="section__head reveal">
-      <div class="eyebrow">The weekend</div>
-      <h2 class="section__title">The weekend at a glance</h2>
-      <p class="section__lead">Everything happening across homecoming weekend, at a glance. Tap any event to jump to the details.</p>
-    </div>
-    <div class="glance reveal" id="glance"></div>
-    <div class="pass reveal" id="pass"></div>
-  </div>
-</section>
-
 <!-- ============================ THE LINEUP ============================ -->
 <section class="section section--bone" id="lineup">
   <div class="wrap">
@@ -960,88 +944,8 @@ function calMenu(e){
 const grouped = DAYS.map(d => ({...d, items: EVENTS.filter(e => e.day === d.key)}))
                     .filter(d => d.items.length);
 
-// ---- Weekend at a glance: one ticket per event ----
-// Times on the ticket drop the ":00", so "9:00 PM – 1:00 AM" reads "9 PM – 1 AM".
-const shortTime = t => String(t).replace(/:00/g,'');
-// What the ticket tells you to do next, from the event's own fields.
-const nextStep = e => e.rsvpUrl ? 'Reserve a time' : (e.ticketsLabel || e.onSaleNote || 'See details');
-
-// A decorative barcode. Bar widths come from the event id, so each ticket
-// has its own pattern and it never changes between visits.
-function barcode(seed){
-  let h = 2166136261;
-  for(const c of seed){ h ^= c.charCodeAt(0); h = Math.imul(h, 16777619); }
-  const rnd = ()=>{ h ^= h << 13; h ^= h >>> 17; h ^= h << 5; return (h >>> 0) / 4294967296; };
-  let x = 0, bars = '';
-  while(x < 96){
-    const w = 1 + Math.floor(rnd()*3);
-    bars += `<rect x="${x}" y="0" width="${w}" height="40"/>`;
-    x += w + 1 + Math.floor(rnd()*2);
-  }
-  return `<svg viewBox="0 0 ${x} 40" preserveAspectRatio="none" aria-hidden="true" fill="#0B0B0C">${bars}</svg>`;
-}
-
-// A six digit ticket number printed under the barcode, also from the id.
-const serial = seed => String([...seed].reduce((n,c)=>(n*31 + c.charCodeAt(0)) % 900000, 7) + 100000);
-
-// The arrow is glued to the last word so it never wraps onto a line alone.
-function goLine(text){
-  const w = String(text).split(' '), last = w.pop();
-  return `<span class="ticket__go">${esc(w.join(' '))}${w.length ? ' ' : ''}<b>${esc(last)}<i aria-hidden="true">&nbsp;&#8594;</i></b></span>`;
-}
-
-function ticket({tag, href, cls, kicker, name, fields, go, day, code}){
-  const [mo, dd] = day.date.split(' ');
-  const rows = fields.map(([k,v])=>`<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join('');
-  const attrs = href ? ` href="${esc(href)}"` : '';
-  return `<${tag} class="ticket${cls ? ' '+cls : ''}"${attrs}><div class="ticket__paper">
-    <div class="ticket__main">
-      <span class="ticket__kicker">${esc(kicker)}</span>
-      <span class="ticket__name">${esc(name)}</span>
-      <dl class="ticket__fields">${rows}</dl>
-      ${go ? goLine(go) : ''}
-    </div>
-    <div class="ticket__stub" aria-label="${esc(day.label+' '+day.date)}">
-      <div><span class="ticket__wd">${esc(day.label)}</span><span class="ticket__dd">${esc(dd)}</span><span class="ticket__mo">${esc(mo)}</span></div>
-      <div class="ticket__code">${barcode(code)}<small>No. ${serial(code)}</small></div>
-    </div>
-  </div></${tag}>`;
-}
-
-$('#glance').innerHTML = grouped.map(d=>{
-  // Fixtures lead the day. The game sits above the Block Party because it
-  // anchors the day: both start at noon.
-  const fixtures = FIXTURES.filter(f => f.day === d.key).map(f=>ticket({
-    tag:'div', cls:'ticket--game', kicker:f.tag || 'Fixture', name:f.name, day:d, code:'game-'+d.key,
-    fields:[['Kickoff', f.time === 'Time TBA' ? 'TBA' : shortTime(f.time)], ...(f.venue ? [['Venue', f.venue]] : [])]
-  })).join('');
-  const items = d.items.map(e=>ticket({
-    tag:'a', href:'#'+e.id, kicker:'Admit one', name:e.name, day:d, code:e.id,
-    fields:[['Time', shortTime(e.time)], ['Venue', e.venue]], go:nextStep(e)
-  })).join('');
-  return `<div class="tk__day"><span class="tk__d">${esc(d.label)}</span><span class="tk__dt">${esc(d.date)}</span></div>
-    ${fixtures}${items}`;
-}).join('');
-// ---- Calendar pass under the tickets ----
-// The count and the date chips come from EVENTS and DAYS, so they stay right
-// if an event is added or dropped. The calendar script further down points
-// #calAll at a file holding every dated event.
-$('#pass').innerHTML = `
-  <div class="pass__main">
-    <span class="pass__kicker">Homecoming weekend 2026</span>
-    <h2 class="pass__title">Add to your calendar</h2>
-    <p class="pass__lead">${EVENTS.length} events, ${grouped.length} days. Save them all at once, with times and venues, so nothing sneaks up on you.</p>
-    <div class="pass__dates">${grouped.map(d=>`<span>${esc(d.label)} ${esc(d.date.split(' ')[1])}</span>`).join('')}</div>
-  </div>
-  <div class="pass__stub">
-    <a class="btn btn--primary" id="calAll" download="pack-out-state-2026.ics">
-      <svg class="pass__ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16.5" rx="2"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4M12 13v5M9.5 15.5h5"/></svg>
-      Add all ${EVENTS.length} to my calendar</a>
-    <span class="pass__note">One tap. Opens in your calendar app.</span>
-  </div>`;
-
-// stagger index for the deal-in animation
-document.querySelectorAll('#glance .ticket').forEach((t,i)=>t.style.setProperty('--i', i));
+// The weekend-at-a-glance tickets and calendar pass came off the home page
+// after the event weekend (Nov 2026). FIXTURES above is kept for reference.
 
 // ---- Event cards, grouped by day ----
 $('#events').innerHTML = grouped.map(d=>{
@@ -1050,9 +954,8 @@ $('#events').innerHTML = grouped.map(d=>{
       <span class="dt">${esc(d.date)}</span>
     </div>`;
   const cards = d.items.map(e=>{
-    // description: string or array of paragraphs, rendered verbatim
-    const paras = (Array.isArray(e.desc) ? e.desc : [e.desc])
-      .map(p=>`<p class="event__desc">${esc(p)}</p>`).join('');
+    // Descriptions and flyers came off the home page cards (Nov 2026).
+    // EVENTS still holds them; each event page shows the full story.
 
     // age chip only if provided
     const ageChip = e.ages ? `<span class="chip chip--age">${esc(e.ages)}</span>` : '';
@@ -1078,21 +981,6 @@ $('#events').innerHTML = grouped.map(d=>{
     ].join('');
     const ctaRow = ctas ? `<div class="event__cta">${ctas}</div>` : '';
     const onSale = e.onSaleNote ? `<p class="event__onsale">${esc(e.onSaleNote)}</p>` : '';
-
-    // flyer: real art at native ratio, else 3:4 placeholder well.
-    // flyerW/flyerH are the file's pixel size, so the browser reserves the
-    // space before the image loads. With an event page, the flyer links to it.
-    const dims = e.flyerW && e.flyerH ? ` width="${e.flyerW}" height="${e.flyerH}"` : '';
-    const art = e.flyer
-      ? `<div class="flyer"><img src="${esc(e.flyer)}" alt="${esc(e.name)} flyer"${dims} loading="lazy" decoding="async"></div>`
-      : '';
-    const flyer = e.flyer
-      ? (e.pageUrl ? `<a class="flyer-link" href="${esc(e.pageUrl)}">${art}</a>` : art)
-      : `<div class="flyer flyer--ph"><div class="flyer__placeholder">
-           <span class="flyer__ico">+</span>
-           <span class="flyer__ph-name">${esc(e.name)}</span>
-           <span class="flyer__ph-note">${esc(e.flyerNote || 'Flyer coming soon')}</span>
-         </div></div>`;
 
     // expandable extended info (schedule / highlights / why / FAQ)
     let extra = '';
@@ -1120,7 +1008,6 @@ $('#events').innerHTML = grouped.map(d=>{
         </div>
         <p class="event__tagline">${esc(e.tagline)}</p>
         <h3 class="event__name">${esc(e.name)}</h3>
-        ${paras}
         <ul class="event__details">
           <li><span class="k">When</span><span>${esc(d.label)}, ${esc(d.date)} · ${esc(e.time)}</span></li>
           <li><span class="k">Where</span><span>${esc(e.venue)}</span></li>
@@ -1130,7 +1017,6 @@ $('#events').innerHTML = grouped.map(d=>{
         ${ctaRow}
         ${onSale}
       </div>
-      <div class="event__media">${flyer}</div>
     </article>`;
   }).join('');
   return label + cards;
