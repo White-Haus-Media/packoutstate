@@ -22,11 +22,11 @@
 
 <link rel="preconnect" href="https://use.typekit.net" crossorigin>
 <link rel="stylesheet" href="https://use.typekit.net/pfm7vyg.css">
-<link rel="preload" href="/assets/fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <style>
-/* Archivo, self-hosted (SIL OFL, see assets/fonts/OFL-Archivo.txt). Variable font, one file covers 400 to 800. */
-@font-face{font-family:'Archivo';font-style:normal;font-weight:400 800;font-display:swap;src:url('/assets/fonts/archivo-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
-@font-face{font-family:'Archivo';font-style:normal;font-weight:400 800;font-display:swap;src:url('/assets/fonts/archivo-latin.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+/* Inter, self-hosted (SIL OFL, see assets/fonts/OFL-Inter.txt). Variable font, one file covers 400 to 700. */
+@font-face{font-family:'Inter';font-style:normal;font-weight:400 700;font-display:swap;src:url('/assets/fonts/inter-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Inter';font-style:normal;font-weight:400 700;font-display:swap;src:url('/assets/fonts/inter-latin.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
 </style>
 <link rel="stylesheet" href="/css/site.css">
 
@@ -62,11 +62,11 @@ body{background:var(--white);color:var(--ink)}
   .facts__grid{grid-template-columns:1fr 1fr}
   .fct{border-right:none;border-bottom:1px solid #E5E1D8;padding-right:16px}
 }
-.fct__k{font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;font-weight:800;color:var(--red-deep);margin-bottom:8px}
-.fct__v{font-size:1.05rem;font-weight:700;line-height:1.35;color:var(--ink)}
-.fct__v small{display:block;font-weight:500;font-size:.86rem;color:#55565A;margin-top:4px}
+.fct__k{font-size:var(--fs-label);letter-spacing:var(--ls-label);text-transform:uppercase;font-weight:700;color:var(--red-deep);margin-bottom:8px}
+.fct__v{font-size:var(--fs-body);font-weight:600;line-height:1.35;color:var(--ink)}
+.fct__v small{display:block;font-weight:400;font-size:var(--fs-small);color:#55565A;margin-top:4px}
 .facts__cta{display:flex;flex-wrap:wrap;gap:16px;margin-top:24px;align-items:center}
-.facts__note{font-size:.88rem;color:#55565A}
+.facts__note{font-size:var(--fs-small);color:#55565A}
 
 /* ---------- STORY ----------
    Left aligned and running the full width of the page, not a centred
@@ -77,16 +77,15 @@ body{background:var(--white);color:var(--ink)}
 /* These sit on .wrap, so they must not cancel its max-width or the
    prose runs wider than every other section on the page. */
 .story__inner{text-align:left}
-.story p{font-size:clamp(1.05rem,1.5vw,1.18rem);line-height:1.75;color:#2E2E30;margin-bottom:24px;max-width:68ch;text-wrap:pretty}
+.story p{font-size:var(--fs-lead);line-height:1.75;color:#2E2E30;margin-bottom:24px;max-width:68ch;text-wrap:pretty}
 .story p:last-child{margin-bottom:0}
 .story .open::first-letter{
-  float:left;font-family:var(--display);font-weight:700;font-size:4rem;line-height:.82;
-  color:var(--red-deep);margin:4px 16px 0 0;
-}
+  float:left;font-family:var(--display);font-weight:700;font-size:var(--fs-h);line-height:var(--lh-h);
+  color:var(--red-deep);margin:4px 16px 0 0;letter-spacing:var(--ls-d);}
 .pull{margin-block:48px;text-align:left}
 @media(min-width:1024px){ .pull{margin-block:64px} }
-.pull__q{font-family:var(--display);font-weight:700;font-size:clamp(1.8rem,4.8vw,3.2rem);line-height:1.06;text-transform:uppercase;color:var(--ink);text-wrap:balance}
-.pull__a{margin-top:16px;font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;font-weight:700;color:#6A6B6F}
+.pull__q{font-family:var(--display);font-weight:700;font-size:var(--fs-t);line-height:var(--lh-t);text-transform:uppercase;color:var(--ink);text-wrap:balance;letter-spacing:var(--ls-d)}
+.pull__a{margin-top:16px;font-size:var(--fs-label);letter-spacing:var(--ls-label);text-transform:uppercase;font-weight:700;color:#6A6B6F}
 
 /* ---------- ARCHIVE: the one dark band ---------- */
 .archive{background:var(--ink);padding-block:var(--section-y)}
@@ -96,7 +95,7 @@ body{background:var(--white);color:var(--ink)}
 .ev img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;
         filter:contrast(1.06) saturate(.9);border:1px solid var(--line)}
 .ev figcaption{margin-top:8px;display:flex;justify-content:space-between;gap:16px;
-               font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:#8C8880}
+               font-size:var(--fs-label);letter-spacing:var(--ls-label);text-transform:uppercase;font-weight:700;color:#8C8880}
 .ev figcaption .n{color:var(--red-bright)}
 
 /* ---------- FAQ + VENUE ---------- */
@@ -108,15 +107,15 @@ body{background:var(--white);color:var(--ink)}
 @media(min-width:1024px){ .info__grid{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:64px} }
 .hoa{border:1px solid #E5E1D8;background:#FBFAF7;padding:24px}
 .hoa__mark{display:block;width:auto;height:84px}
-.hoa__addr{margin-top:16px;font-weight:700;color:var(--ink)}
-.hoa__soon{margin-top:4px;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;font-weight:800;color:var(--red-deep)}
-.hoa__note{margin-top:16px;color:#55565A;font-size:.98rem;line-height:1.6}
+.hoa__addr{margin-top:16px;font-weight:600;color:var(--ink)}
+.hoa__soon{margin-top:4px;font-size:var(--fs-label);letter-spacing:var(--ls-label);text-transform:uppercase;font-weight:700;color:var(--red-deep)}
+.hoa__note{margin-top:16px;color:#55565A;font-size:var(--fs-body);line-height:1.6}
 
 /* ---------- CLOSE ---------- */
 .close{background:var(--red);color:var(--white);padding-block:var(--section-y)}
 .close__inner{display:flex;flex-wrap:wrap;gap:32px;align-items:center;justify-content:space-between}
-.close__t{font-family:var(--display);font-weight:700;font-size:clamp(2rem,5.4vw,3.2rem);line-height:1.02;text-transform:uppercase;max-width:15ch;text-wrap:balance}
-.close__n{margin-top:16px;font-size:.92rem;color:rgba(255,255,255,.9);max-width:42ch}
+.close__t{font-family:var(--display);font-weight:700;font-size:var(--fs-h);line-height:var(--lh-h);text-transform:uppercase;max-width:15ch;text-wrap:balance;letter-spacing:var(--ls-d)}
+.close__n{margin-top:16px;font-size:var(--fs-small);color:rgba(255,255,255,.9);max-width:42ch}
 .close .btn--dark{background:var(--ink)}
 .close .btn--ghost{border-color:rgba(255,255,255,.6);color:var(--white)}
 .close .btnrow{margin-top:0}

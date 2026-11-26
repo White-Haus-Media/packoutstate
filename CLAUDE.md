@@ -18,9 +18,17 @@ build pipeline without asking.
 
 The only server code is `api/` (Vercel functions, plain Node, no packages).
 
-Fonts: Field Gothic Condensed Bold from Adobe Fonts kit `pfm7vyg` (the mixtape
-page loads its own kit `fir6kvv`). Archivo and DSEG7 are self-hosted in
-`assets/fonts/`. HQ uses system fonts. Do not add Google Fonts or jsDelivr.
+Fonts (type system set Nov 2026): two fonts only. Field Gothic Condensed, Bold
+700 only, from Adobe Fonts kit `pfm7vyg`, for headlines. Inter, self-hosted in
+`assets/fonts/`, for everything else. HQ uses system fonts. Do not add Google
+Fonts or jsDelivr.
+
+Type sizes come from tokens in `:root` (`css/site.css`, `index.html`,
+`mixtape/index.html`, keep all three in step): `--fs-h` headline 64 (44 on
+phones) for every page and section title, `--fs-t` title 36, `--fs-st`
+subtitle 24, `--fs-mark` wordmark, then Inter `--fs-lead` 20, `--fs-body` 16,
+`--fs-small` 14 and `--fs-label` 12 caps. Inter weights 400, 600, 700 only.
+Do not add new sizes; use a token.
 
 ## Layout
 

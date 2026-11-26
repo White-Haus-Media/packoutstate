@@ -23,11 +23,11 @@
 <link rel="preconnect" href="https://use.typekit.net" crossorigin>
 <link rel="preconnect" href="https://p.typekit.net" crossorigin>
 <link rel="stylesheet" href="https://use.typekit.net/pfm7vyg.css">
-<link rel="preload" href="/assets/fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <style>
-/* Archivo, self-hosted (SIL OFL, see assets/fonts/OFL-Archivo.txt). Variable font, one file covers 400 to 800. */
-@font-face{font-family:'Archivo';font-style:normal;font-weight:400 800;font-display:swap;src:url('/assets/fonts/archivo-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
-@font-face{font-family:'Archivo';font-style:normal;font-weight:400 800;font-display:swap;src:url('/assets/fonts/archivo-latin.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+/* Inter, self-hosted (SIL OFL, see assets/fonts/OFL-Inter.txt). Variable font, one file covers 400 to 700. */
+@font-face{font-family:'Inter';font-style:normal;font-weight:400 700;font-display:swap;src:url('/assets/fonts/inter-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Inter';font-style:normal;font-weight:400 700;font-display:swap;src:url('/assets/fonts/inter-latin.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
 </style>
 <link rel="stylesheet" href="/css/site.css">
 
@@ -96,11 +96,10 @@ body{background:var(--white);color:var(--ink)}
 /* Plain red text label, no chip: red strips are not decoration here. */
 .bp-kicker{
   display:block;color:var(--red-bright);
-  font-weight:800;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;
-  margin-bottom:24px;
-}
-.ehero h1{font-size:clamp(2.6rem,8.2vw,6.4rem);line-height:.88}
-.ehero h1 .sm{display:block;font-size:.42em;letter-spacing:.04em;color:#F2EFE9;line-height:1;margin-bottom:.4em}
+  font-weight:700;font-size:var(--fs-label);letter-spacing:var(--ls-label);text-transform:uppercase;
+  margin-bottom:24px;}
+.ehero h1{font-size:var(--fs-h);line-height:var(--lh-h);font-weight:700;letter-spacing:var(--ls-d)}
+.ehero h1 .sm{display:block;font-size:var(--fs-st);letter-spacing:var(--ls-d);color:#F2EFE9;line-height:1;margin-bottom:.4em}
 
 /* The "'26" in red, no outline. */
 .patch{color:var(--red)}
@@ -125,9 +124,8 @@ body{background:var(--white);color:var(--ink)}
   }
 }
 .day__marquee span{
-  font-family:var(--sans);font-weight:800;font-size:.82rem;
-  letter-spacing:.2em;text-transform:uppercase;color:#F2EFE7;white-space:nowrap;
-}
+  font-family:var(--sans);font-weight:700;font-size:var(--fs-label);
+  letter-spacing:var(--ls-label);text-transform:uppercase;color:#F2EFE7;white-space:nowrap;}
 
 .day__inner{position:relative;z-index:1}
 
@@ -137,10 +135,9 @@ body{background:var(--white);color:var(--ink)}
    and size, so the schedule reads as one voice rather than four. */
 .slot__line{
   font-family:var(--display);font-weight:700;
-  font-size:clamp(1.4rem,2.9vw,2.1rem);line-height:1.1;text-transform:uppercase;
-}
+  font-size:var(--fs-t);line-height:var(--lh-t);text-transform:uppercase;letter-spacing:var(--ls-d);}
 .slot__time{color:var(--red);margin-right:.5em}
-.slot__p{margin-top:8px;color:#3a3a3c;font-size:1.04rem;max-width:64ch}
+.slot__p{margin-top:8px;color:#3a3a3c;font-size:var(--fs-body);max-width:64ch}
 
 /* The fork in the day: Carter-Finley, or here. Rendered as an actual break
    in the spine rather than another row, because that choice IS the thing the
@@ -151,7 +148,7 @@ body{background:var(--white);color:var(--ink)}
   border-top:2px dashed #C9C3B6;background:#FBFAF7;
   margin-inline:calc(var(--pad) * -1);padding-inline:var(--pad);
 }
-.gap__p{margin-top:8px;color:#4a4a4e;font-size:1.02rem;max-width:64ch}
+.gap__p{margin-top:8px;color:#4a4a4e;font-size:var(--fs-body);max-width:64ch}
 @media(min-width:1024px){ .slot,.gap{padding-block:32px} }
 
 /* Schedule caveat styling. Kept for reuse: kickoff is now announced, so
@@ -162,10 +159,9 @@ body{background:var(--white);color:var(--ink)}
   padding:24px;margin-bottom:32px;
 }
 .notice__k{
-  font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;font-weight:800;
-  color:var(--red-deep);white-space:nowrap;padding-top:3px;
-}
-.notice__p{color:#3a3a3c;font-size:1.02rem;max-width:62ch}
+  font-size:var(--fs-label);letter-spacing:var(--ls-label);text-transform:uppercase;font-weight:700;
+  color:var(--red-deep);white-space:nowrap;padding-top:3px;}
+.notice__p{color:#3a3a3c;font-size:var(--fs-body);max-width:62ch}
 @media(max-width:479px){ .notice{grid-template-columns:1fr;gap:8px} }
 
 /* The wristband rule — the single most important mechanic on this page. */
@@ -177,10 +173,10 @@ body{background:var(--white);color:var(--ink)}
 }
 @media(min-width:768px){ .band{padding:48px;gap:32px} }
 .band__ico{
-  font-family:var(--display);font-size:clamp(2.6rem,6vw,4.4rem);line-height:.9;
-  color:var(--red-bright);font-weight:700}
-.band__h{font-family:var(--display);font-size:clamp(1.5rem,3.4vw,2.3rem);text-transform:uppercase;line-height:1.05;font-weight:700}
-.band__p{margin-top:8px;color:#C9C7C2;font-size:1.04rem;max-width:56ch}
+  font-family:var(--display);font-size:var(--fs-h);line-height:var(--lh-h);
+  color:var(--red-bright);font-weight:700;letter-spacing:var(--ls-d)}
+.band__h{font-family:var(--display);font-size:var(--fs-t);text-transform:uppercase;line-height:var(--lh-t);font-weight:700;letter-spacing:var(--ls-d)}
+.band__p{margin-top:8px;color:#C9C7C2;font-size:var(--fs-body);max-width:56ch}
 @media(max-width:479px){ .band{grid-template-columns:1fr;gap:16px} }
 
 /* ---------- ON SITE ---------- */
@@ -193,10 +189,10 @@ body{background:var(--white);color:var(--ink)}
   .bit{border-right:none;border-bottom:1px solid #E5E1D8;padding:24px 0}
   .bit:last-child{border-bottom:none}
 }
-.bit__k{font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;font-weight:800;color:var(--red-deep);margin-bottom:8px}
-.bit__v{font-family:var(--display);font-size:1.5rem;text-transform:uppercase;line-height:1.15;font-weight:700}
+.bit__k{font-size:var(--fs-label);letter-spacing:var(--ls-label);text-transform:uppercase;font-weight:700;color:var(--red-deep);margin-bottom:8px}
+.bit__v{font-family:var(--display);font-size:var(--fs-st);text-transform:uppercase;line-height:var(--lh-st);font-weight:700;letter-spacing:var(--ls-d)}
 .bit__sep{color:var(--red);margin-inline:.12em}
-.bit__n{margin-top:8px;color:#4a4a4e;font-size:.99rem}
+.bit__n{margin-top:8px;color:#4a4a4e;font-size:var(--fs-body)}
 
 /* ---------- GETTING IN ---------- */
 .gi{display:grid;grid-template-columns:minmax(0,1fr);gap:32px;align-items:start}
@@ -213,12 +209,11 @@ body{background:var(--white);color:var(--ink)}
 .venue__body{padding:24px}
 .venue__logo{display:inline-block;text-decoration:none}
 .venue__logo img{display:block;width:auto;height:46px}
-.venue__addr{margin-top:16px;color:#4a4a4e;font-size:1.02rem;line-height:1.5}
+.venue__addr{margin-top:16px;color:#4a4a4e;font-size:var(--fs-body);line-height:1.5}
 .venue__links{display:flex;flex-wrap:wrap;gap:16px;margin-top:16px}
 .venue__links a{
-  font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;font-weight:800;
-  color:var(--ink);text-decoration:none;border-bottom:2px solid var(--red);padding-bottom:4px;
-}
+  font-size:var(--fs-label);letter-spacing:var(--ls-label);text-transform:uppercase;font-weight:700;
+  color:var(--ink);text-decoration:none;border-bottom:2px solid var(--red);padding-bottom:4px;}
 .venue__links a:hover{color:var(--red-deep)}
 
 /* ---------- LAST YEAR (the album) ----------
@@ -241,7 +236,7 @@ body{background:var(--white);color:var(--ink)}
 }
 .shot:hover img{transform:scale(1.035)}
 @media (prefers-reduced-motion: reduce){ .shot:hover img{transform:none} }
-.shots__note{margin-top:24px;color:var(--ash);font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700}
+.shots__note{margin-top:24px;color:var(--ash);font-size:var(--fs-label);letter-spacing:var(--ls-label);text-transform:uppercase;font-weight:700}
 
 /* ---------- CLOSING ---------- */
 .cta--bp .cta__title span{-webkit-text-stroke:2px #fff;color:transparent}
